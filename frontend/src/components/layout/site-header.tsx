@@ -73,15 +73,19 @@ export function SiteHeader() {
 
 useEffect(
   () => {
+    /*
+     * À chaque changement de page :
+     * - le menu mobile se ferme ;
+     * - le sous-menu À propos se referme ;
+     * - il ne se rouvre jamais automatiquement,
+     *   même lorsque la page active appartient à /about.
+     */
     setIsMenuOpen(
       false,
     );
 
     setIsAboutOpen(
-      isActivePath(
-        pathname,
-        '/about',
-      ),
+      false,
     );
   },
   [
@@ -233,27 +237,39 @@ useEffect(
 
                     {isAboutOpen ? (
                       <div className="site-header__dropdown-panel">
-                        <Link
-                          href="/about"
-                          className="site-header__dropdown-link"
-                        >
-                          {
-                            t(
-                              'aboutOverview',
-                            )
-                          }
-                        </Link>
+<Link
+  href="/about"
+  className="site-header__dropdown-link"
+  onClick={
+    () =>
+      setIsAboutOpen(
+        false,
+      )
+  }
+>
+  {
+    t(
+      'aboutOverview',
+    )
+  }
+</Link>
 
-                        <Link
-                          href="/about/work-process"
-                          className="site-header__dropdown-link"
-                        >
-                          {
-                            t(
-                              'workProcess',
-                            )
-                          }
-                        </Link>
+<Link
+  href="/about/work-process"
+  className="site-header__dropdown-link"
+  onClick={
+    () =>
+      setIsAboutOpen(
+        false,
+      )
+  }
+>
+  {
+    t(
+      'workProcess',
+    )
+  }
+</Link>
                       </div>
                     ) : null}
                   </div>
@@ -433,35 +449,57 @@ if (
         }
       >
         <div className="site-header__mobile-submenu-inner">
-          <Link
-            href="/about"
-            className="site-header__mobile-sublink"
-            data-active={
-              pathname ===
-              '/about'
-            }
-          >
-            {
-              t(
-                'aboutOverview',
-              )
-            }
-          </Link>
+<Link
+  href="/about"
+  className="site-header__mobile-sublink"
+  data-active={
+    pathname ===
+    '/about'
+  }
+  onClick={
+    () => {
+      setIsAboutOpen(
+        false,
+      );
 
-          <Link
-            href="/about/work-process"
-            className="site-header__mobile-sublink"
-            data-active={
-              pathname ===
-              '/about/work-process'
-            }
-          >
-            {
-              t(
-                'workProcess',
-              )
-            }
-          </Link>
+      setIsMenuOpen(
+        false,
+      );
+    }
+  }
+>
+  {
+    t(
+      'aboutOverview',
+    )
+  }
+</Link>
+
+<Link
+  href="/about/work-process"
+  className="site-header__mobile-sublink"
+  data-active={
+    pathname ===
+    '/about/work-process'
+  }
+  onClick={
+    () => {
+      setIsAboutOpen(
+        false,
+      );
+
+      setIsMenuOpen(
+        false,
+      );
+    }
+  }
+>
+  {
+    t(
+      'workProcess',
+    )
+  }
+</Link>
         </div>
       </div>
     </div>
