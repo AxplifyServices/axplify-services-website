@@ -1,8 +1,101 @@
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider        = "prisma-client"
+  output          = "../src/generated/prisma"
+  previewFeatures = ["partialIndexes"]
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model authentication_events {
+  id             BigInt   @id @default(autoincrement())
+  user_id        String?  @db.Uuid
+  email          String?  @db.Citext
+  event_type     String   @db.VarChar(50)
+  success        Boolean  @default(false)
+  ip_address     String?  @db.Inet
+  user_agent     String?
+  failure_reason String?  @db.VarChar(100)
+  metadata       Json?
+  created_at     DateTime @default(now()) @db.Timestamptz(6)
+  users          users?   @relation(fields: [user_id], references: [id], map: "authentication_events_user_id_foreign_key")
+
+  @@index([created_at(sort: Desc)], map: "authentication_events_created_at_index")
+  @@index([email], map: "authentication_events_email_index")
+  @@index([email, created_at(sort: Desc)], map: "authentication_events_failed_logins_index", where: raw("(((event_type)::text = 'LOGIN'::text) AND (success = false))"))
+  @@index([user_id], map: "authentication_events_user_id_index")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model refresh_sessions {
+  id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id       String    @db.Uuid
+  token_hash    String    @unique(map: "refresh_sessions_token_hash_unique") @db.VarChar(255)
+  user_agent    String?
+  ip_address    String?   @db.Inet
+  expires_at    DateTime  @db.Timestamptz(6)
+  last_used_at  DateTime? @db.Timestamptz(6)
+  revoked_at    DateTime? @db.Timestamptz(6)
+  revoke_reason String?   @db.VarChar(255)
+  created_at    DateTime  @default(now()) @db.Timestamptz(6)
+  users         users     @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "refresh_sessions_user_id_foreign_key")
+
+  @@index([user_id, expires_at], map: "refresh_sessions_active_user_index", where: raw("(revoked_at IS NULL)"))
+  @@index([expires_at], map: "refresh_sessions_expires_at_index")
+  @@index([user_id], map: "refresh_sessions_user_id_index")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model roles {
+  id          String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  code        String       @unique(map: "roles_code_unique") @db.VarChar(50)
+  name        String       @db.VarChar(100)
+  description String?
+  is_system   Boolean      @default(false)
+  created_at  DateTime     @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime     @default(now()) @db.Timestamptz(6)
+  user_roles  user_roles[]
+}
+
+model user_roles {
+  user_id                             String   @db.Uuid
+  role_id                             String   @db.Uuid
+  assigned_at                         DateTime @default(now()) @db.Timestamptz(6)
+  assigned_by                         String?  @db.Uuid
+  users_user_roles_assigned_byTousers users?   @relation("user_roles_assigned_byTousers", fields: [assigned_by], references: [id], map: "user_roles_assigned_by_foreign_key")
+  roles                               roles    @relation(fields: [role_id], references: [id], map: "user_roles_role_id_foreign_key")
+  users_user_roles_user_idTousers     users    @relation("user_roles_user_idTousers", fields: [user_id], references: [id], onDelete: Cascade, map: "user_roles_user_id_foreign_key")
+
+  @@id([user_id, role_id])
+  @@index([assigned_by], map: "user_roles_assigned_by_index")
+  @@index([role_id], map: "user_roles_role_id_index")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model users {
+  id                                       String                  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email                                    String                  @unique(map: "users_email_unique") @db.Citext
+  password_hash                            String                  @db.VarChar(255)
+  first_name                               String?                 @db.VarChar(100)
+  last_name                                String?                 @db.VarChar(100)
+  status                                   String                  @default("ACTIVE") @db.VarChar(30)
+  is_email_verified                        Boolean                 @default(false)
+  must_change_password                     Boolean                 @default(true)
+  failed_login_attempts                    Int                     @default(0)
+  locked_until                             DateTime?               @db.Timestamptz(6)
+  password_changed_at                      DateTime?               @db.Timestamptz(6)
+  last_login_at                            DateTime?               @db.Timestamptz(6)
+  created_at                               DateTime                @default(now()) @db.Timestamptz(6)
+  updated_at                               DateTime                @default(now()) @db.Timestamptz(6)
+  deleted_at                               DateTime?               @db.Timestamptz(6)
+  authentication_events                    authentication_events[]
+  refresh_sessions                         refresh_sessions[]
+  user_roles_user_roles_assigned_byTousers user_roles[]            @relation("user_roles_assigned_byTousers")
+  user_roles_user_roles_user_idTousers     user_roles[]            @relation("user_roles_user_idTousers")
+
+  @@index([created_at(sort: Desc)], map: "users_created_at_index")
+  @@index([locked_until], map: "users_locked_until_index", where: raw("(locked_until IS NOT NULL)"))
+  @@index([status], map: "users_status_index", where: raw("(deleted_at IS NULL)"))
 }

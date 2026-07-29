@@ -12,8 +12,9 @@
     "infra:up": "docker compose -f infrastructure/docker-compose.local.yml up -d",
     "infra:down": "docker compose -f infrastructure/docker-compose.local.yml down",
     "infra:logs": "docker compose -f infrastructure/docker-compose.local.yml logs -f",
-    "prisma:pull": "npm --prefix backend exec prisma db pull",
-    "prisma:generate": "npm --prefix backend exec prisma generate",
-    "prisma:studio": "npm --prefix backend exec prisma studio"
+"prisma:validate": "npm --prefix backend run prisma:validate",
+"prisma:pull": "npm --prefix backend run prisma:pull",
+"prisma:generate": "npm --prefix backend run prisma:generate",
+"prisma:studio": "npm --prefix backend run prisma:studio"
   }
 }
