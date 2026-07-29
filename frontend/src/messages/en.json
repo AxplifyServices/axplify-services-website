@@ -1,30 +1,117 @@
 {
-  "metadata": {
-    "siteName": "Axplify Services",
-    "title": "Axplify Services | Digital Transformation, AI and Data",
-    "description": "Axplify Services helps companies simplify their processes, unlock the value of their data and build digital solutions aligned with their business goals."
-  },
   "navigation": {
+    "primaryNav": "Primary navigation",
+    "mobileNav": "Mobile navigation",
     "home": "Home",
     "services": "Services",
-    "solutions": "Solutions",
-    "about": "About",
-    "resources": "Insights",
-    "contact": "Contact"
+    "products": "Products",
+    "about": "About us",
+    "aboutOverview": "Discover Axplify",
+    "workProcess": "Our work process",
+    "insights": "Articles & news",
+    "faq": "FAQ",
+    "contact": "Contact us",
+    "assist": "Discuss your needs",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   },
-  "common": {
-    "language": "Language",
-    "learnMore": "Learn more",
-    "contactUs": "Contact us",
-    "back": "Back"
+  "footer": {
+    "description": "Axplify Services turns business needs into practical, valuable and sustainable digital solutions.",
+    "cta": "Define your needs",
+    "explore": "Explore",
+    "company": "Axplify Services",
+    "contactTitle": "Have a project in mind?",
+    "contactCopy": "Tell us about your situation. We will guide you towards the approach that best matches your objectives.",
+    "contactLink": "Open the contact form",
+    "rights": "All rights reserved.",
+    "tagline": "Simplify your processes. Unlock your data. Unleash your potential!"
   },
-  "home": {
-    "hero": {
-      "eyebrow": "Digital Transformation, AI and Data",
-      "title": "Turn operational constraints into growth opportunities.",
-      "description": "Axplify Services analyses your processes, identifies bottlenecks and builds digital solutions that simplify work, improve management and unlock the value of your data.",
-      "primaryAction": "Discuss your project",
-      "secondaryAction": "Discover our approach"
+  "pages": {
+    "home": {
+      "eyebrow": "Digital transformation · AI · Data",
+      "title": "Home",
+      "description": "The home page content will be developed during the next stage.",
+      "seo": {
+        "title": "Digital transformation, AI and Data",
+        "description": "Axplify Services helps companies simplify their processes, unlock the value of their data and build digital solutions adapted to their objectives."
+      }
+    },
+    "services": {
+      "eyebrow": "Our expertise",
+      "title": "Services",
+      "description": "This page will present our digital transformation, automation, data and artificial intelligence services.",
+      "seo": {
+        "title": "Digital transformation, AI and Data services",
+        "description": "Discover how Axplify Services helps companies digitalise their processes, automate their operations and make better use of their data."
+      }
+    },
+    "products": {
+      "eyebrow": "Solutions created by Axplify",
+      "title": "Products",
+      "description": "This page will present the digital products designed and developed by Axplify Services.",
+      "seo": {
+        "title": "Digital products for businesses",
+        "description": "Discover Axplify Services products designed to structure operations, improve management and support sustainable business growth."
+      }
+    },
+    "about": {
+      "eyebrow": "The company",
+      "title": "About Axplify Services",
+      "description": "This page will introduce the mission, vision, values and business activities of Axplify Services.",
+      "seo": {
+        "title": "About Axplify Services",
+        "description": "Discover Axplify Services, its mission and its approach to turning business needs into practical and sustainable digital solutions."
+      }
+    },
+    "workProcess": {
+      "eyebrow": "Our approach",
+      "title": "Our work process",
+      "description": "This page will explain the journey from understanding a business need to delivering and continuously improving the solution.",
+      "seo": {
+        "title": "Our work process",
+        "description": "Discover the Axplify Services approach: understand your needs, identify priorities, design the right solution and support its implementation."
+      }
+    },
+    "insights": {
+      "eyebrow": "Resources",
+      "title": "Articles & news",
+      "description": "This page will bring together Axplify Services articles, news, case studies and business insights.",
+      "seo": {
+        "title": "Digital, AI and Data articles and news",
+        "description": "Explore Axplify Services articles, advice, case studies and news about digital transformation, automation, artificial intelligence and Data."
+      }
+    },
+    "faq": {
+      "eyebrow": "Frequently asked questions",
+      "title": "FAQ",
+      "description": "This page will answer the main questions about custom projects, Axplify products and our support services.",
+      "seo": {
+        "title": "Frequently asked questions",
+        "description": "Find answers to frequently asked questions about custom solutions, digital products and the support provided by Axplify Services."
+      }
+    },
+    "contact": {
+      "eyebrow": "Let’s talk",
+      "title": "Contact us",
+      "description": "This page will provide contact paths for a specific project or for discovering an Axplify product.",
+      "seo": {
+        "title": "Contact Axplify Services",
+        "description": "Tell us about your project, your digital transformation needs or your interest in an Axplify product and receive an initial recommendation."
+      }
+    },
+    "assist": {
+      "eyebrow": "Needs assessment",
+      "title": "How can we assist you?",
+      "description": "This page will host the future guided process for defining your needs and directing you towards relevant solutions or similar projects.",
+      "seo": {
+        "title": "How can we assist you?",
+        "description": "Describe your current situation and objectives to be guided towards the most relevant Axplify approach, product or type of project."
+      }
     }
+  },
+  "notFound": {
+    "title": "This page does not exist",
+    "description": "The link may be incorrect or the page may have been moved.",
+    "backHome": "Back to home"
   }
 }

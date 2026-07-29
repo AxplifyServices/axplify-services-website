@@ -32,6 +32,10 @@ import {
   SITE_URL,
 } from '@/lib/site-config';
 
+import {
+  AgentationDevtools,
+} from '@/components/development/agentation-devtools';
+
 import '../globals.css';
 
 export const metadata: Metadata = {
@@ -135,23 +139,25 @@ export default async function LocaleLayout({
       suppressHydrationWarning
     >
       <body>
-        <NextIntlClientProvider
-          messages={
-            messages
-          }
-        >
-          <div className="page-shell">
-            <SiteHeader />
+<NextIntlClientProvider
+  messages={
+    messages
+  }
+>
+  <div className="page-shell">
+    <SiteHeader />
 
-            <main className="page-main">
-              {
-                children
-              }
-            </main>
+    <main className="page-main">
+      {
+        children
+      }
+    </main>
 
-            <SiteFooter />
-          </div>
-        </NextIntlClientProvider>
+    <SiteFooter />
+  </div>
+
+  <AgentationDevtools />
+</NextIntlClientProvider>
       </body>
     </html>
   );
