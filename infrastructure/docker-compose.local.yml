@@ -1,0 +1,42 @@
+services:
+  axplify-minio:
+    image: quay.io/minio/minio:latest
+    container_name: axplify-minio-local
+    restart: unless-stopped
+
+    command: server /data --console-address ":9001"
+
+    environment:
+      MINIO_ROOT_USER: axplify_minio_admin
+      MINIO_ROOT_PASSWORD: axplify_minio_local_password_change_me
+
+    ports:
+      - "9200:9000"
+      - "9201:9001"
+
+    volumes:
+      - axplify_minio_data:/data
+
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "curl",
+          "-f",
+          "http://localhost:9000/minio/health/live"
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    networks:
+      - axplify-local-network
+
+volumes:
+  axplify_minio_data:
+    name: axplify_minio_data
+
+networks:
+  axplify-local-network:
+    name: axplify-local-network
+    driver: bridge

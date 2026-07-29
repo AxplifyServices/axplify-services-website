@@ -1,0 +1,19 @@
+{
+  "name": "axplify-services-website",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev:frontend": "npm --prefix frontend run dev",
+    "dev:backend": "npm --prefix backend run start:dev",
+    "build:frontend": "npm --prefix frontend run build",
+    "build:backend": "npm --prefix backend run build",
+    "lint:frontend": "npm --prefix frontend run lint",
+    "lint:backend": "npm --prefix backend run lint",
+    "infra:up": "docker compose -f infrastructure/docker-compose.local.yml up -d",
+    "infra:down": "docker compose -f infrastructure/docker-compose.local.yml down",
+    "infra:logs": "docker compose -f infrastructure/docker-compose.local.yml logs -f",
+    "prisma:pull": "npm --prefix backend exec prisma db pull",
+    "prisma:generate": "npm --prefix backend exec prisma generate",
+    "prisma:studio": "npm --prefix backend exec prisma studio"
+  }
+}

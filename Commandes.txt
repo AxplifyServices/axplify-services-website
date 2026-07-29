@@ -1,0 +1,55 @@
+serv :ssh ubuntu@51.75.252.139
+Code serveur : zitanezac
+
+cd OneDrive\Bureau\Projet Dev\Axplify Service Website
+** Lancer le code 
+
+Code .
+
+** PostgreSQL
+
+psql -U postgres
+\c hire_db     // Utiliser une base de données
+\q
+
+** Execution d'un script 
+
+psql -U postgres -d axplify_db -f "database\schema\040_add_client_password_resets.sql
+
+cd /opt/apps/hire/repo
+
+sudo -u postgres psql -d axplify_db  -f database/schema/040_add_client_password_resets.sql
+
+
+** Installer un env
+
+npm install  
+c
+
+** Lancer l'appli
+
+npm run dev
+
+** Lancer serveur backend Nest
+
+cd OneDrive\Bureau\Projet Dev\Axplify Service Website\backend
+npm run start:dev
+
+** Lancer serveur frontend Next
+
+cd OneDrive\Bureau\Projet Dev\Axplify Service Website\frontend
+npm run dev
+
+Pour Git :
+
+git status
+
+git add .
+git commit -m "message clair"
+git push origin main
+
+git commit --allow-empty -m "trigger deploy"
+
+MDP PostgreSQL serveur :
+
+22072001Zak

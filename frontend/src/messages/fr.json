@@ -1,0 +1,30 @@
+{
+  "metadata": {
+    "siteName": "Axplify Services",
+    "title": "Axplify Services | Transformation digitale, IA et Data",
+    "description": "Axplify Services accompagne les entreprises dans la simplification de leurs processus, la valorisation de leurs données et le développement de solutions digitales adaptées à leurs objectifs."
+  },
+  "navigation": {
+    "home": "Accueil",
+    "services": "Services",
+    "solutions": "Solutions",
+    "about": "À propos",
+    "resources": "Ressources",
+    "contact": "Contact"
+  },
+  "common": {
+    "language": "Langue",
+    "learnMore": "En savoir plus",
+    "contactUs": "Nous contacter",
+    "back": "Retour"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Transformation digitale, IA et Data",
+      "title": "Transformez vos contraintes opérationnelles en leviers de croissance.",
+      "description": "Axplify Services analyse vos processus, identifie les blocages et construit des solutions digitales qui simplifient le travail, améliorent le pilotage et valorisent vos données.",
+      "primaryAction": "Parler de votre projet",
+      "secondaryAction": "Découvrir notre approche"
+    }
+  }
+}
