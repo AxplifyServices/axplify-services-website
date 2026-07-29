@@ -1,0 +1,40 @@
+:root {
+  /* Couleurs principales */
+  --color-navy: #05264f;
+  --color-navy-deep: #02244d;
+  --color-navy-dark: #00264f;
+  --color-deep-blue: #0a3d62;
+
+  /* Couleurs d’accent */
+  --color-cyan: #1cb6dc;
+  --color-bright-cyan: #38b6ff;
+  --color-azure: #1e90ff;
+  --color-electric-blue: #0927eb;
+
+  /* Bleus intermédiaires */
+  --color-sky-blue: #6da7cc;
+  --color-light-blue: #74b9ff;
+  --color-pastel-blue: #96bcd1;
+
+  /* Couleurs claires */
+  --color-mist-blue: #b1cedd;
+  --color-ice-blue: #cbecff;
+  --color-ivory: #fffaf1;
+}
+
+:root {
+  --color-axplify-navy: #05264f;
+  --color-axplify-blue: #1cb6dc;
+
+  --color-axplify-violet: #8b5cf6;
+  --color-axplify-violet-hover: #7c3aed;
+  --color-axplify-violet-dark: #6d28d9;
+  --color-axplify-violet-soft: #f3efff;
+}
+
+Fond principal sombre       #05264F
+Éléments technologiques     #1CB6DC
+CTA principal               #8B5CF6
+CTA hover                   #7C3AED
+Halo / glow                 rgba(139, 92, 246, 0.35)
+Fond de carte léger         #F3EFFF
