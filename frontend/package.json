@@ -1,27 +1,34 @@
 {
-  "name": "axplify-services-website",
+  "name": "frontend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev:frontend": "npm --prefix frontend run dev",
-    "dev:backend": "npm --prefix backend run start:dev",
-
-    "build:frontend": "npm --prefix frontend run build",
-    "build:backend": "npm --prefix backend run build",
-    "build": "npm run build:backend && npm run build:frontend",
-
-    "lint:frontend": "npm --prefix frontend run lint",
-    "lint:backend": "npm --prefix backend run lint",
-    "lint": "npm run lint:backend && npm run lint:frontend",
-
-    "infra:up": "docker compose -f infrastructure/docker-compose.local.yml up -d",
-    "infra:down": "docker compose -f infrastructure/docker-compose.local.yml down",
-    "infra:logs": "docker compose -f infrastructure/docker-compose.local.yml logs -f",
-
-    "prisma:pull": "npm --prefix backend exec prisma db pull",
-    "prisma:generate": "npm --prefix backend exec prisma generate",
-    "prisma:studio": "npm --prefix backend exec prisma studio",
-
-    "check": "npm run lint && npm run build"
+    "dev": "next dev -p 3001",
+    "build": "next build",
+    "start": "next start -p 3001",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^5.5.7",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.27.0",
+    "next": "16.2.12",
+    "next-intl": "^4.13.4",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-hook-form": "^7.83.0",
+    "sonner": "^2.0.7",
+    "tailwind-merge": "^3.6.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.12",
+    "tailwindcss": "^4",
+    "typescript": "^5"
   }
 }

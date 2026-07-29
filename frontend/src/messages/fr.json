@@ -1,30 +1,117 @@
 {
-  "metadata": {
-    "siteName": "Axplify Services",
-    "title": "Axplify Services | Transformation digitale, IA et Data",
-    "description": "Axplify Services accompagne les entreprises dans la simplification de leurs processus, la valorisation de leurs données et le développement de solutions digitales adaptées à leurs objectifs."
-  },
   "navigation": {
+    "primaryNav": "Navigation principale",
+    "mobileNav": "Navigation mobile",
     "home": "Accueil",
     "services": "Services",
-    "solutions": "Solutions",
+    "products": "Produits",
     "about": "À propos",
-    "resources": "Ressources",
-    "contact": "Contact"
+    "aboutOverview": "Découvrir Axplify",
+    "workProcess": "Notre méthode de travail",
+    "insights": "Articles & actualités",
+    "faq": "FAQ",
+    "contact": "Nous contacter",
+    "assist": "Parler de votre besoin",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu"
   },
-  "common": {
-    "language": "Langue",
-    "learnMore": "En savoir plus",
-    "contactUs": "Nous contacter",
-    "back": "Retour"
+  "footer": {
+    "description": "Axplify Services transforme les besoins métier en solutions digitales concrètes, utiles et durables.",
+    "cta": "Définir votre besoin",
+    "explore": "Explorer",
+    "company": "Axplify Services",
+    "contactTitle": "Un projet en tête ?",
+    "contactCopy": "Présentez-nous votre contexte. Nous vous orienterons vers l’approche la plus adaptée.",
+    "contactLink": "Accéder au formulaire de contact",
+    "rights": "Tous droits réservés.",
+    "tagline": "Simplifiez vos processus. Valorisez vos données. Libérez votre potentiel !"
   },
-  "home": {
-    "hero": {
-      "eyebrow": "Transformation digitale, IA et Data",
-      "title": "Transformez vos contraintes opérationnelles en leviers de croissance.",
-      "description": "Axplify Services analyse vos processus, identifie les blocages et construit des solutions digitales qui simplifient le travail, améliorent le pilotage et valorisent vos données.",
-      "primaryAction": "Parler de votre projet",
-      "secondaryAction": "Découvrir notre approche"
+  "pages": {
+    "home": {
+      "eyebrow": "Transformation digitale · IA · Data",
+      "title": "Accueil",
+      "description": "Le contenu de la page d’accueil sera construit dans la prochaine étape.",
+      "seo": {
+        "title": "Transformation digitale, IA et Data",
+        "description": "Axplify Services accompagne les entreprises dans la simplification de leurs processus, la valorisation de leurs données et le développement de solutions digitales adaptées."
+      }
+    },
+    "services": {
+      "eyebrow": "Expertises",
+      "title": "Services",
+      "description": "Cette page accueillera les services de digitalisation, d’automatisation, de data et d’intelligence artificielle.",
+      "seo": {
+        "title": "Services de transformation digitale, IA et Data",
+        "description": "Découvrez comment Axplify Services aide les entreprises à digitaliser leurs processus, automatiser leurs opérations et mieux exploiter leurs données."
+      }
+    },
+    "products": {
+      "eyebrow": "Solutions éditées par Axplify",
+      "title": "Produits",
+      "description": "Cette page présentera les produits digitaux conçus et développés par Axplify Services.",
+      "seo": {
+        "title": "Produits digitaux pour les entreprises",
+        "description": "Découvrez les produits Axplify Services conçus pour structurer les opérations, améliorer le pilotage et accompagner la croissance des entreprises."
+      }
+    },
+    "about": {
+      "eyebrow": "L’entreprise",
+      "title": "À propos d’Axplify Services",
+      "description": "Cette page présentera la mission, la vision, les valeurs et les deux activités d’Axplify Services.",
+      "seo": {
+        "title": "À propos d’Axplify Services",
+        "description": "Découvrez Axplify Services, sa mission et son approche pour transformer les besoins métier en solutions digitales concrètes et durables."
+      }
+    },
+    "workProcess": {
+      "eyebrow": "Notre approche",
+      "title": "Méthode de travail",
+      "description": "Cette page détaillera le parcours allant de la compréhension du besoin à la mise en œuvre et à l’évolution de la solution.",
+      "seo": {
+        "title": "Notre méthode de travail",
+        "description": "Découvrez la méthode Axplify Services : comprendre le besoin, identifier les priorités, concevoir la solution et accompagner sa mise en œuvre."
+      }
+    },
+    "insights": {
+      "eyebrow": "Ressources",
+      "title": "Articles & actualités",
+      "description": "Cette page rassemblera les articles, actualités, études de cas et retours d’expérience d’Axplify Services.",
+      "seo": {
+        "title": "Articles et actualités sur le digital, l’IA et la Data",
+        "description": "Retrouvez les articles, conseils, études de cas et actualités d’Axplify Services sur la digitalisation, l’automatisation, l’IA et la Data."
+      }
+    },
+    "faq": {
+      "eyebrow": "Questions fréquentes",
+      "title": "FAQ",
+      "description": "Cette page répondra aux principales questions sur les projets sur mesure, les produits et l’accompagnement Axplify.",
+      "seo": {
+        "title": "Questions fréquentes",
+        "description": "Consultez les réponses aux questions fréquentes sur les solutions sur mesure, les produits digitaux et l’accompagnement proposé par Axplify Services."
+      }
+    },
+    "contact": {
+      "eyebrow": "Échangeons",
+      "title": "Nous contacter",
+      "description": "Cette page accueillera les parcours de contact pour un projet spécifique ou pour la découverte d’un produit Axplify.",
+      "seo": {
+        "title": "Contacter Axplify Services",
+        "description": "Présentez votre projet, votre besoin de digitalisation ou votre intérêt pour un produit Axplify Services afin de recevoir une première orientation."
+      }
+    },
+    "assist": {
+      "eyebrow": "Qualification du besoin",
+      "title": "Comment pouvons-nous vous aider ?",
+      "description": "Cette page accueillera le futur parcours guidé de spécification du besoin et d’orientation vers les solutions ou projets similaires.",
+      "seo": {
+        "title": "Comment pouvons-nous vous aider ?",
+        "description": "Décrivez votre situation et vos objectifs pour être orienté vers l’approche, le produit ou le type de projet Axplify le plus pertinent."
+      }
     }
+  },
+  "notFound": {
+    "title": "Cette page n’existe pas",
+    "description": "Le lien utilisé est incorrect ou la page a été déplacée.",
+    "backHome": "Retour à l’accueil"
   }
 }

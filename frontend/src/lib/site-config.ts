@@ -1,0 +1,76 @@
+export const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  'http://localhost:3001';
+
+export const publicPageHrefs = [
+  '/',
+  '/services',
+  '/products',
+  '/about',
+  '/about/work-process',
+  '/insights',
+  '/faq',
+  '/contact',
+  '/assist',
+] as const;
+
+export type PublicPageHref =
+  (typeof publicPageHrefs)[number];
+
+export const navigationItems = [
+  {
+    href:
+      '/',
+
+    translationKey:
+      'home',
+  },
+
+  {
+    href:
+      '/services',
+
+    translationKey:
+      'services',
+  },
+
+  {
+    href:
+      '/products',
+
+    translationKey:
+      'products',
+  },
+
+  {
+    href:
+      '/about',
+
+    translationKey:
+      'about',
+  },
+
+  {
+    href:
+      '/insights',
+
+    translationKey:
+      'insights',
+  },
+
+  {
+    href:
+      '/faq',
+
+    translationKey:
+      'faq',
+  },
+
+  {
+    href:
+      '/contact',
+
+    translationKey:
+      'contact',
+  },
+] as const;
