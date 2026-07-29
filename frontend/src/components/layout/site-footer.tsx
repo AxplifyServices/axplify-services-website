@@ -3,14 +3,15 @@ import Image from 'next/image';
 import {
   ChevronRight,
   Mail,
-  MessageCircle,
 } from 'lucide-react';
 
 import {
-  FaLinkedin,
+  FaLinkedinIn,
+  FaWhatsapp,
 } from 'react-icons/fa';
 
 import {
+  getLocale,
   getTranslations,
 } from 'next-intl/server';
 
@@ -20,69 +21,35 @@ import {
 
 const primaryLinks = [
   {
-    href:
-      '/',
-
-    key:
-      'home',
+    href: '/',
+    key: 'home',
   },
-
   {
-    href:
-      '/services',
-
-    key:
-      'services',
+    href: '/services',
+    key: 'services',
   },
-
   {
-    href:
-      '/products',
-
-    key:
-      'products',
+    href: '/products',
+    key: 'products',
   },
-
   {
-    href:
-      '/insights',
-
-    key:
-      'insights',
+    href: '/insights',
+    key: 'insights',
   },
 ] as const;
 
 const companyLinks = [
   {
-    href:
-      '/about',
-
-    key:
-      'about',
+    href: '/about',
+    key: 'about',
   },
-
   {
-    href:
-      '/about/work-process',
-
-    key:
-      'workProcess',
+    href: '/about/work-process',
+    key: 'workProcess',
   },
-
   {
-    href:
-      '/faq',
-
-    key:
-      'faq',
-  },
-
-  {
-    href:
-      '/contact',
-
-    key:
-      'contact',
+    href: '/faq',
+    key: 'faq',
   },
 ] as const;
 
@@ -93,6 +60,9 @@ const whatsappUrl =
   'https://wa.me/212688194555';
 
 export async function SiteFooter() {
+  const locale =
+    await getLocale();
+
   const t =
     await getTranslations(
       'footer',
@@ -102,6 +72,30 @@ export async function SiteFooter() {
     await getTranslations(
       'navigation',
     );
+
+  /*
+   * Le slogan arabe doit rester en anglais.
+   * Les textes sont donc structurés en trois parties
+   * afin de colorer le premier mot de chaque phrase.
+   */
+  const tagline =
+    locale === 'fr'
+      ? {
+          first: 'Simplifiez',
+          firstRest: ' vos processus.',
+          second: 'Valorisez',
+          secondRest: ' vos données.',
+          third: 'Libérez',
+          thirdRest: ' votre potentiel !',
+        }
+      : {
+          first: 'Simplify',
+          firstRest: ' your processes.',
+          second: 'Unlock',
+          secondRest: ' the value of your data.',
+          third: 'Unleash',
+          thirdRest: ' your potential!',
+        };
 
   return (
     <footer className="site-footer">
@@ -115,53 +109,24 @@ export async function SiteFooter() {
             <Image
               src="/brand/axplify-logo.svg"
               alt="Axplify Services"
-              width={
-                220
-              }
-              height={
-                74
-              }
+              width={220}
+              height={74}
               className="site-footer__logo"
             />
           </Link>
 
           <p className="site-footer__description">
-            {
-              t(
-                'description',
-              )
-            }
+            {t(
+              'description',
+            )}
           </p>
 
           <div
             className="site-footer__social-links"
-            aria-label={
-              t(
-                'socialTitle',
-              )
-            }
+            aria-label={t(
+              'socialTitle',
+            )}
           >
-            <a
-              href={
-                whatsappUrl
-              }
-              target="_blank"
-              rel="noopener noreferrer"
-              className="site-footer__social-link"
-              aria-label={
-                t(
-                  'whatsappLabel',
-                )
-              }
-            >
-              <MessageCircle
-                size={
-                  19
-                }
-                aria-hidden="true"
-              />
-            </a>
-
             <a
               href={
                 linkedInUrl
@@ -169,40 +134,49 @@ export async function SiteFooter() {
               target="_blank"
               rel="noopener noreferrer"
               className="site-footer__social-link"
-              aria-label={
-                t(
-                  'linkedinLabel',
-                )
-              }
+              aria-label={t(
+                'linkedinLabel',
+              )}
+              title="LinkedIn"
             >
-<FaLinkedin
-  size={
-    19
-  }
-  aria-hidden="true"
-/>
+              <FaLinkedinIn
+                size={19}
+                aria-hidden="true"
+              />
+            </a>
 
-        
+            <a
+              href={
+                whatsappUrl
+              }
+              target="_blank"
+              rel="noopener noreferrer"
+              className="site-footer__social-link"
+              aria-label={t(
+                'whatsappLabel',
+              )}
+              title="WhatsApp"
+            >
+              <FaWhatsapp
+                size={20}
+                aria-hidden="true"
+              />
             </a>
           </div>
         </div>
 
         <div>
           <p className="site-footer__heading">
-            {
-              t(
-                'explore',
-              )
-            }
+            {t(
+              'explore',
+            )}
           </p>
 
           <nav
             className="site-footer__links"
-            aria-label={
-              t(
-                'explore',
-              )
-            }
+            aria-label={t(
+              'explore',
+            )}
           >
             {primaryLinks.map(
               (
@@ -218,17 +192,13 @@ export async function SiteFooter() {
                   className="site-footer__link"
                 >
                   <span>
-                    {
-                      navigationT(
-                        item.key,
-                      )
-                    }
+                    {navigationT(
+                      item.key,
+                    )}
                   </span>
 
                   <ChevronRight
-                    size={
-                      16
-                    }
+                    size={16}
                     aria-hidden="true"
                   />
                 </Link>
@@ -239,20 +209,16 @@ export async function SiteFooter() {
 
         <div>
           <p className="site-footer__heading">
-            {
-              t(
-                'company',
-              )
-            }
+            {t(
+              'company',
+            )}
           </p>
 
           <nav
             className="site-footer__links"
-            aria-label={
-              t(
-                'company',
-              )
-            }
+            aria-label={t(
+              'company',
+            )}
           >
             {companyLinks.map(
               (
@@ -268,17 +234,13 @@ export async function SiteFooter() {
                   className="site-footer__link"
                 >
                   <span>
-                    {
-                      navigationT(
-                        item.key,
-                      )
-                    }
+                    {navigationT(
+                      item.key,
+                    )}
                   </span>
 
                   <ChevronRight
-                    size={
-                      16
-                    }
+                    size={16}
                     aria-hidden="true"
                   />
                 </Link>
@@ -287,60 +249,60 @@ export async function SiteFooter() {
           </nav>
         </div>
 
-        <div className="site-footer__contact-column">
-          <p className="site-footer__heading">
-            {
-              t(
-                'contactTitle',
-              )
-            }
-          </p>
+<div className="site-footer__contact-column">
+  <p className="site-footer__heading">
+    {t(
+      'contactTitle',
+    )}
+  </p>
 
-          <p className="site-footer__contact-copy">
-            {
-              t(
-                'contactCopy',
-              )
-            }
-          </p>
+  <p className="site-footer__contact-copy">
+    {t(
+      'contactCopy',
+    )}
+  </p>
 
-          <p className="site-footer__contact-tagline">
-            {
-              t(
-                'tagline',
-              )
-            }
-          </p>
+  <p className="site-footer__contact-tagline">
+    <strong className="site-footer__tagline-word">
+      {
+        tagline.first
+      }
+    </strong>
 
-          <Link
-            href="/contact"
-            className="site-footer__contact-link"
-          >
-            <Mail
-              size={
-                17
-              }
-              aria-hidden="true"
-            />
+    {
+      tagline.firstRest
+    }{' '}
 
-            {
-              t(
-                'contactLink',
-              )
-            }
-          </Link>
-        </div>
+    <strong className="site-footer__tagline-word">
+      {
+        tagline.second
+      }
+    </strong>
+
+    {
+      tagline.secondRest
+    }{' '}
+
+    <strong className="site-footer__tagline-word">
+      {
+        tagline.third
+      }
+    </strong>
+
+    {
+      tagline.thirdRest
+    }
+  </p>
+</div>
       </div>
 
       <div className="site-container site-footer__bottom">
         <p>
           © {new Date().getFullYear()}{' '}
           Axplify Services.{' '}
-          {
-            t(
-              'rights',
-            )
-          }
+          {t(
+            'rights',
+          )}
         </p>
       </div>
     </footer>

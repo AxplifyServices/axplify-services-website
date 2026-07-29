@@ -71,20 +71,23 @@ export function SiteHeader() {
     false,
   );
 
-  useEffect(
-    () => {
-      setIsMenuOpen(
-        false,
-      );
+useEffect(
+  () => {
+    setIsMenuOpen(
+      false,
+    );
 
-      setIsAboutOpen(
-        false,
-      );
-    },
-    [
-      pathname,
-    ],
-  );
+    setIsAboutOpen(
+      isActivePath(
+        pathname,
+        '/about',
+      ),
+    );
+  },
+  [
+    pathname,
+  ],
+);
 
   useEffect(
     () => {
@@ -367,51 +370,103 @@ export function SiteHeader() {
                   (
                     item,
                   ) => {
-                    if (
-                      item.href ===
-                      '/about'
-                    ) {
-                      return (
-                        <div
-                          key={
-                            item.href
-                          }
-                          className="site-header__mobile-group"
-                        >
-                          <Link
-                            href="/about"
-                            className="site-header__mobile-link"
-                            data-active={
-                              isActivePath(
-                                pathname,
-                                '/about',
-                              )
-                            }
-                          >
-                            {
-                              t(
-                                'about',
-                              )
-                            }
-                          </Link>
+if (
+  item.href ===
+  '/about'
+) {
+  const isAboutActive =
+    isActivePath(
+      pathname,
+      '/about',
+    );
 
-                          <Link
-                            href="/about/work-process"
-                            className="site-header__mobile-sublink"
-                            data-active={
-                              pathname ===
-                              '/about/work-process'
-                            }
-                          >
-                            {
-                              t(
-                                'workProcess',
-                              )
-                            }
-                          </Link>
-                        </div>
-                      );
-                    }
+  return (
+    <div
+      key={
+        item.href
+      }
+      className="site-header__mobile-group"
+    >
+      <button
+        type="button"
+        className="site-header__mobile-link site-header__mobile-link--toggle"
+        data-active={
+          isAboutActive
+        }
+        aria-expanded={
+          isAboutOpen
+        }
+        aria-controls="mobile-about-submenu"
+        onClick={
+          () =>
+            setIsAboutOpen(
+              (
+                current,
+              ) =>
+                !current,
+            )
+        }
+      >
+        <span>
+          {
+            t(
+              'about',
+            )
+          }
+        </span>
+
+        <ChevronDown
+          size={18}
+          aria-hidden="true"
+          className="site-header__mobile-chevron"
+          data-open={
+            isAboutOpen
+          }
+        />
+      </button>
+
+      <div
+        id="mobile-about-submenu"
+        className="site-header__mobile-submenu"
+        data-open={
+          isAboutOpen
+        }
+      >
+        <div className="site-header__mobile-submenu-inner">
+          <Link
+            href="/about"
+            className="site-header__mobile-sublink"
+            data-active={
+              pathname ===
+              '/about'
+            }
+          >
+            {
+              t(
+                'aboutOverview',
+              )
+            }
+          </Link>
+
+          <Link
+            href="/about/work-process"
+            className="site-header__mobile-sublink"
+            data-active={
+              pathname ===
+              '/about/work-process'
+            }
+          >
+            {
+              t(
+                'workProcess',
+              )
+            }
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
 
                     return (
                       <Link
