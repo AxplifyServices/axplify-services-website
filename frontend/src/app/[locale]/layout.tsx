@@ -36,6 +36,10 @@ import {
   AgentationDevtools,
 } from '@/components/development/agentation-devtools';
 
+import {
+  FloatingContactButton,
+} from '@/components/common/floating-contact-button';
+
 import '../globals.css';
 
 export const metadata: Metadata = {
@@ -147,13 +151,15 @@ export default async function LocaleLayout({
   <div className="page-shell">
     <SiteHeader />
 
-    <main className="page-main">
-      {
-        children
-      }
-    </main>
+<main className="page-main">
+  {
+    children
+  }
+</main>
 
-    <SiteFooter />
+<FloatingContactButton />
+
+<SiteFooter />
   </div>
 
   <AgentationDevtools />

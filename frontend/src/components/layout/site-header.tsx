@@ -284,20 +284,9 @@ export function SiteHeader() {
           )}
         </nav>
 
-        <div className="site-header__desktop-actions">
-          <LanguageSwitcher />
-
-          <Link
-            href="/assist"
-            className="button button--primary button--compact"
-          >
-            {
-              t(
-                'assist',
-              )
-            }
-          </Link>
-        </div>
+<div className="site-header__desktop-actions">
+  <LanguageSwitcher />
+</div>
 
         <button
           type="button"
@@ -450,17 +439,6 @@ export function SiteHeader() {
                   },
                 )}
               </nav>
-
-              <Link
-                href="/assist"
-                className="button button--primary button--mobile"
-              >
-                {
-                  t(
-                    'assist',
-                  )
-                }
-              </Link>
             </div>
           </div>
         </>

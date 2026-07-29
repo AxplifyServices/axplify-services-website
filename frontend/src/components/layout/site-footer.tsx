@@ -1,10 +1,14 @@
 import Image from 'next/image';
 
 import {
-  ArrowUpRight,
   ChevronRight,
   Mail,
+  MessageCircle,
 } from 'lucide-react';
+
+import {
+  FaLinkedin,
+} from 'react-icons/fa';
 
 import {
   getTranslations,
@@ -82,6 +86,12 @@ const companyLinks = [
   },
 ] as const;
 
+const linkedInUrl =
+  'https://www.linkedin.com/company/axplify-services/home';
+
+const whatsappUrl =
+  'https://wa.me/212688194555';
+
 export async function SiteFooter() {
   const t =
     await getTranslations(
@@ -123,23 +133,58 @@ export async function SiteFooter() {
             }
           </p>
 
-          <Link
-            href="/assist"
-            className="button button--footer"
-          >
-            {
+          <div
+            className="site-footer__social-links"
+            aria-label={
               t(
-                'cta',
+                'socialTitle',
               )
             }
-
-            <ArrowUpRight
-              size={
-                17
+          >
+            <a
+              href={
+                whatsappUrl
               }
-              aria-hidden="true"
-            />
-          </Link>
+              target="_blank"
+              rel="noopener noreferrer"
+              className="site-footer__social-link"
+              aria-label={
+                t(
+                  'whatsappLabel',
+                )
+              }
+            >
+              <MessageCircle
+                size={
+                  19
+                }
+                aria-hidden="true"
+              />
+            </a>
+
+            <a
+              href={
+                linkedInUrl
+              }
+              target="_blank"
+              rel="noopener noreferrer"
+              className="site-footer__social-link"
+              aria-label={
+                t(
+                  'linkedinLabel',
+                )
+              }
+            >
+<FaLinkedin
+  size={
+    19
+  }
+  aria-hidden="true"
+/>
+
+        
+            </a>
+          </div>
         </div>
 
         <div>
@@ -242,7 +287,7 @@ export async function SiteFooter() {
           </nav>
         </div>
 
-        <div>
+        <div className="site-footer__contact-column">
           <p className="site-footer__heading">
             {
               t(
@@ -255,6 +300,14 @@ export async function SiteFooter() {
             {
               t(
                 'contactCopy',
+              )
+            }
+          </p>
+
+          <p className="site-footer__contact-tagline">
+            {
+              t(
+                'tagline',
               )
             }
           </p>
@@ -286,14 +339,6 @@ export async function SiteFooter() {
           {
             t(
               'rights',
-            )
-          }
-        </p>
-
-        <p>
-          {
-            t(
-              'tagline',
             )
           }
         </p>

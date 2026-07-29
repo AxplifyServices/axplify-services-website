@@ -15,17 +15,20 @@
     "openMenu": "فتح القائمة",
     "closeMenu": "إغلاق القائمة"
   },
-  "footer": {
-    "description": "تحول Axplify Services احتياجات الشركات إلى حلول رقمية عملية ومفيدة ومستدامة.",
-    "cta": "حدد احتياجاتك",
-    "explore": "استكشف",
-    "company": "Axplify Services",
-    "contactTitle": "هل لديك مشروع؟",
-    "contactCopy": "شاركنا سياق مشروعك وسنساعدك على تحديد المنهجية الأكثر ملاءمة لأهدافك.",
-    "contactLink": "الانتقال إلى نموذج التواصل",
-    "rights": "جميع الحقوق محفوظة.",
-    "tagline": "بسّط عملياتك. استفد من بياناتك. أطلق إمكاناتك!"
-  },
+"footer": {
+  "description": "تحول Axplify Services احتياجات الشركات إلى حلول رقمية عملية ومفيدة ومستدامة. اقترب أكثر من طموحك.",
+  "cta": "حدد احتياجاتك",
+  "explore": "استكشف",
+  "company": "Axplify Services",
+  "contactTitle": "هل لديك مشروع؟",
+  "contactCopy": "شاركنا سياق مشروعك وسنساعدك على تحديد المنهجية الأكثر ملاءمة لأهدافك.",
+  "contactLink": "تواصل معنا",
+  "socialTitle": "تواصل مع Axplify Services",
+  "whatsappLabel": "تواصل مع Axplify Services عبر واتساب",
+  "linkedinLabel": "اكتشف Axplify Services على لينكدإن",
+  "rights": "جميع الحقوق محفوظة.",
+  "tagline": "Simplify your processes. Unlock the value of your data. Unleash your potential!"
+},
   "pages": {
     "home": {
       "eyebrow": "التحول الرقمي · الذكاء الاصطناعي · البيانات",

@@ -15,17 +15,20 @@
     "openMenu": "Open menu",
     "closeMenu": "Close menu"
   },
-  "footer": {
-    "description": "Axplify Services turns business needs into practical, valuable and sustainable digital solutions.",
-    "cta": "Define your needs",
-    "explore": "Explore",
-    "company": "Axplify Services",
-    "contactTitle": "Have a project in mind?",
-    "contactCopy": "Tell us about your situation. We will guide you towards the approach that best matches your objectives.",
-    "contactLink": "Open the contact form",
-    "rights": "All rights reserved.",
-    "tagline": "Simplify your processes. Unlock your data. Unleash your potential!"
-  },
+"footer": {
+  "description": "Axplify Services turns business needs into practical, valuable and sustainable digital solutions. Move closer to your ambition.",
+  "cta": "Define your needs",
+  "explore": "Explore",
+  "company": "Axplify Services",
+  "contactTitle": "Have a project in mind?",
+  "contactCopy": "Tell us about your situation. We will guide you towards the approach that best matches your objectives.",
+  "contactLink": "Contact us",
+  "socialTitle": "Connect with Axplify Services",
+  "whatsappLabel": "Contact Axplify Services on WhatsApp",
+  "linkedinLabel": "Discover Axplify Services on LinkedIn",
+  "rights": "All rights reserved.",
+  "tagline": "Simplify your processes. Unlock the value of your data. Unleash your potential!"
+},
   "pages": {
     "home": {
       "eyebrow": "Digital transformation · AI · Data",
