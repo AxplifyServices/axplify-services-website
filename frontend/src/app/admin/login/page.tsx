@@ -1,7 +1,6 @@
 'use client';
 
-import Image
-  from 'next/image';
+import Image from 'next/image';
 
 import {
   zodResolver,
@@ -10,7 +9,6 @@ import {
 import {
   Eye,
   EyeOff,
-  Languages,
   LoaderCircle,
   LockKeyhole,
   Mail,
@@ -23,7 +21,6 @@ import {
 
 import {
   useEffect,
-  useMemo,
   useState,
 } from 'react';
 
@@ -46,11 +43,6 @@ import {
 import {
   AdminApiError,
 } from '@/lib/admin-api';
-
-type AdminLanguage =
-  | 'fr'
-  | 'en'
-  | 'ar';
 
 const loginSchema =
   z.object({
@@ -84,155 +76,6 @@ type LoginFormValues =
     typeof loginSchema
   >;
 
-const translations = {
-  fr: {
-    security:
-      'Espace sécurisé',
-
-    title:
-      'Bienvenue dans votre espace Axplify',
-
-    description:
-      'Connectez-vous pour gérer progressivement les contenus et les fonctionnalités de votre site.',
-
-    email:
-      'Adresse e-mail',
-
-    emailPlaceholder:
-      'vous@axplify-services.com',
-
-    password:
-      'Mot de passe',
-
-    passwordPlaceholder:
-      'Saisissez votre mot de passe',
-
-    showPassword:
-      'Afficher le mot de passe',
-
-    hidePassword:
-      'Masquer le mot de passe',
-
-    login:
-      'Se connecter',
-
-    connecting:
-      'Connexion en cours…',
-
-    protected:
-      'Votre connexion est protégée et surveillée.',
-
-    back:
-      'Retour au site public',
-
-    invalid:
-      'Identifiants invalides.',
-
-    error:
-      'Impossible de se connecter pour le moment.',
-  },
-
-  en: {
-    security:
-      'Secure area',
-
-    title:
-      'Welcome to your Axplify workspace',
-
-    description:
-      'Sign in to progressively manage your website content and features.',
-
-    email:
-      'Email address',
-
-    emailPlaceholder:
-      'you@axplify-services.com',
-
-    password:
-      'Password',
-
-    passwordPlaceholder:
-      'Enter your password',
-
-    showPassword:
-      'Show password',
-
-    hidePassword:
-      'Hide password',
-
-    login:
-      'Sign in',
-
-    connecting:
-      'Signing in…',
-
-    protected:
-      'Your connection is protected and monitored.',
-
-    back:
-      'Back to public website',
-
-    invalid:
-      'Invalid credentials.',
-
-    error:
-      'Unable to sign in right now.',
-  },
-
-  ar: {
-    security:
-      'مساحة آمنة',
-
-    title:
-      'مرحباً بك في مساحة إدارة Axplify',
-
-    description:
-      'سجّل الدخول لإدارة محتوى وخصائص موقعك تدريجياً.',
-
-    email:
-      'البريد الإلكتروني',
-
-    emailPlaceholder:
-      'you@axplify-services.com',
-
-    password:
-      'كلمة المرور',
-
-    passwordPlaceholder:
-      'أدخل كلمة المرور',
-
-    showPassword:
-      'إظهار كلمة المرور',
-
-    hidePassword:
-      'إخفاء كلمة المرور',
-
-    login:
-      'تسجيل الدخول',
-
-    connecting:
-      'جارٍ تسجيل الدخول…',
-
-    protected:
-      'اتصالك محمي وتتم مراقبته.',
-
-    back:
-      'العودة إلى الموقع',
-
-    invalid:
-      'بيانات الدخول غير صحيحة.',
-
-    error:
-      'تعذر تسجيل الدخول حالياً.',
-  },
-} satisfies Record<
-  AdminLanguage,
-  Record<
-    string,
-    string
-  >
->;
-
 export default function AdminLoginPage() {
   const router =
     useRouter();
@@ -244,32 +87,11 @@ export default function AdminLoginPage() {
     useAuth();
 
   const [
-    language,
-    setLanguage,
-  ] =
-    useState<
-      AdminLanguage
-    >(
-      'fr',
-    );
-
-  const [
     showPassword,
     setShowPassword,
   ] =
     useState(
       false,
-    );
-
-  const t =
-    useMemo(
-      () =>
-        translations[
-          language
-        ],
-      [
-        language,
-      ],
     );
 
   const {
@@ -299,30 +121,6 @@ export default function AdminLoginPage() {
 
   useEffect(
     () => {
-      const savedLanguage =
-        window.localStorage
-          .getItem(
-            'axplify-admin-language',
-          );
-
-      if (
-        savedLanguage ===
-          'fr' ||
-        savedLanguage ===
-          'en' ||
-        savedLanguage ===
-          'ar'
-      ) {
-        setLanguage(
-          savedLanguage,
-        );
-      }
-    },
-    [],
-  );
-
-  useEffect(
-    () => {
       if (
         status ===
         'authenticated'
@@ -337,21 +135,6 @@ export default function AdminLoginPage() {
       status,
     ],
   );
-
-  function changeLanguage(
-    nextLanguage:
-      AdminLanguage,
-  ) {
-    setLanguage(
-      nextLanguage,
-    );
-
-    window.localStorage
-      .setItem(
-        'axplify-admin-language',
-        nextLanguage,
-      );
-  }
 
   async function onSubmit(
     values:
@@ -389,12 +172,12 @@ export default function AdminLoginPage() {
     ) {
       if (
         error instanceof
-        AdminApiError &&
+          AdminApiError &&
         error.status ===
           401
       ) {
         toast.error(
-          t.invalid,
+          'Identifiants invalides.',
         );
 
         return;
@@ -404,16 +187,10 @@ export default function AdminLoginPage() {
         error instanceof
           AdminApiError
           ? error.message
-          : t.error,
+          : 'Impossible de se connecter pour le moment.',
       );
     }
   }
-
-  const direction =
-    language ===
-      'ar'
-      ? 'rtl'
-      : 'ltr';
 
   if (
     status ===
@@ -430,31 +207,26 @@ export default function AdminLoginPage() {
         />
 
         <span>
-          Chargement…
+          Vérification de la session…
         </span>
       </main>
     );
   }
 
   return (
-    <main
-      className="admin-login"
-      dir={
-        direction
-      }
-    >
+    <main className="admin-login">
       <section className="admin-login__visual">
         <div className="admin-login__visual-glow" />
 
         <div className="admin-login__visual-content">
           <Image
-            src="/brand/axplify-logo.svg"
+            src="/brand/logo_axplify_-_V1_icone-removebg-preview.png"
             alt="Axplify Services"
             width={
-              230
+              500
             }
             height={
-              76
+              500
             }
             priority
             className="admin-login__visual-logo"
@@ -462,21 +234,15 @@ export default function AdminLoginPage() {
 
           <div className="admin-login__visual-copy">
             <span className="admin-login__visual-eyebrow">
-              {
-                t.security
-              }
+              Espace administrateur
             </span>
 
             <h1>
-              {
-                t.title
-              }
+              Pilotez votre site Axplify
             </h1>
 
             <p>
-              {
-                t.description
-              }
+              Connectez-vous pour gérer les contenus et les fonctionnalités de votre site depuis un espace centralisé.
             </p>
           </div>
 
@@ -489,73 +255,23 @@ export default function AdminLoginPage() {
             />
 
             <span>
-              {
-                t.protected
-              }
+              Votre connexion est protégée et surveillée.
             </span>
           </div>
         </div>
       </section>
 
       <section className="admin-login__form-side">
-        <div className="admin-login__language">
-          <Languages
-            size={
-              17
-            }
-            aria-hidden="true"
-          />
-
-          <div
-            className="admin-login__language-options"
-            role="group"
-            aria-label="Langue"
-          >
-            {(
-              [
-                'fr',
-                'en',
-                'ar',
-              ] as const
-            ).map(
-              (
-                item,
-              ) => (
-                <button
-                  key={
-                    item
-                  }
-                  type="button"
-                  data-active={
-                    language ===
-                    item
-                  }
-                  onClick={
-                    () =>
-                      changeLanguage(
-                        item,
-                      )
-                  }
-                >
-                  {
-                    item.toUpperCase()
-                  }
-                </button>
-              ),
-            )}
-          </div>
-        </div>
-
         <div className="admin-login__card">
           <div className="admin-login__mobile-brand">
             <Image
-              src="/brand/axplify-logo.svg"
+              src="/brand/logo_axplify_-_V1_icone-removebg-preview.png"
               alt="Axplify Services"
               width={
-                205
+                500
               }
               height={
-                68
+                500
               }
               priority
             />
@@ -573,15 +289,11 @@ export default function AdminLoginPage() {
 
             <div>
               <p>
-                {
-                  t.security
-                }
+                Espace administrateur
               </p>
 
               <h2>
-                {
-                  t.login
-                }
+                Connexion
               </h2>
             </div>
           </div>
@@ -596,12 +308,8 @@ export default function AdminLoginPage() {
             noValidate
           >
             <div className="admin-field">
-              <label
-                htmlFor="admin-email"
-              >
-                {
-                  t.email
-                }
+              <label htmlFor="admin-email">
+                Adresse e-mail
               </label>
 
               <div
@@ -624,9 +332,7 @@ export default function AdminLoginPage() {
                   type="email"
                   inputMode="email"
                   autoComplete="username"
-                  placeholder={
-                    t.emailPlaceholder
-                  }
+                  placeholder="vous@axplify-services.com"
                   aria-invalid={
                     Boolean(
                       errors.email,
@@ -649,12 +355,8 @@ export default function AdminLoginPage() {
             </div>
 
             <div className="admin-field">
-              <label
-                htmlFor="admin-password"
-              >
-                {
-                  t.password
-                }
+              <label htmlFor="admin-password">
+                Mot de passe
               </label>
 
               <div
@@ -680,9 +382,7 @@ export default function AdminLoginPage() {
                       : 'password'
                   }
                   autoComplete="current-password"
-                  placeholder={
-                    t.passwordPlaceholder
-                  }
+                  placeholder="Saisissez votre mot de passe"
                   aria-invalid={
                     Boolean(
                       errors.password,
@@ -698,8 +398,8 @@ export default function AdminLoginPage() {
                   className="admin-field__password-toggle"
                   aria-label={
                     showPassword
-                      ? t.hidePassword
-                      : t.showPassword
+                      ? 'Masquer le mot de passe'
+                      : 'Afficher le mot de passe'
                   }
                   onClick={
                     () =>
@@ -766,8 +466,8 @@ export default function AdminLoginPage() {
               <span>
                 {
                   isSubmitting
-                    ? t.connecting
-                    : t.login
+                    ? 'Connexion en cours…'
+                    : 'Se connecter'
                 }
               </span>
             </button>
@@ -777,9 +477,7 @@ export default function AdminLoginPage() {
             href="/fr"
             className="admin-login__public-link"
           >
-            {
-              t.back
-            }
+            Retour au site public
           </a>
         </div>
       </section>

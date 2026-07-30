@@ -62,6 +62,17 @@ export const metadata: Metadata = {
   applicationName:
     'Axplify Services',
 
+icons: {
+  icon:
+    '/brand/logo_axplify_-_V12_icone-removebg-preview.png',
+
+  shortcut:
+    '/brand/logo_axplify_-_V12_icone-removebg-preview.png',
+
+  apple:
+    '/brand/logo_axplify_-_V12_icone-removebg-preview.png',
+},
+
   authors: [
     {
       name:

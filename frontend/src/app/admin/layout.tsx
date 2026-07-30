@@ -25,6 +25,17 @@ export const metadata:
     description:
       'Espace d’administration sécurisé du site Axplify Services.',
 
+icons: {
+  icon:
+    '/brand/logo_axplify_-_V12_icone-removebg-preview.png',
+
+  shortcut:
+    '/brand/logo_axplify_-_V12_icone-removebg-preview.png',
+
+  apple:
+    '/brand/logo_axplify_-_V12_icone-removebg-preview.png',
+},      
+
     robots: {
       index:
         false,
