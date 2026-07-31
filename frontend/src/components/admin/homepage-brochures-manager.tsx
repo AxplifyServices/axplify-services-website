@@ -73,7 +73,7 @@ type HomepageBrochure = {
     BrochureImageCrop | null;
 
   mobileImageEnCrop:
-    BrochureImageCrop | null;    
+    BrochureImageCrop | null;
 
   altTextFr:
     string | null;
@@ -280,30 +280,7 @@ const EMPTY_CROPS:
 
     mobileImageEn:
       null,
-  };  
-
-function getDefaultCrop(
-  naturalWidth:
-    number,
-
-  naturalHeight:
-    number,
-): BrochureImageCrop {
-  return {
-    offsetX:
-      0,
-
-    offsetY:
-      0,
-
-    zoom:
-      1,
-
-    naturalWidth,
-
-    naturalHeight,
   };
-}  
 
 const IMAGE_FIELD_CONFIG: Array<{
   field:
@@ -352,7 +329,7 @@ const IMAGE_FIELD_CONFIG: Array<{
       'desktopImageFrUrl',
 
     cropField:
-      'desktopImageFrCrop',      
+      'desktopImageFrCrop',
 
     label:
       'Version française — Desktop',
@@ -378,7 +355,7 @@ const IMAGE_FIELD_CONFIG: Array<{
       'mobileImageFrUrl',
 
     cropField:
-      'mobileImageFrCrop',     
+      'mobileImageFrCrop',
 
     label:
       'Version française — Mobile',
@@ -404,7 +381,7 @@ const IMAGE_FIELD_CONFIG: Array<{
       'desktopImageEnUrl',
 
     cropField:
-      'desktopImageEnCrop',     
+      'desktopImageEnCrop',
 
     label:
       'Version anglaise — Desktop',
@@ -429,11 +406,11 @@ const IMAGE_FIELD_CONFIG: Array<{
     formUrlField:
       'mobileImageEnUrl',
 
+    cropField:
+      'mobileImageEnCrop',
+
     label:
       'Version anglaise — Mobile',
-
-    cropField:
-      'mobileImageEnCrop',      
 
     description:
       'Cette image sera aussi utilisée pour la version arabe sur mobile.',
@@ -448,6 +425,29 @@ const IMAGE_FIELD_CONFIG: Array<{
       false,
   },
 ];
+
+function getDefaultCrop(
+  naturalWidth:
+    number,
+
+  naturalHeight:
+    number,
+): BrochureImageCrop {
+  return {
+    offsetX:
+      0,
+
+    offsetY:
+      0,
+
+    zoom:
+      1,
+
+    naturalWidth,
+
+    naturalHeight,
+  };
+}
 
 function brochureToForm(
   brochure:
@@ -698,24 +698,25 @@ function BrochureImageUpload({
             }
           </h3>
 
-<p>
-  {
-    config.description
-  }
-</p>
+          <p>
+            {
+              config.description
+            }
+          </p>
 
-<p className="admin-brochure-upload__recommended-size">
-  Taille recommandée :
-  {' '}
-  <strong>
-    {
-      config.format ===
-      'desktop'
-        ? '1920 × 900 px'
-        : '1080 × 1600 px'
-    }
-  </strong>
-</p>
+          <p className="admin-brochure-upload__recommended-size">
+            Taille recommandée :
+            {' '}
+
+            <strong>
+              {
+                config.format ===
+                'desktop'
+                  ? '1920 × 900 px'
+                  : '1080 × 1600 px'
+              }
+            </strong>
+          </p>
         </div>
       </div>
 
@@ -1000,7 +1001,7 @@ export function HomepageBrochuresManager() {
       CropEditorState
     >(
       null,
-    );    
+    );
 
   const [
     isSubmitting,
@@ -1072,6 +1073,29 @@ export function HomepageBrochuresManager() {
       [
         brochures,
         editingBrochureId,
+      ],
+    );
+
+  const cropEditorConfig =
+    useMemo(
+      () => {
+        if (
+          !cropEditor
+        ) {
+          return null;
+        }
+
+        return (
+          IMAGE_FIELD_CONFIG.find(
+            config =>
+              config.field ===
+              cropEditor.field,
+          ) ??
+          null
+        );
+      },
+      [
+        cropEditor,
       ],
     );
 
@@ -1163,6 +1187,24 @@ export function HomepageBrochuresManager() {
       },
     );
 
+    if (
+      cropEditor?.file
+    ) {
+      const committedPreview =
+        previews[
+          cropEditor.field
+        ];
+
+      if (
+        cropEditor.imageUrl !==
+        committedPreview
+      ) {
+        URL.revokeObjectURL(
+          cropEditor.imageUrl,
+        );
+      }
+    }
+
     setFiles(
       EMPTY_FILES,
     );
@@ -1177,7 +1219,7 @@ export function HomepageBrochuresManager() {
 
     setCropEditor(
       null,
-    );    
+    );
   }
 
   function openCreateForm() {
@@ -1245,7 +1287,7 @@ export function HomepageBrochuresManager() {
 
       mobileImageEn:
         brochure.mobileImageEnCrop,
-    });    
+    });
 
     setValidationError(
       null,
@@ -1515,7 +1557,7 @@ export function HomepageBrochuresManager() {
 
     image.src =
       imageUrl;
-  }  
+  }
 
   function validateCropEditor(
     crop:
@@ -1585,7 +1627,7 @@ export function HomepageBrochuresManager() {
     setCropEditor(
       null,
     );
-  }  
+  }
 
   function cancelCropEditor() {
     if (
@@ -1609,7 +1651,7 @@ export function HomepageBrochuresManager() {
     setCropEditor(
       null,
     );
-  }  
+  }
 
   function clearSelectedFile(
     field:
@@ -1653,7 +1695,7 @@ export function HomepageBrochuresManager() {
         [field]:
           null,
       }),
-    );    
+    );
   }
 
   async function uploadImage(
@@ -1676,21 +1718,18 @@ export function HomepageBrochuresManager() {
     );
 
     try {
-      const response =
-        await authorizedFetch<
-          UploadedBrochureImage
-        >(
-          '/homepage-brochures/upload-image',
-          {
-            method:
-              'POST',
+      return await authorizedFetch<
+        UploadedBrochureImage
+      >(
+        '/homepage-brochures/upload-image',
+        {
+          method:
+            'POST',
 
-            body:
-              formData,
-          },
-        );
-
-        return response;
+          body:
+            formData,
+        },
+      );
     } finally {
       setUploadingField(
         null,
@@ -1822,9 +1861,10 @@ export function HomepageBrochuresManager() {
           form.mobileImageEnUrl,
       };
 
-      const submittedCrops: BrochureCropState = {
-        ...crops,
-      };      
+      const submittedCrops:
+        BrochureCropState = {
+          ...crops,
+        };
 
       for (
         const config of
@@ -1919,7 +1959,7 @@ export function HomepageBrochuresManager() {
         mobileImageEnCrop:
           submittedCrops
             .mobileImageEn ??
-          undefined,          
+          undefined,
 
         altTextFr:
           form.altTextFr
@@ -1984,6 +2024,11 @@ export function HomepageBrochuresManager() {
 
       await loadBrochures();
 
+      const wasEditing =
+        Boolean(
+          editingBrochureId,
+        );
+
       closeForm();
 
       setFeedback({
@@ -1991,7 +2036,7 @@ export function HomepageBrochuresManager() {
           'success',
 
         message:
-          editingBrochureId
+          wasEditing
             ? 'La brochure a été mise à jour.'
             : 'La brochure a été créée.',
       });
@@ -2303,1068 +2348,1075 @@ export function HomepageBrochuresManager() {
   }
 
   return (
-    <section className="admin-brochures">
-      <header className="admin-brochures__header">
-        <div>
-          <p className="admin-brochures__eyebrow">
-            Page d’accueil
-          </p>
+    <>
+      <section className="admin-brochures">
+        <header className="admin-brochures__header">
+          <div>
+            <p className="admin-brochures__eyebrow">
+              Page d’accueil
+            </p>
 
-          <h1>
-            Brochures
-          </h1>
+            <h1>
+              Brochures
+            </h1>
 
-          <p className="admin-brochures__description">
-            Gérez les visuels affichés en première section de la page d’accueil. Les images sont automatiquement converties en WebP.
-          </p>
-        </div>
+            <p className="admin-brochures__description">
+              Gérez les visuels affichés en première section de la page d’accueil. Les images sont automatiquement converties en WebP.
+            </p>
+          </div>
 
-        <button
-          type="button"
-          className="admin-brochures__create"
-          disabled={
-            isSubmitting
-          }
-          onClick={
-            openCreateForm
-          }
-        >
-          <Plus
-            size={
-              19
+          <button
+            type="button"
+            className="admin-brochures__create"
+            disabled={
+              isSubmitting
             }
-            aria-hidden="true"
-          />
+            onClick={
+              openCreateForm
+            }
+          >
+            <Plus
+              size={
+                19
+              }
+              aria-hidden="true"
+            />
 
-          Ajouter une brochure
-        </button>
-      </header>
+            Ajouter une brochure
+          </button>
+        </header>
 
-      {
-        feedback
-          ? (
-              <div
-                className="admin-brochures__feedback"
-                data-type={
-                  feedback.type
-                }
-                role={
-                  feedback.type ===
-                  'error'
-                    ? 'alert'
-                    : 'status'
-                }
-              >
-                {
-                  feedback.message
-                }
-
-                <button
-                  type="button"
-                  aria-label="Fermer le message"
-                  onClick={
-                    () =>
-                      setFeedback(
-                        null,
-                      )
+        {
+          feedback
+            ? (
+                <div
+                  className="admin-brochures__feedback"
+                  data-type={
+                    feedback.type
+                  }
+                  role={
+                    feedback.type ===
+                    'error'
+                      ? 'alert'
+                      : 'status'
                   }
                 >
-                  <X
-                    size={
-                      17
-                    }
-                    aria-hidden="true"
-                  />
-                </button>
-              </div>
-            )
-          : null
-      }
-
-      {
-        isFormOpen
-          ? (
-              <form
-                className="admin-brochure-form"
-                onSubmit={
-                  handleSubmit
-                }
-              >
-                <div className="admin-brochure-form__header">
-                  <div>
-                    <p>
-                      {
-                        editingBrochure
-                          ? 'Modification'
-                          : 'Nouvelle brochure'
-                      }
-                    </p>
-
-                    <h2>
-                      {
-                        editingBrochure
-                          ? editingBrochure
-                              .internalName
-                          : 'Ajouter un visuel à la page d’accueil'
-                      }
-                    </h2>
-                  </div>
+                  {
+                    feedback.message
+                  }
 
                   <button
                     type="button"
-                    className="admin-brochure-form__close"
-                    disabled={
-                      isSubmitting
-                    }
-                    aria-label="Fermer le formulaire"
+                    aria-label="Fermer le message"
                     onClick={
-                      closeForm
+                      () =>
+                        setFeedback(
+                          null,
+                        )
                     }
                   >
                     <X
                       size={
-                        21
+                        17
                       }
                       aria-hidden="true"
                     />
                   </button>
                 </div>
+              )
+            : null
+        }
 
-                <div className="admin-brochure-form__section">
-                  <div className="admin-brochure-form__section-heading">
-                    <span>
-                      1
-                    </span>
-
+        {
+          isFormOpen
+            ? (
+                <form
+                  className="admin-brochure-form"
+                  onSubmit={
+                    handleSubmit
+                  }
+                >
+                  <div className="admin-brochure-form__header">
                     <div>
-                      <h3>
-                        Identification
-                      </h3>
-
                       <p>
-                        Le nom interne est visible uniquement dans l’administration.
+                        {
+                          editingBrochure
+                            ? 'Modification'
+                            : 'Nouvelle brochure'
+                        }
                       </p>
+
+                      <h2>
+                        {
+                          editingBrochure
+                            ? editingBrochure
+                                .internalName
+                            : 'Ajouter un visuel à la page d’accueil'
+                        }
+                      </h2>
                     </div>
-                  </div>
 
-                  <div className="admin-brochure-form__grid admin-brochure-form__grid--two">
-                    <label className="admin-brochure-field">
-                      <span>
-                        Nom interne
-                        <strong>
-                          *
-                        </strong>
-                      </span>
-
-                      <input
-                        type="text"
-                        value={
-                          form.internalName
-                        }
-                        maxLength={
-                          150
-                        }
-                        disabled={
-                          isSubmitting
-                        }
-                        placeholder="Ex. Campagne transformation digitale"
-                        onChange={
-                          event =>
-                            updateFormField(
-                              'internalName',
-                              event
-                                .target
-                                .value,
-                            )
-                        }
-                      />
-                    </label>
-
-                    <label className="admin-brochure-field">
-                      <span>
-                        Ordre d’affichage
-                      </span>
-
-                      <input
-                        type="number"
-                        min={
-                          0
-                        }
-                        step={
-                          1
-                        }
-                        value={
-                          form.sortOrder
-                        }
-                        disabled={
-                          isSubmitting
-                        }
-                        onChange={
-                          event =>
-                            updateFormField(
-                              'sortOrder',
-                              event
-                                .target
-                                .value,
-                            )
-                        }
-                      />
-
-                      <small>
-                        Tu pourras aussi ajuster l’ordre avec les flèches dans la liste.
-                      </small>
-                    </label>
-                  </div>
-                </div>
-
-                <div className="admin-brochure-form__section">
-                  <div className="admin-brochure-form__section-heading">
-                    <span>
-                      2
-                    </span>
-
-                    <div>
-                      <h3>
-                        Images
-                      </h3>
-
-                      <p>
-                        Une seule image desktop française ou anglaise suffit. Les versions manquantes utiliseront automatiquement l’image disponible.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="admin-brochure-form__language-note">
-                    <strong>
-                      Règle des langues
-                    </strong>
-
-                    <span>
-                      Français : priorité au visuel français.
-                    </span>
-
-                    <span>
-                      Anglais et arabe : priorité au visuel anglais.
-                    </span>
-
-                    <span>
-                      En l’absence d’une version, le site réutilise automatiquement l’autre langue.
-                    </span>
-                  </div>
-
-                  <div className="admin-brochure-form__uploads">
-                    {
-                      IMAGE_FIELD_CONFIG.map(
-                        config => (
-                          <BrochureImageUpload
-                            key={
-                              config.field
-                            }
-                            config={
-                              config
-                            }
-                            file={
-                              files[
-                                config.field
-                              ]
-                            }
-                            previewUrl={
-                              previews[
-                                config.field
-                              ]
-                            }
-                            existingUrl={
-                              form[
-                                config.formUrlField
-                              ]
-                            }
-
-                            crop={
-                              crops[
-                                config.field
-                              ]
-                            }
-                                                        
-                            disabled={
-                              isSubmitting
-                            }
-                            onChange={
-                              handleFileChange
-                            }
-                            onClearSelection={
-                              clearSelectedFile
-                            }
-                            onEditCrop={
-                              openCropEditor
-                            }                            
-                          />
-                        ),
-                      )
-                    }
-                  </div>
-                </div>
-
-                <div className="admin-brochure-form__section">
-                  <div className="admin-brochure-form__section-heading">
-                    <span>
-                      3
-                    </span>
-
-                    <div>
-                      <h3>
-                        Accessibilité et SEO
-                      </h3>
-
-                      <p>
-                        Décris brièvement le contenu ou le message principal de la brochure.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="admin-brochure-form__grid admin-brochure-form__grid--two">
-                    <label className="admin-brochure-field">
-                      <span>
-                        Texte alternatif français
-                      </span>
-
-                      <input
-                        type="text"
-                        value={
-                          form.altTextFr
-                        }
-                        maxLength={
-                          255
-                        }
-                        disabled={
-                          isSubmitting
-                        }
-                        placeholder="Ex. Simplifiez vos processus grâce à Axplify"
-                        onChange={
-                          event =>
-                            updateFormField(
-                              'altTextFr',
-                              event
-                                .target
-                                .value,
-                            )
-                        }
-                      />
-
-                      <small>
-                        Utilisé par les lecteurs d’écran et lorsque l’image ne peut pas être chargée.
-                      </small>
-                    </label>
-
-                    <label className="admin-brochure-field">
-                      <span>
-                        Texte alternatif anglais
-                      </span>
-
-                      <input
-                        type="text"
-                        value={
-                          form.altTextEn
-                        }
-                        maxLength={
-                          255
-                        }
-                        disabled={
-                          isSubmitting
-                        }
-                        placeholder="Ex. Simplify your processes with Axplify"
-                        onChange={
-                          event =>
-                            updateFormField(
-                              'altTextEn',
-                              event
-                                .target
-                                .value,
-                            )
-                        }
-                      />
-
-                      <small>
-                        Ce texte sera aussi utilisé sur la version arabe lorsqu’aucun texte arabe spécifique n’existe.
-                      </small>
-                    </label>
-                  </div>
-                </div>
-
-                <div className="admin-brochure-form__section">
-                  <div className="admin-brochure-form__section-heading">
-                    <span>
-                      4
-                    </span>
-
-                    <div>
-                      <h3>
-                        Lien cliquable
-                      </h3>
-
-                      <p>
-                        Cette partie est facultative. Toute la brochure deviendra cliquable lorsqu’un lien est renseigné.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="admin-brochure-form__grid admin-brochure-form__grid--link">
-                    <label className="admin-brochure-field">
-                      <span>
-                        URL de destination
-                      </span>
-
-                      <input
-                        type="url"
-                        value={
-                          form.linkUrl
-                        }
-                        disabled={
-                          isSubmitting
-                        }
-                        placeholder="https://www.exemple.com/page"
-                        onChange={
-                          event =>
-                            updateFormField(
-                              'linkUrl',
-                              event
-                                .target
-                                .value,
-                            )
-                        }
-                      />
-
-                      <small>
-                        Le lien doit commencer par http:// ou https://.
-                      </small>
-                    </label>
-
-                    <label className="admin-brochure-field">
-                      <span>
-                        Ouverture du lien
-                      </span>
-
-                      <select
-                        value={
-                          form.linkTarget
-                        }
-                        disabled={
-                          isSubmitting ||
-                          !form.linkUrl
-                            .trim()
-                        }
-                        onChange={
-                          event =>
-                            updateFormField(
-                              'linkTarget',
-                              event
-                                .target
-                                .value as
-                                '_self' |
-                                '_blank',
-                            )
-                        }
-                      >
-                        <option value="_self">
-                          Dans la même fenêtre
-                        </option>
-
-                        <option value="_blank">
-                          Dans un nouvel onglet
-                        </option>
-                      </select>
-                    </label>
-                  </div>
-                </div>
-
-                <div className="admin-brochure-form__section">
-                  <div className="admin-brochure-form__section-heading">
-                    <span>
-                      5
-                    </span>
-
-                    <div>
-                      <h3>
-                        Publication
-                      </h3>
-
-                      <p>
-                        Une brochure inactive reste enregistrée, mais n’apparaît pas sur le site.
-                      </p>
-                    </div>
-                  </div>
-
-                  <label className="admin-brochure-switch">
-                    <input
-                      type="checkbox"
-                      checked={
-                        form.isActive
-                      }
+                    <button
+                      type="button"
+                      className="admin-brochure-form__close"
                       disabled={
                         isSubmitting
                       }
-                      onChange={
-                        event =>
-                          updateFormField(
-                            'isActive',
-                            event
-                              .target
-                              .checked,
-                          )
+                      aria-label="Fermer le formulaire"
+                      onClick={
+                        closeForm
                       }
-                    />
+                    >
+                      <X
+                        size={
+                          21
+                        }
+                        aria-hidden="true"
+                      />
+                    </button>
+                  </div>
 
-                    <span className="admin-brochure-switch__track">
-                      <span />
-                    </span>
+                  <div className="admin-brochure-form__section">
+                    <div className="admin-brochure-form__section-heading">
+                      <span>
+                        1
+                      </span>
 
-                    <span className="admin-brochure-switch__copy">
+                      <div>
+                        <h3>
+                          Identification
+                        </h3>
+
+                        <p>
+                          Le nom interne est visible uniquement dans l’administration.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="admin-brochure-form__grid admin-brochure-form__grid--two">
+                      <label className="admin-brochure-field">
+                        <span>
+                          Nom interne
+
+                          <strong>
+                            *
+                          </strong>
+                        </span>
+
+                        <input
+                          type="text"
+                          value={
+                            form.internalName
+                          }
+                          maxLength={
+                            150
+                          }
+                          disabled={
+                            isSubmitting
+                          }
+                          placeholder="Ex. Campagne transformation digitale"
+                          onChange={
+                            event =>
+                              updateFormField(
+                                'internalName',
+                                event
+                                  .target
+                                  .value,
+                              )
+                          }
+                        />
+                      </label>
+
+                      <label className="admin-brochure-field">
+                        <span>
+                          Ordre d’affichage
+                        </span>
+
+                        <input
+                          type="number"
+                          min={
+                            0
+                          }
+                          step={
+                            1
+                          }
+                          value={
+                            form.sortOrder
+                          }
+                          disabled={
+                            isSubmitting
+                          }
+                          onChange={
+                            event =>
+                              updateFormField(
+                                'sortOrder',
+                                event
+                                  .target
+                                  .value,
+                              )
+                          }
+                        />
+
+                        <small>
+                          Tu pourras aussi ajuster l’ordre avec les flèches dans la liste.
+                        </small>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="admin-brochure-form__section">
+                    <div className="admin-brochure-form__section-heading">
+                      <span>
+                        2
+                      </span>
+
+                      <div>
+                        <h3>
+                          Images
+                        </h3>
+
+                        <p>
+                          Une seule image desktop française ou anglaise suffit. Les versions manquantes utiliseront automatiquement l’image disponible.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="admin-brochure-form__language-note">
                       <strong>
-                        Publier cette brochure
+                        Règle des langues
                       </strong>
 
-                      <small>
-                        Elle sera visible dans le carrousel de la page d’accueil.
-                      </small>
-                    </span>
-                  </label>
-                </div>
+                      <span>
+                        Français : priorité au visuel français.
+                      </span>
 
-                {
-                  validationError
-                    ? (
-                        <div
-                          className="admin-brochure-form__error"
-                          role="alert"
-                        >
-                          {
-                            validationError
+                      <span>
+                        Anglais et arabe : priorité au visuel anglais.
+                      </span>
+
+                      <span>
+                        En l’absence d’une version, le site réutilise automatiquement l’autre langue.
+                      </span>
+                    </div>
+
+                    <div className="admin-brochure-form__uploads">
+                      {
+                        IMAGE_FIELD_CONFIG.map(
+                          config => (
+                            <BrochureImageUpload
+                              key={
+                                config.field
+                              }
+                              config={
+                                config
+                              }
+                              file={
+                                files[
+                                  config.field
+                                ]
+                              }
+                              previewUrl={
+                                previews[
+                                  config.field
+                                ]
+                              }
+                              existingUrl={
+                                form[
+                                  config.formUrlField
+                                ]
+                              }
+                              crop={
+                                crops[
+                                  config.field
+                                ]
+                              }
+                              disabled={
+                                isSubmitting
+                              }
+                              onChange={
+                                handleFileChange
+                              }
+                              onClearSelection={
+                                clearSelectedFile
+                              }
+                              onEditCrop={
+                                openCropEditor
+                              }
+                            />
+                          ),
+                        )
+                      }
+                    </div>
+                  </div>
+
+                  <div className="admin-brochure-form__section">
+                    <div className="admin-brochure-form__section-heading">
+                      <span>
+                        3
+                      </span>
+
+                      <div>
+                        <h3>
+                          Accessibilité et SEO
+                        </h3>
+
+                        <p>
+                          Décris brièvement le contenu ou le message principal de la brochure.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="admin-brochure-form__grid admin-brochure-form__grid--two">
+                      <label className="admin-brochure-field">
+                        <span>
+                          Texte alternatif français
+                        </span>
+
+                        <input
+                          type="text"
+                          value={
+                            form.altTextFr
                           }
-                        </div>
-                      )
-                    : null
-                }
+                          maxLength={
+                            255
+                          }
+                          disabled={
+                            isSubmitting
+                          }
+                          placeholder="Ex. Simplifiez vos processus grâce à Axplify"
+                          onChange={
+                            event =>
+                              updateFormField(
+                                'altTextFr',
+                                event
+                                  .target
+                                  .value,
+                              )
+                          }
+                        />
 
-                <div className="admin-brochure-form__footer">
-                  <button
-                    type="button"
-                    className="admin-brochure-form__secondary"
-                    disabled={
-                      isSubmitting
-                    }
-                    onClick={
-                      closeForm
-                    }
-                  >
-                    Annuler
-                  </button>
+                        <small>
+                          Utilisé par les lecteurs d’écran et lorsque l’image ne peut pas être chargée.
+                        </small>
+                      </label>
 
-                  <button
-                    type="submit"
-                    className="admin-brochure-form__submit"
-                    disabled={
-                      isSubmitting
-                    }
-                  >
-                    {
-                      isSubmitting
-                        ? (
-                            <LoaderCircle
-                              size={
-                                18
-                              }
-                              className="admin-spinner"
-                              aria-hidden="true"
-                            />
-                          )
-                        : (
-                            <Save
-                              size={
-                                18
-                              }
-                              aria-hidden="true"
-                            />
-                          )
-                    }
+                      <label className="admin-brochure-field">
+                        <span>
+                          Texte alternatif anglais
+                        </span>
 
-                    {
-                      uploadingField
-                        ? 'Conversion et import de l’image…'
-                        : isSubmitting
-                          ? 'Enregistrement…'
-                          : editingBrochureId
-                            ? 'Enregistrer les modifications'
-                            : 'Créer la brochure'
-                    }
-                  </button>
-                </div>
-              </form>
-            )
-          : null
-      }
+                        <input
+                          type="text"
+                          value={
+                            form.altTextEn
+                          }
+                          maxLength={
+                            255
+                          }
+                          disabled={
+                            isSubmitting
+                          }
+                          placeholder="Ex. Simplify your processes with Axplify"
+                          onChange={
+                            event =>
+                              updateFormField(
+                                'altTextEn',
+                                event
+                                  .target
+                                  .value,
+                              )
+                          }
+                        />
 
-      <div className="admin-brochures__list-heading">
-        <div>
-          <h2>
-            Brochures enregistrées
-          </h2>
+                        <small>
+                          Ce texte sera aussi utilisé sur la version arabe lorsqu’aucun texte arabe spécifique n’existe.
+                        </small>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="admin-brochure-form__section">
+                    <div className="admin-brochure-form__section-heading">
+                      <span>
+                        4
+                      </span>
+
+                      <div>
+                        <h3>
+                          Lien cliquable
+                        </h3>
+
+                        <p>
+                          Cette partie est facultative. Toute la brochure deviendra cliquable lorsqu’un lien est renseigné.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="admin-brochure-form__grid admin-brochure-form__grid--link">
+                      <label className="admin-brochure-field">
+                        <span>
+                          URL de destination
+                        </span>
+
+                        <input
+                          type="url"
+                          value={
+                            form.linkUrl
+                          }
+                          disabled={
+                            isSubmitting
+                          }
+                          placeholder="https://www.exemple.com/page"
+                          onChange={
+                            event =>
+                              updateFormField(
+                                'linkUrl',
+                                event
+                                  .target
+                                  .value,
+                              )
+                          }
+                        />
+
+                        <small>
+                          Le lien doit commencer par http:// ou https://.
+                        </small>
+                      </label>
+
+                      <label className="admin-brochure-field">
+                        <span>
+                          Ouverture du lien
+                        </span>
+
+                        <select
+                          value={
+                            form.linkTarget
+                          }
+                          disabled={
+                            isSubmitting ||
+                            !form.linkUrl
+                              .trim()
+                          }
+                          onChange={
+                            event =>
+                              updateFormField(
+                                'linkTarget',
+                                event
+                                  .target
+                                  .value as
+                                  '_self' |
+                                  '_blank',
+                              )
+                          }
+                        >
+                          <option value="_self">
+                            Dans la même fenêtre
+                          </option>
+
+                          <option value="_blank">
+                            Dans un nouvel onglet
+                          </option>
+                        </select>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="admin-brochure-form__section">
+                    <div className="admin-brochure-form__section-heading">
+                      <span>
+                        5
+                      </span>
+
+                      <div>
+                        <h3>
+                          Publication
+                        </h3>
+
+                        <p>
+                          Une brochure inactive reste enregistrée, mais n’apparaît pas sur le site.
+                        </p>
+                      </div>
+                    </div>
+
+                    <label className="admin-brochure-switch">
+                      <input
+                        type="checkbox"
+                        checked={
+                          form.isActive
+                        }
+                        disabled={
+                          isSubmitting
+                        }
+                        onChange={
+                          event =>
+                            updateFormField(
+                              'isActive',
+                              event
+                                .target
+                                .checked,
+                            )
+                        }
+                      />
+
+                      <span className="admin-brochure-switch__track">
+                        <span />
+                      </span>
+
+                      <span className="admin-brochure-switch__copy">
+                        <strong>
+                          Publier cette brochure
+                        </strong>
+
+                        <small>
+                          Elle sera visible dans le carrousel de la page d’accueil.
+                        </small>
+                      </span>
+                    </label>
+                  </div>
+
+                  {
+                    validationError
+                      ? (
+                          <div
+                            className="admin-brochure-form__error"
+                            role="alert"
+                          >
+                            {
+                              validationError
+                            }
+                          </div>
+                        )
+                      : null
+                  }
+
+                  <div className="admin-brochure-form__footer">
+                    <button
+                      type="button"
+                      className="admin-brochure-form__secondary"
+                      disabled={
+                        isSubmitting
+                      }
+                      onClick={
+                        closeForm
+                      }
+                    >
+                      Annuler
+                    </button>
+
+                    <button
+                      type="submit"
+                      className="admin-brochure-form__submit"
+                      disabled={
+                        isSubmitting
+                      }
+                    >
+                      {
+                        isSubmitting
+                          ? (
+                              <LoaderCircle
+                                size={
+                                  18
+                                }
+                                className="admin-spinner"
+                                aria-hidden="true"
+                              />
+                            )
+                          : (
+                              <Save
+                                size={
+                                  18
+                                }
+                                aria-hidden="true"
+                              />
+                            )
+                      }
+
+                      {
+                        uploadingField
+                          ? 'Conversion et import de l’image…'
+                          : isSubmitting
+                            ? 'Enregistrement…'
+                            : editingBrochureId
+                              ? 'Enregistrer les modifications'
+                              : 'Créer la brochure'
+                      }
+                    </button>
+                  </div>
+                </form>
+              )
+            : null
+        }
+
+        <div className="admin-brochures__list-heading">
+          <div>
+            <h2>
+              Brochures enregistrées
+            </h2>
+
+            <p>
+              {
+                brochures.length
+              }
+
+              {
+                brochures.length >
+                1
+                  ? ' brochures'
+                  : ' brochure'
+              }
+            </p>
+          </div>
 
           <p>
-            {
-              brochures.length
-            }
-            {
-              brochures.length >
-              1
-                ? ' brochures'
-                : ' brochure'
-            }
+            La première brochure active de la liste est affichée en premier sur la page d’accueil.
           </p>
         </div>
 
-        <p>
-          La première brochure active de la liste est affichée en premier sur la page d’accueil.
-        </p>
-      </div>
-
-      {
-        isLoading
-          ? (
-              <div className="admin-brochures__loading">
-                <LoaderCircle
-                  size={
-                    30
-                  }
-                  className="admin-spinner"
-                  aria-hidden="true"
-                />
-
-                Chargement des brochures…
-              </div>
-            )
-          : brochures.length ===
-              0
+        {
+          isLoading
             ? (
-                <div className="admin-brochures__empty">
-                  <div>
-                    <Images
-                      size={
-                        34
-                      }
-                      aria-hidden="true"
-                    />
-                  </div>
-
-                  <h2>
-                    Aucune brochure
-                  </h2>
-
-                  <p>
-                    Ajoute le premier visuel qui accueillera les visiteurs dès leur arrivée sur le site.
-                  </p>
-
-                  <button
-                    type="button"
-                    onClick={
-                      openCreateForm
+                <div className="admin-brochures__loading">
+                  <LoaderCircle
+                    size={
+                      30
                     }
-                  >
-                    <Plus
-                      size={
-                        18
-                      }
-                      aria-hidden="true"
-                    />
+                    className="admin-spinner"
+                    aria-hidden="true"
+                  />
 
-                    Ajouter la première brochure
-                  </button>
+                  Chargement des brochures…
                 </div>
               )
-            : (
-                <div className="admin-brochures__list">
-                  {
-                    brochures.map(
-                      (
-                        brochure,
-                        index,
-                      ) => {
-                        const previewUrl =
-                          getPrimaryPreview(
-                            brochure,
-                          );
+            : brochures.length ===
+                0
+              ? (
+                  <div className="admin-brochures__empty">
+                    <div>
+                      <Images
+                        size={
+                          34
+                        }
+                        aria-hidden="true"
+                      />
+                    </div>
 
-                        const languageAvailability =
-                          getLanguageAvailability(
-                            brochure,
-                          );
+                    <h2>
+                      Aucune brochure
+                    </h2>
 
-                        const isReordering =
-                          reorderingId ===
-                          brochure.id;
+                    <p>
+                      Ajoute le premier visuel qui accueillera les visiteurs dès leur arrivée sur le site.
+                    </p>
 
-                        const isDeleting =
-                          deletingId ===
-                          brochure.id;
+                    <button
+                      type="button"
+                      onClick={
+                        openCreateForm
+                      }
+                    >
+                      <Plus
+                        size={
+                          18
+                        }
+                        aria-hidden="true"
+                      />
 
-                        return (
-                          <article
-                            key={
-                              brochure.id
-                            }
-                            className="admin-brochure-card"
-                            data-active={
-                              brochure.isActive
-                            }
-                          >
-                            <div className="admin-brochure-card__order">
-                              <strong>
-                                {
-                                  index +
-                                  1
-                                }
-                              </strong>
+                      Ajouter la première brochure
+                    </button>
+                  </div>
+                )
+              : (
+                  <div className="admin-brochures__list">
+                    {
+                      brochures.map(
+                        (
+                          brochure,
+                          index,
+                        ) => {
+                          const previewUrl =
+                            getPrimaryPreview(
+                              brochure,
+                            );
 
-                              <div>
-                                <button
-                                  type="button"
-                                  aria-label="Déplacer la brochure vers le haut"
-                                  disabled={
-                                    index ===
-                                      0 ||
-                                    Boolean(
-                                      reorderingId,
-                                    )
-                                  }
-                                  onClick={
-                                    () =>
-                                      void moveBrochure(
-                                        brochure.id,
-                                        'up',
-                                      )
-                                  }
-                                >
-                                  {
-                                    isReordering
-                                      ? (
-                                          <LoaderCircle
-                                            size={
-                                              17
-                                            }
-                                            className="admin-spinner"
-                                            aria-hidden="true"
-                                          />
-                                        )
-                                      : (
-                                          <ArrowUp
-                                            size={
-                                              17
-                                            }
-                                            aria-hidden="true"
-                                          />
-                                        )
-                                  }
-                                </button>
+                          const languageAvailability =
+                            getLanguageAvailability(
+                              brochure,
+                            );
 
-                                <button
-                                  type="button"
-                                  aria-label="Déplacer la brochure vers le bas"
-                                  disabled={
-                                    index ===
-                                      brochures.length -
-                                        1 ||
-                                    Boolean(
-                                      reorderingId,
-                                    )
-                                  }
-                                  onClick={
-                                    () =>
-                                      void moveBrochure(
-                                        brochure.id,
-                                        'down',
-                                      )
-                                  }
-                                >
-                                  <ArrowDown
-                                    size={
-                                      17
-                                    }
-                                    aria-hidden="true"
-                                  />
-                                </button>
-                              </div>
-                            </div>
+                          const isReordering =
+                            reorderingId ===
+                            brochure.id;
 
-                            <div className="admin-brochure-card__preview">
-                              {
-                                previewUrl
-                                  ? (
-                                      <img
-                                        src={
-                                          previewUrl
-                                        }
-                                        alt={
-                                          brochure
-                                            .altTextFr ??
-                                          brochure
-                                            .altTextEn ??
-                                          brochure
-                                            .internalName
-                                        }
-                                      />
-                                    )
-                                  : (
-                                      <Images
-                                        size={
-                                          32
-                                        }
-                                        aria-hidden="true"
-                                      />
-                                    )
+                          const isDeleting =
+                            deletingId ===
+                            brochure.id;
+
+                          return (
+                            <article
+                              key={
+                                brochure.id
                               }
+                              className="admin-brochure-card"
+                              data-active={
+                                brochure.isActive
+                              }
+                            >
+                              <div className="admin-brochure-card__order">
+                                <strong>
+                                  {
+                                    index +
+                                    1
+                                  }
+                                </strong>
 
-                              <span
-                                className="admin-brochure-card__status"
-                                data-active={
-                                  brochure.isActive
-                                }
-                              >
-                                {
-                                  brochure.isActive
-                                    ? 'Publiée'
-                                    : 'Masquée'
-                                }
-                              </span>
-                            </div>
-
-                            <div className="admin-brochure-card__content">
-                              <div className="admin-brochure-card__title">
                                 <div>
-                                  <h3>
-                                    {
-                                      brochure.internalName
-                                    }
-                                  </h3>
-
-                                  <p>
-                                    Modifiée le
-                                    {' '}
-                                    {
-                                      formatDate(
-                                        brochure.updatedAt,
+                                  <button
+                                    type="button"
+                                    aria-label="Déplacer la brochure vers le haut"
+                                    disabled={
+                                      index ===
+                                        0 ||
+                                      Boolean(
+                                        reorderingId,
                                       )
                                     }
-                                  </p>
-                                </div>
-
-                                <div className="admin-brochure-card__languages">
-                                  <span
-                                    data-available={
-                                      languageAvailability.fr
+                                    onClick={
+                                      () =>
+                                        void moveBrochure(
+                                          brochure.id,
+                                          'up',
+                                        )
                                     }
                                   >
-                                    FR
-                                  </span>
+                                    {
+                                      isReordering
+                                        ? (
+                                            <LoaderCircle
+                                              size={
+                                                17
+                                              }
+                                              className="admin-spinner"
+                                              aria-hidden="true"
+                                            />
+                                          )
+                                        : (
+                                            <ArrowUp
+                                              size={
+                                                17
+                                              }
+                                              aria-hidden="true"
+                                            />
+                                          )
+                                    }
+                                  </button>
 
-                                  <span
-                                    data-available={
-                                      languageAvailability.en
+                                  <button
+                                    type="button"
+                                    aria-label="Déplacer la brochure vers le bas"
+                                    disabled={
+                                      index ===
+                                        brochures.length -
+                                          1 ||
+                                      Boolean(
+                                        reorderingId,
+                                      )
+                                    }
+                                    onClick={
+                                      () =>
+                                        void moveBrochure(
+                                          brochure.id,
+                                          'down',
+                                        )
                                     }
                                   >
-                                    EN
-                                  </span>
-
-                                  <span
-                                    data-available={
-                                      languageAvailability.en
-                                    }
-                                  >
-                                    AR
-                                  </span>
+                                    <ArrowDown
+                                      size={
+                                        17
+                                      }
+                                      aria-hidden="true"
+                                    />
+                                  </button>
                                 </div>
                               </div>
 
-                              <div className="admin-brochure-card__details">
-                                <span>
-                                  Desktop FR :
-                                  {' '}
-                                  <strong>
-                                    {
-                                      brochure
-                                        .desktopImageFrUrl
-                                        ? 'oui'
-                                        : 'non'
-                                    }
-                                  </strong>
-                                </span>
-
-                                <span>
-                                  Mobile FR :
-                                  {' '}
-                                  <strong>
-                                    {
-                                      brochure
-                                        .mobileImageFrUrl
-                                        ? 'oui'
-                                        : 'repli automatique'
-                                    }
-                                  </strong>
-                                </span>
-
-                                <span>
-                                  Desktop EN :
-                                  {' '}
-                                  <strong>
-                                    {
-                                      brochure
-                                        .desktopImageEnUrl
-                                        ? 'oui'
-                                        : 'repli automatique'
-                                    }
-                                  </strong>
-                                </span>
-
-                                <span>
-                                  Mobile EN :
-                                  {' '}
-                                  <strong>
-                                    {
-                                      brochure
-                                        .mobileImageEnUrl
-                                        ? 'oui'
-                                        : 'repli automatique'
-                                    }
-                                  </strong>
-                                </span>
-                              </div>
-
-                              {
-                                brochure.linkUrl
-                                  ? (
-                                      <a
-                                        href={
-                                          brochure.linkUrl
-                                        }
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="admin-brochure-card__link"
-                                      >
-                                        <ExternalLink
+                              <div className="admin-brochure-card__preview">
+                                {
+                                  previewUrl
+                                    ? (
+                                        <img
+                                          src={
+                                            previewUrl
+                                          }
+                                          alt={
+                                            brochure
+                                              .altTextFr ??
+                                            brochure
+                                              .altTextEn ??
+                                            brochure
+                                              .internalName
+                                          }
+                                        />
+                                      )
+                                    : (
+                                        <Images
                                           size={
-                                            15
+                                            32
                                           }
                                           aria-hidden="true"
                                         />
+                                      )
+                                }
 
-                                        {
-                                          brochure.linkUrl
-                                        }
-                                      </a>
-                                    )
-                                  : (
-                                      <p className="admin-brochure-card__no-link">
-                                        Aucun lien cliquable
-                                      </p>
-                                    )
-                              }
-
-                              <div className="admin-brochure-card__actions">
-                                <button
-                                  type="button"
-                                  className="admin-brochure-card__publish"
+                                <span
+                                  className="admin-brochure-card__status"
                                   data-active={
                                     brochure.isActive
                                   }
-                                  disabled={
-                                    isDeleting
-                                  }
-                                  onClick={
-                                    () =>
-                                      void toggleActive(
-                                        brochure,
-                                      )
-                                  }
                                 >
-                                  <span />
-
                                   {
                                     brochure.isActive
-                                      ? 'Masquer'
-                                      : 'Publier'
+                                      ? 'Publiée'
+                                      : 'Masquée'
                                   }
-                                </button>
-
-                                <button
-                                  type="button"
-                                  className="admin-brochure-card__edit"
-                                  disabled={
-                                    isDeleting
-                                  }
-                                  onClick={
-                                    () =>
-                                      openEditForm(
-                                        brochure,
-                                      )
-                                  }
-                                >
-                                  <Pencil
-                                    size={
-                                      16
-                                    }
-                                    aria-hidden="true"
-                                  />
-
-                                  Modifier
-                                </button>
-
-                                <button
-                                  type="button"
-                                  className="admin-brochure-card__delete"
-                                  disabled={
-                                    isDeleting
-                                  }
-                                  onClick={
-                                    () =>
-                                      void handleDelete(
-                                        brochure,
-                                      )
-                                  }
-                                >
-                                  {
-                                    isDeleting
-                                      ? (
-                                          <LoaderCircle
-                                            size={
-                                              16
-                                            }
-                                            className="admin-spinner"
-                                            aria-hidden="true"
-                                          />
-                                        )
-                                      : (
-                                          <Trash2
-                                            size={
-                                              16
-                                            }
-                                            aria-hidden="true"
-                                          />
-                                        )
-                                  }
-
-                                  Supprimer
-                                </button>
+                                </span>
                               </div>
-                            </div>
-                          </article>
-                        );
-                      },
-                    )
-                  }
-                </div>
-              )
-      }
-    </section>
-  );
+
+                              <div className="admin-brochure-card__content">
+                                <div className="admin-brochure-card__title">
+                                  <div>
+                                    <h3>
+                                      {
+                                        brochure.internalName
+                                      }
+                                    </h3>
+
+                                    <p>
+                                      Modifiée le
+                                      {' '}
+
+                                      {
+                                        formatDate(
+                                          brochure.updatedAt,
+                                        )
+                                      }
+                                    </p>
+                                  </div>
+
+                                  <div className="admin-brochure-card__languages">
+                                    <span
+                                      data-available={
+                                        languageAvailability.fr
+                                      }
+                                    >
+                                      FR
+                                    </span>
+
+                                    <span
+                                      data-available={
+                                        languageAvailability.en
+                                      }
+                                    >
+                                      EN
+                                    </span>
+
+                                    <span
+                                      data-available={
+                                        languageAvailability.en
+                                      }
+                                    >
+                                      AR
+                                    </span>
+                                  </div>
+                                </div>
+
+                                <div className="admin-brochure-card__details">
+                                  <span>
+                                    Desktop FR :
+                                    {' '}
+
+                                    <strong>
+                                      {
+                                        brochure
+                                          .desktopImageFrUrl
+                                          ? 'oui'
+                                          : 'non'
+                                      }
+                                    </strong>
+                                  </span>
+
+                                  <span>
+                                    Mobile FR :
+                                    {' '}
+
+                                    <strong>
+                                      {
+                                        brochure
+                                          .mobileImageFrUrl
+                                          ? 'oui'
+                                          : 'repli automatique'
+                                      }
+                                    </strong>
+                                  </span>
+
+                                  <span>
+                                    Desktop EN :
+                                    {' '}
+
+                                    <strong>
+                                      {
+                                        brochure
+                                          .desktopImageEnUrl
+                                          ? 'oui'
+                                          : 'repli automatique'
+                                      }
+                                    </strong>
+                                  </span>
+
+                                  <span>
+                                    Mobile EN :
+                                    {' '}
+
+                                    <strong>
+                                      {
+                                        brochure
+                                          .mobileImageEnUrl
+                                          ? 'oui'
+                                          : 'repli automatique'
+                                      }
+                                    </strong>
+                                  </span>
+                                </div>
+
+                                {
+                                  brochure.linkUrl
+                                    ? (
+                                        <a
+                                          href={
+                                            brochure.linkUrl
+                                          }
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          className="admin-brochure-card__link"
+                                        >
+                                          <ExternalLink
+                                            size={
+                                              15
+                                            }
+                                            aria-hidden="true"
+                                          />
+
+                                          {
+                                            brochure.linkUrl
+                                          }
+                                        </a>
+                                      )
+                                    : (
+                                        <p className="admin-brochure-card__no-link">
+                                          Aucun lien cliquable
+                                        </p>
+                                      )
+                                }
+
+                                <div className="admin-brochure-card__actions">
+                                  <button
+                                    type="button"
+                                    className="admin-brochure-card__publish"
+                                    data-active={
+                                      brochure.isActive
+                                    }
+                                    disabled={
+                                      isDeleting
+                                    }
+                                    onClick={
+                                      () =>
+                                        void toggleActive(
+                                          brochure,
+                                        )
+                                    }
+                                  >
+                                    <span />
+
+                                    {
+                                      brochure.isActive
+                                        ? 'Masquer'
+                                        : 'Publier'
+                                    }
+                                  </button>
+
+                                  <button
+                                    type="button"
+                                    className="admin-brochure-card__edit"
+                                    disabled={
+                                      isDeleting
+                                    }
+                                    onClick={
+                                      () =>
+                                        openEditForm(
+                                          brochure,
+                                        )
+                                    }
+                                  >
+                                    <Pencil
+                                      size={
+                                        16
+                                      }
+                                      aria-hidden="true"
+                                    />
+
+                                    Modifier
+                                  </button>
+
+                                  <button
+                                    type="button"
+                                    className="admin-brochure-card__delete"
+                                    disabled={
+                                      isDeleting
+                                    }
+                                    onClick={
+                                      () =>
+                                        void handleDelete(
+                                          brochure,
+                                        )
+                                    }
+                                  >
+                                    {
+                                      isDeleting
+                                        ? (
+                                            <LoaderCircle
+                                              size={
+                                                16
+                                              }
+                                              className="admin-spinner"
+                                              aria-hidden="true"
+                                            />
+                                          )
+                                        : (
+                                            <Trash2
+                                              size={
+                                                16
+                                              }
+                                              aria-hidden="true"
+                                            />
+                                          )
+                                    }
+
+                                    Supprimer
+                                  </button>
+                                </div>
+                              </div>
+                            </article>
+                          );
+                        },
+                      )
+                    }
+                  </div>
+                )
+        }
+      </section>
+
       {
-        cropEditor
+        cropEditor &&
+        cropEditorConfig
           ? (
               <BrochureImageCropModal
                 isOpen={
@@ -3374,20 +3426,10 @@ export function HomepageBrochuresManager() {
                   cropEditor.imageUrl
                 }
                 imageLabel={
-                  IMAGE_FIELD_CONFIG.find(
-                    item =>
-                      item.field ===
-                      cropEditor.field,
-                  )?.label ??
-                  'Image de la brochure'
+                  cropEditorConfig.label
                 }
                 format={
-                  IMAGE_FIELD_CONFIG.find(
-                    item =>
-                      item.field ===
-                      cropEditor.field,
-                  )?.format ??
-                  'desktop'
+                  cropEditorConfig.format
                 }
                 initialCrop={
                   cropEditor.crop
@@ -3402,5 +3444,6 @@ export function HomepageBrochuresManager() {
             )
           : null
       }
-
+    </>
+  );
 }

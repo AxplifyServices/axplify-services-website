@@ -517,8 +517,8 @@ export class AuthService {
                   .users
                   .email,
 
-              event_type:
-                'REFRESH',
+event_type:
+  'REFRESH_TOKEN',
 
               success:
                 true,
@@ -720,8 +720,8 @@ export class AuthService {
               email:
                 user.email,
 
-              event_type:
-                'PASSWORD_CHANGED',
+event_type:
+  'PASSWORD_CHANGE',
 
               success:
                 true,
