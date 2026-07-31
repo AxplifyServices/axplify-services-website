@@ -3,16 +3,21 @@ import type {
 } from 'next';
 
 import {
+  getTranslations,
   setRequestLocale,
 } from 'next-intl/server';
 
 import {
-  PagePlaceholder,
-} from '@/components/common/page-placeholder';
+  HomeBrochureCarousel,
+} from '@/components/home/home-brochure-carousel';
 
 import type {
   AppLocale,
 } from '@/i18n/routing';
+
+import {
+  getPublicHomepageBrochures,
+} from '@/lib/homepage-brochures-api';
 
 import {
   createPageMetadata,
@@ -53,7 +58,43 @@ export default async function HomePage({
     locale,
   );
 
+  const [
+    brochures,
+    t,
+  ] =
+    await Promise.all([
+      getPublicHomepageBrochures(
+        locale,
+      ),
+
+      getTranslations({
+        locale,
+
+        namespace:
+          'pages.home.brochures',
+      }),
+    ]);
+
   return (
-    <PagePlaceholder namespace="home" />
+    <HomeBrochureCarousel
+      brochures={
+        brochures
+      }
+      previousLabel={
+        t(
+          'previous',
+        )
+      }
+      nextLabel={
+        t(
+          'next',
+        )
+      }
+      goToSlideLabel={
+        t(
+          'goToSlide',
+        )
+      }
+    />
   );
 }

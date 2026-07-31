@@ -37,7 +37,12 @@
       "seo": {
         "title": "Transformation digitale, IA et Data",
         "description": "Axplify Services accompagne les entreprises dans la simplification de leurs processus, la valorisation de leurs données et le développement de solutions digitales adaptées."
-      }
+      },
+      "brochures": {
+  "previous": "Previous brochure",
+  "next": "Next brochure",
+  "goToSlide": "Show brochure"
+}
     },
     "services": {
       "eyebrow": "Expertises",

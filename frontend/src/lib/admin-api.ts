@@ -106,19 +106,22 @@ async function request<T>(
         credentials:
           'include',
 
-        headers: {
-          Accept:
+headers: {
+  Accept:
+    'application/json',
+
+  ...(
+    options.body &&
+    !(options.body instanceof FormData)
+      ? {
+          'Content-Type':
             'application/json',
+        }
+      : {}
+  ),
 
-          ...(options.body
-            ? {
-                'Content-Type':
-                  'application/json',
-              }
-            : {}),
-
-          ...options.headers,
-        },
+  ...options.headers,
+},
       },
     );
 

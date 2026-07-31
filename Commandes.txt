@@ -2,6 +2,7 @@ serv :ssh ubuntu@51.75.252.139
 Code serveur : zitanezac
 
 cd OneDrive\Bureau\Projet Dev\Axplify Service Website
+
 ** Lancer le code 
 
 Code .
@@ -14,7 +15,7 @@ psql -U postgres
 
 ** Execution d'un script 
 
-psql -U postgres -d axplify_db -f "database\migrations\001_create_users_and_auth_foundation.sql
+psql -U postgres -d axplify_db -f "database\migrations\002_create_homepage_brochures.sql
 
 cd /opt/apps/hire/repo
 

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import {
   ChevronLeft,
   ChevronRight,
+  Images,
   LayoutDashboard,
   LogOut,
   Menu,
@@ -13,6 +14,7 @@ import {
 } from 'lucide-react';
 
 import {
+  usePathname,
   useRouter,
 } from 'next/navigation';
 
@@ -39,6 +41,9 @@ export function AdminShell({
 }) {
   const router =
     useRouter();
+
+const pathname =
+  usePathname();    
 
   const {
     user,
@@ -274,33 +279,67 @@ export function AdminShell({
             className="admin-sidebar__nav"
             aria-label="Navigation de l’administration"
           >
-            <Link
-              href="/admin"
-              className="admin-sidebar__link"
-              data-active="true"
-              title={
-                isSidebarCollapsed
-                  ? 'Tableau de bord'
-                  : undefined
-              }
-              onClick={
-                () =>
-                  setIsMobileMenuOpen(
-                    false,
-                  )
-              }
-            >
-              <LayoutDashboard
-                size={
-                  20
-                }
-                aria-hidden="true"
-              />
+<Link
+  href="/admin"
+  className="admin-sidebar__link"
+  data-active={
+    pathname ===
+    '/admin'
+  }
+  title={
+    isSidebarCollapsed
+      ? 'Tableau de bord'
+      : undefined
+  }
+  onClick={
+    () =>
+      setIsMobileMenuOpen(
+        false,
+      )
+  }
+>
+  <LayoutDashboard
+    size={
+      20
+    }
+    aria-hidden="true"
+  />
 
-              <span>
-                Tableau de bord
-              </span>
-            </Link>
+  <span>
+    Tableau de bord
+  </span>
+</Link>
+
+<Link
+  href="/admin/brochures"
+  className="admin-sidebar__link"
+  data-active={
+    pathname ===
+    '/admin/brochures'
+  }
+  title={
+    isSidebarCollapsed
+      ? 'Brochures'
+      : undefined
+  }
+  onClick={
+    () =>
+      setIsMobileMenuOpen(
+        false,
+      )
+  }
+>
+  <Images
+    size={
+      20
+    }
+    aria-hidden="true"
+  />
+
+  <span>
+    Brochures
+  </span>
+</Link>
           </nav>
         </div>
 

@@ -1752,3 +1752,2003 @@ html[dir="rtl"] .site-footer__link svg {
     animation-iteration-count: 1 !important;
   }
 }
+
+/* Home brochure carousel */
+
+.home-brochure {
+  position: relative;
+
+  width: 100%;
+  height:
+    calc(
+      100svh -
+      var(--header-height)
+    );
+  min-height: 24rem;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(28, 182, 220, 0.1),
+      transparent 34rem
+    ),
+    #ffffff;
+
+  isolation: isolate;
+}
+
+.home-brochure__viewport,
+.home-brochure__slide,
+.home-brochure__link,
+.home-brochure__picture {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+}
+
+.home-brochure__slide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transform:
+    scale(
+      1.008
+    );
+
+  transition:
+    opacity
+    520ms
+    ease,
+    visibility
+    0s
+    linear
+    520ms,
+    transform
+    700ms
+    ease;
+}
+
+.home-brochure__slide[data-active="true"] {
+  z-index: 1;
+
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+
+  transform:
+    scale(
+      1
+    );
+
+  transition:
+    opacity
+    520ms
+    ease,
+    visibility
+    0s
+    linear
+    0s,
+    transform
+    700ms
+    ease;
+}
+
+.home-brochure__link {
+  display: block;
+  cursor: pointer;
+}
+
+.home-brochure__link--static {
+  cursor: default;
+}
+
+.home-brochure__picture {
+  display: grid;
+  place-items: center;
+}
+
+.home-brochure__image {
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+  object-position: center;
+
+  user-select: none;
+}
+
+.home-brochure__arrow {
+  position: absolute;
+  z-index: 4;
+  top: 50%;
+
+  width: 2.8rem;
+  height: 2.8rem;
+
+  display: grid;
+  place-items: center;
+
+  cursor: pointer;
+
+  border:
+    1px solid
+    rgba(5, 38, 79, 0.12);
+  border-radius: 999px;
+
+  background:
+    rgba(255, 255, 255, 0.88);
+  color:
+    var(--axplify-navy);
+
+  box-shadow:
+    0 12px 30px
+    rgba(5, 38, 79, 0.14);
+
+  backdrop-filter:
+    blur(
+      12px
+    );
+
+  transform:
+    translateY(
+      -50%
+    );
+
+  transition:
+    background-color
+    160ms
+    ease,
+    color
+    160ms
+    ease,
+    transform
+    160ms
+    ease;
+}
+
+.home-brochure__arrow:hover {
+  background:
+    var(--axplify-navy);
+  color: #ffffff;
+}
+
+.home-brochure__arrow:active {
+  transform:
+    translateY(
+      -50%
+    )
+    scale(
+      0.94
+    );
+}
+
+.home-brochure__arrow--previous {
+  inset-inline-start:
+    1rem;
+}
+
+.home-brochure__arrow--next {
+  inset-inline-end:
+    1rem;
+}
+
+html[dir="rtl"]
+.home-brochure__arrow svg {
+  transform:
+    rotate(
+      180deg
+    );
+}
+
+.home-brochure__dots {
+  position: absolute;
+  z-index: 4;
+
+  inset-inline:
+    0;
+
+  bottom:
+    max(
+      1rem,
+      env(
+        safe-area-inset-bottom
+      )
+    );
+
+  display: flex;
+  justify-content: center;
+  gap: 0.45rem;
+
+  pointer-events: none;
+}
+
+.home-brochure__dot {
+  width: 0.55rem;
+  height: 0.55rem;
+
+  cursor: pointer;
+  pointer-events: auto;
+
+  border:
+    1px solid
+    rgba(5, 38, 79, 0.2);
+  border-radius: 999px;
+
+  background:
+    rgba(255, 255, 255, 0.86);
+
+  box-shadow:
+    0 3px 10px
+    rgba(5, 38, 79, 0.15);
+
+  transition:
+    width
+    180ms
+    ease,
+    background-color
+    180ms
+    ease;
+}
+
+.home-brochure__dot[data-active="true"] {
+  width: 1.8rem;
+  background:
+    var(--axplify-cyan);
+}
+
+@media (max-width: 767px) {
+  .home-brochure__arrow {
+    width: 2.55rem;
+    height: 2.55rem;
+  }
+
+  .home-brochure__arrow--previous {
+    inset-inline-start:
+      0.65rem;
+  }
+
+  .home-brochure__arrow--next {
+    inset-inline-end:
+      0.65rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-brochure__slide {
+    transition: none;
+  }
+}
+
+/* =========================================================
+   GESTION DES BROCHURES
+   ========================================================= */
+
+.admin-brochures {
+  width: 100%;
+  max-width: 94rem;
+  margin-inline: auto;
+}
+
+.admin-brochures__header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+
+  margin-bottom: 1.5rem;
+}
+
+.admin-brochures__eyebrow {
+  margin:
+    0
+    0
+    0.35rem;
+
+  color:
+    var(
+      --axplify-cyan
+    );
+
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.admin-brochures__header h1 {
+  margin: 0;
+
+  color:
+    var(
+      --axplify-navy
+    );
+
+  font-size:
+    clamp(
+      1.8rem,
+      4vw,
+      2.65rem
+    );
+
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+}
+
+.admin-brochures__description {
+  max-width: 46rem;
+
+  margin:
+    0.65rem
+    0
+    0;
+
+  color:
+    var(
+      --axplify-muted
+    );
+
+  font-size: 0.87rem;
+  line-height: 1.7;
+}
+
+.admin-brochures__create {
+  min-height: 3rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+
+  border: 0;
+  border-radius: 0.95rem;
+
+  padding:
+    0.75rem
+    1.1rem;
+
+  cursor: pointer;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--axplify-violet),
+      var(--axplify-violet-dark)
+    );
+
+  color: #ffffff;
+
+  box-shadow:
+    0 14px 30px
+    rgba(109, 67, 212, 0.2);
+
+  font-size: 0.8rem;
+  font-weight: 850;
+
+  transition:
+    transform
+    160ms
+    ease,
+    box-shadow
+    160ms
+    ease;
+}
+
+.admin-brochures__create:hover {
+  transform:
+    translateY(
+      -2px
+    );
+
+  box-shadow:
+    0 18px 35px
+    rgba(109, 67, 212, 0.26);
+}
+
+.admin-brochures__create:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.admin-brochures__feedback {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  margin-bottom: 1.25rem;
+
+  border:
+    1px solid
+    transparent;
+  border-radius: 1rem;
+
+  padding:
+    0.85rem
+    1rem;
+
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+.admin-brochures__feedback[data-type="success"] {
+  border-color:
+    rgba(28, 150, 104, 0.2);
+
+  background:
+    rgba(28, 150, 104, 0.08);
+
+  color: #147650;
+}
+
+.admin-brochures__feedback[data-type="error"] {
+  border-color:
+    rgba(200, 63, 75, 0.2);
+
+  background:
+    rgba(200, 63, 75, 0.07);
+
+  color: #b52f3c;
+}
+
+.admin-brochures__feedback button {
+  width: 2rem;
+  height: 2rem;
+
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+
+  border: 0;
+  border-radius: 999px;
+
+  cursor: pointer;
+
+  background: transparent;
+  color: inherit;
+}
+
+.admin-brochures__feedback button:hover {
+  background:
+    rgba(255, 255, 255, 0.6);
+}
+
+/* Formulaire */
+
+.admin-brochure-form {
+  overflow: hidden;
+
+  margin-bottom: 2rem;
+
+  border:
+    1px solid
+    rgba(5, 38, 79, 0.09);
+  border-radius: 1.5rem;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 24px 60px
+    rgba(5, 38, 79, 0.09);
+}
+
+.admin-brochure-form__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+
+  padding:
+    1.25rem;
+
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(28, 182, 220, 0.15),
+      transparent 24rem
+    ),
+    linear-gradient(
+      145deg,
+      #f7fbfe,
+      #ffffff
+    );
+}
+
+.admin-brochure-form__header p {
+  margin:
+    0
+    0
+    0.3rem;
+
+  color:
+    var(
+      --axplify-cyan
+    );
+
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.admin-brochure-form__header h2 {
+  margin: 0;
+
+  color:
+    var(
+      --axplify-navy
+    );
+
+  font-size:
+    clamp(
+      1.2rem,
+      3vw,
+      1.55rem
+    );
+
+  letter-spacing: -0.03em;
+}
+
+.admin-brochure-form__close {
+  width: 2.5rem;
+  height: 2.5rem;
+
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+
+  border:
+    1px solid
+    rgba(5, 38, 79, 0.08);
+  border-radius: 999px;
+
+  cursor: pointer;
+
+  background:
+    rgba(255, 255, 255, 0.88);
+
+  color:
+    var(
+      --axplify-navy
+    );
+}
+
+.admin-brochure-form__close:hover {
+  background:
+    var(
+      --axplify-navy
+    );
+
+  color: #ffffff;
+}
+
+.admin-brochure-form__section {
+  padding:
+    1.25rem;
+
+  border-top:
+    1px solid
+    rgba(5, 38, 79, 0.07);
+}
+
+.admin-brochure-form__section-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+
+  margin-bottom: 1.15rem;
+}
+
+.admin-brochure-form__section-heading > span {
+  width: 2rem;
+  height: 2rem;
+
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+
+  border-radius: 0.7rem;
+
+  background:
+    var(
+      --axplify-violet-soft
+    );
+
+  color:
+    var(
+      --axplify-violet
+    );
+
+  font-size: 0.75rem;
+  font-weight: 950;
+}
+
+.admin-brochure-form__section-heading h3 {
+  margin: 0;
+
+  color:
+    var(
+      --axplify-navy
+    );
+
+  font-size: 1rem;
+}
+
+.admin-brochure-form__section-heading p {
+  margin:
+    0.28rem
+    0
+    0;
+
+  color:
+    var(
+      --axplify-muted
+    );
+
+  font-size: 0.75rem;
+  line-height: 1.55;
+}
+
+.admin-brochure-form__grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.admin-brochure-field {
+  display: grid;
+  gap: 0.48rem;
+}
+
+.admin-brochure-field > span {
+  color:
+    var(
+      --axplify-navy
+    );
+
+  font-size: 0.76rem;
+  font-weight: 850;
+}
+
+.admin-brochure-field > span strong {
+  margin-inline-start: 0.2rem;
+  color: #c83f4b;
+}
+
+.admin-brochure-field input,
+.admin-brochure-field select {
+  width: 100%;
+  min-height: 3.05rem;
+
+  border:
+    1px solid
+    var(
+      --axplify-border
+    );
+  border-radius: 0.9rem;
+
+  outline: 0;
+
+  padding:
+    0.7rem
+    0.9rem;
+
+  background: #ffffff;
+
+  color:
+    var(
+      --axplify-text
+    );
+
+  font: inherit;
+  font-size: 0.8rem;
+
+  transition:
+    border-color
+    160ms
+    ease,
+    box-shadow
+    160ms
+    ease;
+}
+
+.admin-brochure-field input:focus,
+.admin-brochure-field select:focus {
+  border-color:
+    rgba(28, 182, 220, 0.9);
+
+  box-shadow:
+    0 0 0 4px
+    rgba(28, 182, 220, 0.11);
+}
+
+.admin-brochure-field input:disabled,
+.admin-brochure-field select:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.admin-brochure-field small {
+  color:
+    var(
+      --axplify-muted
+    );
+
+  font-size: 0.68rem;
+  line-height: 1.5;
+}
+
+.admin-brochure-form__language-note {
+  display: flex;
+  flex-wrap: wrap;
+  gap:
+    0.45rem
+    1rem;
+
+  margin-bottom: 1.1rem;
+
+  border:
+    1px solid
+    rgba(28, 182, 220, 0.14);
+  border-radius: 1rem;
+
+  padding:
+    0.8rem
+    0.95rem;
+
+  background:
+    rgba(28, 182, 220, 0.055);
+
+  color:
+    var(
+      --axplify-muted
+    );
+
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+
+.admin-brochure-form__language-note strong {
+  width: 100%;
+  color:
+    var(
+      --axplify-navy
+    );
+
+  font-size: 0.73rem;
+}
+
+.admin-brochure-form__uploads {
+  display: grid;
+  gap: 1rem;
+}
+
+/* Zones d'import */
+
+.admin-brochure-upload {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(5, 38, 79, 0.09);
+  border-radius: 1.15rem;
+
+  background:
+    #fbfdff;
+}
+
+.admin-brochure-upload__heading {
+  padding:
+    1rem;
+}
+
+.admin-brochure-upload__badges {
+  display: flex;
+  gap: 0.38rem;
+
+  margin-bottom: 0.65rem;
+}
+
+.admin-brochure-upload__badges span {
+  display: inline-flex;
+
+  border-radius: 999px;
+
+  padding:
+    0.28rem
+    0.55rem;
+
+  background:
+    var(
+      --axplify-violet-soft
+    );
+
+  color:
+    var(
+      --axplify-violet
+    );
+
+  font-size: 0.6rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.admin-brochure-upload__badges span:last-child {
+  background:
+    rgba(28, 182, 220, 0.1);
+
+  color:
+    #087f9e;
+}
+
+.admin-brochure-upload__heading h3 {
+  margin: 0;
+
+  color:
+    var(
+      --axplify-navy
+    );
+
+  font-size: 0.86rem;
+}
+
+.admin-brochure-upload__heading p {
+  margin:
+    0.35rem
+    0
+    0;
+
+  color:
+    var(
+      --axplify-muted
+    );
+
+  font-size: 0.69rem;
+  line-height: 1.5;
+}
+
+.admin-brochure-upload__preview {
+  position: relative;
+
+  display: grid;
+  place-items: center;
+
+  overflow: hidden;
+
+  margin-inline: 1rem;
+
+  border:
+    1px dashed
+    rgba(5, 38, 79, 0.17);
+  border-radius: 0.9rem;
+
+  background:
+    linear-gradient(
+      135deg,
+      #edf5fa,
+      #f8fbfd
+    );
+}
+
+.admin-brochure-upload__preview[data-format="desktop"] {
+  aspect-ratio:
+    16 /
+    8;
+}
+
+.admin-brochure-upload__preview[data-format="mobile"] {
+  width: min(
+    calc(100% - 2rem),
+    13rem
+  );
+
+  align-self: center;
+
+  aspect-ratio:
+    9 /
+    14;
+
+  margin-inline: auto;
+}
+
+.admin-brochure-upload__preview img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+  object-position: center;
+
+  background: #ffffff;
+}
+
+.admin-brochure-upload__empty {
+  display: grid;
+  justify-items: center;
+  gap: 0.55rem;
+
+  padding: 1rem;
+
+  color: #8094a7;
+
+  text-align: center;
+}
+
+.admin-brochure-upload__empty span {
+  font-size: 0.7rem;
+  font-weight: 750;
+}
+
+.admin-brochure-upload__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+
+  padding:
+    0.9rem
+    1rem
+    0;
+}
+
+.admin-brochure-upload__button,
+.admin-brochure-upload__cancel {
+  min-height: 2.55rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+
+  border-radius: 0.8rem;
+
+  padding:
+    0.55rem
+    0.8rem;
+
+  font-size: 0.7rem;
+  font-weight: 850;
+}
+
+.admin-brochure-upload__button {
+  cursor: pointer;
+
+  background:
+    var(
+      --axplify-navy
+    );
+
+  color: #ffffff;
+}
+
+.admin-brochure-upload__button:hover {
+  background:
+    var(
+      --axplify-violet
+    );
+}
+
+.admin-brochure-upload__button[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.admin-brochure-upload__cancel {
+  border:
+    1px solid
+    var(
+      --axplify-border
+    );
+
+  cursor: pointer;
+
+  background: #ffffff;
+
+  color:
+    var(
+      --axplify-muted
+    );
+}
+
+.admin-brochure-upload__file,
+.admin-brochure-upload__recommendation {
+  min-height: 3.2rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+
+  margin:
+    0;
+
+  padding:
+    0.65rem
+    1rem
+    1rem;
+
+  color:
+    var(
+      --axplify-muted
+    );
+
+  font-size: 0.65rem;
+  line-height: 1.45;
+}
+
+.admin-brochure-upload__file strong {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  color:
+    var(
+      --axplify-navy
+    );
+}
+
+.admin-brochure-upload__file span:last-child {
+  color: #147650;
+  font-weight: 750;
+}
+
+/* Switch publication */
+
+.admin-brochure-switch {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+
+  cursor: pointer;
+}
+
+.admin-brochure-switch input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+
+  overflow: hidden;
+
+  opacity: 0;
+}
+
+.admin-brochure-switch__track {
+  width: 3rem;
+  height: 1.65rem;
+
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+
+  border-radius: 999px;
+
+  padding: 0.2rem;
+
+  background: #c9d4de;
+
+  transition:
+    background-color
+    160ms
+    ease;
+}
+
+.admin-brochure-switch__track > span {
+  width: 1.25rem;
+  height: 1.25rem;
+
+  border-radius: 999px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 3px 8px
+    rgba(5, 38, 79, 0.18);
+
+  transform:
+    translateX(
+      0
+    );
+
+  transition:
+    transform
+    180ms
+    ease;
+}
+
+.admin-brochure-switch input:checked +
+.admin-brochure-switch__track {
+  background:
+    var(
+      --axplify-cyan
+    );
+}
+
+.admin-brochure-switch input:checked +
+.admin-brochure-switch__track > span {
+  transform:
+    translateX(
+      1.35rem
+    );
+}
+
+.admin-brochure-switch__copy {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.admin-brochure-switch__copy strong {
+  color:
+    var(
+      --axplify-navy
+    );
+
+  font-size: 0.78rem;
+}
+
+.admin-brochure-switch__copy small {
+  color:
+    var(
+      --axplify-muted
+    );
+
+  font-size: 0.68rem;
+  line-height: 1.45;
+}
+
+.admin-brochure-form__error {
+  margin:
+    0
+    1.25rem
+    1.25rem;
+
+  border:
+    1px solid
+    rgba(200, 63, 75, 0.2);
+  border-radius: 0.9rem;
+
+  padding:
+    0.75rem
+    0.9rem;
+
+  background:
+    rgba(200, 63, 75, 0.07);
+
+  color: #b52f3c;
+
+  font-size: 0.73rem;
+  font-weight: 750;
+  line-height: 1.5;
+}
+
+.admin-brochure-form__footer {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 0.65rem;
+
+  padding:
+    1rem
+    1.25rem;
+
+  border-top:
+    1px solid
+    rgba(5, 38, 79, 0.07);
+
+  background: #f8fbfd;
+}
+
+.admin-brochure-form__secondary,
+.admin-brochure-form__submit {
+  min-height: 3rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  border-radius: 0.9rem;
+
+  padding:
+    0.7rem
+    1rem;
+
+  cursor: pointer;
+
+  font-size: 0.75rem;
+  font-weight: 850;
+}
+
+.admin-brochure-form__secondary {
+  border:
+    1px solid
+    var(
+      --axplify-border
+    );
+
+  background: #ffffff;
+
+  color:
+    var(
+      --axplify-navy
+    );
+}
+
+.admin-brochure-form__submit {
+  border: 0;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--axplify-violet),
+      var(--axplify-violet-dark)
+    );
+
+  color: #ffffff;
+
+  box-shadow:
+    0 14px 30px
+    rgba(109, 67, 212, 0.2);
+}
+
+.admin-brochure-form__secondary:disabled,
+.admin-brochure-form__submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+/* Liste */
+
+.admin-brochures__list-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+
+  margin:
+    2rem
+    0
+    1rem;
+}
+
+.admin-brochures__list-heading h2 {
+  margin: 0;
+
+  color:
+    var(
+      --axplify-navy
+    );
+
+  font-size: 1.1rem;
+}
+
+.admin-brochures__list-heading div p,
+.admin-brochures__list-heading > p {
+  margin:
+    0.25rem
+    0
+    0;
+
+  color:
+    var(
+      --axplify-muted
+    );
+
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+
+.admin-brochures__loading,
+.admin-brochures__empty {
+  min-height: 21rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+
+  border:
+    1px dashed
+    rgba(5, 38, 79, 0.18);
+  border-radius: 1.4rem;
+
+  background:
+    rgba(255, 255, 255, 0.7);
+
+  color:
+    var(
+      --axplify-muted
+    );
+
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+.admin-brochures__empty {
+  flex-direction: column;
+
+  padding: 2rem;
+
+  text-align: center;
+}
+
+.admin-brochures__empty > div {
+  width: 4.4rem;
+  height: 4.4rem;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 1.3rem;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--axplify-cyan),
+      var(--axplify-violet)
+    );
+
+  color: #ffffff;
+
+  box-shadow:
+    0 18px 35px
+    rgba(28, 182, 220, 0.2);
+}
+
+.admin-brochures__empty h2 {
+  margin:
+    0.5rem
+    0
+    0;
+
+  color:
+    var(
+      --axplify-navy
+    );
+
+  font-size: 1.2rem;
+}
+
+.admin-brochures__empty p {
+  max-width: 30rem;
+
+  margin: 0;
+
+  font-size: 0.76rem;
+  font-weight: 500;
+  line-height: 1.65;
+}
+
+.admin-brochures__empty button {
+  min-height: 2.8rem;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  border: 0;
+  border-radius: 0.85rem;
+
+  padding:
+    0.65rem
+    0.95rem;
+
+  cursor: pointer;
+
+  background:
+    var(
+      --axplify-navy
+    );
+
+  color: #ffffff;
+
+  font-size: 0.72rem;
+  font-weight: 850;
+}
+
+.admin-brochures__list {
+  display: grid;
+  gap: 1rem;
+}
+
+.admin-brochure-card {
+  display: grid;
+  gap: 0;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(5, 38, 79, 0.09);
+  border-radius: 1.25rem;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 14px 35px
+    rgba(5, 38, 79, 0.055);
+
+  transition:
+    border-color
+    160ms
+    ease,
+    box-shadow
+    160ms
+    ease,
+    transform
+    160ms
+    ease;
+}
+
+.admin-brochure-card:hover {
+  border-color:
+    rgba(28, 182, 220, 0.23);
+
+  box-shadow:
+    0 20px 45px
+    rgba(5, 38, 79, 0.09);
+}
+
+.admin-brochure-card[data-active="false"] {
+  background: #f8fafc;
+}
+
+.admin-brochure-card__order {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding:
+    0.65rem
+    0.8rem;
+
+  border-bottom:
+    1px solid
+    rgba(5, 38, 79, 0.07);
+
+  background:
+    #f6f9fc;
+}
+
+.admin-brochure-card__order strong {
+  width: 2rem;
+  height: 2rem;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 0.65rem;
+
+  background: #ffffff;
+
+  color:
+    var(
+      --axplify-navy
+    );
+
+  box-shadow:
+    0 4px 12px
+    rgba(5, 38, 79, 0.07);
+
+  font-size: 0.7rem;
+}
+
+.admin-brochure-card__order > div {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.admin-brochure-card__order button {
+  width: 2rem;
+  height: 2rem;
+
+  display: grid;
+  place-items: center;
+
+  border:
+    1px solid
+    var(
+      --axplify-border
+    );
+  border-radius: 0.65rem;
+
+  cursor: pointer;
+
+  background: #ffffff;
+
+  color:
+    var(
+      --axplify-navy
+    );
+}
+
+.admin-brochure-card__order button:hover:not(:disabled) {
+  border-color:
+    var(
+      --axplify-cyan
+    );
+
+  color:
+    var(
+      --axplify-cyan
+    );
+}
+
+.admin-brochure-card__order button:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+
+.admin-brochure-card__preview {
+  position: relative;
+
+  min-height: 12rem;
+
+  display: grid;
+  place-items: center;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      #edf5fa,
+      #f9fbfd
+    );
+
+  color: #8397aa;
+}
+
+.admin-brochure-card__preview img {
+  width: 100%;
+  height: 100%;
+  max-height: 17rem;
+
+  object-fit: contain;
+  object-position: center;
+
+  background: #ffffff;
+}
+
+.admin-brochure-card__status {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+
+  display: inline-flex;
+  align-items: center;
+
+  border:
+    1px solid
+    rgba(200, 63, 75, 0.15);
+  border-radius: 999px;
+
+  padding:
+    0.35rem
+    0.65rem;
+
+  background:
+    rgba(255, 255, 255, 0.92);
+
+  color: #b52f3c;
+
+  box-shadow:
+    0 7px 18px
+    rgba(5, 38, 79, 0.1);
+
+  font-size: 0.62rem;
+  font-weight: 900;
+}
+
+.admin-brochure-card__status[data-active="true"] {
+  border-color:
+    rgba(28, 150, 104, 0.18);
+
+  color: #147650;
+}
+
+.admin-brochure-card__content {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+
+  padding: 1rem;
+}
+
+.admin-brochure-card__title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.admin-brochure-card__title h3 {
+  margin: 0;
+
+  color:
+    var(
+      --axplify-navy
+    );
+
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.admin-brochure-card__title p {
+  margin:
+    0.25rem
+    0
+    0;
+
+  color:
+    var(
+      --axplify-muted
+    );
+
+  font-size: 0.65rem;
+}
+
+.admin-brochure-card__languages {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.admin-brochure-card__languages span {
+  display: inline-flex;
+
+  border-radius: 999px;
+
+  padding:
+    0.3rem
+    0.52rem;
+
+  background: #e9eef3;
+
+  color: #8999a8;
+
+  font-size: 0.58rem;
+  font-weight: 900;
+}
+
+.admin-brochure-card__languages span[data-available="true"] {
+  background:
+    rgba(28, 182, 220, 0.11);
+
+  color: #087f9e;
+}
+
+.admin-brochure-card__details {
+  display: grid;
+  gap: 0.45rem;
+
+  border-radius: 0.9rem;
+
+  padding: 0.75rem;
+
+  background: #f5f8fb;
+}
+
+.admin-brochure-card__details span {
+  color:
+    var(
+      --axplify-muted
+    );
+
+  font-size: 0.65rem;
+}
+
+.admin-brochure-card__details strong {
+  color:
+    var(
+      --axplify-navy
+    );
+}
+
+.admin-brochure-card__link {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  overflow: hidden;
+
+  color:
+    var(
+      --axplify-violet
+    );
+
+  font-size: 0.68rem;
+  font-weight: 750;
+
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-brochure-card__link:hover {
+  text-decoration: underline;
+}
+
+.admin-brochure-card__no-link {
+  margin: 0;
+
+  color:
+    var(
+      --axplify-muted
+    );
+
+  font-size: 0.68rem;
+  font-style: italic;
+}
+
+.admin-brochure-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  margin-top: auto;
+}
+
+.admin-brochure-card__actions button {
+  min-height: 2.55rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.42rem;
+
+  border-radius: 0.78rem;
+
+  padding:
+    0.55rem
+    0.75rem;
+
+  cursor: pointer;
+
+  font-size: 0.68rem;
+  font-weight: 850;
+}
+
+.admin-brochure-card__publish {
+  border:
+    1px solid
+    rgba(28, 150, 104, 0.2);
+
+  background:
+    rgba(28, 150, 104, 0.08);
+
+  color: #147650;
+}
+
+.admin-brochure-card__publish[data-active="true"] {
+  border-color:
+    rgba(200, 63, 75, 0.18);
+
+  background:
+    rgba(200, 63, 75, 0.07);
+
+  color: #b52f3c;
+}
+
+.admin-brochure-card__publish > span {
+  width: 0.48rem;
+  height: 0.48rem;
+
+  border-radius: 999px;
+
+  background: currentColor;
+}
+
+.admin-brochure-card__edit {
+  border:
+    1px solid
+    var(
+      --axplify-border
+    );
+
+  background: #ffffff;
+
+  color:
+    var(
+      --axplify-navy
+    );
+}
+
+.admin-brochure-card__delete {
+  border:
+    1px solid
+    rgba(200, 63, 75, 0.16);
+
+  background: #fffafa;
+
+  color: #b52f3c;
+}
+
+.admin-brochure-card__actions button:hover:not(:disabled) {
+  transform:
+    translateY(
+      -1px
+    );
+}
+
+.admin-brochure-card__actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+/* Responsive */
+
+@media (
+  min-width: 40rem
+) {
+  .admin-brochure-form__footer {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .admin-brochure-form__secondary,
+  .admin-brochure-form__submit {
+    width: auto;
+  }
+
+  .admin-brochure-card__title {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .admin-brochure-card__details {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(
+          0,
+          1fr
+        )
+      );
+  }
+}
+
+@media (
+  min-width: 48rem
+) {
+  .admin-brochures__header {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .admin-brochures__create {
+    flex: 0 0 auto;
+  }
+
+  .admin-brochure-form__header,
+  .admin-brochure-form__section {
+    padding:
+      1.5rem;
+  }
+
+  .admin-brochure-form__grid--two,
+  .admin-brochure-form__grid--link {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(
+          0,
+          1fr
+        )
+      );
+  }
+
+  .admin-brochure-form__uploads {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(
+          0,
+          1fr
+        )
+      );
+  }
+
+  .admin-brochure-form__error {
+    margin-inline: 1.5rem;
+  }
+
+  .admin-brochure-form__footer {
+    padding:
+      1.1rem
+      1.5rem;
+  }
+
+  .admin-brochures__list-heading {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .admin-brochures__list-heading > p {
+    max-width: 28rem;
+    text-align: right;
+  }
+
+  .admin-brochure-card {
+    grid-template-columns:
+      4rem
+      minmax(
+        15rem,
+        26rem
+      )
+      minmax(
+        0,
+        1fr
+      );
+  }
+
+  .admin-brochure-card__order {
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0.7rem;
+
+    border-right:
+      1px solid
+      rgba(5, 38, 79, 0.07);
+    border-bottom: 0;
+  }
+
+  .admin-brochure-card__order > div {
+    flex-direction: column;
+  }
+
+  .admin-brochure-card__preview {
+    min-height: 15rem;
+
+    border-right:
+      1px solid
+      rgba(5, 38, 79, 0.07);
+  }
+
+  .admin-brochure-card__content {
+    padding: 1.2rem;
+  }
+}
+
+@media (
+  min-width: 72rem
+) {
+  .admin-brochure-form__uploads {
+    grid-template-columns:
+      repeat(
+        4,
+        minmax(
+          0,
+          1fr
+        )
+      );
+  }
+
+  .admin-brochure-upload__preview[data-format="mobile"] {
+    width: min(
+      calc(100% - 2rem),
+      11rem
+    );
+  }
+
+  .admin-brochure-card__details {
+    grid-template-columns:
+      repeat(
+        4,
+        minmax(
+          0,
+          1fr
+        )
+      );
+  }
+}

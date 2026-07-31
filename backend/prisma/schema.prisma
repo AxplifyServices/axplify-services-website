@@ -1,8 +1,8 @@
 generator client {
   provider        = "prisma-client"
   output          = "../src/generated/prisma"
-  moduleFormat    = "cjs"
   previewFeatures = ["partialIndexes"]
+  moduleFormat    = "cjs"
 }
 
 datasource db {
@@ -92,6 +92,7 @@ model users {
   updated_at                               DateTime                @default(now()) @db.Timestamptz(6)
   deleted_at                               DateTime?               @db.Timestamptz(6)
   authentication_events                    authentication_events[]
+  homepage_brochures                       homepage_brochures[]
   refresh_sessions                         refresh_sessions[]
   user_roles_user_roles_assigned_byTousers user_roles[]            @relation("user_roles_assigned_byTousers")
   user_roles_user_roles_user_idTousers     user_roles[]            @relation("user_roles_user_idTousers")
@@ -99,4 +100,27 @@ model users {
   @@index([created_at(sort: Desc)], map: "users_created_at_index")
   @@index([locked_until], map: "users_locked_until_index", where: raw("(locked_until IS NOT NULL)"))
   @@index([status], map: "users_status_index", where: raw("(deleted_at IS NULL)"))
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model homepage_brochures {
+  id                   String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  internal_name        String   @db.VarChar(150)
+  desktop_image_fr_url String?
+  mobile_image_fr_url  String?
+  desktop_image_en_url String?
+  mobile_image_en_url  String?
+  alt_text_fr          String?  @db.VarChar(255)
+  alt_text_en          String?  @db.VarChar(255)
+  link_url             String?
+  link_target          String   @default("_self") @db.VarChar(20)
+  sort_order           Int      @default(0)
+  is_active            Boolean  @default(true)
+  created_by_user_id   String?  @db.Uuid
+  created_at           DateTime @default(now()) @db.Timestamptz(6)
+  updated_at           DateTime @default(now()) @db.Timestamptz(6)
+  users                users?   @relation(fields: [created_by_user_id], references: [id], onUpdate: NoAction, map: "homepage_brochures_created_by_user_foreign_key")
+
+  @@index([created_by_user_id], map: "homepage_brochures_created_by_user_index")
+  @@index([is_active, sort_order, created_at], map: "homepage_brochures_public_index")
 }

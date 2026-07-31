@@ -31,6 +31,14 @@ import {
   AppService,
 } from './app.service';
 
+import {
+  HomepageBrochuresModule,
+} from './homepage-brochures/homepage-brochures.module';
+
+import {
+  StorageModule,
+} from './storage/storage.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -54,9 +62,13 @@ import {
       },
     ]),
 
-    DatabaseModule,
+DatabaseModule,
 
-    AuthModule,
+StorageModule,
+
+AuthModule,
+
+HomepageBrochuresModule,
   ],
 
   controllers: [

@@ -37,7 +37,12 @@
       "seo": {
         "title": "Digital transformation, AI and Data",
         "description": "Axplify Services helps companies simplify their processes, unlock the value of their data and build digital solutions adapted to their objectives."
-      }
+      },
+      "brochures": {
+  "previous": "Previous brochure",
+  "next": "Next brochure",
+  "goToSlide": "Show brochure"
+}
     },
     "services": {
       "eyebrow": "Our expertise",
