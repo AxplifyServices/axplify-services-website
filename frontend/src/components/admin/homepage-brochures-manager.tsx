@@ -593,11 +593,24 @@ function BrochureImageUpload({
             }
           </h3>
 
-          <p>
-            {
-              config.description
-            }
-          </p>
+<p>
+  {
+    config.description
+  }
+</p>
+
+<p className="admin-brochure-upload__recommended-size">
+  Taille recommandée :
+  {' '}
+  <strong>
+    {
+      config.format ===
+      'desktop'
+        ? '1920 × 900 px'
+        : '1080 × 1600 px'
+    }
+  </strong>
+</p>
         </div>
       </div>
 

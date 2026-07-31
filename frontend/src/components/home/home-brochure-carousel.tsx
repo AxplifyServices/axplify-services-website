@@ -12,10 +12,6 @@ import {
   useState,
 } from 'react';
 
-import {
-  Link,
-} from '@/i18n/navigation';
-
 import type {
   PublicHomepageBrochure,
 } from '@/lib/homepage-brochures-api';
@@ -94,36 +90,6 @@ function BrochureContent({
           picture
         }
       </div>
-    );
-  }
-
-  const isInternalLink =
-    brochure.linkUrl
-      .startsWith(
-        '/',
-      ) &&
-    !brochure.linkUrl
-      .startsWith(
-        '//',
-      );
-
-  if (
-    isInternalLink
-  ) {
-    return (
-      <Link
-        href={
-          brochure.linkUrl
-        }
-        className="home-brochure__link"
-        aria-label={
-          brochure.altText
-        }
-      >
-        {
-          picture
-        }
-      </Link>
     );
   }
 
