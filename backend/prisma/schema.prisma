@@ -104,22 +104,26 @@ model users {
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model homepage_brochures {
-  id                   String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  internal_name        String   @db.VarChar(150)
-  desktop_image_fr_url String?
-  mobile_image_fr_url  String?
-  desktop_image_en_url String?
-  mobile_image_en_url  String?
-  alt_text_fr          String?  @db.VarChar(255)
-  alt_text_en          String?  @db.VarChar(255)
-  link_url             String?
-  link_target          String   @default("_self") @db.VarChar(20)
-  sort_order           Int      @default(0)
-  is_active            Boolean  @default(true)
-  created_by_user_id   String?  @db.Uuid
-  created_at           DateTime @default(now()) @db.Timestamptz(6)
-  updated_at           DateTime @default(now()) @db.Timestamptz(6)
-  users                users?   @relation(fields: [created_by_user_id], references: [id], onUpdate: NoAction, map: "homepage_brochures_created_by_user_foreign_key")
+  id                    String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  internal_name         String   @db.VarChar(150)
+  desktop_image_fr_url  String?
+  mobile_image_fr_url   String?
+  desktop_image_en_url  String?
+  mobile_image_en_url   String?
+  alt_text_fr           String?  @db.VarChar(255)
+  alt_text_en           String?  @db.VarChar(255)
+  link_url              String?
+  link_target           String   @default("_self") @db.VarChar(20)
+  sort_order            Int      @default(0)
+  is_active             Boolean  @default(true)
+  created_by_user_id    String?  @db.Uuid
+  created_at            DateTime @default(now()) @db.Timestamptz(6)
+  updated_at            DateTime @default(now()) @db.Timestamptz(6)
+  desktop_image_fr_crop Json?
+  mobile_image_fr_crop  Json?
+  desktop_image_en_crop Json?
+  mobile_image_en_crop  Json?
+  users                 users?   @relation(fields: [created_by_user_id], references: [id], onUpdate: NoAction, map: "homepage_brochures_created_by_user_foreign_key")
 
   @@index([created_by_user_id], map: "homepage_brochures_created_by_user_index")
   @@index([is_active, sort_order, created_at], map: "homepage_brochures_public_index")

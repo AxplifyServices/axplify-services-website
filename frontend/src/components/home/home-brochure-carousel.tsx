@@ -46,15 +46,14 @@ function BrochureContent({
   priority:
     boolean;
 }) {
-  const picture = (
-    <picture className="home-brochure__picture">
-      <source
-        media="(max-width: 767px)"
-        srcSet={
-          brochure.mobileImageUrl
-        }
-      />
+  const desktopCrop =
+    brochure.desktopImageCrop;
 
+  const mobileCrop =
+    brochure.mobileImageCrop;
+
+  const picture = (
+    <div className="home-brochure__picture">
       <img
         src={
           brochure.desktopImageUrl
@@ -62,7 +61,7 @@ function BrochureContent({
         alt={
           brochure.altText
         }
-        className="home-brochure__image"
+        className="home-brochure__image home-brochure__image--desktop"
         draggable={
           false
         }
@@ -77,8 +76,43 @@ function BrochureContent({
             : 'auto'
         }
         decoding="async"
+        style={{
+          transform:
+            desktopCrop
+              ? `translate(${desktopCrop.offsetX * 100}%, ${desktopCrop.offsetY * 100}%) scale(${desktopCrop.zoom})`
+              : undefined,
+        }}
       />
-    </picture>
+
+      <img
+        src={
+          brochure.mobileImageUrl
+        }
+        alt=""
+        aria-hidden="true"
+        className="home-brochure__image home-brochure__image--mobile"
+        draggable={
+          false
+        }
+        loading={
+          priority
+            ? 'eager'
+            : 'lazy'
+        }
+        fetchPriority={
+          priority
+            ? 'high'
+            : 'auto'
+        }
+        decoding="async"
+        style={{
+          transform:
+            mobileCrop
+              ? `translate(${mobileCrop.offsetX * 100}%, ${mobileCrop.offsetY * 100}%) scale(${mobileCrop.zoom})`
+              : undefined,
+        }}
+      />
+    </div>
   );
 
   if (

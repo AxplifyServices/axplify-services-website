@@ -172,26 +172,22 @@ export class StorageService
     let processedImage:
       Buffer;
 
-    let metadata:
-      sharp.Metadata;
+    let outputWidth:
+      number;
+
+    let outputHeight:
+      number;
 
     try {
-      const image =
-        sharp(
+      const result =
+        await sharp(
           file.buffer,
           {
             failOn:
               'error',
           },
         )
-          .rotate();
-
-      metadata =
-        await image
-          .metadata();
-
-      processedImage =
-        await image
+          .rotate()
           .webp({
             quality:
               86,
@@ -202,7 +198,19 @@ export class StorageService
             smartSubsample:
               true,
           })
-          .toBuffer();
+          .toBuffer({
+            resolveWithObject:
+              true,
+          });
+
+      processedImage =
+        result.data;
+
+      outputWidth =
+        result.info.width;
+
+      outputHeight =
+        result.info.height;
     } catch {
       throw new BadRequestException(
         'Le fichier envoyé ne contient pas une image valide.',
@@ -261,12 +269,10 @@ export class StorageService
         'webp',
 
       width:
-        metadata.width ??
-        null,
+        outputWidth,
 
       height:
-        metadata.height ??
-        null,
+        outputHeight,
 
       size:
         processedImage.length,

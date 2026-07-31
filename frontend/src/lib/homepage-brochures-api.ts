@@ -2,6 +2,23 @@ import type {
   AppLocale,
 } from '@/i18n/routing';
 
+export type PublicHomepageBrochureCrop = {
+  offsetX:
+    number;
+
+  offsetY:
+    number;
+
+  zoom:
+    number;
+
+  naturalWidth:
+    number;
+
+  naturalHeight:
+    number;
+};
+
 export type PublicHomepageBrochure = {
   id:
     string;
@@ -11,6 +28,12 @@ export type PublicHomepageBrochure = {
 
   mobileImageUrl:
     string;
+
+  desktopImageCrop:
+    PublicHomepageBrochureCrop | null;
+
+  mobileImageCrop:
+    PublicHomepageBrochureCrop | null;    
 
   altText:
     string;

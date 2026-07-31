@@ -1,5 +1,6 @@
 import {
   Transform,
+  Type,
 } from 'class-transformer';
 
 import {
@@ -14,7 +15,12 @@ import {
   Min,
   MinLength,
   ValidateIf,
+  ValidateNested,
 } from 'class-validator';
+
+import {
+  HomepageBrochureImageCropDto,
+} from './homepage-brochure-image-crop.dto';
 
 function emptyStringToUndefined({
   value,
@@ -150,6 +156,42 @@ export class CreateHomepageBrochureDto {
   )
   mobileImageEnUrl?:
     string;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(
+    () =>
+      HomepageBrochureImageCropDto,
+  )
+  desktopImageFrCrop?:
+    HomepageBrochureImageCropDto;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(
+    () =>
+      HomepageBrochureImageCropDto,
+  )
+  mobileImageFrCrop?:
+    HomepageBrochureImageCropDto;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(
+    () =>
+      HomepageBrochureImageCropDto,
+  )
+  desktopImageEnCrop?:
+    HomepageBrochureImageCropDto;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(
+    () =>
+      HomepageBrochureImageCropDto,
+  )
+  mobileImageEnCrop?:
+    HomepageBrochureImageCropDto;    
 
   @IsOptional()
   @IsString()

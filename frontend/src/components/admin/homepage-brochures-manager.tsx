@@ -30,6 +30,11 @@ import {
 } from '@/components/admin/auth-provider';
 
 import {
+  BrochureImageCropModal,
+  type BrochureImageCrop,
+} from '@/components/admin/brochure-image-crop-modal';
+
+import {
   AdminApiError,
 } from '@/lib/admin-api';
 
@@ -57,6 +62,18 @@ type HomepageBrochure = {
 
   mobileImageEnUrl:
     string | null;
+
+  desktopImageFrCrop:
+    BrochureImageCrop | null;
+
+  mobileImageFrCrop:
+    BrochureImageCrop | null;
+
+  desktopImageEnCrop:
+    BrochureImageCrop | null;
+
+  mobileImageEnCrop:
+    BrochureImageCrop | null;    
 
   altTextFr:
     string | null;
@@ -156,6 +173,25 @@ type BrochurePreviewState = Record<
   string | null
 >;
 
+type BrochureCropState = Record<
+  BrochureImageField,
+  BrochureImageCrop | null
+>;
+
+type CropEditorState = {
+  field:
+    BrochureImageField;
+
+  imageUrl:
+    string;
+
+  file:
+    File | null;
+
+  crop:
+    BrochureImageCrop;
+} | null;
+
 type FeedbackState = {
   type:
     'success' |
@@ -231,6 +267,44 @@ const EMPTY_PREVIEWS:
       null,
   };
 
+const EMPTY_CROPS:
+  BrochureCropState = {
+    desktopImageFr:
+      null,
+
+    mobileImageFr:
+      null,
+
+    desktopImageEn:
+      null,
+
+    mobileImageEn:
+      null,
+  };  
+
+function getDefaultCrop(
+  naturalWidth:
+    number,
+
+  naturalHeight:
+    number,
+): BrochureImageCrop {
+  return {
+    offsetX:
+      0,
+
+    offsetY:
+      0,
+
+    zoom:
+      1,
+
+    naturalWidth,
+
+    naturalHeight,
+  };
+}  
+
 const IMAGE_FIELD_CONFIG: Array<{
   field:
     BrochureImageField;
@@ -242,6 +316,15 @@ const IMAGE_FIELD_CONFIG: Array<{
       | 'mobileImageFrUrl'
       | 'desktopImageEnUrl'
       | 'mobileImageEnUrl'
+    >;
+
+  cropField:
+    keyof Pick<
+      HomepageBrochure,
+      | 'desktopImageFrCrop'
+      | 'mobileImageFrCrop'
+      | 'desktopImageEnCrop'
+      | 'mobileImageEnCrop'
     >;
 
   label:
@@ -268,6 +351,9 @@ const IMAGE_FIELD_CONFIG: Array<{
     formUrlField:
       'desktopImageFrUrl',
 
+    cropField:
+      'desktopImageFrCrop',      
+
     label:
       'Version française — Desktop',
 
@@ -291,6 +377,9 @@ const IMAGE_FIELD_CONFIG: Array<{
     formUrlField:
       'mobileImageFrUrl',
 
+    cropField:
+      'mobileImageFrCrop',     
+
     label:
       'Version française — Mobile',
 
@@ -313,6 +402,9 @@ const IMAGE_FIELD_CONFIG: Array<{
 
     formUrlField:
       'desktopImageEnUrl',
+
+    cropField:
+      'desktopImageEnCrop',     
 
     label:
       'Version anglaise — Desktop',
@@ -339,6 +431,9 @@ const IMAGE_FIELD_CONFIG: Array<{
 
     label:
       'Version anglaise — Mobile',
+
+    cropField:
+      'mobileImageEnCrop',      
 
     description:
       'Cette image sera aussi utilisée pour la version arabe sur mobile.',
@@ -527,6 +622,9 @@ type BrochureImageUploadProps = {
   existingUrl:
     string;
 
+  crop:
+    BrochureImageCrop | null;
+
   disabled:
     boolean;
 
@@ -542,6 +640,11 @@ type BrochureImageUploadProps = {
     field:
       BrochureImageField,
   ) => void;
+
+  onEditCrop: (
+    field:
+      BrochureImageField,
+  ) => void;
 };
 
 function BrochureImageUpload({
@@ -549,9 +652,11 @@ function BrochureImageUpload({
   file,
   previewUrl,
   existingUrl,
+  crop,
   disabled,
   onChange,
   onClearSelection,
+  onEditCrop,
 }: BrochureImageUploadProps) {
   const displayedUrl =
     previewUrl ??
@@ -623,12 +728,49 @@ function BrochureImageUpload({
         {
           displayedUrl
             ? (
-                <img
-                  src={
-                    displayedUrl
+                <button
+                  type="button"
+                  className="admin-brochure-upload__preview-button"
+                  disabled={
+                    disabled
                   }
-                  alt=""
-                />
+                  aria-label={
+                    `Modifier le cadrage de ${config.label}`
+                  }
+                  onClick={
+                    () =>
+                      onEditCrop(
+                        config.field,
+                      )
+                  }
+                >
+                  <img
+                    src={
+                      displayedUrl
+                    }
+                    alt=""
+                    draggable={
+                      false
+                    }
+                    style={{
+                      transform:
+                        crop
+                          ? `translate(${crop.offsetX * 100}%, ${crop.offsetY * 100}%) scale(${crop.zoom})`
+                          : undefined,
+                    }}
+                  />
+
+                  <span className="admin-brochure-upload__edit-overlay">
+                    <Pencil
+                      size={
+                        17
+                      }
+                      aria-hidden="true"
+                    />
+
+                    Modifier le cadrage
+                  </span>
+                </button>
               )
             : (
                 <div className="admin-brochure-upload__empty">
@@ -841,6 +983,26 @@ export function HomepageBrochuresManager() {
     );
 
   const [
+    crops,
+    setCrops,
+  ] =
+    useState<
+      BrochureCropState
+    >(
+      EMPTY_CROPS,
+    );
+
+  const [
+    cropEditor,
+    setCropEditor,
+  ] =
+    useState<
+      CropEditorState
+    >(
+      null,
+    );    
+
+  const [
     isSubmitting,
     setIsSubmitting,
   ] =
@@ -1008,6 +1170,14 @@ export function HomepageBrochuresManager() {
     setPreviews(
       EMPTY_PREVIEWS,
     );
+
+    setCrops(
+      EMPTY_CROPS,
+    );
+
+    setCropEditor(
+      null,
+    );    
   }
 
   function openCreateForm() {
@@ -1062,6 +1232,20 @@ export function HomepageBrochuresManager() {
         brochure,
       ),
     );
+
+    setCrops({
+      desktopImageFr:
+        brochure.desktopImageFrCrop,
+
+      mobileImageFr:
+        brochure.mobileImageFrCrop,
+
+      desktopImageEn:
+        brochure.desktopImageEnCrop,
+
+      mobileImageEn:
+        brochure.mobileImageEnCrop,
+    });    
 
     setValidationError(
       null,
@@ -1190,45 +1374,242 @@ export function HomepageBrochuresManager() {
       return;
     }
 
-    setFeedback(
-      null,
-    );
+    const previewUrl =
+      URL.createObjectURL(
+        file,
+      );
 
-    setFiles(
-      currentFiles => ({
-        ...currentFiles,
+    const image =
+      new Image();
+
+    image.onload =
+      () => {
+        setFeedback(
+          null,
+        );
+
+        setCropEditor({
+          field,
+
+          imageUrl:
+            previewUrl,
+
+          file,
+
+          crop:
+            getDefaultCrop(
+              image.naturalWidth,
+              image.naturalHeight,
+            ),
+        });
+      };
+
+    image.onerror =
+      () => {
+        URL.revokeObjectURL(
+          previewUrl,
+        );
+
+        setFeedback({
+          type:
+            'error',
+
+          message:
+            'Le navigateur ne parvient pas à lire cette image.',
+        });
+      };
+
+    image.src =
+      previewUrl;
+  }
+
+  function openCropEditor(
+    field:
+      BrochureImageField,
+  ) {
+    const config =
+      IMAGE_FIELD_CONFIG.find(
+        item =>
+          item.field ===
+          field,
+      );
+
+    if (
+      !config
+    ) {
+      return;
+    }
+
+    const imageUrl =
+      previews[
+        field
+      ] ??
+      form[
+        config.formUrlField
+      ];
+
+    if (
+      !imageUrl
+    ) {
+      return;
+    }
+
+    const currentCrop =
+      crops[
+        field
+      ];
+
+    if (
+      currentCrop
+    ) {
+      setCropEditor({
+        field,
+
+        imageUrl,
+
+        file:
+          files[
+            field
+          ],
+
+        crop:
+          currentCrop,
+      });
+
+      return;
+    }
+
+    const image =
+      new Image();
+
+    image.onload =
+      () => {
+        setCropEditor({
+          field,
+
+          imageUrl,
+
+          file:
+            files[
+              field
+            ],
+
+          crop:
+            getDefaultCrop(
+              image.naturalWidth,
+              image.naturalHeight,
+            ),
+        });
+      };
+
+    image.onerror =
+      () => {
+        setFeedback({
+          type:
+            'error',
+
+          message:
+            'Impossible de charger cette image pour modifier son cadrage.',
+        });
+      };
+
+    image.src =
+      imageUrl;
+  }  
+
+  function validateCropEditor(
+    crop:
+      BrochureImageCrop,
+  ) {
+    if (
+      !cropEditor
+    ) {
+      return;
+    }
+
+    const {
+      field,
+      file,
+      imageUrl,
+    } =
+      cropEditor;
+
+    if (
+      file
+    ) {
+      setPreviews(
+        currentPreviews => {
+          const previousPreview =
+            currentPreviews[
+              field
+            ];
+
+          if (
+            previousPreview &&
+            previousPreview !==
+              imageUrl
+          ) {
+            URL.revokeObjectURL(
+              previousPreview,
+            );
+          }
+
+          return {
+            ...currentPreviews,
+
+            [field]:
+              imageUrl,
+          };
+        },
+      );
+
+      setFiles(
+        currentFiles => ({
+          ...currentFiles,
+
+          [field]:
+            file,
+        }),
+      );
+    }
+
+    setCrops(
+      currentCrops => ({
+        ...currentCrops,
 
         [field]:
-          file,
+          crop,
       }),
     );
 
-    setPreviews(
-      currentPreviews => {
-        const previousPreview =
-          currentPreviews[
-            field
-          ];
-
-        if (
-          previousPreview
-        ) {
-          URL.revokeObjectURL(
-            previousPreview,
-          );
-        }
-
-        return {
-          ...currentPreviews,
-
-          [field]:
-            URL.createObjectURL(
-              file,
-            ),
-        };
-      },
+    setCropEditor(
+      null,
     );
-  }
+  }  
+
+  function cancelCropEditor() {
+    if (
+      cropEditor?.file
+    ) {
+      const committedPreview =
+        previews[
+          cropEditor.field
+        ];
+
+      if (
+        cropEditor.imageUrl !==
+        committedPreview
+      ) {
+        URL.revokeObjectURL(
+          cropEditor.imageUrl,
+        );
+      }
+    }
+
+    setCropEditor(
+      null,
+    );
+  }  
 
   function clearSelectedFile(
     field:
@@ -1264,6 +1645,15 @@ export function HomepageBrochuresManager() {
           null,
       }),
     );
+
+    setCrops(
+      currentCrops => ({
+        ...currentCrops,
+
+        [field]:
+          null,
+      }),
+    );    
   }
 
   async function uploadImage(
@@ -1272,7 +1662,7 @@ export function HomepageBrochuresManager() {
 
     file:
       File,
-  ): Promise<string> {
+  ): Promise<UploadedBrochureImage> {
     const formData =
       new FormData();
 
@@ -1300,7 +1690,7 @@ export function HomepageBrochuresManager() {
           },
         );
 
-      return response.url;
+        return response;
     } finally {
       setUploadingField(
         null,
@@ -1432,6 +1822,10 @@ export function HomepageBrochuresManager() {
           form.mobileImageEnUrl,
       };
 
+      const submittedCrops: BrochureCropState = {
+        ...crops,
+      };      
+
       for (
         const config of
         IMAGE_FIELD_CONFIG
@@ -1447,7 +1841,7 @@ export function HomepageBrochuresManager() {
           continue;
         }
 
-        const uploadedUrl =
+        const uploadedImage =
           await uploadImage(
             config.field,
             file,
@@ -1456,7 +1850,30 @@ export function HomepageBrochuresManager() {
         uploadedUrls[
           config.formUrlField
         ] =
-          uploadedUrl;
+          uploadedImage.url;
+
+        const currentCrop =
+          submittedCrops[
+            config.field
+          ];
+
+        if (
+          currentCrop
+        ) {
+          submittedCrops[
+            config.field
+          ] = {
+            ...currentCrop,
+
+            naturalWidth:
+              uploadedImage.width ??
+              currentCrop.naturalWidth,
+
+            naturalHeight:
+              uploadedImage.height ??
+              currentCrop.naturalHeight,
+          };
+        }
       }
 
       const payload = {
@@ -1483,6 +1900,26 @@ export function HomepageBrochuresManager() {
           uploadedUrls
             .mobileImageEnUrl ||
           undefined,
+
+        desktopImageFrCrop:
+          submittedCrops
+            .desktopImageFr ??
+          undefined,
+
+        mobileImageFrCrop:
+          submittedCrops
+            .mobileImageFr ??
+          undefined,
+
+        desktopImageEnCrop:
+          submittedCrops
+            .desktopImageEn ??
+          undefined,
+
+        mobileImageEnCrop:
+          submittedCrops
+            .mobileImageEn ??
+          undefined,          
 
         altTextFr:
           form.altTextFr
@@ -2141,6 +2578,13 @@ export function HomepageBrochuresManager() {
                                 config.formUrlField
                               ]
                             }
+
+                            crop={
+                              crops[
+                                config.field
+                              ]
+                            }
+                                                        
                             disabled={
                               isSubmitting
                             }
@@ -2150,6 +2594,9 @@ export function HomepageBrochuresManager() {
                             onClearSelection={
                               clearSelectedFile
                             }
+                            onEditCrop={
+                              openCropEditor
+                            }                            
                           />
                         ),
                       )
@@ -2916,4 +3363,44 @@ export function HomepageBrochuresManager() {
       }
     </section>
   );
+      {
+        cropEditor
+          ? (
+              <BrochureImageCropModal
+                isOpen={
+                  true
+                }
+                imageUrl={
+                  cropEditor.imageUrl
+                }
+                imageLabel={
+                  IMAGE_FIELD_CONFIG.find(
+                    item =>
+                      item.field ===
+                      cropEditor.field,
+                  )?.label ??
+                  'Image de la brochure'
+                }
+                format={
+                  IMAGE_FIELD_CONFIG.find(
+                    item =>
+                      item.field ===
+                      cropEditor.field,
+                  )?.format ??
+                  'desktop'
+                }
+                initialCrop={
+                  cropEditor.crop
+                }
+                onCancel={
+                  cancelCropEditor
+                }
+                onValidate={
+                  validateCropEditor
+                }
+              />
+            )
+          : null
+      }
+
 }

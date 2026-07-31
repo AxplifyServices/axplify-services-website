@@ -4,6 +4,10 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 
+import {
+  Prisma,
+} from '../generated/prisma/client';
+
 import type {
   AuthenticatedUser,
 } from '../common/types/authenticated-user.type';
@@ -20,6 +24,10 @@ import {
   CreateHomepageBrochureDto,
 } from './dto/create-homepage-brochure.dto';
 
+import type {
+  HomepageBrochureImageCropDto,
+} from './dto/homepage-brochure-image-crop.dto';
+
 import {
   ReorderHomepageBrochuresDto,
 } from './dto/reorder-homepage-brochures.dto';
@@ -29,9 +37,100 @@ import {
 } from './dto/update-homepage-brochure.dto';
 
 type PublicLocale =
-  'fr' |
-  'en' |
-  'ar';
+  | 'fr'
+  | 'en'
+  | 'ar';
+
+type ImageFormat =
+  | 'desktop'
+  | 'mobile';
+
+type HomepageBrochureImageCrop = {
+  offsetX:
+    number;
+
+  offsetY:
+    number;
+
+  zoom:
+    number;
+
+  naturalWidth:
+    number;
+
+  naturalHeight:
+    number;
+};
+
+type HomepageBrochureRecord = {
+  id:
+    string;
+
+  internal_name:
+    string;
+
+  desktop_image_fr_url:
+    string | null;
+
+  mobile_image_fr_url:
+    string | null;
+
+  desktop_image_en_url:
+    string | null;
+
+  mobile_image_en_url:
+    string | null;
+
+  desktop_image_fr_crop:
+    Prisma.JsonValue | null;
+
+  mobile_image_fr_crop:
+    Prisma.JsonValue | null;
+
+  desktop_image_en_crop:
+    Prisma.JsonValue | null;
+
+  mobile_image_en_crop:
+    Prisma.JsonValue | null;
+
+  alt_text_fr:
+    string | null;
+
+  alt_text_en:
+    string | null;
+
+  link_url:
+    string | null;
+
+  link_target:
+    string;
+
+  sort_order:
+    number;
+
+  is_active:
+    boolean;
+
+  created_by_user_id:
+    string | null;
+
+  created_at:
+    Date;
+
+  updated_at:
+    Date;
+};
+
+type ImageAsset = {
+  url:
+    string | null;
+
+  crop:
+    HomepageBrochureImageCrop | null;
+
+  format:
+    ImageFormat;
+};
 
 @Injectable()
 export class HomepageBrochuresService {
@@ -71,18 +170,14 @@ export class HomepageBrochuresService {
 
     return brochures
       .map(
-        (
-          brochure,
-        ) =>
+        brochure =>
           this.mapPublicBrochure(
             brochure,
             locale,
           ),
       )
       .filter(
-        (
-          brochure,
-        ) =>
+        brochure =>
           Boolean(
             brochure.desktopImageUrl,
           ),
@@ -108,9 +203,7 @@ export class HomepageBrochuresService {
         });
 
     return brochures.map(
-      (
-        brochure,
-      ) =>
+      brochure =>
         this.mapAdminBrochure(
           brochure,
         ),
@@ -182,6 +275,42 @@ export class HomepageBrochuresService {
             mobile_image_en_url:
               dto.mobileImageEnUrl ??
               null,
+
+            ...(dto.desktopImageFrCrop
+              ? {
+                  desktop_image_fr_crop:
+                    this.toPrismaJson(
+                      dto.desktopImageFrCrop,
+                    ),
+                }
+              : {}),
+
+            ...(dto.mobileImageFrCrop
+              ? {
+                  mobile_image_fr_crop:
+                    this.toPrismaJson(
+                      dto.mobileImageFrCrop,
+                    ),
+                }
+              : {}),
+
+            ...(dto.desktopImageEnCrop
+              ? {
+                  desktop_image_en_crop:
+                    this.toPrismaJson(
+                      dto.desktopImageEnCrop,
+                    ),
+                }
+              : {}),
+
+            ...(dto.mobileImageEnCrop
+              ? {
+                  mobile_image_en_crop:
+                    this.toPrismaJson(
+                      dto.mobileImageEnCrop,
+                    ),
+                }
+              : {}),
 
             alt_text_fr:
               dto.altTextFr ??
@@ -264,8 +393,10 @@ export class HomepageBrochuresService {
 
     this.assertActiveBrochureHasDesktopImage(
       nextIsActive,
+
       nextDesktopImageFrUrl ??
         undefined,
+
       nextDesktopImageEnUrl ??
         undefined,
     );
@@ -320,6 +451,46 @@ export class HomepageBrochuresService {
                   mobile_image_en_url:
                     dto.mobileImageEnUrl ??
                     null,
+                }
+              : {}),
+
+            ...(dto.desktopImageFrCrop !==
+            undefined
+              ? {
+                  desktop_image_fr_crop:
+                    this.toPrismaJson(
+                      dto.desktopImageFrCrop,
+                    ),
+                }
+              : {}),
+
+            ...(dto.mobileImageFrCrop !==
+            undefined
+              ? {
+                  mobile_image_fr_crop:
+                    this.toPrismaJson(
+                      dto.mobileImageFrCrop,
+                    ),
+                }
+              : {}),
+
+            ...(dto.desktopImageEnCrop !==
+            undefined
+              ? {
+                  desktop_image_en_crop:
+                    this.toPrismaJson(
+                      dto.desktopImageEnCrop,
+                    ),
+                }
+              : {}),
+
+            ...(dto.mobileImageEnCrop !==
+            undefined
+              ? {
+                  mobile_image_en_crop:
+                    this.toPrismaJson(
+                      dto.mobileImageEnCrop,
+                    ),
                 }
               : {}),
 
@@ -393,9 +564,7 @@ export class HomepageBrochuresService {
     const uniqueIds =
       new Set(
         dto.items.map(
-          (
-            item,
-          ) =>
+          item =>
             item.id,
         ),
       );
@@ -409,27 +578,24 @@ export class HomepageBrochuresService {
       );
     }
 
-    await this.prisma
-      .$transaction(
-        dto.items.map(
-          (
-            item,
-          ) =>
-            this.prisma
-              .homepage_brochures
-              .update({
-                where: {
-                  id:
-                    item.id,
-                },
+    await this.prisma.$transaction(
+      dto.items.map(
+        item =>
+          this.prisma
+            .homepage_brochures
+            .update({
+              where: {
+                id:
+                  item.id,
+              },
 
-                data: {
-                  sort_order:
-                    item.sortOrder,
-                },
-              }),
-        ),
-      );
+              data: {
+                sort_order:
+                  item.sortOrder,
+              },
+            }),
+      ),
+    );
 
     return this.findAllAdmin();
   }
@@ -518,18 +684,7 @@ export class HomepageBrochuresService {
 
   private mapPublicBrochure(
     brochure:
-      {
-        id: string;
-        internal_name: string;
-        desktop_image_fr_url: string | null;
-        mobile_image_fr_url: string | null;
-        desktop_image_en_url: string | null;
-        mobile_image_en_url: string | null;
-        alt_text_fr: string | null;
-        alt_text_en: string | null;
-        link_url: string | null;
-        link_target: string;
-      },
+      HomepageBrochureRecord,
 
     locale:
       PublicLocale,
@@ -540,35 +695,79 @@ export class HomepageBrochuresService {
       locale ===
         'ar';
 
-    const desktopImageUrl =
-      usesEnglishPriority
-        ? brochure
-            .desktop_image_en_url ??
-          brochure
-            .desktop_image_fr_url
-        : brochure
-            .desktop_image_fr_url ??
-          brochure
-            .desktop_image_en_url;
+    const frenchDesktop =
+      this.imageAsset(
+        brochure
+          .desktop_image_fr_url,
 
-    const mobileImageUrl =
-      usesEnglishPriority
-        ? brochure
-            .mobile_image_en_url ??
-          brochure
-            .desktop_image_en_url ??
-          brochure
-            .mobile_image_fr_url ??
-          brochure
-            .desktop_image_fr_url
-        : brochure
-            .mobile_image_fr_url ??
-          brochure
-            .desktop_image_fr_url ??
-          brochure
-            .mobile_image_en_url ??
-          brochure
-            .desktop_image_en_url;
+        brochure
+          .desktop_image_fr_crop,
+
+        'desktop',
+      );
+
+    const frenchMobile =
+      this.imageAsset(
+        brochure
+          .mobile_image_fr_url,
+
+        brochure
+          .mobile_image_fr_crop,
+
+        'mobile',
+      );
+
+    const englishDesktop =
+      this.imageAsset(
+        brochure
+          .desktop_image_en_url,
+
+        brochure
+          .desktop_image_en_crop,
+
+        'desktop',
+      );
+
+    const englishMobile =
+      this.imageAsset(
+        brochure
+          .mobile_image_en_url,
+
+        brochure
+          .mobile_image_en_crop,
+
+        'mobile',
+      );
+
+    const desktopAsset =
+      this.firstAvailableAsset(
+        usesEnglishPriority
+          ? [
+              englishDesktop,
+              frenchDesktop,
+            ]
+          : [
+              frenchDesktop,
+              englishDesktop,
+            ],
+      );
+
+    const mobileAsset =
+      this.firstAvailableAsset(
+        usesEnglishPriority
+          ? [
+              englishMobile,
+              englishDesktop,
+              frenchMobile,
+              frenchDesktop,
+            ]
+          : [
+              frenchMobile,
+              frenchDesktop,
+              englishMobile,
+              englishDesktop,
+            ],
+      );
 
     const altText =
       usesEnglishPriority
@@ -589,11 +788,25 @@ export class HomepageBrochuresService {
       id:
         brochure.id,
 
-      desktopImageUrl,
+      desktopImageUrl:
+        desktopAsset.url,
+
+      desktopImageCrop:
+        desktopAsset.crop,
 
       mobileImageUrl:
-        mobileImageUrl ??
-        desktopImageUrl,
+        mobileAsset.url ??
+        desktopAsset.url,
+
+      /*
+       * Une image desktop utilisée comme fallback mobile ne doit pas
+       * récupérer un cadrage calculé pour un cadre horizontal.
+       */
+      mobileImageCrop:
+        mobileAsset.format ===
+        'mobile'
+          ? mobileAsset.crop
+          : null,
 
       altText,
 
@@ -610,23 +823,7 @@ export class HomepageBrochuresService {
 
   private mapAdminBrochure(
     brochure:
-      {
-        id: string;
-        internal_name: string;
-        desktop_image_fr_url: string | null;
-        mobile_image_fr_url: string | null;
-        desktop_image_en_url: string | null;
-        mobile_image_en_url: string | null;
-        alt_text_fr: string | null;
-        alt_text_en: string | null;
-        link_url: string | null;
-        link_target: string;
-        sort_order: number;
-        is_active: boolean;
-        created_by_user_id: string | null;
-        created_at: Date;
-        updated_at: Date;
-      },
+      HomepageBrochureRecord,
   ) {
     return {
       id:
@@ -650,6 +847,30 @@ export class HomepageBrochuresService {
       mobileImageEnUrl:
         brochure
           .mobile_image_en_url,
+
+      desktopImageFrCrop:
+        this.normalizeCrop(
+          brochure
+            .desktop_image_fr_crop,
+        ),
+
+      mobileImageFrCrop:
+        this.normalizeCrop(
+          brochure
+            .mobile_image_fr_crop,
+        ),
+
+      desktopImageEnCrop:
+        this.normalizeCrop(
+          brochure
+            .desktop_image_en_crop,
+        ),
+
+      mobileImageEnCrop:
+        this.normalizeCrop(
+          brochure
+            .mobile_image_en_crop,
+        ),
 
       altTextFr:
         brochure.alt_text_fr,
@@ -688,45 +909,200 @@ export class HomepageBrochuresService {
     };
   }
 
+  private imageAsset(
+    url:
+      string | null,
+
+    cropValue:
+      Prisma.JsonValue | null,
+
+    format:
+      ImageFormat,
+  ): ImageAsset {
+    return {
+      url,
+
+      crop:
+        this.normalizeCrop(
+          cropValue,
+        ),
+
+      format,
+    };
+  }
+
+  private firstAvailableAsset(
+    assets:
+      ImageAsset[],
+  ): ImageAsset {
+    return (
+      assets.find(
+        asset =>
+          Boolean(
+            asset.url,
+          ),
+      ) ?? {
+        url:
+          null,
+
+        crop:
+          null,
+
+        format:
+          'desktop',
+      }
+    );
+  }
+
+  private normalizeCrop(
+    value:
+      Prisma.JsonValue | null,
+  ): HomepageBrochureImageCrop | null {
+    if (
+      !value ||
+      typeof value !==
+        'object' ||
+      Array.isArray(
+        value,
+      )
+    ) {
+      return null;
+    }
+
+    const crop =
+      value as Record<
+        string,
+        Prisma.JsonValue
+      >;
+
+    const {
+      offsetX,
+      offsetY,
+      zoom,
+      naturalWidth,
+      naturalHeight,
+    } = crop;
+
+    if (
+      typeof offsetX !==
+        'number' ||
+      typeof offsetY !==
+        'number' ||
+      typeof zoom !==
+        'number' ||
+      typeof naturalWidth !==
+        'number' ||
+      typeof naturalHeight !==
+        'number' ||
+      !Number.isFinite(
+        offsetX,
+      ) ||
+      !Number.isFinite(
+        offsetY,
+      ) ||
+      !Number.isFinite(
+        zoom,
+      ) ||
+      !Number.isInteger(
+        naturalWidth,
+      ) ||
+      !Number.isInteger(
+        naturalHeight,
+      ) ||
+      offsetX <
+        -3 ||
+      offsetX >
+        3 ||
+      offsetY <
+        -3 ||
+      offsetY >
+        3 ||
+      zoom <
+        0.333333 ||
+      zoom >
+        3 ||
+      naturalWidth <
+        1 ||
+      naturalWidth >
+        30000 ||
+      naturalHeight <
+        1 ||
+      naturalHeight >
+        30000
+    ) {
+      return null;
+    }
+
+    return {
+      offsetX,
+      offsetY,
+      zoom,
+      naturalWidth,
+      naturalHeight,
+    };
+  }
+
+  private toPrismaJson(
+    crop:
+      HomepageBrochureImageCropDto,
+  ): Prisma.InputJsonObject {
+    return {
+      offsetX:
+        crop.offsetX,
+
+      offsetY:
+        crop.offsetY,
+
+      zoom:
+        crop.zoom,
+
+      naturalWidth:
+        crop.naturalWidth,
+
+      naturalHeight:
+        crop.naturalHeight,
+    };
+  }
+
   private async deleteReplacedImages(
     previousBrochure:
-      {
-        desktop_image_fr_url: string | null;
-        mobile_image_fr_url: string | null;
-        desktop_image_en_url: string | null;
-        mobile_image_en_url: string | null;
-      },
+      Pick<
+        HomepageBrochureRecord,
+        | 'desktop_image_fr_url'
+        | 'mobile_image_fr_url'
+        | 'desktop_image_en_url'
+        | 'mobile_image_en_url'
+      >,
 
     nextBrochure:
-      {
-        desktop_image_fr_url: string | null;
-        mobile_image_fr_url: string | null;
-        desktop_image_en_url: string | null;
-        mobile_image_en_url: string | null;
-      },
+      Pick<
+        HomepageBrochureRecord,
+        | 'desktop_image_fr_url'
+        | 'mobile_image_fr_url'
+        | 'desktop_image_en_url'
+        | 'mobile_image_en_url'
+      >,
   ) {
-    const previousUrls =
-      [
-        previousBrochure
-          .desktop_image_fr_url,
+    const previousUrls = [
+      previousBrochure
+        .desktop_image_fr_url,
 
-        previousBrochure
-          .mobile_image_fr_url,
+      previousBrochure
+        .mobile_image_fr_url,
 
-        previousBrochure
-          .desktop_image_en_url,
+      previousBrochure
+        .desktop_image_en_url,
 
-        previousBrochure
-          .mobile_image_en_url,
-      ].filter(
-        (
+      previousBrochure
+        .mobile_image_en_url,
+    ].filter(
+      (
+        value,
+      ): value is string =>
+        Boolean(
           value,
-        ):
-          value is string =>
-            Boolean(
-              value,
-            ),
-      );
+        ),
+    );
 
     const nextUrls =
       new Set(
@@ -745,19 +1121,16 @@ export class HomepageBrochuresService {
         ].filter(
           (
             value,
-          ):
-            value is string =>
-              Boolean(
-                value,
-              ),
+          ): value is string =>
+            Boolean(
+              value,
+            ),
         ),
       );
 
     const replacedUrls =
       previousUrls.filter(
-        (
-          previousUrl,
-        ) =>
+        previousUrl =>
           !nextUrls.has(
             previousUrl,
           ),
@@ -765,9 +1138,7 @@ export class HomepageBrochuresService {
 
     await Promise.all(
       replacedUrls.map(
-        (
-          replacedUrl,
-        ) =>
+        replacedUrl =>
           this.storageService
             .deletePublicFileByUrl(
               replacedUrl,
