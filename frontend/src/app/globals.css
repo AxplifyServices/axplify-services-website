@@ -1760,12 +1760,17 @@ html[dir="rtl"] .site-footer__link svg {
   position: relative;
 
   width: 100%;
-  height:
-    calc(
-      100svh -
-      var(--header-height)
-    );
-  min-height: 24rem;
+
+  /*
+   * Les brochures desktop sont conçues et recadrées
+   * dans l’administration au format 1920 × 900.
+   *
+   * Le carrousel adopte donc exactement ce ratio afin
+   * d’éviter que le haut ou le bas de l’image soit coupé.
+   */
+  aspect-ratio:
+    1920 /
+    900;
 
   overflow: hidden;
 
