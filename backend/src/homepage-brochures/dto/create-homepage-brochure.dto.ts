@@ -52,10 +52,24 @@ export class CreateHomepageBrochureDto {
     string;
 
   @IsOptional()
-  @IsUrl({
-    require_protocol:
-      true,
-  })
+  @IsUrl(
+    {
+      require_protocol:
+        true,
+
+      require_tld:
+        false,
+
+      protocols: [
+        'http',
+        'https',
+      ],
+    },
+    {
+      message:
+        'L’adresse de l’image desktop française n’est pas valide.',
+    },
+  )
   @Transform(
     emptyStringToUndefined,
   )
@@ -63,10 +77,24 @@ export class CreateHomepageBrochureDto {
     string;
 
   @IsOptional()
-  @IsUrl({
-    require_protocol:
-      true,
-  })
+  @IsUrl(
+    {
+      require_protocol:
+        true,
+
+      require_tld:
+        false,
+
+      protocols: [
+        'http',
+        'https',
+      ],
+    },
+    {
+      message:
+        'L’adresse de l’image mobile française n’est pas valide.',
+    },
+  )
   @Transform(
     emptyStringToUndefined,
   )
@@ -74,10 +102,24 @@ export class CreateHomepageBrochureDto {
     string;
 
   @IsOptional()
-  @IsUrl({
-    require_protocol:
-      true,
-  })
+  @IsUrl(
+    {
+      require_protocol:
+        true,
+
+      require_tld:
+        false,
+
+      protocols: [
+        'http',
+        'https',
+      ],
+    },
+    {
+      message:
+        'L’adresse de l’image desktop anglaise n’est pas valide.',
+    },
+  )
   @Transform(
     emptyStringToUndefined,
   )
@@ -85,10 +127,24 @@ export class CreateHomepageBrochureDto {
     string;
 
   @IsOptional()
-  @IsUrl({
-    require_protocol:
-      true,
-  })
+  @IsUrl(
+    {
+      require_protocol:
+        true,
+
+      require_tld:
+        false,
+
+      protocols: [
+        'http',
+        'https',
+      ],
+    },
+    {
+      message:
+        'L’adresse de l’image mobile anglaise n’est pas valide.',
+    },
+  )
   @Transform(
     emptyStringToUndefined,
   )
@@ -130,6 +186,9 @@ export class CreateHomepageBrochureDto {
     {
       require_protocol:
         true,
+
+      require_tld:
+        false,
 
       protocols: [
         'http',
