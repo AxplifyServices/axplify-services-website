@@ -8,6 +8,10 @@ import {
 } from 'next-intl/server';
 
 import {
+  HomeAboutSection,
+} from '@/components/home/home-about-section';
+
+import {
   HomeBrochureCarousel,
 } from '@/components/home/home-brochure-carousel';
 
@@ -60,7 +64,8 @@ export default async function HomePage({
 
   const [
     brochures,
-    t,
+    brochureTranslations,
+    aboutTranslations,
   ] =
     await Promise.all([
       getPublicHomepageBrochures(
@@ -73,28 +78,103 @@ export default async function HomePage({
         namespace:
           'pages.home.brochures',
       }),
+
+      getTranslations({
+        locale,
+
+        namespace:
+          'pages.home.aboutPreview',
+      }),
     ]);
 
+  const pillars = [
+    'clarity',
+    'usefulness',
+    'evolution',
+  ].map(
+    (
+      key,
+    ) => ({
+      title:
+        aboutTranslations(
+          `pillars.${key}.title`,
+        ),
+
+      description:
+        aboutTranslations(
+          `pillars.${key}.description`,
+        ),
+    }),
+  );
+
   return (
-    <HomeBrochureCarousel
-      brochures={
-        brochures
-      }
-      previousLabel={
-        t(
-          'previous',
-        )
-      }
-      nextLabel={
-        t(
-          'next',
-        )
-      }
-      goToSlideLabel={
-        t(
-          'goToSlide',
-        )
-      }
-    />
+    <>
+      <HomeBrochureCarousel
+        brochures={
+          brochures
+        }
+        previousLabel={
+          brochureTranslations(
+            'previous',
+          )
+        }
+        nextLabel={
+          brochureTranslations(
+            'next',
+          )
+        }
+        goToSlideLabel={
+          brochureTranslations(
+            'goToSlide',
+          )
+        }
+      />
+
+      <HomeAboutSection
+        eyebrow={
+          aboutTranslations(
+            'eyebrow',
+          )
+        }
+        title={
+          aboutTranslations(
+            'title',
+          )
+        }
+        introduction={
+          aboutTranslations(
+            'introduction',
+          )
+        }
+        description={
+          aboutTranslations(
+            'description',
+          )
+        }
+        promiseLabel={
+          aboutTranslations(
+            'promiseLabel',
+          )
+        }
+        promise={
+          aboutTranslations(
+            'promise',
+          )
+        }
+        pillars={
+          pillars
+        }
+        primaryCta={
+          aboutTranslations(
+            'primaryCta',
+          )
+        }
+        secondaryCta={
+          aboutTranslations(
+            'secondaryCta',
+          )
+        }
+      />
+    </>
   );
 }

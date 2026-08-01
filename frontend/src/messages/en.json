@@ -30,20 +30,44 @@
   "tagline": "Simplify your processes. Unlock the value of your data. Unleash your potential!"
 },
   "pages": {
-    "home": {
-      "eyebrow": "Digital transformation · AI · Data",
-      "title": "Home",
-      "description": "The home page content will be developed during the next stage.",
-      "seo": {
-        "title": "Digital transformation, AI and Data",
-        "description": "Axplify Services helps companies simplify their processes, unlock the value of their data and build digital solutions adapted to their objectives."
+"home": {
+  "eyebrow": "Digital transformation · AI · Data",
+  "title": "Home",
+  "description": "Axplify Services turns business needs into practical, valuable and sustainable digital solutions.",
+  "seo": {
+    "title": "Digital transformation, AI and Data",
+    "description": "Axplify Services helps companies simplify their processes, unlock the value of their data and build digital solutions adapted to their objectives."
+  },
+  "brochures": {
+    "previous": "Previous brochure",
+    "next": "Next brochure",
+    "goToSlide": "Show brochure"
+  },
+  "aboutPreview": {
+    "eyebrow": "About Axplify Services",
+    "title": "Your ambition deserves better than tools that slow it down.",
+    "introduction": "A company should never have to adapt its ambitions to the limitations of its working methods.",
+    "description": "Axplify Services helps organisations turn complex operations, scattered information and underused data into a simpler, clearer and more scalable digital environment.",
+    "promiseLabel": "Our belief",
+    "promise": "Technology becomes truly powerful when it simplifies everyday work and opens new possibilities.",
+    "pillars": {
+      "clarity": {
+        "title": "Start with the real need",
+        "description": "Understand your reality before discussing technology."
       },
-      "brochures": {
-  "previous": "Previous brochure",
-  "next": "Next brochure",
-  "goToSlide": "Show brochure"
-}
+      "usefulness": {
+        "title": "Create practical value",
+        "description": "Design solutions that are useful, adoptable and measurable."
+      },
+      "evolution": {
+        "title": "Prepare what comes next",
+        "description": "Build for today without limiting tomorrow’s ambitions."
+      }
     },
+    "primaryCta": "Discover Axplify",
+    "secondaryCta": "Discuss your needs"
+  }
+},
     "services": {
       "eyebrow": "Our expertise",
       "title": "Services",
@@ -62,15 +86,98 @@
         "description": "Discover Axplify Services products designed to structure operations, improve management and support sustainable business growth."
       }
     },
-    "about": {
-      "eyebrow": "The company",
-      "title": "About Axplify Services",
-      "description": "This page will introduce the mission, vision, values and business activities of Axplify Services.",
-      "seo": {
-        "title": "About Axplify Services",
-        "description": "Discover Axplify Services, its mission and its approach to turning business needs into practical and sustainable digital solutions."
-      }
+"about": {
+  "eyebrow": "The company",
+  "title": "About Axplify Services",
+  "description": "Discover the story, mission, vision and business model of Axplify Services.",
+  "seo": {
+    "title": "About Axplify Services",
+    "description": "Discover how Axplify Services turns business needs into practical, scalable digital solutions designed to support sustainable growth."
+  },
+  "hero": {
+    "eyebrow": "About Axplify Services",
+    "title": "We turn today’s obstacles into tomorrow’s opportunities.",
+    "introduction": "Behind every lengthy process, every hard-to-find piece of information and every decision made without enough visibility lies an opportunity to work better.",
+    "description": "Axplify Services supports companies that want simpler tools, smoother operations and greater control over their data.",
+    "primaryCta": "Define my needs",
+    "secondaryCta": "Discover our process"
+  },
+  "story": {
+    "eyebrow": "Our story",
+    "title": "Axplify was born from a simple observation.",
+    "paragraphs": {
+      "first": "Business ambitions evolve quickly, but tools, processes and working habits do not always move at the same pace.",
+      "second": "Tasks that should take minutes may involve several people. Information moves between files, messages and disconnected systems. Data exists, but it is often too scattered to support confident decisions.",
+      "third": "Axplify Services was created to close this gap. Our role is to understand what is truly holding an organisation back and turn that reality into digital solutions that are simple to use, aligned with its priorities and ready to evolve."
     },
+    "statement": "We do not create technology to add complexity. We design it to make ambition more accessible."
+  },
+  "mission": {
+    "eyebrow": "Our mission",
+    "title": "Make digital transformation practical, understandable and useful.",
+    "description": "We place business needs before tools so that every technology decision serves a clearly identified objective.",
+    "items": {
+      "understand": {
+        "title": "Understand before building",
+        "description": "We analyse how the company actually works, including its constraints, priorities and team practices."
+      },
+      "design": {
+        "title": "Design with purpose",
+        "description": "We seek the right balance between simplicity, efficiency, security and scalability."
+      },
+      "advance": {
+        "title": "Transform to move forward",
+        "description": "A solution should create visible progress by saving time, improving management, supporting decisions or opening new opportunities."
+      }
+    }
+  },
+  "model": {
+    "eyebrow": "Our model",
+    "title": "Two ways to turn ambition into a solution.",
+    "description": "Depending on the situation, Axplify can design a custom response or provide an existing solution that can be adapted.",
+    "activities": {
+      "services": {
+        "title": "Projects designed around your reality",
+        "description": "When the need is specific, we create an approach adapted to your processes, teams and objectives. Technology adjusts to the company, not the other way around.",
+        "linkLabel": "Discover our services"
+      },
+      "products": {
+        "title": "Products designed to accelerate your evolution",
+        "description": "We also develop our own digital solutions to address recurring needs faster while maintaining the flexibility required by each organisation.",
+        "linkLabel": "Discover our products"
+      }
+    }
+  },
+  "values": {
+    "eyebrow": "What guides us",
+    "title": "Simple principles for building sustainable solutions.",
+    "items": {
+      "usefulness": {
+        "title": "Usefulness before spectacle",
+        "description": "A successful solution is not the one that appears most complex, but the one that genuinely improves everyday work."
+      },
+      "clarity": {
+        "title": "Clarity at every stage",
+        "description": "We explain decisions, priorities and trade-offs in language that people can understand."
+      },
+      "adaptability": {
+        "title": "Adaptation to reality",
+        "description": "Every company has its own practices, constraints and pace of transformation."
+      },
+      "ambition": {
+        "title": "Long-term ambition",
+        "description": "We design for the immediate need without locking the company into today’s limitations."
+      }
+    }
+  },
+  "finalCta": {
+    "eyebrow": "What comes next?",
+    "title": "Your next growth opportunity may already be hidden in your daily operations.",
+    "description": "Tell us about your situation, your obstacles or your ambition. We will help you identify the most relevant starting point.",
+    "primaryCta": "Discuss my needs",
+    "secondaryCta": "Contact us directly"
+  }
+},
     "workProcess": {
       "eyebrow": "Our approach",
       "title": "Our work process",
