@@ -2578,17 +2578,107 @@ html[dir="rtl"]
   gap: 1rem;
 }
 
+.admin-brochure-form__media-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 1rem;
+
+  margin-top: 1rem;
+
+  padding:
+    0.8rem
+    1rem;
+
+  border:
+    1px solid
+    rgba(
+      5,
+      38,
+      79,
+      0.1
+    );
+
+  border-radius:
+    0.9rem;
+
+  background:
+    rgba(
+      245,
+      249,
+      253,
+      0.82
+    );
+}
+
+.admin-brochure-form__media-summary > div:first-child {
+  display: grid;
+
+  gap: 0.2rem;
+}
+
+.admin-brochure-form__media-summary strong {
+  color:
+    #05264f;
+
+  font-size:
+    0.9rem;
+}
+
+.admin-brochure-form__media-summary > div:first-child span {
+  color:
+    #6a788c;
+
+  font-size:
+    0.78rem;
+}
+
+.admin-brochure-form__media-summary > div:last-child {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+
+  gap: 0.4rem;
+}
+
+.admin-brochure-form__media-summary > div:last-child span {
+  padding:
+    0.3rem
+    0.55rem;
+
+  border-radius:
+    999px;
+
+  color:
+    #075f86;
+
+  font-size:
+    0.68rem;
+
+  font-weight:
+    800;
+
+  background:
+    rgba(
+      24,
+      181,
+      220,
+      0.12
+    );
+}
+
 .admin-brochure-media-type > button {
   display: flex;
   align-items: center;
 
-  min-height: 6.5rem;
+  min-height: 4.75rem;
 
   gap: 1rem;
 
   padding:
-    1.15rem
-    1.25rem;
+    0.85rem
+    1rem;
 
   cursor: pointer;
 
@@ -2677,8 +2767,8 @@ html[dir="rtl"]
   display: grid;
   place-items: center;
 
-  width: 3rem;
-  height: 3rem;
+  width: 2.6rem;
+  height: 2.6rem;
 
   border-radius:
     0.9rem;
@@ -2783,6 +2873,17 @@ html[dir="rtl"]
 
   .admin-brochure-media-type > button {
     min-height: 5.5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .admin-brochure-form__media-summary {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .admin-brochure-form__media-summary > div:last-child {
+    justify-content: flex-start;
   }
 }
 
@@ -2897,6 +2998,30 @@ html[dir="rtl"]
 
   font-size: 0.7rem;
   line-height: 1.5;
+}
+
+.admin-brochure-form__language-note {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap:
+    0.4rem
+    1rem;
+
+  margin-top:
+    0.75rem;
+
+  padding:
+    0.65rem
+    0.85rem;
+}
+
+.admin-brochure-form__language-note span {
+  font-size:
+    0.76rem;
+
+  line-height:
+    1.4;
 }
 
 .admin-brochure-form__language-note strong {

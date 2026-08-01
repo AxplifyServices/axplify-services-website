@@ -3167,11 +3167,11 @@ export function HomepageBrochuresManager() {
 
                       <div>
                         <h3>
-                          Type de brochure
+                          Média de la brochure
                         </h3>
 
                         <p>
-                          Choisis si cette diapositive affiche une image fixe ou une vidéo.
+                          Choisis le type de média, puis importe les versions adaptées aux écrans desktop et mobile.
                         </p>
                       </div>
                     </div>
@@ -3179,7 +3179,7 @@ export function HomepageBrochuresManager() {
                     <div
                       className="admin-brochure-media-type"
                       role="radiogroup"
-                      aria-label="Type de brochure"
+                      aria-label="Type de média"
                     >
                       <button
                         type="button"
@@ -3206,7 +3206,7 @@ export function HomepageBrochuresManager() {
                         <span className="admin-brochure-media-type__icon">
                           <ImageIcon
                             size={
-                              23
+                              22
                             }
                             aria-hidden="true"
                           />
@@ -3218,7 +3218,7 @@ export function HomepageBrochuresManager() {
                           </strong>
 
                           <small>
-                            Le carrousel conserve le délai automatique actuel.
+                            Défilement automatique selon le délai du carrousel.
                           </small>
                         </span>
                       </button>
@@ -3248,7 +3248,7 @@ export function HomepageBrochuresManager() {
                         <span className="admin-brochure-media-type__icon">
                           <Film
                             size={
-                              23
+                              22
                             }
                             aria-hidden="true"
                           />
@@ -3260,140 +3260,63 @@ export function HomepageBrochuresManager() {
                           </strong>
 
                           <small>
-                            La diapositive suivante apparaît automatiquement à la fin de la vidéo.
+                            Passage à la brochure suivante à la fin de la vidéo.
                           </small>
                         </span>
                       </button>
                     </div>
-                  </div>                  
 
-                  <div className="admin-brochure-form__section">
-                    <div className="admin-brochure-form__section-heading">
-                      <span>
-                        2
-                      </span>
+                    <div className="admin-brochure-form__media-summary">
+                      <div>
+                        <strong>
+                          {
+                            form.mediaType ===
+                            'VIDEO'
+                              ? 'Importer les vidéos'
+                              : 'Importer les images'
+                          }
+                        </strong>
+
+                        <span>
+                          {
+                            form.mediaType ===
+                            'VIDEO'
+                              ? 'MP4 ou WebM, maximum 100 Mo par fichier.'
+                              : 'JPEG, PNG, WebP ou AVIF.'
+                          }
+                        </span>
+                      </div>
 
                       <div>
-                        <h3>
-                          Images
-                        </h3>
+                        <span>
+                          FR
+                        </span>
 
-                        <p>
-                          Une seule image desktop française ou anglaise suffit. Les versions manquantes utiliseront automatiquement l’image disponible.
-                        </p>
+                        <span>
+                          EN / AR
+                        </span>
+
+                        <span>
+                          Desktop
+                        </span>
+
+                        <span>
+                          Mobile
+                        </span>
                       </div>
                     </div>
 
                     <div className="admin-brochure-form__language-note">
-                      <strong>
-                        Règle des langues
-                      </strong>
-
                       <span>
-                        Français : priorité au visuel français.
+                        La version française utilise en priorité le média FR.
                       </span>
 
                       <span>
-                        Anglais et arabe : priorité au visuel anglais.
+                        Les versions anglaise et arabe utilisent en priorité le média EN.
                       </span>
 
                       <span>
-                        En l’absence d’une version, le site réutilise automatiquement l’autre langue.
-                      </span>
-                    </div>
-
-                    <div className="admin-brochure-form__uploads">
-                      {
-                        IMAGE_FIELD_CONFIG.map(
-                          config => (
-                            <BrochureImageUpload
-                              key={
-                                config.field
-                              }
-                              config={
-                                config
-                              }
-                              file={
-                                files[
-                                  config.field
-                                ]
-                              }
-                              previewUrl={
-                                previews[
-                                  config.field
-                                ]
-                              }
-                              existingUrl={
-                                form[
-                                  config.formUrlField
-                                ]
-                              }
-                              crop={
-                                crops[
-                                  config.field
-                                ]
-                              }
-                              disabled={
-                                isSubmitting
-                              }
-                              onChange={
-                                handleFileChange
-                              }
-                              onClearSelection={
-                                clearSelectedFile
-                              }
-                              onEditCrop={
-                                openCropEditor
-                              }
-                            />
-                          ),
-                        )
-                      }
-                    </div>
-                  </div>
-
-                  <div className="admin-brochure-form__section">
-                    <div className="admin-brochure-form__section-heading">
-                      <span>
-                        3
-                      </span>
-
-                      <div>
-                        <h3>
-                          {
-                            form.mediaType ===
-                            'VIDEO'
-                              ? 'Vidéos'
-                              : 'Images'
-                          }
-                        </h3>
-
-                        <p>
-                          {
-                            form.mediaType ===
-                            'VIDEO'
-                              ? 'Une seule vidéo desktop française ou anglaise suffit. Les versions manquantes utiliseront automatiquement la vidéo disponible.'
-                              : 'Une seule image desktop française ou anglaise suffit. Les versions manquantes utiliseront automatiquement l’image disponible.'
-                          }
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="admin-brochure-form__language-note">
-                      <strong>
-                        Règle des langues
-                      </strong>
-
-                      <span>
-                        Français : priorité au média français.
-                      </span>
-
-                      <span>
-                        Anglais et arabe : priorité au média anglais.
-                      </span>
-
-                      <span>
-                        En l’absence d’une version, le site réutilise automatiquement l’autre langue.
+                        Si une version manque, le média disponible est utilisé automatiquement.
                       </span>
                     </div>
 
@@ -3488,7 +3411,7 @@ export function HomepageBrochuresManager() {
                   <div className="admin-brochure-form__section">
                     <div className="admin-brochure-form__section-heading">
                       <span>
-                        4
+                        3
                       </span>
 
                       <div>
@@ -3574,7 +3497,7 @@ export function HomepageBrochuresManager() {
                   <div className="admin-brochure-form__section">
                     <div className="admin-brochure-form__section-heading">
                       <span>
-                        5
+                        4
                       </span>
 
                       <div>
