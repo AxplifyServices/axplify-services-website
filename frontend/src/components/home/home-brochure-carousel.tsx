@@ -75,6 +75,17 @@ function BrochureContent({
   const mobileCrop =
     brochure.mobileImageCrop;
 
+  const desktopMediaUrl =
+    brochure
+      .desktopMediaUrl
+      .trim();
+
+  const mobileMediaUrl =
+    brochure
+      .mobileMediaUrl
+      .trim() ||
+    desktopMediaUrl;    
+
   const media =
     brochure.mediaType ===
     'VIDEO'
@@ -104,21 +115,21 @@ function BrochureContent({
             >
               <source
                 src={
-                  brochure.mobileMediaUrl
+                  mobileMediaUrl
                 }
                 media="(max-width: 767px)"
               />
 
               <source
                 src={
-                  brochure.desktopMediaUrl
+                  desktopMediaUrl
                 }
                 media="(min-width: 768px)"
               />
 
               <source
                 src={
-                  brochure.desktopMediaUrl
+                  desktopMediaUrl
                 }
               />
             </video>
@@ -128,7 +139,7 @@ function BrochureContent({
           <div className="home-brochure__picture">
             <img
               src={
-                brochure.desktopMediaUrl
+                desktopMediaUrl
               }
               alt={
                 brochure.altText
@@ -158,7 +169,7 @@ function BrochureContent({
 
             <img
               src={
-                brochure.mobileMediaUrl
+                mobileMediaUrl
               }
               alt=""
               aria-hidden="true"

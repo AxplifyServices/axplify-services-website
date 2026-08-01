@@ -5,14 +5,18 @@ import {
   ArrowUp,
   Check,
   ExternalLink,
+  Film,
+  ImageIcon,
   ImagePlus,
   Images,
   LoaderCircle,
   Pencil,
+  Play,
   Plus,
   Save,
   Trash2,
   Upload,
+  Video,
   X,
 } from 'lucide-react';
 
@@ -38,11 +42,25 @@ import {
   AdminApiError,
 } from '@/lib/admin-api';
 
+type BrochureMediaType =
+  | 'IMAGE'
+  | 'VIDEO';
+
 type BrochureImageField =
   | 'desktopImageFr'
   | 'mobileImageFr'
   | 'desktopImageEn'
   | 'mobileImageEn';
+
+type BrochureVideoField =
+  | 'desktopVideoFr'
+  | 'mobileVideoFr'
+  | 'desktopVideoEn'
+  | 'mobileVideoEn';
+
+type BrochureUploadField =
+  | BrochureImageField
+  | BrochureVideoField;
 
 type HomepageBrochure = {
   id:
@@ -50,6 +68,9 @@ type HomepageBrochure = {
 
   internalName:
     string;
+
+  mediaType:
+    BrochureMediaType;    
 
   desktopImageFrUrl:
     string | null;
@@ -61,6 +82,18 @@ type HomepageBrochure = {
     string | null;
 
   mobileImageEnUrl:
+    string | null;
+
+  desktopVideoFrUrl:
+    string | null;
+
+  mobileVideoFrUrl:
+    string | null;
+
+  desktopVideoEnUrl:
+    string | null;
+
+  mobileVideoEnUrl:
     string | null;
 
   desktopImageFrCrop:
@@ -127,9 +160,37 @@ type UploadedBrochureImage = {
     number;
 };
 
+type UploadedBrochureVideo = {
+  url:
+    string;
+
+  objectName:
+    string;
+
+  mimeType:
+    'video/mp4' |
+    'video/webm';
+
+  extension:
+    'mp4' |
+    'webm';
+
+  width:
+    null;
+
+  height:
+    null;
+
+  size:
+    number;
+};
+
 type BrochureFormState = {
   internalName:
     string;
+
+  mediaType:
+    BrochureMediaType;    
 
   desktopImageFrUrl:
     string;
@@ -141,6 +202,18 @@ type BrochureFormState = {
     string;
 
   mobileImageEnUrl:
+    string;
+
+  desktopVideoFrUrl:
+    string;
+
+  mobileVideoFrUrl:
+    string;
+
+  desktopVideoEnUrl:
+    string;
+
+  mobileVideoEnUrl:
     string;
 
   altTextFr:
@@ -178,6 +251,16 @@ type BrochureCropState = Record<
   BrochureImageCrop | null
 >;
 
+type BrochureVideoFileState = Record<
+  BrochureVideoField,
+  File | null
+>;
+
+type BrochureVideoPreviewState = Record<
+  BrochureVideoField,
+  string | null
+>;
+
 type CropEditorState = {
   field:
     BrochureImageField;
@@ -206,6 +289,9 @@ const EMPTY_FORM:
     internalName:
       '',
 
+    mediaType:
+      'IMAGE',      
+
     desktopImageFrUrl:
       '',
 
@@ -216,6 +302,18 @@ const EMPTY_FORM:
       '',
 
     mobileImageEnUrl:
+      '',
+
+    desktopVideoFrUrl:
+      '',
+
+    mobileVideoFrUrl:
+      '',
+
+    desktopVideoEnUrl:
+      '',
+
+    mobileVideoEnUrl:
       '',
 
     altTextFr:
@@ -266,6 +364,36 @@ const EMPTY_PREVIEWS:
     mobileImageEn:
       null,
   };
+
+const EMPTY_VIDEO_FILES:
+  BrochureVideoFileState = {
+    desktopVideoFr:
+      null,
+
+    mobileVideoFr:
+      null,
+
+    desktopVideoEn:
+      null,
+
+    mobileVideoEn:
+      null,
+  };
+
+const EMPTY_VIDEO_PREVIEWS:
+  BrochureVideoPreviewState = {
+    desktopVideoFr:
+      null,
+
+    mobileVideoFr:
+      null,
+
+    desktopVideoEn:
+      null,
+
+    mobileVideoEn:
+      null,
+  };  
 
 const EMPTY_CROPS:
   BrochureCropState = {
@@ -426,6 +554,114 @@ const IMAGE_FIELD_CONFIG: Array<{
   },
 ];
 
+const VIDEO_FIELD_CONFIG: Array<{
+  field:
+    BrochureVideoField;
+
+  formUrlField:
+    keyof Pick<
+      BrochureFormState,
+      | 'desktopVideoFrUrl'
+      | 'mobileVideoFrUrl'
+      | 'desktopVideoEnUrl'
+      | 'mobileVideoEnUrl'
+    >;
+
+  label:
+    string;
+
+  description:
+    string;
+
+  format:
+    'desktop' |
+    'mobile';
+
+  language:
+    'FR' |
+    'EN';
+}> = [
+  {
+    field:
+      'desktopVideoFr',
+
+    formUrlField:
+      'desktopVideoFrUrl',
+
+    label:
+      'Version française — Desktop',
+
+    description:
+      'Vidéo horizontale destinée aux écrans d’ordinateur.',
+
+    format:
+      'desktop',
+
+    language:
+      'FR',
+  },
+
+  {
+    field:
+      'mobileVideoFr',
+
+    formUrlField:
+      'mobileVideoFrUrl',
+
+    label:
+      'Version française — Mobile',
+
+    description:
+      'Vidéo verticale adaptée aux écrans de téléphone.',
+
+    format:
+      'mobile',
+
+    language:
+      'FR',
+  },
+
+  {
+    field:
+      'desktopVideoEn',
+
+    formUrlField:
+      'desktopVideoEnUrl',
+
+    label:
+      'Version anglaise — Desktop',
+
+    description:
+      'Cette vidéo sera également utilisée pour la version arabe.',
+
+    format:
+      'desktop',
+
+    language:
+      'EN',
+  },
+
+  {
+    field:
+      'mobileVideoEn',
+
+    formUrlField:
+      'mobileVideoEnUrl',
+
+    label:
+      'Version anglaise — Mobile',
+
+    description:
+      'Cette vidéo sera également utilisée pour la version arabe sur mobile.',
+
+    format:
+      'mobile',
+
+    language:
+      'EN',
+  },
+];
+
 function getDefaultCrop(
   naturalWidth:
     number,
@@ -457,6 +693,9 @@ function brochureToForm(
     internalName:
       brochure.internalName,
 
+    mediaType:
+      brochure.mediaType,      
+
     desktopImageFrUrl:
       brochure.desktopImageFrUrl ??
       '',
@@ -472,6 +711,22 @@ function brochureToForm(
     mobileImageEnUrl:
       brochure.mobileImageEnUrl ??
       '',
+
+    desktopVideoFrUrl:
+      brochure.desktopVideoFrUrl ??
+      '',
+
+    mobileVideoFrUrl:
+      brochure.mobileVideoFrUrl ??
+      '',
+
+    desktopVideoEnUrl:
+      brochure.desktopVideoEnUrl ??
+      '',
+
+    mobileVideoEnUrl:
+      brochure.mobileVideoEnUrl ??
+      '',      
 
     altTextFr:
       brochure.altTextFr ??
@@ -984,6 +1239,26 @@ export function HomepageBrochuresManager() {
     );
 
   const [
+    videoFiles,
+    setVideoFiles,
+  ] =
+    useState<
+      BrochureVideoFileState
+    >(
+      EMPTY_VIDEO_FILES,
+    );
+
+  const [
+    videoPreviews,
+    setVideoPreviews,
+  ] =
+    useState<
+      BrochureVideoPreviewState
+    >(
+      EMPTY_VIDEO_PREVIEWS,
+    );    
+
+  const [
     crops,
     setCrops,
   ] =
@@ -1016,10 +1291,12 @@ export function HomepageBrochuresManager() {
     setUploadingField,
   ] =
     useState<
-      BrochureImageField | null
+      BrochureUploadField | null
     >(
       null,
     );
+
+    
 
   const [
     deletingId,
@@ -1172,6 +1449,29 @@ export function HomepageBrochuresManager() {
     ],
   );
 
+  useEffect(
+    () => {
+      return () => {
+        Object.values(
+          videoPreviews,
+        ).forEach(
+          previewUrl => {
+            if (
+              previewUrl
+            ) {
+              URL.revokeObjectURL(
+                previewUrl,
+              );
+            }
+          },
+        );
+      };
+    },
+    [
+      videoPreviews,
+    ],
+  );  
+
   function resetSelectedFiles() {
     Object.values(
       previews,
@@ -1212,6 +1512,28 @@ export function HomepageBrochuresManager() {
     setPreviews(
       EMPTY_PREVIEWS,
     );
+
+    Object.values(
+      videoPreviews,
+    ).forEach(
+      previewUrl => {
+        if (
+          previewUrl
+        ) {
+          URL.revokeObjectURL(
+            previewUrl,
+          );
+        }
+      },
+    );
+
+    setVideoFiles(
+      EMPTY_VIDEO_FILES,
+    );
+
+    setVideoPreviews(
+      EMPTY_VIDEO_PREVIEWS,
+    );    
 
     setCrops(
       EMPTY_CROPS,
@@ -1465,6 +1787,108 @@ export function HomepageBrochuresManager() {
       previewUrl;
   }
 
+  function handleVideoFileChange(
+    field:
+      BrochureVideoField,
+
+    event:
+      ChangeEvent<HTMLInputElement>,
+  ) {
+    const file =
+      event.target
+        .files?.[0];
+
+    event.target.value =
+      '';
+
+    if (
+      !file
+    ) {
+      return;
+    }
+
+    const allowedTypes =
+      new Set([
+        'video/mp4',
+        'video/webm',
+      ]);
+
+    if (
+      !allowedTypes.has(
+        file.type,
+      )
+    ) {
+      setFeedback({
+        type:
+          'error',
+
+        message:
+          'Le fichier doit être une vidéo MP4 ou WebM.',
+      });
+
+      return;
+    }
+
+    if (
+      file.size >
+      100 *
+        1024 *
+        1024
+    ) {
+      setFeedback({
+        type:
+          'error',
+
+        message:
+          'La vidéo dépasse la taille maximale autorisée de 100 Mo.',
+      });
+
+      return;
+    }
+
+    const previewUrl =
+      URL.createObjectURL(
+        file,
+      );
+
+    setVideoPreviews(
+      currentPreviews => {
+        const previousPreview =
+          currentPreviews[
+            field
+          ];
+
+        if (
+          previousPreview
+        ) {
+          URL.revokeObjectURL(
+            previousPreview,
+          );
+        }
+
+        return {
+          ...currentPreviews,
+
+          [field]:
+            previewUrl,
+        };
+      },
+    );
+
+    setVideoFiles(
+      currentFiles => ({
+        ...currentFiles,
+
+        [field]:
+          file,
+      }),
+    );
+
+    setFeedback(
+      null,
+    );
+  }  
+
   function openCropEditor(
     field:
       BrochureImageField,
@@ -1698,6 +2122,42 @@ export function HomepageBrochuresManager() {
     );
   }
 
+  function clearSelectedVideo(
+    field:
+      BrochureVideoField,
+  ) {
+    const previewUrl =
+      videoPreviews[
+        field
+      ];
+
+    if (
+      previewUrl
+    ) {
+      URL.revokeObjectURL(
+        previewUrl,
+      );
+    }
+
+    setVideoFiles(
+      currentFiles => ({
+        ...currentFiles,
+
+        [field]:
+          null,
+      }),
+    );
+
+    setVideoPreviews(
+      currentPreviews => ({
+        ...currentPreviews,
+
+        [field]:
+          null,
+      }),
+    );
+  }  
+
   async function uploadImage(
     field:
       BrochureImageField,
@@ -1737,6 +2197,45 @@ export function HomepageBrochuresManager() {
     }
   }
 
+  async function uploadVideo(
+    field:
+      BrochureVideoField,
+
+    file:
+      File,
+  ): Promise<UploadedBrochureVideo> {
+    const formData =
+      new FormData();
+
+    formData.append(
+      'file',
+      file,
+    );
+
+    setUploadingField(
+      field,
+    );
+
+    try {
+      return await authorizedFetch<
+        UploadedBrochureVideo
+      >(
+        '/homepage-brochures/upload-video',
+        {
+          method:
+            'POST',
+
+          body:
+            formData,
+        },
+      );
+    } finally {
+      setUploadingField(
+        null,
+      );
+    }
+  }
+
   function validateForm():
     string | null
   {
@@ -1747,28 +2246,62 @@ export function HomepageBrochuresManager() {
       return 'Renseigne un nom interne pour identifier la brochure dans l’administration.';
     }
 
-    const hasFrenchDesktop =
-      Boolean(
-        files
-          .desktopImageFr ||
-        form
-          .desktopImageFrUrl,
-      );
+    if (
+      form.mediaType ===
+      'IMAGE'
+    ) {
+      const hasFrenchDesktop =
+        Boolean(
+          files
+            .desktopImageFr ||
+          form
+            .desktopImageFrUrl,
+        );
 
-    const hasEnglishDesktop =
-      Boolean(
-        files
-          .desktopImageEn ||
-        form
-          .desktopImageEnUrl,
-      );
+      const hasEnglishDesktop =
+        Boolean(
+          files
+            .desktopImageEn ||
+          form
+            .desktopImageEnUrl,
+        );
+
+      if (
+        form.isActive &&
+        !hasFrenchDesktop &&
+        !hasEnglishDesktop
+      ) {
+        return 'Une brochure image active doit contenir au moins une image desktop en français ou en anglais.';
+      }
+    }
 
     if (
-      form.isActive &&
-      !hasFrenchDesktop &&
-      !hasEnglishDesktop
+      form.mediaType ===
+      'VIDEO'
     ) {
-      return 'Une brochure active doit contenir au moins une image desktop en français ou en anglais.';
+      const hasFrenchDesktop =
+        Boolean(
+          videoFiles
+            .desktopVideoFr ||
+          form
+            .desktopVideoFrUrl,
+        );
+
+      const hasEnglishDesktop =
+        Boolean(
+          videoFiles
+            .desktopVideoEn ||
+          form
+            .desktopVideoEnUrl,
+        );
+
+      if (
+        form.isActive &&
+        !hasFrenchDesktop &&
+        !hasEnglishDesktop
+      ) {
+        return 'Une brochure vidéo active doit contenir au moins une vidéo desktop en français ou en anglais.';
+      }
     }
 
     if (
@@ -1859,6 +2392,18 @@ export function HomepageBrochuresManager() {
 
         mobileImageEnUrl:
           form.mobileImageEnUrl,
+
+        desktopVideoFrUrl:
+          form.desktopVideoFrUrl,
+
+        mobileVideoFrUrl:
+          form.mobileVideoFrUrl,
+
+        desktopVideoEnUrl:
+          form.desktopVideoEnUrl,
+
+        mobileVideoEnUrl:
+          form.mobileVideoEnUrl,
       };
 
       const submittedCrops:
@@ -1916,10 +2461,40 @@ export function HomepageBrochuresManager() {
         }
       }
 
+      for (
+        const config of
+        VIDEO_FIELD_CONFIG
+      ) {
+        const file =
+          videoFiles[
+            config.field
+          ];
+
+        if (
+          !file
+        ) {
+          continue;
+        }
+
+        const uploadedVideo =
+          await uploadVideo(
+            config.field,
+            file,
+          );
+
+        uploadedUrls[
+          config.formUrlField
+        ] =
+          uploadedVideo.url;
+      }
+
       const payload = {
         internalName:
           form.internalName
             .trim(),
+
+        mediaType:
+          form.mediaType,            
 
         desktopImageFrUrl:
           uploadedUrls
@@ -1940,6 +2515,26 @@ export function HomepageBrochuresManager() {
           uploadedUrls
             .mobileImageEnUrl ||
           undefined,
+
+        desktopVideoFrUrl:
+          uploadedUrls
+            .desktopVideoFrUrl ||
+          undefined,
+
+        mobileVideoFrUrl:
+          uploadedUrls
+            .mobileVideoFrUrl ||
+          undefined,
+
+        desktopVideoEnUrl:
+          uploadedUrls
+            .desktopVideoEnUrl ||
+          undefined,
+
+        mobileVideoEnUrl:
+          uploadedUrls
+            .mobileVideoEnUrl ||
+          undefined,          
 
         desktopImageFrCrop:
           submittedCrops
@@ -2572,6 +3167,114 @@ export function HomepageBrochuresManager() {
 
                       <div>
                         <h3>
+                          Type de brochure
+                        </h3>
+
+                        <p>
+                          Choisis si cette diapositive affiche une image fixe ou une vidéo.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div
+                      className="admin-brochure-media-type"
+                      role="radiogroup"
+                      aria-label="Type de brochure"
+                    >
+                      <button
+                        type="button"
+                        role="radio"
+                        aria-checked={
+                          form.mediaType ===
+                          'IMAGE'
+                        }
+                        data-active={
+                          form.mediaType ===
+                          'IMAGE'
+                        }
+                        disabled={
+                          isSubmitting
+                        }
+                        onClick={
+                          () =>
+                            updateFormField(
+                              'mediaType',
+                              'IMAGE',
+                            )
+                        }
+                      >
+                        <span className="admin-brochure-media-type__icon">
+                          <ImageIcon
+                            size={
+                              23
+                            }
+                            aria-hidden="true"
+                          />
+                        </span>
+
+                        <span>
+                          <strong>
+                            Image
+                          </strong>
+
+                          <small>
+                            Le carrousel conserve le délai automatique actuel.
+                          </small>
+                        </span>
+                      </button>
+
+                      <button
+                        type="button"
+                        role="radio"
+                        aria-checked={
+                          form.mediaType ===
+                          'VIDEO'
+                        }
+                        data-active={
+                          form.mediaType ===
+                          'VIDEO'
+                        }
+                        disabled={
+                          isSubmitting
+                        }
+                        onClick={
+                          () =>
+                            updateFormField(
+                              'mediaType',
+                              'VIDEO',
+                            )
+                        }
+                      >
+                        <span className="admin-brochure-media-type__icon">
+                          <Film
+                            size={
+                              23
+                            }
+                            aria-hidden="true"
+                          />
+                        </span>
+
+                        <span>
+                          <strong>
+                            Vidéo
+                          </strong>
+
+                          <small>
+                            La diapositive suivante apparaît automatiquement à la fin de la vidéo.
+                          </small>
+                        </span>
+                      </button>
+                    </div>
+                  </div>                  
+
+                  <div className="admin-brochure-form__section">
+                    <div className="admin-brochure-form__section-heading">
+                      <span>
+                        2
+                      </span>
+
+                      <div>
+                        <h3>
                           Images
                         </h3>
 
@@ -2657,81 +3360,128 @@ export function HomepageBrochuresManager() {
 
                       <div>
                         <h3>
-                          Accessibilité et SEO
+                          {
+                            form.mediaType ===
+                            'VIDEO'
+                              ? 'Vidéos'
+                              : 'Images'
+                          }
                         </h3>
 
                         <p>
-                          Décris brièvement le contenu ou le message principal de la brochure.
+                          {
+                            form.mediaType ===
+                            'VIDEO'
+                              ? 'Une seule vidéo desktop française ou anglaise suffit. Les versions manquantes utiliseront automatiquement la vidéo disponible.'
+                              : 'Une seule image desktop française ou anglaise suffit. Les versions manquantes utiliseront automatiquement l’image disponible.'
+                          }
                         </p>
                       </div>
                     </div>
 
-                    <div className="admin-brochure-form__grid admin-brochure-form__grid--two">
-                      <label className="admin-brochure-field">
-                        <span>
-                          Texte alternatif français
-                        </span>
+                    <div className="admin-brochure-form__language-note">
+                      <strong>
+                        Règle des langues
+                      </strong>
 
-                        <input
-                          type="text"
-                          value={
-                            form.altTextFr
-                          }
-                          maxLength={
-                            255
-                          }
-                          disabled={
-                            isSubmitting
-                          }
-                          placeholder="Ex. Simplifiez vos processus grâce à Axplify"
-                          onChange={
-                            event =>
-                              updateFormField(
-                                'altTextFr',
-                                event
-                                  .target
-                                  .value,
-                              )
-                          }
-                        />
+                      <span>
+                        Français : priorité au média français.
+                      </span>
 
-                        <small>
-                          Utilisé par les lecteurs d’écran et lorsque l’image ne peut pas être chargée.
-                        </small>
-                      </label>
+                      <span>
+                        Anglais et arabe : priorité au média anglais.
+                      </span>
 
-                      <label className="admin-brochure-field">
-                        <span>
-                          Texte alternatif anglais
-                        </span>
+                      <span>
+                        En l’absence d’une version, le site réutilise automatiquement l’autre langue.
+                      </span>
+                    </div>
 
-                        <input
-                          type="text"
-                          value={
-                            form.altTextEn
-                          }
-                          maxLength={
-                            255
-                          }
-                          disabled={
-                            isSubmitting
-                          }
-                          placeholder="Ex. Simplify your processes with Axplify"
-                          onChange={
-                            event =>
-                              updateFormField(
-                                'altTextEn',
-                                event
-                                  .target
-                                  .value,
-                              )
-                          }
-                        />
-
-                        <small>
-                          Ce texte sera aussi utilisé sur la version arabe lorsqu’aucun texte arabe spécifique n’existe.
-                        </small>
-                      </label>
+                    <div className="admin-brochure-form__uploads">
+                      {
+                        form.mediaType ===
+                        'IMAGE'
+                          ? IMAGE_FIELD_CONFIG.map(
+                              config => (
+                                <BrochureImageUpload
+                                  key={
+                                    config.field
+                                  }
+                                  config={
+                                    config
+                                  }
+                                  file={
+                                    files[
+                                      config.field
+                                    ]
+                                  }
+                                  previewUrl={
+                                    previews[
+                                      config.field
+                                    ]
+                                  }
+                                  existingUrl={
+                                    form[
+                                      config.formUrlField
+                                    ]
+                                  }
+                                  crop={
+                                    crops[
+                                      config.field
+                                    ]
+                                  }
+                                  disabled={
+                                    isSubmitting
+                                  }
+                                  onChange={
+                                    handleFileChange
+                                  }
+                                  onClearSelection={
+                                    clearSelectedFile
+                                  }
+                                  onEditCrop={
+                                    openCropEditor
+                                  }
+                                />
+                              ),
+                            )
+                          : VIDEO_FIELD_CONFIG.map(
+                              config => (
+                                <BrochureVideoUpload
+                                  key={
+                                    config.field
+                                  }
+                                  config={
+                                    config
+                                  }
+                                  file={
+                                    videoFiles[
+                                      config.field
+                                    ]
+                                  }
+                                  previewUrl={
+                                    videoPreviews[
+                                      config.field
+                                    ]
+                                  }
+                                  existingUrl={
+                                    form[
+                                      config.formUrlField
+                                    ]
+                                  }
+                                  disabled={
+                                    isSubmitting
+                                  }
+                                  onChange={
+                                    handleVideoFileChange
+                                  }
+                                  onClearSelection={
+                                    clearSelectedVideo
+                                  }
+                                />
+                              ),
+                            )
+                      }
                     </div>
                   </div>
 
@@ -3445,5 +4195,280 @@ export function HomepageBrochuresManager() {
           : null
       }
     </>
+  );
+}
+
+type BrochureVideoUploadProps = {
+  config:
+    (typeof VIDEO_FIELD_CONFIG)[number];
+
+  file:
+    File | null;
+
+  previewUrl:
+    string | null;
+
+  existingUrl:
+    string;
+
+  disabled:
+    boolean;
+
+  onChange: (
+    field:
+      BrochureVideoField,
+
+    event:
+      ChangeEvent<HTMLInputElement>,
+  ) => void;
+
+  onClearSelection: (
+    field:
+      BrochureVideoField,
+  ) => void;
+};
+
+function BrochureVideoUpload({
+  config,
+  file,
+  previewUrl,
+  existingUrl,
+  disabled,
+  onChange,
+  onClearSelection,
+}: BrochureVideoUploadProps) {
+  const displayedUrl =
+    previewUrl ||
+    existingUrl ||
+    null;
+
+  const inputId =
+    `brochure-${config.field}`;
+
+  return (
+    <article
+      className="admin-brochure-upload admin-brochure-upload--video"
+      data-format={
+        config.format
+      }
+    >
+      <div className="admin-brochure-upload__heading">
+        <div>
+          <div className="admin-brochure-upload__badges">
+            <span>
+              {
+                config.language
+              }
+            </span>
+
+            <span>
+              {
+                config.format ===
+                'desktop'
+                  ? 'Desktop'
+                  : 'Mobile'
+              }
+            </span>
+
+            <span>
+              Vidéo
+            </span>
+          </div>
+
+          <h3>
+            {
+              config.label
+            }
+          </h3>
+
+          <p>
+            {
+              config.description
+            }
+          </p>
+
+          <p className="admin-brochure-upload__recommended-size">
+            Format recommandé :
+            {' '}
+
+            <strong>
+              {
+                config.format ===
+                'desktop'
+                  ? '1920 × 800 px'
+                  : '1080 × 1635 px'
+              }
+            </strong>
+          </p>
+        </div>
+      </div>
+
+      <div
+        className="admin-brochure-upload__preview"
+        data-format={
+          config.format
+        }
+      >
+        {
+          displayedUrl
+            ? (
+                <div className="admin-brochure-video-preview">
+                  <video
+                    src={
+                      displayedUrl
+                    }
+                    muted
+                    playsInline
+                    controls
+                    preload="metadata"
+                  />
+
+                  <span className="admin-brochure-video-preview__badge">
+                    <Play
+                      size={
+                        15
+                      }
+                      aria-hidden="true"
+                    />
+
+                    Aperçu vidéo
+                  </span>
+                </div>
+              )
+            : (
+                <div className="admin-brochure-upload__empty">
+                  <Video
+                    size={
+                      32
+                    }
+                    aria-hidden="true"
+                  />
+
+                  <span>
+                    Aucune vidéo sélectionnée
+                  </span>
+                </div>
+              )
+        }
+      </div>
+
+      <div className="admin-brochure-upload__actions">
+        <label
+          htmlFor={
+            inputId
+          }
+          className="admin-brochure-upload__button"
+          aria-disabled={
+            disabled
+          }
+        >
+          <Upload
+            size={
+              17
+            }
+            aria-hidden="true"
+          />
+
+          <span>
+            {
+              displayedUrl
+                ? 'Remplacer la vidéo'
+                : 'Importer une vidéo'
+            }
+          </span>
+        </label>
+
+        <input
+          id={
+            inputId
+          }
+          type="file"
+          accept="video/mp4,video/webm"
+          hidden
+          disabled={
+            disabled
+          }
+          onChange={
+            event =>
+              onChange(
+                config.field,
+                event,
+              )
+          }
+        />
+
+        {
+          file
+            ? (
+                <button
+                  type="button"
+                  className="admin-brochure-upload__cancel"
+                  disabled={
+                    disabled
+                  }
+                  onClick={
+                    () =>
+                      onClearSelection(
+                        config.field,
+                      )
+                  }
+                >
+                  <X
+                    size={
+                      16
+                    }
+                    aria-hidden="true"
+                  />
+
+                  Annuler
+                </button>
+              )
+            : null
+        }
+      </div>
+
+      {
+        file
+          ? (
+              <p className="admin-brochure-upload__file">
+                <strong>
+                  {
+                    file.name
+                  }
+                </strong>
+
+                <span>
+                  {
+                    formatFileSize(
+                      file.size,
+                    )
+                  }
+                </span>
+
+                <span>
+                  Import sans conversion
+                </span>
+              </p>
+            )
+          : existingUrl
+            ? (
+                <p className="admin-brochure-upload__file">
+                  <Check
+                    size={
+                      15
+                    }
+                    aria-hidden="true"
+                  />
+
+                  Vidéo déjà enregistrée
+                </p>
+              )
+            : (
+                <p className="admin-brochure-upload__recommendation">
+                  Formats acceptés : MP4 et WebM. Taille maximale : 100 Mo.
+                </p>
+              )
+      }
+    </article>
   );
 }

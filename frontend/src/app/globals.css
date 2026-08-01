@@ -2564,6 +2564,228 @@ html[dir="rtl"]
   gap: 1rem;
 }
 
+.admin-brochure-media-type {
+  display: grid;
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(
+        0,
+        1fr
+      )
+    );
+
+  gap: 1rem;
+}
+
+.admin-brochure-media-type > button {
+  display: flex;
+  align-items: center;
+
+  min-height: 6.5rem;
+
+  gap: 1rem;
+
+  padding:
+    1.15rem
+    1.25rem;
+
+  cursor: pointer;
+
+  text-align: left;
+
+  border:
+    1px solid
+    rgba(
+      5,
+      38,
+      79,
+      0.14
+    );
+
+  border-radius:
+    1.15rem;
+
+  background:
+    #ffffff;
+
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+.admin-brochure-media-type > button:hover:not(:disabled) {
+  transform:
+    translateY(
+      -2px
+    );
+
+  border-color:
+    rgba(
+      24,
+      181,
+      220,
+      0.55
+    );
+
+  box-shadow:
+    0 0.8rem 2rem
+    rgba(
+      5,
+      38,
+      79,
+      0.08
+    );
+}
+
+.admin-brochure-media-type > button[data-active="true"] {
+  border-color:
+    #18b5dc;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(
+        24,
+        181,
+        220,
+        0.1
+      ),
+      rgba(
+        111,
+        65,
+        255,
+        0.08
+      )
+    );
+
+  box-shadow:
+    0 0 0 3px
+    rgba(
+      24,
+      181,
+      220,
+      0.12
+    );
+}
+
+.admin-brochure-media-type__icon {
+  flex: 0 0 auto;
+
+  display: grid;
+  place-items: center;
+
+  width: 3rem;
+  height: 3rem;
+
+  border-radius:
+    0.9rem;
+
+  color:
+    #ffffff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0a8ed1,
+      #7044ff
+    );
+}
+
+.admin-brochure-media-type > button > span:last-child {
+  display: grid;
+
+  gap: 0.35rem;
+}
+
+.admin-brochure-media-type strong {
+  color:
+    #05264f;
+
+  font-size:
+    1rem;
+}
+
+.admin-brochure-media-type small {
+  color:
+    #607087;
+
+  line-height:
+    1.5;
+}
+
+.admin-brochure-video-preview {
+  position: absolute;
+  inset: 0;
+
+  overflow: hidden;
+}
+
+.admin-brochure-video-preview video {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  background:
+    #001b46;
+}
+
+.admin-brochure-video-preview__badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+
+  display: inline-flex;
+  align-items: center;
+
+  gap: 0.35rem;
+
+  padding:
+    0.45rem
+    0.65rem;
+
+  border-radius:
+    999px;
+
+  color:
+    #ffffff;
+
+  font-size:
+    0.72rem;
+
+  font-weight:
+    800;
+
+  background:
+    rgba(
+      5,
+      38,
+      79,
+      0.82
+    );
+
+  backdrop-filter:
+    blur(
+      10px
+    );
+}
+
+@media (max-width: 767px) {
+  .admin-brochure-media-type {
+    grid-template-columns:
+      1fr;
+  }
+
+  .admin-brochure-media-type > button {
+    min-height: 5.5rem;
+  }
+}
+
 .admin-brochure-field {
   display: grid;
   gap: 0.48rem;
