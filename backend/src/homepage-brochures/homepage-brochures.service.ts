@@ -45,6 +45,10 @@ type ImageFormat =
   | 'desktop'
   | 'mobile';
 
+type BrochureMediaType =
+  | 'IMAGE'
+  | 'VIDEO';
+
 type HomepageBrochureImageCrop = {
   offsetX:
     number;
@@ -69,6 +73,9 @@ type HomepageBrochureRecord = {
   internal_name:
     string;
 
+  media_type:
+    string;    
+
   desktop_image_fr_url:
     string | null;
 
@@ -80,6 +87,18 @@ type HomepageBrochureRecord = {
 
   mobile_image_en_url:
     string | null;
+
+  desktop_video_fr_url:
+    string | null;
+
+  mobile_video_fr_url:
+    string | null;
+
+  desktop_video_en_url:
+    string | null;
+
+  mobile_video_en_url:
+    string | null;    
 
   desktop_image_fr_crop:
     Prisma.JsonValue | null;
@@ -243,13 +262,20 @@ export class HomepageBrochuresService {
     currentUser:
       AuthenticatedUser,
   ) {
-    this.assertActiveBrochureHasDesktopImage(
+    this.assertActiveBrochureHasDesktopMedia(
       dto.isActive ??
         true,
+
+      dto.mediaType ??
+        'IMAGE',
 
       dto.desktopImageFrUrl,
 
       dto.desktopImageEnUrl,
+
+      dto.desktopVideoFrUrl,
+
+      dto.desktopVideoEnUrl,
     );
 
     const brochure =
@@ -259,6 +285,10 @@ export class HomepageBrochuresService {
           data: {
             internal_name:
               dto.internalName.trim(),
+
+            media_type:
+              dto.mediaType ??
+              'IMAGE',              
 
             desktop_image_fr_url:
               dto.desktopImageFrUrl ??
@@ -275,6 +305,22 @@ export class HomepageBrochuresService {
             mobile_image_en_url:
               dto.mobileImageEnUrl ??
               null,
+
+            desktop_video_fr_url:
+              dto.desktopVideoFrUrl ??
+              null,
+
+            mobile_video_fr_url:
+              dto.mobileVideoFrUrl ??
+              null,
+
+            desktop_video_en_url:
+              dto.desktopVideoEnUrl ??
+              null,
+
+            mobile_video_en_url:
+              dto.mobileVideoEnUrl ??
+              null,              
 
             ...(dto.desktopImageFrCrop
               ? {
@@ -384,6 +430,31 @@ export class HomepageBrochuresService {
         : currentBrochure
             .desktop_image_en_url;
 
+    const nextDesktopVideoFrUrl =
+      dto.desktopVideoFrUrl !==
+      undefined
+        ? dto.desktopVideoFrUrl
+        : currentBrochure
+            .desktop_video_fr_url;
+
+    const nextDesktopVideoEnUrl =
+      dto.desktopVideoEnUrl !==
+      undefined
+        ? dto.desktopVideoEnUrl
+        : currentBrochure
+            .desktop_video_en_url;
+
+    const nextMediaType:
+      BrochureMediaType =
+        dto.mediaType !==
+        undefined
+          ? dto.mediaType
+          : currentBrochure
+              .media_type ===
+              'VIDEO'
+            ? 'VIDEO'
+            : 'IMAGE';            
+
     const nextIsActive =
       dto.isActive !==
       undefined
@@ -391,15 +462,25 @@ export class HomepageBrochuresService {
         : currentBrochure
             .is_active;
 
-    this.assertActiveBrochureHasDesktopImage(
+    this.assertActiveBrochureHasDesktopMedia(
       nextIsActive,
+
+      nextMediaType,
 
       nextDesktopImageFrUrl ??
         undefined,
 
       nextDesktopImageEnUrl ??
         undefined,
+
+      nextDesktopVideoFrUrl ??
+        undefined,
+
+      nextDesktopVideoEnUrl ??
+        undefined,
     );
+
+    
 
     const brochure =
       await this.prisma
@@ -415,6 +496,14 @@ export class HomepageBrochuresService {
               ? {
                   internal_name:
                     dto.internalName.trim(),
+                }
+              : {}),
+
+            ...(dto.mediaType !==
+            undefined
+              ? {
+                  media_type:
+                    dto.mediaType,
                 }
               : {}),
 
@@ -453,6 +542,42 @@ export class HomepageBrochuresService {
                     null,
                 }
               : {}),
+
+            ...(dto.desktopVideoFrUrl !==
+            undefined
+              ? {
+                  desktop_video_fr_url:
+                    dto.desktopVideoFrUrl ??
+                    null,
+                }
+              : {}),
+
+            ...(dto.mobileVideoFrUrl !==
+            undefined
+              ? {
+                  mobile_video_fr_url:
+                    dto.mobileVideoFrUrl ??
+                    null,
+                }
+              : {}),
+
+            ...(dto.desktopVideoEnUrl !==
+            undefined
+              ? {
+                  desktop_video_en_url:
+                    dto.desktopVideoEnUrl ??
+                    null,
+                }
+              : {}),
+
+            ...(dto.mobileVideoEnUrl !==
+            undefined
+              ? {
+                  mobile_video_en_url:
+                    dto.mobileVideoEnUrl ??
+                    null,
+                }
+              : {}),              
 
             ...(dto.desktopImageFrCrop !==
             undefined
@@ -651,6 +776,30 @@ export class HomepageBrochuresService {
       this.storageService
         .deletePublicFileByUrl(
           brochure
+            .desktop_video_fr_url,
+        ),
+
+      this.storageService
+        .deletePublicFileByUrl(
+          brochure
+            .mobile_video_fr_url,
+        ),
+
+      this.storageService
+        .deletePublicFileByUrl(
+          brochure
+            .desktop_video_en_url,
+        ),
+
+      this.storageService
+        .deletePublicFileByUrl(
+          brochure
+            .mobile_video_en_url,
+        ),        
+
+      this.storageService
+        .deletePublicFileByUrl(
+          brochure
             .mobile_image_en_url,
         ),
     ]);
@@ -661,23 +810,50 @@ export class HomepageBrochuresService {
     };
   }
 
-  private assertActiveBrochureHasDesktopImage(
+  private assertActiveBrochureHasDesktopMedia(
     isActive:
       boolean,
+
+    mediaType:
+      BrochureMediaType,
 
     desktopImageFrUrl:
       string | undefined,
 
     desktopImageEnUrl:
       string | undefined,
+
+    desktopVideoFrUrl:
+      string | undefined,
+
+    desktopVideoEnUrl:
+      string | undefined,
   ) {
     if (
-      isActive &&
+      !isActive
+    ) {
+      return;
+    }
+
+    if (
+      mediaType ===
+      'IMAGE' &&
       !desktopImageFrUrl &&
       !desktopImageEnUrl
     ) {
       throw new BadRequestException(
-        'Une brochure active doit contenir au moins une image desktop en français ou en anglais.',
+        'Une brochure image active doit contenir au moins une image desktop en français ou en anglais.',
+      );
+    }
+
+    if (
+      mediaType ===
+      'VIDEO' &&
+      !desktopVideoFrUrl &&
+      !desktopVideoEnUrl
+    ) {
+      throw new BadRequestException(
+        'Une brochure vidéo active doit contenir au moins une vidéo desktop en français ou en anglais.',
       );
     }
   }
@@ -832,6 +1008,12 @@ export class HomepageBrochuresService {
       internalName:
         brochure.internal_name,
 
+      mediaType:
+        brochure.media_type ===
+        'VIDEO'
+          ? 'VIDEO'
+          : 'IMAGE',        
+
       desktopImageFrUrl:
         brochure
           .desktop_image_fr_url,
@@ -847,6 +1029,22 @@ export class HomepageBrochuresService {
       mobileImageEnUrl:
         brochure
           .mobile_image_en_url,
+
+      desktopVideoFrUrl:
+        brochure
+          .desktop_video_fr_url,
+
+      mobileVideoFrUrl:
+        brochure
+          .mobile_video_fr_url,
+
+      desktopVideoEnUrl:
+        brochure
+          .desktop_video_en_url,
+
+      mobileVideoEnUrl:
+        brochure
+          .mobile_video_en_url,
 
       desktopImageFrCrop:
         this.normalizeCrop(

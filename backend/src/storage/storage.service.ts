@@ -30,6 +30,31 @@ type UploadedImage = {
   size: number;
 };
 
+type UploadedVideo = {
+  url:
+    string;
+
+  objectName:
+    string;
+
+  mimeType:
+    'video/mp4' |
+    'video/webm';
+
+  extension:
+    'mp4' |
+    'webm';
+
+  width:
+    null;
+
+  height:
+    null;
+
+  size:
+    number;
+};
+
 @Injectable()
 export class StorageService
   implements OnModuleInit
@@ -53,6 +78,12 @@ export class StorageService
 
   private readonly maxImageSize:
     number;
+
+  private readonly allowedVideoTypes:
+    Set<string>;
+
+  private readonly maxVideoSize:
+    number;    
 
   constructor(
     private readonly configService:
@@ -137,6 +168,34 @@ export class StorageService
             Boolean,
           ),
       );
+
+    this.maxVideoSize =
+      Number(
+        this.configService
+          .get<string>(
+            'UPLOAD_MAX_VIDEO_SIZE_BYTES',
+            '104857600',
+          ),
+      );
+
+    this.allowedVideoTypes =
+      new Set(
+        this.configService
+          .get<string>(
+            'UPLOAD_ALLOWED_VIDEO_TYPES',
+            'video/mp4,video/webm',
+          )
+          .split(
+            ',',
+          )
+          .map(
+            mimeType =>
+              mimeType.trim(),
+          )
+          .filter(
+            Boolean,
+          ),
+      );      
 
     this.minioClient =
       new MinioClient({
@@ -279,6 +338,93 @@ export class StorageService
     };
   }
 
+  async uploadHomepageBrochureVideo(
+    file:
+      Express.Multer.File,
+  ):
+    Promise<UploadedVideo>
+  {
+    this.validateVideoFile(
+      file,
+    );
+
+    const extension =
+      file.mimetype ===
+      'video/webm'
+        ? 'webm'
+        : 'mp4';
+
+    const mimeType:
+      UploadedVideo['mimeType'] =
+        extension ===
+        'webm'
+          ? 'video/webm'
+          : 'video/mp4';
+
+    const objectName =
+      [
+        'homepage',
+        'brochures',
+        `${randomUUID()}.${extension}`,
+      ].join(
+        '/',
+      );
+
+    try {
+      await this.minioClient
+        .putObject(
+          this.publicBucket,
+          objectName,
+          file.buffer,
+          file.size,
+          {
+            'Content-Type':
+              mimeType,
+
+            /*
+             * Les fichiers utilisent un UUID : ils sont immuables.
+             * Le navigateur peut donc les conserver longtemps.
+             */
+            'Cache-Control':
+              'public, max-age=31536000, immutable',
+          },
+        );
+    } catch (
+      error
+    ) {
+      this.logger.error(
+        'Impossible d’enregistrer la vidéo de brochure dans MinIO.',
+        error instanceof Error
+          ? error.stack
+          : undefined,
+      );
+
+      throw new InternalServerErrorException(
+        'Impossible d’enregistrer la vidéo.',
+      );
+    }
+
+    return {
+      url:
+        `${this.publicUrl}/${objectName}`,
+
+      objectName,
+
+      mimeType,
+
+      extension,
+
+      width:
+        null,
+
+      height:
+        null,
+
+      size:
+        file.size,
+    };
+  }  
+
   async deletePublicFileByUrl(
     fileUrl:
       string | null | undefined,
@@ -378,6 +524,54 @@ export class StorageService
     ) {
       throw new BadRequestException(
         'Format d’image non autorisé. Utilisez JPEG, PNG, WebP ou AVIF.',
+      );
+    }
+  }
+
+  private validateVideoFile(
+    file:
+      Express.Multer.File | undefined,
+  ):
+    asserts file is Express.Multer.File
+  {
+    if (
+      !file
+    ) {
+      throw new BadRequestException(
+        'Aucun fichier vidéo n’a été envoyé.',
+      );
+    }
+
+    if (
+      file.size <=
+      0
+    ) {
+      throw new BadRequestException(
+        'Le fichier vidéo envoyé est vide.',
+      );
+    }
+
+    if (
+      file.size >
+      this.maxVideoSize
+    ) {
+      throw new BadRequestException(
+        `La vidéo dépasse la taille maximale autorisée de ${Math.round(
+          this.maxVideoSize /
+            1024 /
+            1024,
+        )} Mo.`,
+      );
+    }
+
+    if (
+      !this.allowedVideoTypes
+        .has(
+          file.mimetype,
+        )
+    ) {
+      throw new BadRequestException(
+        'Format vidéo non autorisé. Utilisez MP4 ou WebM.',
       );
     }
   }

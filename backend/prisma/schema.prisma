@@ -123,6 +123,11 @@ model homepage_brochures {
   mobile_image_fr_crop  Json?
   desktop_image_en_crop Json?
   mobile_image_en_crop  Json?
+  media_type            String   @default("IMAGE") @db.VarChar(20)
+  desktop_video_fr_url  String?
+  mobile_video_fr_url   String?
+  desktop_video_en_url  String?
+  mobile_video_en_url   String?
   users                 users?   @relation(fields: [created_by_user_id], references: [id], onUpdate: NoAction, map: "homepage_brochures_created_by_user_foreign_key")
 
   @@index([created_by_user_id], map: "homepage_brochures_created_by_user_index")

@@ -15,7 +15,7 @@ psql -U postgres
 
 ** Execution d'un script 
 
-psql -U postgres -d axplify_db -f "database\migrations\003_add_homepage_brochure_image_crops.sql
+psql -U postgres -d axplify_db -f "database\migrations\004_add_homepage_brochure_videos.sql
 
 cd /opt/apps/hire/repo
 

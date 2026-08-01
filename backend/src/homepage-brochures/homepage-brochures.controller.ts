@@ -165,6 +165,52 @@ export class HomepageBrochuresController {
       );
   }
 
+  @Throttle({
+    default: {
+      limit:
+        10,
+
+      ttl:
+        60_000,
+    },
+  })
+  @Post(
+    'upload-video',
+  )
+  @UseGuards(
+    JwtAuthGuard,
+    RolesGuard,
+  )
+  @Roles(
+    'SUPER_ADMIN',
+  )
+  @UseInterceptors(
+    FileInterceptor(
+      'file',
+      {
+        limits: {
+          files:
+            1,
+
+          fileSize:
+            100 *
+            1024 *
+            1024,
+        },
+      },
+    ),
+  )
+  uploadVideo(
+    @UploadedFile()
+    file:
+      Express.Multer.File,
+  ) {
+    return this.storageService
+      .uploadHomepageBrochureVideo(
+        file,
+      );
+  }
+
   /*
    * Cette route doit rester placée avant @Patch(':id').
    */

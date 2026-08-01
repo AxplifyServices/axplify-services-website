@@ -58,6 +58,15 @@ export class CreateHomepageBrochureDto {
     string;
 
   @IsOptional()
+  @IsIn([
+    'IMAGE',
+    'VIDEO',
+  ])
+  mediaType?:
+    'IMAGE' |
+    'VIDEO';    
+
+  @IsOptional()
   @IsUrl(
     {
       require_protocol:
@@ -156,6 +165,106 @@ export class CreateHomepageBrochureDto {
   )
   mobileImageEnUrl?:
     string;
+
+  @IsOptional()
+  @IsUrl(
+    {
+      require_protocol:
+        true,
+
+      require_tld:
+        false,
+
+      protocols: [
+        'http',
+        'https',
+      ],
+    },
+    {
+      message:
+        'L’adresse de la vidéo desktop française n’est pas valide.',
+    },
+  )
+  @Transform(
+    emptyStringToUndefined,
+  )
+  desktopVideoFrUrl?:
+    string;
+
+  @IsOptional()
+  @IsUrl(
+    {
+      require_protocol:
+        true,
+
+      require_tld:
+        false,
+
+      protocols: [
+        'http',
+        'https',
+      ],
+    },
+    {
+      message:
+        'L’adresse de la vidéo mobile française n’est pas valide.',
+    },
+  )
+  @Transform(
+    emptyStringToUndefined,
+  )
+  mobileVideoFrUrl?:
+    string;
+
+  @IsOptional()
+  @IsUrl(
+    {
+      require_protocol:
+        true,
+
+      require_tld:
+        false,
+
+      protocols: [
+        'http',
+        'https',
+      ],
+    },
+    {
+      message:
+        'L’adresse de la vidéo desktop anglaise n’est pas valide.',
+    },
+  )
+  @Transform(
+    emptyStringToUndefined,
+  )
+  desktopVideoEnUrl?:
+    string;
+
+  @IsOptional()
+  @IsUrl(
+    {
+      require_protocol:
+        true,
+
+      require_tld:
+        false,
+
+      protocols: [
+        'http',
+        'https',
+      ],
+    },
+    {
+      message:
+        'L’adresse de la vidéo mobile anglaise n’est pas valide.',
+    },
+  )
+  @Transform(
+    emptyStringToUndefined,
+  )
+  mobileVideoEnUrl?:
+    string;    
 
   @IsOptional()
   @ValidateNested()
