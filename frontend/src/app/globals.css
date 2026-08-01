@@ -1893,6 +1893,7 @@ html[dir="rtl"] .site-footer__link svg {
 
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
 .home-brochure__slide {
@@ -1958,6 +1959,32 @@ html[dir="rtl"] .site-footer__link svg {
   overflow: hidden;
 
   background: #ffffff;
+}
+
+.home-brochure__video {
+  position: absolute;
+  inset: 0;
+
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  /*
+   * La vidéo couvre exactement le même cadre que les images.
+   * Les vidéos desktop et mobile doivent donc être exportées
+   * aux dimensions recommandées dans l’administration.
+   */
+  object-fit: cover;
+  object-position: center;
+
+  border: 0;
+
+  background:
+    #001b46;
+
+  user-select: none;
+  pointer-events: none;
 }
 
 .home-brochure__image {

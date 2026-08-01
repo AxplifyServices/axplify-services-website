@@ -23,17 +23,21 @@ export type PublicHomepageBrochure = {
   id:
     string;
 
-  desktopImageUrl:
+  mediaType:
+    'IMAGE' |
+    'VIDEO';
+
+  desktopMediaUrl:
     string;
 
-  mobileImageUrl:
+  mobileMediaUrl:
     string;
 
   desktopImageCrop:
     PublicHomepageBrochureCrop | null;
 
   mobileImageCrop:
-    PublicHomepageBrochureCrop | null;    
+    PublicHomepageBrochureCrop | null;
 
   altText:
     string;

@@ -198,7 +198,7 @@ export class HomepageBrochuresService {
       .filter(
         brochure =>
           Boolean(
-            brochure.desktopImageUrl,
+            brochure.desktopMediaUrl,
           ),
       );
   }
@@ -871,6 +871,115 @@ export class HomepageBrochuresService {
       locale ===
         'ar';
 
+    const altText =
+      usesEnglishPriority
+        ? brochure
+            .alt_text_en ??
+          brochure
+            .alt_text_fr ??
+          brochure
+            .internal_name
+        : brochure
+            .alt_text_fr ??
+          brochure
+            .alt_text_en ??
+          brochure
+            .internal_name;
+
+    const mediaType:
+      BrochureMediaType =
+        brochure.media_type ===
+        'VIDEO'
+          ? 'VIDEO'
+          : 'IMAGE';
+
+    /*
+     * Une brochure vidéo utilise uniquement ses champs vidéo.
+     * Une brochure image utilise uniquement ses champs image.
+     *
+     * Cela évite qu’une ancienne image résiduelle soit affichée
+     * lorsqu’une brochure a été convertie en vidéo.
+     */
+    if (
+      mediaType ===
+      'VIDEO'
+    ) {
+      const frenchDesktop =
+        brochure
+          .desktop_video_fr_url;
+
+      const frenchMobile =
+        brochure
+          .mobile_video_fr_url;
+
+      const englishDesktop =
+        brochure
+          .desktop_video_en_url;
+
+      const englishMobile =
+        brochure
+          .mobile_video_en_url;
+
+      const desktopMediaUrl =
+        this.firstAvailableUrl(
+          usesEnglishPriority
+            ? [
+                englishDesktop,
+                frenchDesktop,
+              ]
+            : [
+                frenchDesktop,
+                englishDesktop,
+              ],
+        );
+
+      const mobileMediaUrl =
+        this.firstAvailableUrl(
+          usesEnglishPriority
+            ? [
+                englishMobile,
+                englishDesktop,
+                frenchMobile,
+                frenchDesktop,
+              ]
+            : [
+                frenchMobile,
+                frenchDesktop,
+                englishMobile,
+                englishDesktop,
+              ],
+        ) ??
+        desktopMediaUrl;
+
+      return {
+        id:
+          brochure.id,
+
+        mediaType,
+
+        desktopMediaUrl,
+
+        mobileMediaUrl,
+
+        desktopImageCrop:
+          null,
+
+        mobileImageCrop:
+          null,
+
+        altText,
+
+        linkUrl:
+          brochure.link_url,
+
+        linkTarget:
+          brochure.link_target ===
+          '_blank'
+            ? '_blank'
+            : '_self',
+      };
+    }
+
     const frenchDesktop =
       this.imageAsset(
         brochure
@@ -945,38 +1054,25 @@ export class HomepageBrochuresService {
             ],
       );
 
-    const altText =
-      usesEnglishPriority
-        ? brochure
-            .alt_text_en ??
-          brochure
-            .alt_text_fr ??
-          brochure
-            .internal_name
-        : brochure
-            .alt_text_fr ??
-          brochure
-            .alt_text_en ??
-          brochure
-            .internal_name;
-
     return {
       id:
         brochure.id,
 
-      desktopImageUrl:
+      mediaType,
+
+      desktopMediaUrl:
+        desktopAsset.url,
+
+      mobileMediaUrl:
+        mobileAsset.url ??
         desktopAsset.url,
 
       desktopImageCrop:
         desktopAsset.crop,
 
-      mobileImageUrl:
-        mobileAsset.url ??
-        desktopAsset.url,
-
       /*
-       * Une image desktop utilisée comme fallback mobile ne doit pas
-       * récupérer un cadrage calculé pour un cadre horizontal.
+       * Une image desktop utilisée comme fallback mobile ne doit
+       * pas récupérer un cadrage prévu pour un cadre horizontal.
        */
       mobileImageCrop:
         mobileAsset.format ===
@@ -1128,6 +1224,23 @@ export class HomepageBrochuresService {
       format,
     };
   }
+
+  private firstAvailableUrl(
+    urls:
+      Array<
+        string | null
+      >,
+  ): string | null {
+    return (
+      urls.find(
+        url =>
+          Boolean(
+            url,
+          ),
+      ) ??
+      null
+    );
+  }  
 
   private firstAvailableAsset(
     assets:

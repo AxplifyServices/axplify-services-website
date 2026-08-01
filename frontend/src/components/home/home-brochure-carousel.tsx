@@ -19,6 +19,9 @@ import type {
 const AUTOPLAY_DELAY =
   6500;
 
+const VIDEO_ERROR_FALLBACK_DELAY =
+  5000;
+
 const SWIPE_THRESHOLD =
   45;
 
@@ -36,121 +39,194 @@ type HomeBrochureCarouselProps = {
     string;
 };
 
-function BrochureContent({
-  brochure,
-  priority,
-}: {
+type BrochureContentProps = {
   brochure:
     PublicHomepageBrochure;
 
   priority:
     boolean;
-}) {
+
+  isActive:
+    boolean;
+
+  videoRef: (
+    element:
+      HTMLVideoElement | null,
+  ) => void;
+
+  onVideoEnded:
+    () => void;
+
+  onVideoError:
+    () => void;
+};
+
+function BrochureContent({
+  brochure,
+  priority,
+  isActive,
+  videoRef,
+  onVideoEnded,
+  onVideoError,
+}: BrochureContentProps) {
   const desktopCrop =
     brochure.desktopImageCrop;
 
   const mobileCrop =
     brochure.mobileImageCrop;
 
-  const picture = (
-    <div className="home-brochure__picture">
-      <img
-        src={
-          brochure.desktopImageUrl
-        }
-        alt={
-          brochure.altText
-        }
-        className="home-brochure__image home-brochure__image--desktop"
-        draggable={
-          false
-        }
-        loading={
-          priority
-            ? 'eager'
-            : 'lazy'
-        }
-        fetchPriority={
-          priority
-            ? 'high'
-            : 'auto'
-        }
-        decoding="async"
-        style={{
-          transform:
-            desktopCrop
-              ? `translate(${desktopCrop.offsetX * 100}%, ${desktopCrop.offsetY * 100}%) scale(${desktopCrop.zoom})`
-              : undefined,
-        }}
-      />
+  const media =
+    brochure.mediaType ===
+    'VIDEO'
+      ? (
+          <div className="home-brochure__picture">
+            <video
+              ref={
+                videoRef
+              }
+              className="home-brochure__video"
+              muted
+              playsInline
+              preload={
+                priority
+                  ? 'auto'
+                  : 'metadata'
+              }
+              aria-label={
+                brochure.altText
+              }
+              onEnded={
+                onVideoEnded
+              }
+              onError={
+                onVideoError
+              }
+            >
+              <source
+                src={
+                  brochure.mobileMediaUrl
+                }
+                media="(max-width: 767px)"
+              />
 
-      <img
-        src={
-          brochure.mobileImageUrl
-        }
-        alt=""
-        aria-hidden="true"
-        className="home-brochure__image home-brochure__image--mobile"
-        draggable={
-          false
-        }
-        loading={
-          priority
-            ? 'eager'
-            : 'lazy'
-        }
-        fetchPriority={
-          priority
-            ? 'high'
-            : 'auto'
-        }
-        decoding="async"
-        style={{
-          transform:
-            mobileCrop
-              ? `translate(${mobileCrop.offsetX * 100}%, ${mobileCrop.offsetY * 100}%) scale(${mobileCrop.zoom})`
-              : undefined,
-        }}
-      />
-    </div>
-  );
+              <source
+                src={
+                  brochure.desktopMediaUrl
+                }
+                media="(min-width: 768px)"
+              />
 
-  if (
-    !brochure.linkUrl
-  ) {
-    return (
-      <div className="home-brochure__link home-brochure__link--static">
-        {
-          picture
-        }
-      </div>
-    );
-  }
+              <source
+                src={
+                  brochure.desktopMediaUrl
+                }
+              />
+            </video>
+          </div>
+        )
+      : (
+          <div className="home-brochure__picture">
+            <img
+              src={
+                brochure.desktopMediaUrl
+              }
+              alt={
+                brochure.altText
+              }
+              className="home-brochure__image home-brochure__image--desktop"
+              draggable={
+                false
+              }
+              loading={
+                priority
+                  ? 'eager'
+                  : 'lazy'
+              }
+              fetchPriority={
+                priority
+                  ? 'high'
+                  : 'auto'
+              }
+              decoding="async"
+              style={{
+                transform:
+                  desktopCrop
+                    ? `translate(${desktopCrop.offsetX * 100}%, ${desktopCrop.offsetY * 100}%) scale(${desktopCrop.zoom})`
+                    : undefined,
+              }}
+            />
 
-  return (
-    <a
-      href={
-        brochure.linkUrl
-      }
-      target={
-        brochure.linkTarget
-      }
-      rel={
-        brochure.linkTarget ===
-        '_blank'
-          ? 'noopener noreferrer'
-          : undefined
-      }
-      className="home-brochure__link"
-      aria-label={
-        brochure.altText
-      }
-    >
-      {
-        picture
-      }
-    </a>
-  );
+            <img
+              src={
+                brochure.mobileMediaUrl
+              }
+              alt=""
+              aria-hidden="true"
+              className="home-brochure__image home-brochure__image--mobile"
+              draggable={
+                false
+              }
+              loading={
+                priority
+                  ? 'eager'
+                  : 'lazy'
+              }
+              fetchPriority={
+                priority
+                  ? 'high'
+                  : 'auto'
+              }
+              decoding="async"
+              style={{
+                transform:
+                  mobileCrop
+                    ? `translate(${mobileCrop.offsetX * 100}%, ${mobileCrop.offsetY * 100}%) scale(${mobileCrop.zoom})`
+                    : undefined,
+              }}
+            />
+          </div>
+        );
+
+  const content =
+    brochure.linkUrl
+      ? (
+          <a
+            href={
+              brochure.linkUrl
+            }
+            target={
+              brochure.linkTarget
+            }
+            rel={
+              brochure.linkTarget ===
+              '_blank'
+                ? 'noopener noreferrer'
+                : undefined
+            }
+            className="home-brochure__link"
+            aria-label={
+              brochure.altText
+            }
+            tabIndex={
+              isActive
+                ? 0
+                : -1
+            }
+          >
+            {
+              media
+            }
+          </a>
+        )
+      : (
+          <div className="home-brochure__link home-brochure__link--static">
+            {
+              media
+            }
+          </div>
+        );
+
+  return content;
 }
 
 export function HomeBrochureCarousel({
@@ -182,9 +258,30 @@ export function HomeBrochureCarousel({
       null,
     );
 
+  const videoElementsRef =
+    useRef<
+      Array<
+        HTMLVideoElement | null
+      >
+    >(
+      [],
+    );
+
+  const videoErrorTimerRef =
+    useRef<
+      number | null
+    >(
+      null,
+    );
+
   const hasSeveralBrochures =
     brochures.length >
     1;
+
+  const activeBrochure =
+    brochures[
+      activeIndex
+    ];
 
   const showPrevious =
     useCallback(
@@ -222,11 +319,20 @@ export function HomeBrochureCarousel({
       ],
     );
 
+  /*
+   * Le timer classique ne concerne que les images.
+   *
+   * Une vidéo contrôle elle-même le passage à la slide
+   * suivante grâce à l’événement `ended`.
+   */
   useEffect(
     () => {
       if (
         !hasSeveralBrochures ||
-        isPaused
+        isPaused ||
+        !activeBrochure ||
+        activeBrochure.mediaType ===
+        'VIDEO'
       ) {
         return;
       }
@@ -243,21 +349,99 @@ export function HomeBrochureCarousel({
       }
 
       const timer =
-        window.setInterval(
+        window.setTimeout(
           showNext,
           AUTOPLAY_DELAY,
         );
 
       return () => {
-        window.clearInterval(
+        window.clearTimeout(
           timer,
         );
       };
     },
     [
+      activeBrochure,
       hasSeveralBrochures,
       isPaused,
       showNext,
+    ],
+  );
+
+  /*
+   * À chaque changement de slide :
+   *
+   * - toutes les vidéos non actives sont arrêtées ;
+   * - leur lecture est remise au début ;
+   * - la vidéo active démarre automatiquement.
+   */
+  useEffect(
+    () => {
+      videoElementsRef
+        .current
+        .forEach(
+          (
+            video,
+            index,
+          ) => {
+            if (
+              !video
+            ) {
+              return;
+            }
+
+            if (
+              index !==
+              activeIndex
+            ) {
+              video.pause();
+
+              try {
+                video.currentTime =
+                  0;
+              } catch {
+                // La vidéo peut ne pas encore avoir chargé ses métadonnées.
+              }
+
+              return;
+            }
+
+            const brochure =
+              brochures[
+                index
+              ];
+
+            if (
+              brochure?.mediaType !==
+              'VIDEO'
+            ) {
+              return;
+            }
+
+            try {
+              video.currentTime =
+                0;
+            } catch {
+              // Les métadonnées seront chargées juste après.
+            }
+
+            void video
+              .play()
+              .catch(
+                () => {
+                  /*
+                   * Certains navigateurs peuvent refuser l’autoplay,
+                   * même si la vidéo est muette. Le fallback d’erreur
+                   * empêchera alors le carrousel de rester bloqué.
+                   */
+                },
+              );
+          },
+        );
+    },
+    [
+      activeIndex,
+      brochures,
     ],
   );
 
@@ -278,6 +462,114 @@ export function HomeBrochureCarousel({
     ],
   );
 
+  useEffect(
+    () => {
+      return () => {
+        if (
+          videoErrorTimerRef.current !==
+          null
+        ) {
+          window.clearTimeout(
+            videoErrorTimerRef.current,
+          );
+        }
+      };
+    },
+    [],
+  );
+
+  const handleVideoEnded =
+    useCallback(
+      (
+        index:
+          number,
+      ) => {
+        /*
+         * On ignore l’événement d’une ancienne vidéo qui
+         * ne serait plus la slide visible.
+         */
+        if (
+          index !==
+          activeIndex
+        ) {
+          return;
+        }
+
+        if (
+          hasSeveralBrochures
+        ) {
+          showNext();
+
+          return;
+        }
+
+        /*
+         * Lorsqu’il n’existe qu’une seule brochure vidéo,
+         * elle recommence depuis le début.
+         */
+        const video =
+          videoElementsRef
+            .current[
+              index
+            ];
+
+        if (
+          video
+        ) {
+          video.currentTime =
+            0;
+
+          void video.play();
+        }
+      },
+      [
+        activeIndex,
+        hasSeveralBrochures,
+        showNext,
+      ],
+    );
+
+  const handleVideoError =
+    useCallback(
+      (
+        index:
+          number,
+      ) => {
+        if (
+          index !==
+          activeIndex ||
+        !hasSeveralBrochures
+      ) {
+        return;
+      }
+
+      if (
+        videoErrorTimerRef.current !==
+        null
+      ) {
+        window.clearTimeout(
+          videoErrorTimerRef.current,
+        );
+      }
+
+      videoErrorTimerRef.current =
+        window.setTimeout(
+          () => {
+            showNext();
+
+            videoErrorTimerRef.current =
+              null;
+          },
+          VIDEO_ERROR_FALLBACK_DELAY,
+        );
+      },
+      [
+        activeIndex,
+        hasSeveralBrochures,
+        showNext,
+      ],
+    );
+
   if (
     !brochures.length
   ) {
@@ -289,10 +581,21 @@ export function HomeBrochureCarousel({
       className="home-brochure"
       aria-roledescription="carousel"
       onMouseEnter={
-        () =>
-          setIsPaused(
-            true,
-          )
+        () => {
+          /*
+           * Le survol suspend seulement le timer des images.
+           * Une vidéo continue sa lecture jusqu’à sa fin.
+           */
+          if (
+            activeBrochure
+              ?.mediaType ===
+            'IMAGE'
+          ) {
+            setIsPaused(
+              true,
+            );
+          }
+        }
       }
       onMouseLeave={
         () =>
@@ -301,10 +604,17 @@ export function HomeBrochureCarousel({
           )
       }
       onFocusCapture={
-        () =>
-          setIsPaused(
-            true,
-          )
+        () => {
+          if (
+            activeBrochure
+              ?.mediaType ===
+            'IMAGE'
+          ) {
+            setIsPaused(
+              true,
+            );
+          }
+        }
       }
       onBlurCapture={
         () =>
@@ -395,6 +705,31 @@ export function HomeBrochureCarousel({
                   priority={
                     index ===
                     0
+                  }
+                  isActive={
+                    index ===
+                    activeIndex
+                  }
+                  videoRef={
+                    element => {
+                      videoElementsRef
+                        .current[
+                          index
+                        ] =
+                        element;
+                    }
+                  }
+                  onVideoEnded={
+                    () =>
+                      handleVideoEnded(
+                        index,
+                      )
+                  }
+                  onVideoError={
+                    () =>
+                      handleVideoError(
+                        index,
+                      )
                   }
                 />
               </article>
