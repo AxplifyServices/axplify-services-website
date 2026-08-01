@@ -144,41 +144,54 @@ export function AboutPageContent({
 </div>
           </div>
 
-          <div
-            className="about-hero__visual"
-            aria-hidden="true"
-          >
-            <div className="about-hero__visual-center">
-              <Blocks
-                size={38}
-                strokeWidth={1.7}
-              />
-            </div>
+<div
+  className="about-hero__visual"
+  aria-hidden="true"
+>
+  <div className="about-hero__visual-center">
+    <Blocks
+      size={38}
+      strokeWidth={1.7}
+    />
+  </div>
 
-            <div className="about-hero__visual-ring about-hero__visual-ring--one" />
-            <div className="about-hero__visual-ring about-hero__visual-ring--two" />
+  <div className="about-hero__visual-ring about-hero__visual-ring--one" />
 
-            <div className="about-hero__visual-node about-hero__visual-node--one">
-              <BrainCircuit
-                size={23}
-                strokeWidth={1.8}
-              />
-            </div>
+  <div className="about-hero__visual-ring about-hero__visual-ring--two" />
 
-            <div className="about-hero__visual-node about-hero__visual-node--two">
-              <ChartNoAxesCombined
-                size={23}
-                strokeWidth={1.8}
-              />
-            </div>
+  <div className="about-hero__orbit about-hero__orbit--inner">
+    <div className="about-hero__orbit-counter about-hero__orbit-counter--inner">
+      <div className="about-hero__visual-node about-hero__visual-node--one">
+        <BrainCircuit
+          size={23}
+          strokeWidth={1.8}
+        />
+      </div>
+    </div>
+  </div>
 
-            <div className="about-hero__visual-node about-hero__visual-node--three">
-              <Sparkles
-                size={23}
-                strokeWidth={1.8}
-              />
-            </div>
-          </div>
+  <div className="about-hero__orbit about-hero__orbit--outer about-hero__orbit--outer-first">
+    <div className="about-hero__orbit-counter about-hero__orbit-counter--outer-first">
+      <div className="about-hero__visual-node about-hero__visual-node--two">
+        <ChartNoAxesCombined
+          size={23}
+          strokeWidth={1.8}
+        />
+      </div>
+    </div>
+  </div>
+
+  <div className="about-hero__orbit about-hero__orbit--outer about-hero__orbit--outer-second">
+    <div className="about-hero__orbit-counter about-hero__orbit-counter--outer-second">
+      <div className="about-hero__visual-node about-hero__visual-node--three">
+        <Sparkles
+          size={23}
+          strokeWidth={1.8}
+        />
+      </div>
+    </div>
+  </div>
+</div>
         </div>
       </section>
 
