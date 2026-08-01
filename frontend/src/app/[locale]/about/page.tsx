@@ -140,15 +140,10 @@ export default async function AboutPage({
             'hero.description',
           ),
 
-        primaryCta:
-          t(
-            'hero.primaryCta',
-          ),
-
-        secondaryCta:
-          t(
-            'hero.secondaryCta',
-          ),
+secondaryCta:
+  t(
+    'hero.secondaryCta',
+  ),
       }}
       story={{
         eyebrow:
@@ -282,15 +277,10 @@ export default async function AboutPage({
             'finalCta.description',
           ),
 
-        primaryCta:
-          t(
-            'finalCta.primaryCta',
-          ),
-
-        secondaryCta:
-          t(
-            'finalCta.secondaryCta',
-          ),
+primaryCta:
+  t(
+    'finalCta.primaryCta',
+  ),
       }}
     />
   );

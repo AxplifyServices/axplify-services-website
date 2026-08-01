@@ -3,7 +3,6 @@ import {
   Blocks,
   BrainCircuit,
   ChartNoAxesCombined,
-  Check,
   Compass,
   Layers3,
   Lightbulb,
@@ -16,14 +15,13 @@ import {
 } from '@/i18n/navigation';
 
 type AboutPageContentProps = {
-  hero: {
-    eyebrow: string;
-    title: string;
-    introduction: string;
-    description: string;
-    primaryCta: string;
-    secondaryCta: string;
-  };
+hero: {
+  eyebrow: string;
+  title: string;
+  introduction: string;
+  description: string;
+  secondaryCta: string;
+};
 
   story: {
     eyebrow: string;
@@ -66,13 +64,12 @@ type AboutPageContentProps = {
     }>;
   };
 
-  finalCta: {
-    eyebrow: string;
-    title: string;
-    description: string;
-    primaryCta: string;
-    secondaryCta: string;
-  };
+finalCta: {
+  eyebrow: string;
+  title: string;
+  description: string;
+  primaryCta: string;
+};
 };
 
 const missionIcons = [
@@ -129,37 +126,22 @@ export function AboutPageContent({
               {hero.description}
             </p>
 
-            <div className="about-hero__actions">
-              <Link
-                href="/assist"
-                className="button button--primary"
-              >
-                <span>
-                  {hero.primaryCta}
-                </span>
+<div className="about-hero__actions">
+  <Link
+    href="/about/work-process"
+    className="about-hero__secondary-link"
+  >
+    <span>
+      {hero.secondaryCta}
+    </span>
 
-                <ArrowRight
-                  size={18}
-                  strokeWidth={2.2}
-                  aria-hidden="true"
-                />
-              </Link>
-
-              <Link
-                href="/about/work-process"
-                className="about-hero__secondary-link"
-              >
-                <span>
-                  {hero.secondaryCta}
-                </span>
-
-                <ArrowRight
-                  size={17}
-                  strokeWidth={2.2}
-                  aria-hidden="true"
-                />
-              </Link>
-            </div>
+    <ArrowRight
+      size={17}
+      strokeWidth={2.2}
+      aria-hidden="true"
+    />
+  </Link>
+</div>
           </div>
 
           <div
@@ -426,37 +408,22 @@ export function AboutPageContent({
               </p>
             </div>
 
-            <div className="about-final-cta__actions">
-              <Link
-                href="/assist"
-                className="button button--primary"
-              >
-                <span>
-                  {finalCta.primaryCta}
-                </span>
+<div className="about-final-cta__actions">
+  <Link
+    href="/assist"
+    className="button button--primary"
+  >
+    <span>
+      {finalCta.primaryCta}
+    </span>
 
-                <ArrowRight
-                  size={18}
-                  strokeWidth={2.2}
-                  aria-hidden="true"
-                />
-              </Link>
-
-              <Link
-                href="/contact"
-                className="about-final-cta__contact"
-              >
-                <Check
-                  size={17}
-                  strokeWidth={2.3}
-                  aria-hidden="true"
-                />
-
-                <span>
-                  {finalCta.secondaryCta}
-                </span>
-              </Link>
-            </div>
+    <ArrowRight
+      size={18}
+      strokeWidth={2.2}
+      aria-hidden="true"
+    />
+  </Link>
+</div>
           </div>
         </div>
       </section>
