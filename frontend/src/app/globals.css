@@ -2319,20 +2319,20 @@ html[dir="rtl"]
 
 .home-about__content h2 {
   margin:
-    0.9rem
     0
-    1.4rem;
-  max-width: 13ch;
+    0
+    1.25rem;
+  max-width: 18ch;
   color: var(--axplify-navy);
   font-size:
     clamp(
-      2.35rem,
-      7vw,
-      5.25rem
+      2rem,
+      3.4vw,
+      3.65rem
     );
   font-weight: 850;
-  letter-spacing: -0.055em;
-  line-height: 0.98;
+  letter-spacing: -0.045em;
+  line-height: 1.08;
   text-wrap: balance;
 }
 
@@ -2371,16 +2371,14 @@ html[dir="rtl"]
   margin-top: 2rem;
 }
 
-.home-about__primary-cta svg,
-.home-about__secondary-cta svg {
+.home-about__primary-cta svg {
   transition:
     transform
     180ms
     ease;
 }
 
-.home-about__primary-cta:hover svg,
-.home-about__secondary-cta:hover svg {
+.home-about__primary-cta:hover svg {
   transform:
     translateX(
       0.22rem
@@ -2388,9 +2386,15 @@ html[dir="rtl"]
 }
 
 html[dir="rtl"]
-.home-about__primary-cta:hover svg,
+.home-about__primary-cta svg {
+  transform:
+    rotate(
+      180deg
+    );
+}
+
 html[dir="rtl"]
-.home-about__secondary-cta:hover svg {
+.home-about__primary-cta:hover svg {
   transform:
     translateX(
       -0.22rem
@@ -2398,26 +2402,6 @@ html[dir="rtl"]
     rotate(
       180deg
     );
-}
-
-html[dir="rtl"]
-.home-about__primary-cta svg,
-html[dir="rtl"]
-.home-about__secondary-cta svg {
-  transform:
-    rotate(
-      180deg
-    );
-}
-
-.home-about__secondary-cta {
-  display: inline-flex;
-  min-height: 3rem;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--axplify-navy);
-  font-size: 0.88rem;
-  font-weight: 850;
 }
 
 .home-about__experience {
@@ -3478,25 +3462,31 @@ p {
       4.5rem;
   }
 
-  .home-about__content h2 {
-    max-width: 15ch;
-  }
+.home-about__content h2 {
+  max-width: 18ch;
+  font-size:
+    clamp(
+      1.9rem,
+      8vw,
+      2.65rem
+    );
+  line-height: 1.1;
+}
 
-  .home-about__actions,
-  .about-hero__actions {
-    align-items: stretch;
-  }
+.home-about__actions,
+.about-hero__actions {
+  align-items: stretch;
+}
 
-  .home-about__primary-cta,
-  .about-hero__actions .button {
-    width: 100%;
-  }
+.home-about__primary-cta,
+.about-hero__actions .button {
+  width: 100%;
+}
 
-  .home-about__secondary-cta,
-  .about-hero__secondary-link {
-    width: 100%;
-    justify-content: center;
-  }
+.about-hero__secondary-link {
+  width: 100%;
+  justify-content: center;
+}
 
   .home-about__pillars {
     margin-inline: 0;

@@ -10,7 +10,6 @@ import {
 } from '@/i18n/navigation';
 
 type HomeAboutSectionProps = {
-  eyebrow: string;
   title: string;
   introduction: string;
   description: string;
@@ -21,7 +20,6 @@ type HomeAboutSectionProps = {
     description: string;
   }>;
   primaryCta: string;
-  secondaryCta: string;
 };
 
 const pillarIcons = [
@@ -31,7 +29,6 @@ const pillarIcons = [
 ] as const;
 
 export function HomeAboutSection({
-  eyebrow,
   title,
   introduction,
   description,
@@ -39,7 +36,6 @@ export function HomeAboutSection({
   promise,
   pillars,
   primaryCta,
-  secondaryCta,
 }: HomeAboutSectionProps) {
   return (
     <section
@@ -57,10 +53,6 @@ export function HomeAboutSection({
 
       <div className="site-container home-about__container">
         <div className="home-about__content">
-          <p className="eyebrow">
-            {eyebrow}
-          </p>
-
           <h2 id="home-about-title">
             {title}
           </h2>
@@ -84,21 +76,6 @@ export function HomeAboutSection({
 
               <ArrowRight
                 size={18}
-                strokeWidth={2.2}
-                aria-hidden="true"
-              />
-            </Link>
-
-            <Link
-              href="/assist"
-              className="home-about__secondary-cta"
-            >
-              <span>
-                {secondaryCta}
-              </span>
-
-              <ArrowRight
-                size={17}
                 strokeWidth={2.2}
                 aria-hidden="true"
               />
