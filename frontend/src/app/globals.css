@@ -3527,12 +3527,14 @@ html {
     );
   aspect-ratio: 1;
   margin-inline: auto;
+direction: ltr;  
 }
 
 .services-hero__visual-core {
   position: absolute;
   top: 50%;
-  inset-inline-start: 50%;
+left: 50%;
+right: auto;
   z-index: 4;
   display: grid;
   width: 6.5rem;
@@ -3558,20 +3560,11 @@ html {
     rotate(-8deg);
 }
 
-html[dir="rtl"]
-.services-hero__visual-core {
-  transform:
-    translate(
-      50%,
-      -50%
-    )
-    rotate(8deg);
-}
-
 .services-hero__visual-ring {
   position: absolute;
   top: 50%;
-  inset-inline-start: 50%;
+left: 50%;
+right: auto;
   border:
     1px solid
     rgba(5, 38, 79, 0.13);
@@ -3579,15 +3572,6 @@ html[dir="rtl"]
   transform:
     translate(
       -50%,
-      -50%
-    );
-}
-
-html[dir="rtl"]
-.services-hero__visual-ring {
-  transform:
-    translate(
-      50%,
       -50%
     );
 }
@@ -4351,27 +4335,41 @@ html[dir="rtl"]
       );
   }
 
-  .service-detail__layout {
-    grid-template-columns:
-      minmax(
-        17rem,
-        0.72fr
-      )
-      minmax(
-        0,
-        1.28fr
-      );
-  }
+.service-detail__layout {
+  grid-template-columns:
+    minmax(
+      20rem,
+      0.78fr
+    )
+    minmax(
+      0,
+      1.22fr
+    );
+  align-items: start;
+  column-gap:
+    clamp(
+      2.5rem,
+      4vw,
+      4.5rem
+    );
+}
 
-  .service-detail:nth-child(even)
-  .service-detail__heading {
-    order: 2;
-  }
+.service-detail__heading {
+  order: 1;
+  min-width: 0;
+}
 
-  .service-detail:nth-child(even)
-  .service-detail__content {
-    order: 1;
-  }
+.service-detail__content {
+  order: 2;
+  min-width: 0;
+}
+
+.service-detail__heading h2,
+.service-detail__promise,
+.service-detail__description {
+  width: 100%;
+  max-width: 100%;
+}
 
   .services-final-cta__card {
     grid-template-columns:
@@ -4707,10 +4705,12 @@ html[dir="rtl"]
 .services-hero__orbit {
   position: absolute;
   top: 50%;
-  inset-inline-start: 50%;
+  left: 50%;
+  right: auto;
   z-index: 3;
   border-radius: 999px;
   pointer-events: none;
+  direction: ltr;
 }
 
 .services-hero__orbit--inner {
@@ -4747,9 +4747,11 @@ html[dir="rtl"]
 .services-hero__orbit-counter {
   position: absolute;
   top: 0;
-  inset-inline-start: 50%;
+  left: 50%;
+  right: auto;
   width: 0;
   height: 0;
+  direction: ltr;
 }
 
 .services-hero__orbit-counter--inner {
@@ -4898,137 +4900,7 @@ html[dir="rtl"]
 
 /* RTL de l’animation */
 
-html[dir="rtl"]
-.services-hero__orbit {
-  inset-inline-start: auto;
-  inset-inline-end: 50%;
-}
 
-@keyframes services-orbit-inner-rtl {
-  from {
-    transform:
-      translate(
-        50%,
-        -50%
-      )
-      rotate(
-        0deg
-      );
-  }
-
-  to {
-    transform:
-      translate(
-        50%,
-        -50%
-      )
-      rotate(
-        -360deg
-      );
-  }
-}
-
-@keyframes services-orbit-outer-first-rtl {
-  from {
-    transform:
-      translate(
-        50%,
-        -50%
-      )
-      rotate(
-        -35deg
-      );
-  }
-
-  to {
-    transform:
-      translate(
-        50%,
-        -50%
-      )
-      rotate(
-        -395deg
-      );
-  }
-}
-
-@keyframes services-orbit-outer-second-rtl {
-  from {
-    transform:
-      translate(
-        50%,
-        -50%
-      )
-      rotate(
-        -215deg
-      );
-  }
-
-  to {
-    transform:
-      translate(
-        50%,
-        -50%
-      )
-      rotate(
-        -575deg
-      );
-  }
-}
-
-@keyframes services-orbit-counter-inner-rtl {
-  from {
-    transform:
-      rotate(
-        0deg
-      );
-  }
-
-  to {
-    transform:
-      rotate(
-        360deg
-      );
-  }
-}
-
-@keyframes services-orbit-counter-outer-first-rtl {
-  from {
-    transform:
-      rotate(
-        35deg
-      );
-  }
-
-  to {
-    transform:
-      rotate(
-        395deg
-      );
-  }
-}
-
-@keyframes services-orbit-counter-outer-second-rtl {
-  from {
-    transform:
-      rotate(
-        215deg
-      );
-  }
-
-  to {
-    transform:
-      rotate(
-        575deg
-      );
-  }
-}
-
-html[dir="rtl"]
-.services-hero__orbit--inner {
-  animation-name:
-    services-orbit-inner-rtl;
-}
 
 html[dir="rtl"]
 .services-hero__orbit--outer-first {
@@ -5129,24 +5001,6 @@ html[dir="rtl"]
    * Les encadrés de contenu occupent davantage de place à gauche,
    * tandis que le bloc titre est repoussé vers la droite.
    */
-  .service-detail:nth-child(even)
-  .service-detail__layout {
-    grid-template-columns:
-      minmax(
-        0,
-        1.5fr
-      )
-      minmax(
-        17rem,
-        0.5fr
-      );
-    column-gap:
-      clamp(
-        4rem,
-        6vw,
-        7rem
-      );
-  }
 
   .service-detail:nth-child(even)
   .service-detail__content {
@@ -5822,48 +5676,6 @@ html[dir="rtl"]
   .service-detail__content {
     min-width: 0;
   }
-
-  .service-detail:nth-child(even)
-  .service-detail__content {
-    order: 1;
-  }
-
-  .service-detail:nth-child(even)
-  .service-detail__heading {
-    order: 2;
-    min-width: 0;
-    padding-inline-start:
-      clamp(
-        0.5rem,
-        1.5vw,
-        1.5rem
-      );
-  }
-
-  /*
-   * Empêche les grands titres de sortir de l’écran.
-   */
-  .service-detail:nth-child(even)
-  .service-detail__heading h2 {
-    width: 100%;
-    max-width: 100%;
-    overflow-wrap: break-word;
-    word-break: normal;
-    font-size:
-      clamp(
-        1.9rem,
-        2.7vw,
-        2.8rem
-      );
-  }
-
-  .service-detail:nth-child(even)
-  .service-detail__promise,
-  .service-detail:nth-child(even)
-  .service-detail__description {
-    width: 100%;
-    max-width: 100%;
-  }
 }
 /* =========================================================
    ABOUT PAGE
@@ -6141,7 +5953,8 @@ html[dir="rtl"]
 .about-hero__visual-center {
   position: absolute;
   top: 50%;
-  inset-inline-start: 50%;
+left: 50%;
+right: auto;
   z-index: 4;
   width: 6.25rem;
   height: 6.25rem;
@@ -6186,7 +5999,8 @@ html[dir="rtl"]
 .about-hero__visual-ring {
   position: absolute;
   top: 50%;
-  inset-inline-start: 50%;
+left: 50%;
+right: auto;
   border:
     1px solid
     rgba(5, 38, 79, 0.13);
@@ -6194,15 +6008,6 @@ html[dir="rtl"]
   transform:
     translate(
       -50%,
-      -50%
-    );
-}
-
-html[dir="rtl"]
-.about-hero__visual-ring {
-  transform:
-    translate(
-      50%,
       -50%
     );
 }
@@ -6221,10 +6026,12 @@ html[dir="rtl"]
 .about-hero__orbit {
   position: absolute;
   top: 50%;
-  inset-inline-start: 50%;
+  left: 50%;
+  right: auto;
   z-index: 3;
   border-radius: 999px;
   pointer-events: none;
+  direction: ltr;
 }
 
 .about-hero__orbit--inner {
@@ -6261,9 +6068,11 @@ html[dir="rtl"]
 .about-hero__orbit-counter {
   position: absolute;
   top: 0;
-  inset-inline-start: 50%;
+  left: 50%;
+  right: auto;
   width: 0;
   height: 0;
+  direction: ltr;
 }
 
 .about-hero__orbit-counter--inner {
@@ -6410,12 +6219,6 @@ html[dir="rtl"]
   }
 }
 
-html[dir="rtl"]
-.about-hero__orbit {
-  inset-inline-start: auto;
-  inset-inline-end: 50%;
-}
-
 @keyframes about-orbit-inner-rtl {
   from {
     transform:
@@ -6484,90 +6287,6 @@ html[dir="rtl"]
       )
       rotate(
         -575deg
-      );
-  }
-}
-
-html[dir="rtl"]
-.about-hero__orbit--inner {
-  animation-name:
-    about-orbit-inner-rtl;
-}
-
-html[dir="rtl"]
-.about-hero__orbit--outer-first {
-  animation-name:
-    about-orbit-outer-first-rtl;
-}
-
-html[dir="rtl"]
-.about-hero__orbit--outer-second {
-  animation-name:
-    about-orbit-outer-second-rtl;
-}
-
-html[dir="rtl"]
-.about-hero__orbit-counter--inner {
-  animation-name:
-    about-orbit-counter-inner-rtl;
-}
-
-html[dir="rtl"]
-.about-hero__orbit-counter--outer-first {
-  animation-name:
-    about-orbit-counter-outer-first-rtl;
-}
-
-html[dir="rtl"]
-.about-hero__orbit-counter--outer-second {
-  animation-name:
-    about-orbit-counter-outer-second-rtl;
-}
-
-@keyframes about-orbit-counter-inner-rtl {
-  from {
-    transform:
-      rotate(
-        0deg
-      );
-  }
-
-  to {
-    transform:
-      rotate(
-        360deg
-      );
-  }
-}
-
-@keyframes about-orbit-counter-outer-first-rtl {
-  from {
-    transform:
-      rotate(
-        35deg
-      );
-  }
-
-  to {
-    transform:
-      rotate(
-        395deg
-      );
-  }
-}
-
-@keyframes about-orbit-counter-outer-second-rtl {
-  from {
-    transform:
-      rotate(
-        215deg
-      );
-  }
-
-  to {
-    transform:
-      rotate(
-        575deg
       );
   }
 }
@@ -7399,6 +7118,7 @@ p {
         80vw,
         20rem
       );
+direction: ltr;      
   }
 
 .about-hero__orbit--inner {
@@ -10391,4 +10111,42 @@ p {
   .about-values__icon {
     transform: none;
   }
+}
+
+html[dir="rtl"]
+.services-hero__content {
+  min-width: 0;
+}
+
+html[dir="rtl"]
+.services-hero h1 {
+  max-width: 20ch;
+  font-size:
+    clamp(
+      2rem,
+      3.7vw,
+      3.65rem
+    );
+  line-height: 1.12;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
+
+html[dir="rtl"]
+.services-hero__lead,
+html[dir="rtl"]
+.services-hero__description {
+  max-width: 100%;
+}
+
+html[dir="rtl"]
+.about-hero__content {
+  min-width: 0;
+}
+
+html[dir="rtl"]
+.about-hero h1 {
+  letter-spacing: 0;
+  line-height: 1.12;
+  overflow-wrap: anywhere;
 }
