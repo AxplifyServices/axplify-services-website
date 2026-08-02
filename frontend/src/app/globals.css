@@ -3726,7 +3726,6 @@ html[dir="rtl"] .service-detail__challenge { border-radius: 1rem 0 0 1rem; }
 }
 
 /* Desktop overlay sidebar */
-.services-mobile-navigation,
 .services-sidebar__backdrop,
 .services-sidebar__toggle-mobile { display: none; }
 .services-sidebar__toggle-desktop { display: inline-flex; }
@@ -3927,13 +3926,69 @@ html[dir="rtl"] .services-final-cta__card h2 {
     align-items: start;
     column-gap: clamp(2.5rem, 4vw, 4.5rem);
   }
-  .service-detail__heading { grid-column: 1; direction: ltr; text-align: left; }
-  .service-detail__content { grid-column: 2; direction: ltr; text-align: left; }
-  html[dir="rtl"] .service-detail__heading { grid-column: 2; direction: rtl; text-align: right; }
-  html[dir="rtl"] .service-detail__content { grid-column: 1; direction: rtl; text-align: right; }
+.service-detail__heading {
+  grid-column: 1;
+  grid-row: 1;
+  direction: ltr;
+  text-align: left;
+}
+
+.service-detail__content {
+  grid-column: 2;
+  grid-row: 1;
+  direction: ltr;
+  text-align: left;
+}
+
+html[dir="rtl"] .service-detail__layout {
+  /*
+   * En arabe :
+   * - colonne gauche large pour les cartes ;
+   * - colonne droite plus compacte pour le titre
+   *   et la présentation du service.
+   */
+  grid-template-columns:
+    minmax(0, 1.32fr)
+    minmax(17rem, 0.68fr);
+}
+
+html[dir="rtl"] .service-detail__heading {
+  grid-column: 2;
+  grid-row: 1;
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .service-detail__content {
+  grid-column: 1;
+  grid-row: 1;
+  direction: rtl;
+  text-align: right;
+}
   html[dir="rtl"] .service-detail__heading h2,
   html[dir="rtl"] .service-detail__promise,
   html[dir="rtl"] .service-detail__description { max-width: 100%; text-align: right; }
+
+html[dir="rtl"] .service-detail__heading-top {
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+html[dir="rtl"] .service-detail__list-card li {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .service-detail__example {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .service-detail__challenge,
+html[dir="rtl"] .service-detail__list-card,
+html[dir="rtl"] .service-detail__example {
+  width: 100%;
+}
 
   .services-final-cta__card { grid-template-columns: minmax(0, 1fr) auto; align-items: center; }
   .services-final-cta__actions { justify-content: flex-end; }
@@ -3995,46 +4050,6 @@ html[dir="rtl"] .services-final-cta__card h2 {
     margin-inline: auto;
   }
 
-.services-mobile-navigation {
-  position: relative;
-  z-index: 45;
-  display: flex;
-  justify-content: flex-start;
-  width:
-    min(
-      calc(
-        100% -
-        2rem
-      ),
-      86rem
-    );
-  margin:
-    0
-    auto;
-  padding-top: 1rem;
-  pointer-events: none;
-}
-  html[dir="rtl"] .services-mobile-navigation { justify-content: flex-end; }
-
-  .services-mobile-navigation__button {
-    display: inline-flex;
-    min-height: 2.8rem;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    border: 1px solid rgba(5, 38, 79, 0.12);
-    border-radius: 999px;
-    padding: 0.7rem 1rem;
-    color: var(--axplify-navy);
-    background: rgba(255, 255, 255, 0.96);
-    box-shadow: 0 12px 28px rgba(5, 38, 79, 0.12);
-    font-size: 0.8rem;
-    font-weight: 850;
-    cursor: pointer;
-    pointer-events: auto;
-    backdrop-filter: blur(14px);
-  }
-
 .services-sidebar__backdrop {
   position: fixed;
   inset: 0;
@@ -4072,101 +4087,52 @@ html[dir="rtl"] .services-final-cta__card h2 {
     transition: opacity 220ms ease, visibility 0s;
   }
 
-.services-sidebar,
-.services-sidebar--open,
-.services-sidebar--collapsed {
-  position: fixed;
-
-  top:
-    var(
-      --services-mobile-sidebar-top,
-      calc(
-        var(--header-height) +
-        0.5rem
-      )
-    );
-
-  bottom:
-    max(
-      0.5rem,
-      env(
-        safe-area-inset-bottom
-      )
-    );
-
-  inset-inline-start: 0;
-  inset-inline-end: auto;
-
-  z-index: 90;
-
-  width:
-    min(
-      88vw,
-      21rem
-    );
-
-  min-width: 0;
-
-  max-width:
-    min(
-      88vw,
-      21rem
-    );
-
-  height: auto;
-  min-height: 12rem;
-  max-height:
-    calc(
-      100dvh -
-      var(
-        --services-mobile-sidebar-top,
-        0px
-      ) -
-      0.5rem
-    );
-
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-
-  background:
-    var(
-      --axplify-white
-    );
-
-  box-shadow:
-    0 25px 70px
-    rgba(
-      5,
-      38,
-      79,
-      0.25
-    );
-
-  transform:
-    translate3d(
-      -105%,
-      0,
-      0
-    );
-
-  transition:
-    transform
-    280ms
-    cubic-bezier(
-      0.22,
-      1,
-      0.36,
-      1
-    );
-
-  will-change: transform;
-}
+  .services-sidebar,
+  .services-sidebar--open,
+  .services-sidebar--collapsed {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    height: 100dvh;
+    min-height: 100dvh;
+    max-height: 100dvh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: var(--axplify-white);
+    box-shadow: none;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translate3d(0, 1.5rem, 0) scale(0.985);
+    transition:
+      opacity 220ms ease,
+      transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 0s linear 260ms;
+    will-change:
+      opacity,
+      transform;
+  }
   html[dir="rtl"] .services-sidebar,
   html[dir="rtl"] .services-sidebar--open,
-  html[dir="rtl"] .services-sidebar--collapsed { transform: translate3d(105%, 0, 0); }
+  html[dir="rtl"] .services-sidebar--collapsed {
+    transform: translate3d(0, 1.5rem, 0) scale(0.985);
+  }
+
   .services-sidebar--open,
-  html[dir="rtl"] .services-sidebar--open { transform: translate3d(0, 0, 0); }
+  html[dir="rtl"] .services-sidebar--open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate3d(0, 0, 0) scale(1);
+    transition:
+      opacity 220ms ease,
+      transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 0s;
+  }
 
   .services-sidebar__panel,
   .services-sidebar--open .services-sidebar__panel,
@@ -4174,13 +4140,18 @@ html[dir="rtl"] .services-final-cta__card h2 {
     position: static;
     display: grid;
     width: 100%;
-    height: 100%;
+    height: 100dvh;
     min-height: 0;
     grid-template-rows: auto minmax(0, 1fr);
     overflow: hidden;
     border: 0;
     border-radius: 0;
-    background: var(--axplify-white);
+    background:
+      linear-gradient(
+        180deg,
+        #ffffff 0%,
+        #f8faff 100%
+      );
     box-shadow: none;
   }
 
@@ -4188,12 +4159,27 @@ html[dir="rtl"] .services-final-cta__card h2 {
   .services-sidebar--open .services-sidebar__header,
   .services-sidebar--collapsed .services-sidebar__header {
     display: flex;
-    min-height: 5rem;
+    min-height: 5.25rem;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
     border-bottom: 1px solid rgba(5, 38, 79, 0.08);
-    padding: 1rem 1.1rem;
+    padding:
+      max(
+        1rem,
+        env(safe-area-inset-top)
+      )
+      max(
+        1rem,
+        env(safe-area-inset-right)
+      )
+      1rem
+      max(
+        1rem,
+        env(safe-area-inset-left)
+      );
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(18px);
   }
   .services-sidebar__heading,
   .services-sidebar--open .services-sidebar__heading,
@@ -4215,22 +4201,39 @@ html[dir="rtl"] .services-final-cta__card h2 {
   .services-sidebar--collapsed .services-sidebar__navigation {
     position: static;
     display: grid;
+    align-content: start;
+    gap: 0.65rem;
     width: 100%;
     height: 100%;
     min-height: 0;
     max-height: none;
-    align-content: start;
-    grid-template-columns: 1fr;
-    gap: 0.45rem;
     overflow-x: hidden;
     overflow-y: auto;
-    border: 0;
-    padding: 0.9rem 0.85rem 1.5rem;
+    overflow-anchor: none;
+    border-top: 0;
+    padding:
+      1rem
+      max(
+        1rem,
+        env(safe-area-inset-right)
+      )
+      max(
+        1.5rem,
+        calc(
+          env(safe-area-inset-bottom) +
+          1rem
+        )
+      )
+      max(
+        1rem,
+        env(safe-area-inset-left)
+      );
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-    transform: none;
     overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
   }
   .services-sidebar__item { width: 100%; min-height: 3.3rem; padding: 0.65rem 0.75rem; }
   .services-sidebar__name { white-space: normal; }
@@ -8458,4 +8461,44 @@ html[dir="rtl"]
   letter-spacing: 0;
   line-height: 1.12;
   overflow-wrap: anywhere;
+}
+
+/*
+ * ============================================================
+ * SERVICES — COMPORTEMENT MOBILE DÉFINITIF
+ * ============================================================
+ *
+ * La navigation latérale des services est exclusivement desktop.
+ * Sur mobile et tablette, aucun bouton flottant, aucun drawer
+ * et aucun backdrop ne sont affichés.
+ */
+
+@media (max-width: 1099px) {
+
+  .services-content {
+    position: relative;
+    width: 100%;
+  }
+
+  .services-content__container,
+  .services-content__container--sidebar-open,
+  .services-content__container--sidebar-collapsed {
+    display: block;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .services-sidebar,
+  .services-sidebar--open,
+  .services-sidebar--collapsed {
+    display: none !important;
+  }
+
+  .services-details {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+  }
 }

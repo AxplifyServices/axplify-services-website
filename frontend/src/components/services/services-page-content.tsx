@@ -1,9 +1,7 @@
 'use client';
 
 import {
-  useRef,
   useState,
-  type CSSProperties,
 } from 'react';
 
 import {
@@ -16,7 +14,6 @@ import {
   CodeXml,
   DatabaseZap,
   Gauge,
-  List,
   Megaphone,
   PanelLeftClose,
   PanelLeftOpen,
@@ -25,7 +22,6 @@ import {
   ShieldCheck,
   Target,
   Workflow,
-  X,
 } from 'lucide-react';
 
 import {
@@ -105,86 +101,23 @@ export function ServicesPageContent({
   method,
   finalCta,
 }: ServicesPageContentProps) {
+  /*
+   * La sidebar desktop est fermée par défaut.
+   *
+   * Aucun état mobile n’est nécessaire :
+   * la sidebar est entièrement masquée sur mobile
+   * par le CSS.
+   */
   const [
-    isSidebarOpen,
-    setIsSidebarOpen,
+    isDesktopSidebarExpanded,
+    setIsDesktopSidebarExpanded,
   ] = useState(
     false,
   );
 
-const mobileNavigationButtonRef =
-  useRef<HTMLButtonElement | null>(
-    null,
-  );
-
-const sidebarNavigationRef =
-  useRef<HTMLElement | null>(
-    null,
-  );  
-
-const [
-  mobileSidebarTop,
-  setMobileSidebarTop,
-] = useState(
-  0,
-);  
-const openMobileSidebar =
-  () => {
-    const button =
-      mobileNavigationButtonRef.current;
-
-    if (!button) {
-      return;
-    }
-
-    const buttonRect =
-      button.getBoundingClientRect();
-
-    /*
-     * Le drawer commence juste sous le bouton réellement cliqué.
-     * La valeur est relative au viewport visible.
-     */
-    const calculatedTop =
-      Math.max(
-        8,
-        Math.min(
-          buttonRect.bottom + 8,
-          window.innerHeight - 220,
-        ),
-      );
-
-    setMobileSidebarTop(
-      calculatedTop,
-    );
-
-    setIsSidebarOpen(
-      true,
-    );
-
-    /*
-     * La liste repart toujours du service 01.
-     */
-    window.requestAnimationFrame(
-      () => {
-        sidebarNavigationRef.current?.scrollTo({
-          top: 0,
-          behavior: 'auto',
-        });
-      },
-    );
-  };
-
-
-  const closeSidebar =
+  const toggleDesktopSidebar =
     () => {
-      setIsSidebarOpen(
-        false,
-      );
-    };
-
-  const toggleSidebar =
-    () => {
-      setIsSidebarOpen(
+      setIsDesktopSidebarExpanded(
         (
           currentValue,
         ) =>
@@ -318,78 +251,29 @@ const openMobileSidebar =
         </div>
       </section>
 
-<div
-  id="services-content"
-  className="services-content"
-  style={
-    {
-      '--services-mobile-sidebar-top':
-        `${mobileSidebarTop}px`,
-    } as CSSProperties
-  }
->
-        <div className="services-mobile-navigation">
-<button
-  ref={
-    mobileNavigationButtonRef
-  }
-  type="button"
-  className="services-mobile-navigation__button"
-  onClick={
-    openMobileSidebar
-  }
-            aria-expanded={
-              isSidebarOpen
-            }
-            aria-controls="services-sidebar-navigation"
-          >
-            <List
-              size={19}
-              strokeWidth={2.1}
-              aria-hidden="true"
-            />
-
-            <span>
-              {navigation.label}
-            </span>
-          </button>
-        </div>
-
-        <button
-          type="button"
-          className="services-sidebar__backdrop"
-          data-open={
-            isSidebarOpen
-          }
-          aria-label={
-            navigation.closeLabel
-          }
-          tabIndex={
-            isSidebarOpen
-              ? 0
-              : -1
-          }
-          onClick={
-            closeSidebar
-          }
-        />
-
+      <div
+        id="services-content"
+        className="services-content"
+      >
         <div
           className={[
             'services-content__container',
-            isSidebarOpen
+            isDesktopSidebarExpanded
               ? 'services-content__container--sidebar-open'
               : 'services-content__container--sidebar-collapsed',
           ].join(' ')}
         >
-<aside
-  className={[
-    'services-sidebar',
-    isSidebarOpen
-      ? 'services-sidebar--open'
-      : 'services-sidebar--collapsed',
-  ].join(' ')}
->
+          <aside
+            className={[
+              'services-sidebar',
+              isDesktopSidebarExpanded
+                ? 'services-sidebar--open'
+                : 'services-sidebar--collapsed',
+            ].join(' ')}
+            aria-label={
+              navigation.title
+            }
+          >
             <div className="services-sidebar__panel">
               <div className="services-sidebar__header">
                 <div className="services-sidebar__heading">
@@ -406,55 +290,39 @@ const openMobileSidebar =
                   type="button"
                   className="services-sidebar__toggle"
                   onClick={
-                    toggleSidebar
+                    toggleDesktopSidebar
                   }
                   aria-expanded={
-                    isSidebarOpen
+                    isDesktopSidebarExpanded
                   }
                   aria-controls="services-sidebar-navigation"
                   aria-label={
-                    isSidebarOpen
+                    isDesktopSidebarExpanded
                       ? navigation.closeLabel
                       : navigation.openLabel
                   }
                 >
-                  <span className="services-sidebar__toggle-desktop">
-                    {isSidebarOpen ? (
-                      <PanelLeftClose
-                        size={19}
-                        strokeWidth={2.1}
-                        aria-hidden="true"
-                      />
-                    ) : (
-                      <PanelLeftOpen
-                        size={19}
-                        strokeWidth={2.1}
-                        aria-hidden="true"
-                      />
-                    )}
-                  </span>
-
-                  <span className="services-sidebar__toggle-mobile">
-                    <X
-                      size={20}
-                      strokeWidth={2.2}
+                  {isDesktopSidebarExpanded ? (
+                    <PanelLeftClose
+                      size={19}
+                      strokeWidth={2.1}
                       aria-hidden="true"
                     />
-                  </span>
+                  ) : (
+                    <PanelLeftOpen
+                      size={19}
+                      strokeWidth={2.1}
+                      aria-hidden="true"
+                    />
+                  )}
                 </button>
               </div>
 
-<nav
-  ref={
-    sidebarNavigationRef
-  }
-  id="services-sidebar-navigation"
-  className="services-sidebar__navigation"
+              <nav
+                id="services-sidebar-navigation"
+                className="services-sidebar__navigation"
                 aria-label={
                   navigation.title
-                }
-                aria-hidden={
-                  !isSidebarOpen
                 }
               >
                 {services.map(
@@ -473,14 +341,6 @@ const openMobileSidebar =
                         key={service.id}
                         href={`#${service.id}`}
                         className="services-sidebar__item"
-                        tabIndex={
-                          isSidebarOpen
-                            ? 0
-                            : -1
-                        }
-                        onClick={
-                          closeSidebar
-                        }
                       >
                         <span className="services-sidebar__item-icon">
                           <Icon
