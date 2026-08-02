@@ -190,32 +190,32 @@ export default async function ServicesPage({
 
   return (
     <ServicesPageContent
-hero={{
-  eyebrow:
-    t(
-      'hero.eyebrow',
-    ),
+      hero={{
+        eyebrow:
+          t(
+            'hero.eyebrow',
+          ),
 
-  title:
-    t(
-      'hero.title',
-    ),
+        title:
+          t(
+            'hero.title',
+          ),
 
-  introduction:
-    t(
-      'hero.introduction',
-    ),
+        introduction:
+          t(
+            'hero.introduction',
+          ),
 
-  description:
-    t(
-      'hero.description',
-    ),
+        description:
+          t(
+            'hero.description',
+          ),
 
-  navigationCta:
-    t(
-      'hero.navigationCta',
-    ),
-}}
+        navigationCta:
+          t(
+            'hero.navigationCta',
+          ),
+      }}
       navigation={{
         label:
           t(
@@ -225,6 +225,16 @@ hero={{
         title:
           t(
             'navigation.title',
+          ),
+
+        openLabel:
+          t(
+            'navigation.openLabel',
+          ),
+
+        closeLabel:
+          t(
+            'navigation.closeLabel',
           ),
       }}
       services={
@@ -249,27 +259,27 @@ hero={{
         items:
           methodItems,
       }}
-finalCta={{
-  eyebrow:
-    t(
-      'finalCta.eyebrow',
-    ),
+      finalCta={{
+        eyebrow:
+          t(
+            'finalCta.eyebrow',
+          ),
 
-  title:
-    t(
-      'finalCta.title',
-    ),
+        title:
+          t(
+            'finalCta.title',
+          ),
 
-  description:
-    t(
-      'finalCta.description',
-    ),
+        description:
+          t(
+            'finalCta.description',
+          ),
 
-  secondaryCta:
-    t(
-      'finalCta.secondaryCta',
-    ),
-}}
+        secondaryCta:
+          t(
+            'finalCta.secondaryCta',
+          ),
+      }}
     />
   );
 }

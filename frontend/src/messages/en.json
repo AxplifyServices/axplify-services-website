@@ -121,10 +121,12 @@
     "navigationCta": "Explore our services",
     "contactCta": "Discuss your needs"
   },
-  "navigation": {
-    "label": "Quick access",
-    "title": "Which challenge would you like to solve?"
-  },
+"navigation": {
+  "label": "Quick access",
+  "title": "Which challenge would you like to solve?",
+  "openLabel": "Open quick service navigation",
+  "closeLabel": "Close quick service navigation"
+},
   "common": {
     "challengeTitle": "The problem we solve",
     "solutionsTitle": "What we can implement",

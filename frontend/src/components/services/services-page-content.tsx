@@ -1,8 +1,14 @@
 'use client';
 
 import {
+  useEffect,
+  useRef,
   useState,
 } from 'react';
+
+import {
+  createPortal,
+} from 'react-dom';
 
 import {
   ArrowDown,
@@ -14,6 +20,7 @@ import {
   CodeXml,
   DatabaseZap,
   Gauge,
+  ListTree,
   Megaphone,
   PanelLeftClose,
   PanelLeftOpen,
@@ -22,6 +29,7 @@ import {
   ShieldCheck,
   Target,
   Workflow,
+  X,
 } from 'lucide-react';
 
 import {
@@ -67,6 +75,7 @@ type ServicesPageContentProps = {
     eyebrow: string;
     title: string;
     description: string;
+
     items: Array<{
       number: string;
       title: string;
@@ -101,29 +110,178 @@ export function ServicesPageContent({
   method,
   finalCta,
 }: ServicesPageContentProps) {
-  /*
-   * La sidebar desktop est fermée par défaut.
-   *
-   * Aucun état mobile n’est nécessaire :
-   * la sidebar est entièrement masquée sur mobile
-   * par le CSS.
-   */
+
   const [
-    isDesktopSidebarExpanded,
-    setIsDesktopSidebarExpanded,
+    isQuickNavigationOpen,
+    setIsQuickNavigationOpen,
   ] = useState(
     false,
   );
 
-  const toggleDesktopSidebar =
+const [
+  isQuickNavigationPortalReady,
+  setIsQuickNavigationPortalReady,
+] = useState(
+  false,
+);  
+
+  const quickNavigationDialogRef =
+    useRef<HTMLDivElement>(
+      null,
+    );
+
+  const quickNavigationTriggerRef =
+    useRef<HTMLButtonElement>(
+      null,
+    );
+
+
+  const openQuickNavigation =
     () => {
-      setIsDesktopSidebarExpanded(
-        (
-          currentValue,
-        ) =>
-          !currentValue,
+      setIsQuickNavigationOpen(
+        true,
       );
     };
+
+  const closeQuickNavigation =
+    (
+      restoreTriggerFocus = false,
+    ) => {
+      setIsQuickNavigationOpen(
+        false,
+      );
+
+      if (
+        restoreTriggerFocus
+      ) {
+        window.requestAnimationFrame(
+          () => {
+            quickNavigationTriggerRef.current?.focus();
+          },
+        );
+      }
+    };
+
+  const navigateToService =
+    (
+      serviceId: string,
+    ) => {
+      const targetElement =
+        document.getElementById(
+          serviceId,
+        );
+
+      setIsQuickNavigationOpen(
+        false,
+      );
+
+      if (
+        !targetElement
+      ) {
+        return;
+      }
+
+      const reduceMotion =
+        window.matchMedia(
+          '(prefers-reduced-motion: reduce)',
+        ).matches;
+
+      window.requestAnimationFrame(
+        () => {
+          targetElement.scrollIntoView({
+            behavior:
+              reduceMotion
+                ? 'auto'
+                : 'smooth',
+
+            block:
+              'start',
+          });
+
+          window.history.replaceState(
+            null,
+            '',
+            `#${serviceId}`,
+          );
+        },
+      );
+    };
+
+  /*
+   * Gestion de la popup :
+   * - fermeture avec Échap ;
+   * - blocage du scroll arrière-plan ;
+   * - focus sur le premier service.
+   */
+  useEffect(
+    () => {
+      if (
+        !isQuickNavigationOpen
+      ) {
+        return;
+      }
+
+      const previousBodyOverflow =
+        document.body.style.overflow;
+
+      document.body.style.overflow =
+        'hidden';
+
+      const firstServiceButton =
+        quickNavigationDialogRef.current?.querySelector<HTMLButtonElement>(
+          '.services-quick-navigation__service',
+        );
+
+      window.requestAnimationFrame(
+        () => {
+          firstServiceButton?.focus();
+        },
+      );
+
+      const handleKeyDown =
+        (
+          event: KeyboardEvent,
+        ) => {
+          if (
+            event.key ===
+            'Escape'
+          ) {
+            event.preventDefault();
+
+            closeQuickNavigation(
+              true,
+            );
+          }
+        };
+
+      document.addEventListener(
+        'keydown',
+        handleKeyDown,
+      );
+
+      return () => {
+        document.body.style.overflow =
+          previousBodyOverflow;
+
+        document.removeEventListener(
+          'keydown',
+          handleKeyDown,
+        );
+      };
+    },
+    [
+      isQuickNavigationOpen,
+    ],
+  );
+
+useEffect(
+  () => {
+    setIsQuickNavigationPortalReady(
+      true,
+    );
+  },
+  [],
+);  
 
   return (
     <div className="services-page">
@@ -251,121 +409,12 @@ export function ServicesPageContent({
         </div>
       </section>
 
-      <div
-        id="services-content"
-        className="services-content"
-      >
-        <div
-          className={[
-            'services-content__container',
-            isDesktopSidebarExpanded
-              ? 'services-content__container--sidebar-open'
-              : 'services-content__container--sidebar-collapsed',
-          ].join(' ')}
-        >
-          <aside
-            className={[
-              'services-sidebar',
-              isDesktopSidebarExpanded
-                ? 'services-sidebar--open'
-                : 'services-sidebar--collapsed',
-            ].join(' ')}
-            aria-label={
-              navigation.title
-            }
-          >
-            <div className="services-sidebar__panel">
-              <div className="services-sidebar__header">
-                <div className="services-sidebar__heading">
-                  <span className="services-sidebar__label">
-                    {navigation.label}
-                  </span>
 
-                  <span className="services-sidebar__title">
-                    {navigation.title}
-                  </span>
-                </div>
-
-                <button
-                  type="button"
-                  className="services-sidebar__toggle"
-                  onClick={
-                    toggleDesktopSidebar
-                  }
-                  aria-expanded={
-                    isDesktopSidebarExpanded
-                  }
-                  aria-controls="services-sidebar-navigation"
-                  aria-label={
-                    isDesktopSidebarExpanded
-                      ? navigation.closeLabel
-                      : navigation.openLabel
-                  }
-                >
-                  {isDesktopSidebarExpanded ? (
-                    <PanelLeftClose
-                      size={19}
-                      strokeWidth={2.1}
-                      aria-hidden="true"
-                    />
-                  ) : (
-                    <PanelLeftOpen
-                      size={19}
-                      strokeWidth={2.1}
-                      aria-hidden="true"
-                    />
-                  )}
-                </button>
-              </div>
-
-              <nav
-                id="services-sidebar-navigation"
-                className="services-sidebar__navigation"
-                aria-label={
-                  navigation.title
-                }
-              >
-                {services.map(
-                  (
-                    service,
-                    index,
-                  ) => {
-                    const Icon =
-                      serviceIcons[
-                        index %
-                          serviceIcons.length
-                      ];
-
-                    return (
-                      <a
-                        key={service.id}
-                        href={`#${service.id}`}
-                        className="services-sidebar__item"
-                      >
-                        <span className="services-sidebar__item-icon">
-                          <Icon
-                            size={17}
-                            strokeWidth={1.9}
-                            aria-hidden="true"
-                          />
-                        </span>
-
-                        <span className="services-sidebar__item-text">
-                          <span className="services-sidebar__number">
-                            {service.number}
-                          </span>
-
-                          <span className="services-sidebar__name">
-                            {service.shortTitle}
-                          </span>
-                        </span>
-                      </a>
-                    );
-                  },
-                )}
-              </nav>
-            </div>
-          </aside>
+<div
+  id="services-content"
+  className="services-content"
+>
+  <div className="services-content__container">
 
           <main className="services-details">
             {services.map(
@@ -529,6 +578,207 @@ export function ServicesPageContent({
           </main>
         </div>
       </div>
+
+      {/*
+       * Nouvelle navigation rapide.
+       *
+       * Elle est placée hors de .services-content__container.
+       * Son positionnement fixed l'empêche d'affecter le layout.
+       */}
+{isQuickNavigationPortalReady
+  ? createPortal(
+      <div
+        className="services-quick-navigation"
+        data-open={
+          isQuickNavigationOpen
+            ? 'true'
+            : 'false'
+        }
+      >
+        <button
+          type="button"
+          className="services-quick-navigation__backdrop"
+          aria-label={
+            navigation.closeLabel
+          }
+          tabIndex={
+            isQuickNavigationOpen
+              ? 0
+              : -1
+          }
+          onClick={
+            () =>
+              closeQuickNavigation(
+                true,
+              )
+          }
+        />
+
+        <div
+          ref={
+            quickNavigationDialogRef
+          }
+          id="services-quick-navigation-dialog"
+          className="services-quick-navigation__dialog"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="services-quick-navigation-title"
+          aria-hidden={
+            !isQuickNavigationOpen
+          }
+        >
+          <header className="services-quick-navigation__header">
+            <div className="services-quick-navigation__heading">
+              <span className="services-quick-navigation__label">
+                {navigation.label}
+              </span>
+
+              <h2 id="services-quick-navigation-title">
+                {navigation.title}
+              </h2>
+            </div>
+
+            <button
+              type="button"
+              className="services-quick-navigation__close"
+              aria-label={
+                navigation.closeLabel
+              }
+              onClick={
+                () =>
+                  closeQuickNavigation(
+                    true,
+                  )
+              }
+            >
+              <X
+                size={20}
+                strokeWidth={2.2}
+                aria-hidden="true"
+              />
+            </button>
+          </header>
+
+          <nav
+            className="services-quick-navigation__list"
+            aria-label={
+              navigation.title
+            }
+          >
+            {services.map(
+              (
+                service,
+                index,
+              ) => {
+                const Icon =
+                  serviceIcons[
+                    index %
+                      serviceIcons.length
+                  ];
+
+                return (
+                  <button
+                    key={service.id}
+                    type="button"
+                    className="services-quick-navigation__service"
+                    onClick={
+                      () =>
+                        navigateToService(
+                          service.id,
+                        )
+                    }
+                  >
+                    <span
+                      className="services-quick-navigation__service-icon"
+                      aria-hidden="true"
+                    >
+                      <Icon
+                        size={20}
+                        strokeWidth={1.9}
+                      />
+                    </span>
+
+                    <span className="services-quick-navigation__service-content">
+                      <span className="services-quick-navigation__service-heading">
+                        <span className="services-quick-navigation__service-number">
+                          {service.number}
+                        </span>
+
+                        <span className="services-quick-navigation__service-title">
+                          {service.shortTitle}
+                        </span>
+                      </span>
+
+                      <span className="services-quick-navigation__service-description">
+                        {service.description}
+                      </span>
+                    </span>
+
+                    <ArrowDown
+                      className="services-quick-navigation__service-arrow"
+                      size={18}
+                      strokeWidth={2}
+                      aria-hidden="true"
+                    />
+                  </button>
+                );
+              },
+            )}
+          </nav>
+        </div>
+
+        <button
+          ref={
+            quickNavigationTriggerRef
+          }
+          type="button"
+          className="services-quick-navigation__trigger"
+          aria-expanded={
+            isQuickNavigationOpen
+          }
+          aria-controls="services-quick-navigation-dialog"
+          aria-label={
+            isQuickNavigationOpen
+              ? navigation.closeLabel
+              : navigation.openLabel
+          }
+          onClick={
+            () => {
+              if (
+                isQuickNavigationOpen
+              ) {
+                closeQuickNavigation();
+                return;
+              }
+
+              openQuickNavigation();
+            }
+          }
+        >
+          <span className="services-quick-navigation__trigger-icon">
+            {isQuickNavigationOpen ? (
+              <X
+                size={21}
+                strokeWidth={2.2}
+                aria-hidden="true"
+              />
+            ) : (
+              <ListTree
+                size={21}
+                strokeWidth={2.1}
+                aria-hidden="true"
+              />
+            )}
+          </span>
+
+          <span className="services-quick-navigation__trigger-text">
+            {navigation.label}
+          </span>
+        </button>
+      </div>,
+      document.body,
+    )
+  : null}
 
       <section className="services-method">
         <div className="site-container">

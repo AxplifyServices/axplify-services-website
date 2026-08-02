@@ -121,10 +121,12 @@
     "navigationCta": "Explorer les services",
     "contactCta": "Parler de votre besoin"
   },
-  "navigation": {
-    "label": "Accès rapide",
-    "title": "Quel défi souhaitez-vous résoudre ?"
-  },
+"navigation": {
+  "label": "Accès rapide",
+  "title": "Quel défi souhaitez-vous résoudre ?",
+  "openLabel": "Ouvrir la navigation rapide des services",
+  "closeLabel": "Fermer la navigation rapide des services"
+},
   "common": {
     "challengeTitle": "Le problème que nous résolvons",
     "solutionsTitle": "Ce que nous pouvons mettre en place",
