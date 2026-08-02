@@ -1,12 +1,19 @@
+'use client';
+
+import {
+  useState,
+} from 'react';
+
 import {
   ArrowDown,
-  ArrowRight,
-  ArrowUp,
   BarChart3,
   Bot,
   BrainCircuit,
   ChartNoAxesCombined,
   Check,
+  ChevronDown,
+PanelLeftClose,
+PanelLeftOpen,
   CodeXml,
   DatabaseZap,
   Gauge,
@@ -46,7 +53,6 @@ type ServicesPageContentProps = {
     introduction: string;
     description: string;
     navigationCta: string;
-    contactCta: string;
   };
 
   navigation: {
@@ -71,13 +77,7 @@ type ServicesPageContentProps = {
     eyebrow: string;
     title: string;
     description: string;
-    primaryCta: string;
     secondaryCta: string;
-  };
-
-  labels: {
-    backToNavigation: string;
-    discoverService: string;
   };
 };
 
@@ -99,8 +99,14 @@ export function ServicesPageContent({
   services,
   method,
   finalCta,
-  labels,
 }: ServicesPageContentProps) {
+  const [
+    isSidebarOpen,
+    setIsSidebarOpen,
+  ] = useState(
+    false,
+  );
+
   return (
     <div className="services-page">
       <section
@@ -156,7 +162,7 @@ export function ServicesPageContent({
               data-reveal-delay="5"
             >
               <a
-                href="#services-navigation"
+                href="#services-content"
                 className="services-button services-button--primary"
               >
                 <span>
@@ -169,21 +175,6 @@ export function ServicesPageContent({
                   aria-hidden="true"
                 />
               </a>
-
-              <Link
-                href="/contact"
-                className="services-button services-button--secondary"
-              >
-                <span>
-                  {hero.contactCta}
-                </span>
-
-                <ArrowRight
-                  size={18}
-                  strokeWidth={2.2}
-                  aria-hidden="true"
-                />
-              </Link>
             </div>
           </div>
 
@@ -201,306 +192,337 @@ export function ServicesPageContent({
             </div>
 
             <div className="services-hero__visual-ring services-hero__visual-ring--one" />
+
             <div className="services-hero__visual-ring services-hero__visual-ring--two" />
 
-            <div className="services-hero__visual-node services-hero__visual-node--one">
-              <CodeXml
-                size={24}
-                strokeWidth={1.8}
-              />
+            <div className="services-hero__orbit services-hero__orbit--inner">
+              <div className="services-hero__orbit-counter services-hero__orbit-counter--inner">
+                <div className="services-hero__visual-node services-hero__visual-node--one">
+                  <CodeXml
+                    size={23}
+                    strokeWidth={1.8}
+                  />
+                </div>
+              </div>
             </div>
 
-            <div className="services-hero__visual-node services-hero__visual-node--two">
-              <BarChart3
-                size={24}
-                strokeWidth={1.8}
-              />
+            <div className="services-hero__orbit services-hero__orbit--outer services-hero__orbit--outer-first">
+              <div className="services-hero__orbit-counter services-hero__orbit-counter--outer-first">
+                <div className="services-hero__visual-node services-hero__visual-node--two">
+                  <BarChart3
+                    size={23}
+                    strokeWidth={1.8}
+                  />
+                </div>
+              </div>
             </div>
 
-            <div className="services-hero__visual-node services-hero__visual-node--three">
-              <Radar
-                size={24}
-                strokeWidth={1.8}
-              />
+            <div className="services-hero__orbit services-hero__orbit--outer services-hero__orbit--outer-second">
+              <div className="services-hero__orbit-counter services-hero__orbit-counter--outer-second">
+                <div className="services-hero__visual-node services-hero__visual-node--three">
+                  <Radar
+                    size={23}
+                    strokeWidth={1.8}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section
-        id="services-navigation"
-        className="services-navigation"
-        aria-labelledby="services-navigation-title"
+      <div
+        id="services-content"
+        className="services-content"
       >
-        <div className="site-container">
-          <div
-            className="services-navigation__heading"
-            data-reveal="up"
-          >
-            <p className="services-navigation__label">
-              {navigation.label}
-            </p>
+<div
+  className={[
+    'services-content__container',
+    isSidebarOpen
+      ? 'services-content__container--sidebar-open'
+      : 'services-content__container--sidebar-collapsed',
+  ].join(' ')}
+>
+<aside
+  className={[
+    'services-sidebar',
+    isSidebarOpen
+      ? 'services-sidebar--open'
+      : 'services-sidebar--collapsed',
+  ].join(' ')}
+>
+  <div className="services-sidebar__panel">
+    <div className="services-sidebar__header">
+      <div className="services-sidebar__heading">
+        <span className="services-sidebar__label">
+          {navigation.label}
+        </span>
 
-            <h2 id="services-navigation-title">
-              {navigation.title}
-            </h2>
-          </div>
+        <span className="services-sidebar__title">
+          {navigation.title}
+        </span>
+      </div>
 
-          <nav
-            className="services-navigation__scroll"
-            aria-label={navigation.title}
-          >
-            <div className="services-navigation__list">
-              {services.map(
-                (
-                  service,
-                  index,
-                ) => {
-                  const Icon =
-                    serviceIcons[
-                      index %
-                        serviceIcons.length
-                    ];
+      <button
+        type="button"
+        className="services-sidebar__toggle"
+        onClick={
+          () =>
+            setIsSidebarOpen(
+              (
+                currentValue,
+              ) =>
+                !currentValue,
+            )
+        }
+        aria-expanded={
+          isSidebarOpen
+        }
+        aria-controls="services-sidebar-navigation"
+        aria-label={
+          isSidebarOpen
+            ? 'Réduire la navigation des services'
+            : 'Ouvrir la navigation des services'
+        }
+      >
+        {isSidebarOpen ? (
+          <PanelLeftClose
+            size={19}
+            strokeWidth={2.1}
+            aria-hidden="true"
+          />
+        ) : (
+          <PanelLeftOpen
+            size={19}
+            strokeWidth={2.1}
+            aria-hidden="true"
+          />
+        )}
+      </button>
+    </div>
 
-                  return (
-                    <a
-                      key={service.id}
-                      href={`#${service.id}`}
-                      className="services-navigation__item"
-                      data-reveal="up"
-                      data-reveal-delay={
-                        String(
-                          (index % 3) +
-                            1,
-                        )
-                      }
-                    >
-                      <span className="services-navigation__item-icon">
-                        <Icon
-                          size={18}
-                          strokeWidth={1.9}
-                          aria-hidden="true"
-                        />
-                      </span>
+    <nav
+      id="services-sidebar-navigation"
+      className="services-sidebar__navigation"
+      aria-label={
+        navigation.title
+      }
+      aria-hidden={
+        !isSidebarOpen
+      }
+    >
+      {services.map(
+        (
+          service,
+          index,
+        ) => {
+          const Icon =
+            serviceIcons[
+              index %
+                serviceIcons.length
+            ];
 
-                      <span className="services-navigation__item-content">
-                        <span className="services-navigation__number">
-                          {service.number}
-                        </span>
+          return (
+            <a
+              key={service.id}
+              href={`#${service.id}`}
+              className="services-sidebar__item"
+              tabIndex={
+                isSidebarOpen
+                  ? 0
+                  : -1
+              }
+            >
+              <span className="services-sidebar__item-icon">
+                <Icon
+                  size={17}
+                  strokeWidth={1.9}
+                  aria-hidden="true"
+                />
+              </span>
 
-                        <span className="services-navigation__name">
-                          {service.shortTitle}
-                        </span>
-                      </span>
-                    </a>
-                  );
-                },
-              )}
-            </div>
-          </nav>
-        </div>
-      </section>
+              <span className="services-sidebar__item-text">
+                <span className="services-sidebar__number">
+                  {service.number}
+                </span>
 
-      <div className="services-details">
-        {services.map(
-          (
-            service,
-            index,
-          ) => {
-            const Icon =
-              serviceIcons[
-                index %
-                  serviceIcons.length
-              ];
+                <span className="services-sidebar__name">
+                  {service.shortTitle}
+                </span>
+              </span>
+            </a>
+          );
+        },
+      )}
+    </nav>
+  </div>
+</aside>
 
-            return (
-              <section
-                key={service.id}
-                id={service.id}
-                className="service-detail"
-                aria-labelledby={`${service.id}-title`}
-              >
-                <div className="site-container">
-                  <article className="service-detail__layout">
-                    <div
-                      className="service-detail__heading"
-                      data-reveal={
-                        index % 2 === 0
-                          ? 'right'
-                          : 'left'
-                      }
-                    >
-                      <div className="service-detail__heading-top">
-                        <span className="service-detail__number">
-                          {service.number}
-                        </span>
+          <main className="services-details">
+            {services.map(
+              (
+                service,
+                index,
+              ) => {
+                const Icon =
+                  serviceIcons[
+                    index %
+                      serviceIcons.length
+                  ];
 
-                        <div
-                          className="service-detail__icon"
-                          aria-hidden="true"
-                        >
-                          <Icon
-                            size={27}
-                            strokeWidth={1.8}
-                          />
-                        </div>
-                      </div>
-
-                      <h2 id={`${service.id}-title`}>
-                        {service.title}
-                      </h2>
-
-                      <p className="service-detail__promise">
-                        {service.promise}
-                      </p>
-
-                      <p className="service-detail__description">
-                        {service.description}
-                      </p>
-                    </div>
-
-                    <div className="service-detail__content">
+                return (
+                  <section
+                    key={service.id}
+                    id={service.id}
+                    className="service-detail"
+                    aria-labelledby={`${service.id}-title`}
+                  >
+                    <article className="service-detail__layout">
                       <div
-                        className="service-detail__challenge"
-                        data-reveal="up"
-                        data-reveal-delay="1"
+                        className="service-detail__heading"
+                        data-reveal={
+                          index % 2 === 0
+                            ? 'right'
+                            : 'left'
+                        }
                       >
-                        <p className="service-detail__block-label">
-                          {service.challengeTitle}
-                        </p>
+                        <div className="service-detail__heading-top">
+                          <span className="service-detail__number">
+                            {service.number}
+                          </span>
 
-                        <p>
-                          {service.challengeDescription}
-                        </p>
-                      </div>
-
-                      <div className="service-detail__columns">
-                        <div
-                          className="service-detail__list-card"
-                          data-reveal="up"
-                          data-reveal-delay="2"
-                        >
-                          <h3>
-                            {service.solutionsTitle}
-                          </h3>
-
-                          <ul>
-                            {service.solutions.map(
-                              (
-                                solution,
-                              ) => (
-                                <li key={solution}>
-                                  <Check
-                                    size={17}
-                                    strokeWidth={2.3}
-                                    aria-hidden="true"
-                                  />
-
-                                  <span>
-                                    {solution}
-                                  </span>
-                                </li>
-                              ),
-                            )}
-                          </ul>
-                        </div>
-
-                        <div
-                          className="service-detail__list-card service-detail__list-card--benefits"
-                          data-reveal="up"
-                          data-reveal-delay="3"
-                        >
-                          <h3>
-                            {service.benefitsTitle}
-                          </h3>
-
-                          <ul>
-                            {service.benefits.map(
-                              (
-                                benefit,
-                              ) => (
-                                <li key={benefit}>
-                                  <Check
-                                    size={17}
-                                    strokeWidth={2.3}
-                                    aria-hidden="true"
-                                  />
-
-                                  <span>
-                                    {benefit}
-                                  </span>
-                                </li>
-                              ),
-                            )}
-                          </ul>
-                        </div>
-                      </div>
-
-                      <aside
-                        className="service-detail__example"
-                        data-reveal="up"
-                        data-reveal-delay="4"
-                      >
-                        <div className="service-detail__example-icon">
-                          <DatabaseZap
-                            size={21}
-                            strokeWidth={1.9}
+                          <div
+                            className="service-detail__icon"
                             aria-hidden="true"
-                          />
+                          >
+                            <Icon
+                              size={27}
+                              strokeWidth={1.8}
+                            />
+                          </div>
                         </div>
 
-                        <div>
-                          <p className="service-detail__example-label">
-                            {service.exampleLabel}
+                        <h2 id={`${service.id}-title`}>
+                          {service.title}
+                        </h2>
+
+                        <p className="service-detail__promise">
+                          {service.promise}
+                        </p>
+
+                        <p className="service-detail__description">
+                          {service.description}
+                        </p>
+                      </div>
+
+                      <div className="service-detail__content">
+                        <div
+                          className="service-detail__challenge"
+                          data-reveal="up"
+                          data-reveal-delay="1"
+                        >
+                          <p className="service-detail__block-label">
+                            {service.challengeTitle}
                           </p>
 
                           <p>
-                            {service.example}
+                            {service.challengeDescription}
                           </p>
                         </div>
-                      </aside>
 
-                      <div
-                        className="service-detail__footer"
-                        data-reveal="up"
-                      >
-                        <a
-                          href="#services-navigation"
-                          className="service-detail__back"
+                        <div className="service-detail__columns">
+                          <div
+                            className="service-detail__list-card"
+                            data-reveal="up"
+                            data-reveal-delay="2"
+                          >
+                            <h3>
+                              {service.solutionsTitle}
+                            </h3>
+
+                            <ul>
+                              {service.solutions.map(
+                                (
+                                  solution,
+                                ) => (
+                                  <li key={solution}>
+                                    <Check
+                                      size={17}
+                                      strokeWidth={2.3}
+                                      aria-hidden="true"
+                                    />
+
+                                    <span>
+                                      {solution}
+                                    </span>
+                                  </li>
+                                ),
+                              )}
+                            </ul>
+                          </div>
+
+                          <div
+                            className="service-detail__list-card service-detail__list-card--benefits"
+                            data-reveal="up"
+                            data-reveal-delay="3"
+                          >
+                            <h3>
+                              {service.benefitsTitle}
+                            </h3>
+
+                            <ul>
+                              {service.benefits.map(
+                                (
+                                  benefit,
+                                ) => (
+                                  <li key={benefit}>
+                                    <Check
+                                      size={17}
+                                      strokeWidth={2.3}
+                                      aria-hidden="true"
+                                    />
+
+                                    <span>
+                                      {benefit}
+                                    </span>
+                                  </li>
+                                ),
+                              )}
+                            </ul>
+                          </div>
+                        </div>
+
+                        <aside
+                          className="service-detail__example"
+                          data-reveal="up"
+                          data-reveal-delay="4"
                         >
-                          <ArrowUp
-                            size={17}
-                            strokeWidth={2.2}
-                            aria-hidden="true"
-                          />
+                          <div className="service-detail__example-icon">
+                            <DatabaseZap
+                              size={21}
+                              strokeWidth={1.9}
+                              aria-hidden="true"
+                            />
+                          </div>
 
-                          <span>
-                            {labels.backToNavigation}
-                          </span>
-                        </a>
+                          <div>
+                            <p className="service-detail__example-label">
+                              {service.exampleLabel}
+                            </p>
 
-                        <Link
-                          href="/contact"
-                          className="service-detail__contact"
-                        >
-                          <span>
-                            {labels.discoverService}
-                          </span>
-
-                          <ArrowRight
-                            size={17}
-                            strokeWidth={2.2}
-                            aria-hidden="true"
-                          />
-                        </Link>
+                            <p>
+                              {service.example}
+                            </p>
+                          </div>
+                        </aside>
                       </div>
-                    </div>
-                  </article>
-                </div>
-              </section>
-            );
-          },
-        )}
+                    </article>
+                  </section>
+                );
+              },
+            )}
+          </main>
+        </div>
       </div>
 
       <section className="services-method">
@@ -577,21 +599,6 @@ export function ServicesPageContent({
             </div>
 
             <div className="services-final-cta__actions">
-              <Link
-                href="/contact"
-                className="services-button services-button--primary"
-              >
-                <span>
-                  {finalCta.primaryCta}
-                </span>
-
-                <ArrowRight
-                  size={18}
-                  strokeWidth={2.2}
-                  aria-hidden="true"
-                />
-              </Link>
-
               <Link
                 href="/assist"
                 className="services-button services-button--light"
