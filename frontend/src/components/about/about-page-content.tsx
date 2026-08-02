@@ -109,24 +109,47 @@ export function AboutPageContent({
         </div>
 
         <div className="site-container about-hero__container">
-          <div className="about-hero__content">
-            <p className="eyebrow">
-              {hero.eyebrow}
-            </p>
+<div
+  className="about-hero__content"
+  data-reveal="right"
+>
+<p
+  className="eyebrow"
+  data-reveal="up"
+  data-reveal-delay="1"
+>
+  {hero.eyebrow}
+</p>
 
-            <h1 id="about-page-title">
+<h1
+  id="about-page-title"
+  data-reveal="up"
+  data-reveal-delay="2"
+>
               {hero.title}
             </h1>
 
-            <p className="about-hero__lead">
+<p
+  className="about-hero__lead"
+  data-reveal="up"
+  data-reveal-delay="3"
+>
               {hero.introduction}
             </p>
 
-            <p className="about-hero__description">
+<p
+  className="about-hero__description"
+  data-reveal="up"
+  data-reveal-delay="4"
+>
               {hero.description}
             </p>
 
-<div className="about-hero__actions">
+<div
+  className="about-hero__actions"
+  data-reveal="up"
+  data-reveal-delay="5"
+>
   <Link
     href="/about/work-process"
     className="about-hero__secondary-link"
@@ -146,6 +169,8 @@ export function AboutPageContent({
 
 <div
   className="about-hero__visual"
+  data-reveal="scale"
+  data-reveal-delay="3"
   aria-hidden="true"
 >
   <div className="about-hero__visual-center">
@@ -197,9 +222,12 @@ export function AboutPageContent({
 
       <section className="about-story">
         <div className="site-container about-story__container">
-          <div className="about-section-heading">
-            <p className="eyebrow">
-              {story.eyebrow}
+<div
+  className="about-section-heading"
+  data-reveal="up"
+>
+  <p className="eyebrow">
+    {story.eyebrow}
             </p>
 
             <h2>
@@ -208,19 +236,39 @@ export function AboutPageContent({
           </div>
 
           <div className="about-story__content">
-            <div className="about-story__paragraphs">
-              {story.paragraphs.map(
-                (
-                  paragraph,
-                ) => (
-                  <p key={paragraph}>
+<div
+  className="about-story__paragraphs"
+  data-reveal="right"
+  data-reveal-delay="1"
+>
+{story.paragraphs.map(
+  (
+    paragraph,
+    index,
+  ) => (
+    <p
+      key={paragraph}
+      data-reveal="up"
+      data-reveal-delay={
+        String(
+          Math.min(
+            index + 1,
+            6,
+          ),
+        )
+      }
+    >
                     {paragraph}
                   </p>
                 ),
               )}
             </div>
 
-            <blockquote className="about-story__statement">
+<blockquote
+  className="about-story__statement"
+  data-reveal="left"
+  data-reveal-delay="2"
+>
               <span
                 className="about-story__statement-mark"
                 aria-hidden="true"
@@ -238,9 +286,12 @@ export function AboutPageContent({
 
       <section className="about-mission">
         <div className="site-container">
-          <div className="about-section-heading about-section-heading--center">
-            <p className="eyebrow">
-              {mission.eyebrow}
+<div
+  className="about-section-heading about-section-heading--center"
+  data-reveal="up"
+>
+  <p className="eyebrow">
+    {mission.eyebrow}
             </p>
 
             <h2>
@@ -265,10 +316,19 @@ export function AboutPageContent({
                   ];
 
                 return (
-                  <article
-                    key={item.title}
-                    className="about-mission__card"
-                  >
+<article
+  key={item.title}
+  className="about-mission__card"
+  data-reveal="up"
+  data-reveal-delay={
+    String(
+      Math.min(
+        index + 1,
+        6,
+      ),
+    )
+  }
+>
                     <div className="about-mission__icon">
                       <Icon
                         size={25}
@@ -309,14 +369,25 @@ export function AboutPageContent({
           </div>
 
           <div className="about-model__grid">
-            {model.activities.map(
-              (
-                activity,
-              ) => (
-                <article
-                  key={activity.number}
-                  className="about-model__card"
-                >
+{model.activities.map(
+  (
+    activity,
+    index,
+  ) => (
+<article
+  key={activity.number}
+  className="about-model__card"
+  data-reveal={
+    index === 0
+      ? 'right'
+      : 'left'
+  }
+  data-reveal-delay={
+    String(
+      index + 1,
+    )
+  }
+>
                   <span className="about-model__number">
                     {activity.number}
                   </span>
@@ -375,10 +446,19 @@ export function AboutPageContent({
                   ];
 
                 return (
-                  <article
-                    key={item.title}
-                    className="about-values__item"
-                  >
+<article
+  key={item.title}
+  className="about-values__item"
+  data-reveal="up"
+  data-reveal-delay={
+    String(
+      Math.min(
+        index + 1,
+        6,
+      ),
+    )
+  }
+>
                     <div className="about-values__icon">
                       <Icon
                         size={22}
@@ -406,8 +486,15 @@ export function AboutPageContent({
 
       <section className="about-final-cta">
         <div className="site-container">
-          <div className="about-final-cta__card">
-            <div className="about-final-cta__content">
+       <div
+  className="about-final-cta__card"
+  data-reveal="scale"
+>
+           <div
+  className="about-final-cta__content"
+  data-reveal="right"
+  data-reveal-delay="1"
+>
               <p className="about-final-cta__eyebrow">
                 {finalCta.eyebrow}
               </p>
@@ -421,7 +508,11 @@ export function AboutPageContent({
               </p>
             </div>
 
-<div className="about-final-cta__actions">
+<div
+  className="about-final-cta__actions"
+  data-reveal="left"
+  data-reveal-delay="2"
+>
   <Link
     href="/assist"
     className="button button--primary"

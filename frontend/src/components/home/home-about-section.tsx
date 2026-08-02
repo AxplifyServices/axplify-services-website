@@ -52,20 +52,39 @@ export function HomeAboutSection({
       </div>
 
       <div className="site-container home-about__container">
-        <div className="home-about__content">
-          <h2 id="home-about-title">
+<div
+  className="home-about__content"
+  data-reveal="right"
+>
+<h2
+  id="home-about-title"
+  data-reveal="up"
+  data-reveal-delay="1"
+>
             {title}
           </h2>
 
-          <p className="home-about__lead">
+<p
+  className="home-about__lead"
+  data-reveal="up"
+  data-reveal-delay="2"
+>
             {introduction}
           </p>
 
-          <p className="home-about__description">
+<p
+  className="home-about__description"
+  data-reveal="up"
+  data-reveal-delay="3"
+>
             {description}
           </p>
 
-          <div className="home-about__actions">
+<div
+  className="home-about__actions"
+  data-reveal="up"
+  data-reveal-delay="4"
+>
             <Link
               href="/about"
               className="button button--primary home-about__primary-cta"
@@ -83,8 +102,16 @@ export function HomeAboutSection({
           </div>
         </div>
 
-        <div className="home-about__experience">
-          <div className="home-about__promise">
+<div
+  className="home-about__experience"
+  data-reveal="left"
+  data-reveal-delay="1"
+>
+<div
+  className="home-about__promise"
+  data-reveal="scale"
+  data-reveal-delay="2"
+>
             <p className="home-about__promise-label">
               {promiseLabel}
             </p>
@@ -107,10 +134,19 @@ export function HomeAboutSection({
                   ];
 
                 return (
-                  <article
-                    key={pillar.title}
-                    className="home-about__pillar"
-                  >
+<article
+  key={pillar.title}
+  className="home-about__pillar"
+  data-reveal="up"
+  data-reveal-delay={
+    String(
+      Math.min(
+        index + 3,
+        6,
+      ),
+    )
+  }
+>
                     <div
                       className="home-about__pillar-icon"
                       aria-hidden="true"

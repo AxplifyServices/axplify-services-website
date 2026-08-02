@@ -177,6 +177,227 @@ svg {
   text-transform: uppercase;
 }
 
+/* =========================================================
+   GLOBAL — SCROLL REVEAL
+   ========================================================= */
+
+[data-reveal] {
+  --reveal-distance: 2.4rem;
+  --reveal-delay: 0ms;
+  --reveal-duration: 760ms;
+
+  opacity: 0;
+
+  transform:
+    translate3d(
+      0,
+      var(--reveal-distance),
+      0
+    );
+
+  transition:
+    opacity
+    var(--reveal-duration)
+    cubic-bezier(
+      0.22,
+      1,
+      0.36,
+      1
+    )
+    var(--reveal-delay),
+    transform
+    var(--reveal-duration)
+    cubic-bezier(
+      0.22,
+      1,
+      0.36,
+      1
+    )
+    var(--reveal-delay);
+
+  will-change:
+    opacity,
+    transform;
+}
+
+[data-reveal="fade"] {
+  --reveal-distance: 0;
+
+  transform:
+    none;
+}
+
+[data-reveal="up"] {
+  transform:
+    translate3d(
+      0,
+      var(--reveal-distance),
+      0
+    );
+}
+
+[data-reveal="down"] {
+  transform:
+    translate3d(
+      0,
+      calc(
+        var(--reveal-distance) *
+        -1
+      ),
+      0
+    );
+}
+
+[data-reveal="left"] {
+  transform:
+    translate3d(
+      var(--reveal-distance),
+      0,
+      0
+    );
+}
+
+[data-reveal="right"] {
+  transform:
+    translate3d(
+      calc(
+        var(--reveal-distance) *
+        -1
+      ),
+      0,
+      0
+    );
+}
+
+[data-reveal="scale"] {
+  transform:
+    translate3d(
+      0,
+      1.2rem,
+      0
+    )
+    scale(
+      0.94
+    );
+}
+
+[data-reveal].is-revealed {
+  opacity: 1;
+
+  transform:
+    translate3d(
+      0,
+      0,
+      0
+    )
+    scale(
+      1
+    );
+}
+
+[data-reveal-delay="1"] {
+  --reveal-delay: 80ms;
+}
+
+[data-reveal-delay="2"] {
+  --reveal-delay: 160ms;
+}
+
+[data-reveal-delay="3"] {
+  --reveal-delay: 240ms;
+}
+
+[data-reveal-delay="4"] {
+  --reveal-delay: 320ms;
+}
+
+[data-reveal-delay="5"] {
+  --reveal-delay: 400ms;
+}
+
+[data-reveal-delay="6"] {
+  --reveal-delay: 480ms;
+}
+
+@media (max-width: 767px) {
+  [data-reveal] {
+    --reveal-distance: 1.35rem;
+    --reveal-duration: 620ms;
+  }
+
+  [data-reveal-delay="1"] {
+    --reveal-delay: 45ms;
+  }
+
+  [data-reveal-delay="2"] {
+    --reveal-delay: 90ms;
+  }
+
+  [data-reveal-delay="3"] {
+    --reveal-delay: 135ms;
+  }
+
+  [data-reveal-delay="4"] {
+    --reveal-delay: 180ms;
+  }
+
+  [data-reveal-delay="5"] {
+    --reveal-delay: 225ms;
+  }
+
+  [data-reveal-delay="6"] {
+    --reveal-delay: 270ms;
+  }
+}
+
+html[dir="rtl"]
+[data-reveal="left"] {
+  transform:
+    translate3d(
+      calc(
+        var(--reveal-distance) *
+        -1
+      ),
+      0,
+      0
+    );
+}
+
+html[dir="rtl"]
+[data-reveal="right"] {
+  transform:
+    translate3d(
+      var(--reveal-distance),
+      0,
+      0
+    );
+}
+
+html[dir="rtl"]
+[data-reveal].is-revealed {
+  transform:
+    translate3d(
+      0,
+      0,
+      0
+    )
+    scale(
+      1
+    );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+
+    transform: none;
+
+    transition: none;
+
+    will-change: auto;
+  }
+}
+
 /* Header */
 
 .site-header {
@@ -2257,6 +2478,12 @@ html[dir="rtl"]
       rgba(28, 182, 220, 0)
       70%
     );
+  animation:
+    home-about-orb-cyan
+    11s
+    ease-in-out
+    infinite
+    alternate;  
 }
 
 .home-about__orb--violet {
@@ -2271,6 +2498,12 @@ html[dir="rtl"]
       rgba(139, 92, 246, 0)
       70%
     );
+  animation:
+    home-about-orb-violet
+    14s
+    ease-in-out
+    infinite
+    alternate;    
 }
 
 .home-about__grid {
@@ -2300,6 +2533,58 @@ html[dir="rtl"]
       #000 80%,
       transparent
     );
+}
+
+@keyframes home-about-orb-cyan {
+  from {
+    transform:
+      translate3d(
+        0,
+        0,
+        0
+      )
+      scale(
+        1
+      );
+  }
+
+  to {
+    transform:
+      translate3d(
+        -2.5rem,
+        1.8rem,
+        0
+      )
+      scale(
+        1.08
+      );
+  }
+}
+
+@keyframes home-about-orb-violet {
+  from {
+    transform:
+      translate3d(
+        0,
+        0,
+        0
+      )
+      scale(
+        1
+      );
+  }
+
+  to {
+    transform:
+      translate3d(
+        3rem,
+        -2rem,
+        0
+      )
+      scale(
+        1.1
+      );
+  }
 }
 
 .home-about__container {
@@ -2430,6 +2715,45 @@ html[dir="rtl"]
   backdrop-filter:
     blur(
       18px
+    );
+  transition:
+    transform
+    320ms
+    cubic-bezier(
+      0.22,
+      1,
+      0.36,
+      1
+    ),
+    box-shadow
+    320ms
+    ease,
+    border-color
+    320ms
+    ease;    
+}
+
+.home-about__promise:hover {
+  border-color:
+    rgba(
+      139,
+      92,
+      246,
+      0.24
+    );
+
+  box-shadow:
+    0 32px 78px
+    rgba(
+      5,
+      38,
+      79,
+      0.15
+    );
+
+  transform:
+    translateY(
+      -0.35rem
     );
 }
 
@@ -3520,30 +3844,56 @@ html[dir="rtl"]
 }
 
 .about-mission__card:hover {
-  transform:
-    translateY(
-      -0.25rem
+  border-color:
+    rgba(
+      28,
+      182,
+      220,
+      0.3
     );
+
   box-shadow:
     0 24px 55px
-    rgba(5, 38, 79, 0.1);
+    rgba(
+      5,
+      38,
+      79,
+      0.12
+    );
+
+  transform:
+    translateY(
+      -0.45rem
+    );
 }
 
 .about-mission__icon {
-  width: 3.4rem;
-  height: 3.4rem;
-  display: grid;
-  place-items: center;
-  border-radius: 1rem;
-  background: var(--axplify-violet-soft);
-  color: var(--axplify-violet-dark);
+  transition:
+    transform
+    260ms
+    cubic-bezier(
+      0.22,
+      1,
+      0.36,
+      1
+    ),
+    background-color
+    260ms
+    ease,
+    color
+    260ms
+    ease;
 }
 
-.about-mission__card:nth-child(2)
+.about-mission__card:hover
 .about-mission__icon {
-  background:
-    rgba(28, 182, 220, 0.12);
-  color: var(--axplify-navy);
+  transform:
+    rotate(
+      -5deg
+    )
+    scale(
+      1.08
+    );
 }
 
 .about-mission__card:nth-child(3)
@@ -3611,6 +3961,66 @@ html[dir="rtl"]
       145deg,
       #ffffff,
       #f7fbfe
+    );
+  transition:
+    transform
+    320ms
+    cubic-bezier(
+      0.22,
+      1,
+      0.36,
+      1
+    ),
+    box-shadow
+    320ms
+    ease,
+    border-color
+    320ms
+    ease;    
+}
+
+.about-model__card:hover {
+  border-color:
+    rgba(
+      28,
+      182,
+      220,
+      0.28
+    );
+
+  box-shadow:
+    0 30px 70px
+    rgba(
+      5,
+      38,
+      79,
+      0.14
+    );
+
+  transform:
+    translateY(
+      -0.5rem
+    );
+}
+
+.about-model__number {
+  transition:
+    letter-spacing
+    260ms
+    ease,
+    transform
+    260ms
+    ease;
+}
+
+.about-model__card:hover
+.about-model__number {
+  letter-spacing:
+    0.28em;
+
+  transform:
+    translateX(
+      0.25rem
     );
 }
 
@@ -3721,6 +4131,62 @@ p {
   border-bottom:
     1px solid
     var(--axplify-border);
+  transition:
+    transform
+    240ms
+    ease,
+    border-color
+    240ms
+    ease;    
+}
+
+.about-values__item:hover {
+  border-color:
+    rgba(
+      139,
+      92,
+      246,
+      0.32
+    );
+
+  transform:
+    translateY(
+      -0.2rem
+    );
+}
+
+.about-values__icon {
+  transition:
+    transform
+    260ms
+    cubic-bezier(
+      0.22,
+      1,
+      0.36,
+      1
+    ),
+    background-color
+    260ms
+    ease;
+}
+
+.about-values__item:hover
+.about-values__icon {
+  background:
+    rgba(
+      139,
+      92,
+      246,
+      0.16
+    );
+
+  transform:
+    rotate(
+      5deg
+    )
+    scale(
+      1.06
+    );
 }
 
 .about-values__icon {
@@ -6864,5 +7330,31 @@ p {
   .admin-brochure-crop-modal__cancel,
   .admin-brochure-crop-modal__validate {
     flex: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-about__orb,
+  .home-about__promise,
+  .home-about__pillar,
+  .about-mission__card,
+  .about-model__card,
+  .about-values__item,
+  .about-mission__icon,
+  .about-values__icon {
+    animation: none;
+    transition: none;
+  }
+
+  .home-about__promise:hover,
+  .home-about__pillar:hover,
+  .about-mission__card:hover,
+  .about-model__card:hover,
+  .about-values__item:hover,
+  .about-mission__card:hover
+  .about-mission__icon,
+  .about-values__item:hover
+  .about-values__icon {
+    transform: none;
   }
 }

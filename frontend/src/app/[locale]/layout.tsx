@@ -40,6 +40,10 @@ import {
   FloatingContactButton,
 } from '@/components/common/floating-contact-button';
 
+import {
+  ScrollRevealController,
+} from '@/components/common/scroll-reveal-controller';
+
 import '../globals.css';
 
 export const metadata: Metadata = {
@@ -159,6 +163,8 @@ export default async function LocaleLayout({
     messages
   }
 >
+  <ScrollRevealController />
+
   <div className="page-shell">
     <SiteHeader />
 
