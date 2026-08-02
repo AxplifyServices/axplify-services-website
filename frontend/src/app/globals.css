@@ -5687,26 +5687,6 @@ html[dir="rtl"]
     align-items: start;
   }
 
-  .services-content__container--sidebar-open {
-    grid-template-columns:
-      17.5rem
-      minmax(
-        0,
-        1fr
-      );
-    gap: 2rem;
-  }
-
-  .services-content__container--sidebar-collapsed {
-    grid-template-columns:
-      3.5rem
-      minmax(
-        0,
-        1fr
-      );
-    gap: 1.1rem;
-  }
-
   .services-sidebar {
     position: sticky;
     top:
@@ -5727,18 +5707,162 @@ html[dir="rtl"]
     padding-block: 1.5rem;
   }
 
-  .services-sidebar--open {
-    width: 17.5rem;
-  }
-
-  .services-sidebar--collapsed {
-    width: 3.5rem;
-  }
-
   .services-sidebar--collapsed
   .services-sidebar__toggle {
     width: 2.45rem;
     height: 2.45rem;
+  }
+}
+
+/* =========================================================
+   SERVICES — SIDEBAR EN SUPERPOSITION ET TITRES CORRIGÉS
+   ========================================================= */
+
+@media (min-width: 1100px) {
+  /*
+   * La grille conserve toujours la largeur de la barre fermée.
+   * L’ouverture de la navigation ne modifie donc plus la largeur
+   * disponible pour les services.
+   */
+  .services-content__container,
+  .services-content__container--sidebar-open,
+  .services-content__container--sidebar-collapsed {
+    display: grid;
+    grid-template-columns:
+      3.5rem
+      minmax(
+        0,
+        1fr
+      );
+    align-items: start;
+    gap: 1.1rem;
+  }
+
+  /*
+   * Le conteneur de la sidebar conserve une largeur fixe.
+   * Le panneau ouvert déborde par-dessus le contenu principal.
+   */
+  .services-sidebar,
+  .services-sidebar--open,
+  .services-sidebar--collapsed {
+    position: sticky;
+    top:
+      calc(
+        var(--header-height) +
+        1rem
+      );
+    z-index: 60;
+    width: 3.5rem;
+    min-width: 3.5rem;
+    max-width: 3.5rem;
+    padding-block: 1.5rem;
+    overflow: visible;
+  }
+
+  .services-sidebar__panel {
+    position: relative;
+    z-index: 61;
+    width: 3.5rem;
+    max-width: none;
+    overflow: hidden;
+    transition:
+      width
+      260ms
+      cubic-bezier(
+        0.22,
+        1,
+        0.36,
+        1
+      ),
+      box-shadow
+      220ms
+      ease,
+      border-radius
+      220ms
+      ease;
+  }
+
+  /*
+   * Ouverte, la sidebar s’étend vers la droite,
+   * au-dessus des services, sans les déplacer.
+   */
+  .services-sidebar--open
+  .services-sidebar__panel {
+    width: 17.5rem;
+    box-shadow:
+      0 22px 55px
+      rgba(
+        5,
+        38,
+        79,
+        0.18
+      );
+  }
+
+  .services-sidebar--collapsed
+  .services-sidebar__panel {
+    width: 3.5rem;
+  }
+
+  /*
+   * Le contenu de la page ne change plus de position
+   * selon l’état de la sidebar.
+   */
+  .services-details {
+    min-width: 0;
+    width: 100%;
+  }
+
+  /*
+   * Les blocs de service doivent pouvoir rétrécir
+   * sans provoquer de débordement horizontal.
+   */
+  .service-detail__layout,
+  .service-detail__heading,
+  .service-detail__content {
+    min-width: 0;
+  }
+
+  .service-detail:nth-child(even)
+  .service-detail__content {
+    order: 1;
+  }
+
+  .service-detail:nth-child(even)
+  .service-detail__heading {
+    order: 2;
+    min-width: 0;
+    padding-inline-start:
+      clamp(
+        0.5rem,
+        1.5vw,
+        1.5rem
+      );
+  }
+
+  /*
+   * Empêche les grands titres de sortir de l’écran.
+   */
+  .service-detail:nth-child(even)
+  .service-detail__heading h2 {
+    width: 100%;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-break: normal;
+    font-size:
+      clamp(
+        1.9rem,
+        2.7vw,
+        2.8rem
+      );
+  }
+
+  .service-detail:nth-child(even)
+  .service-detail__promise,
+  .service-detail:nth-child(even)
+  .service-detail__description {
+    width: 100%;
+    max-width: 100%;
   }
 }
 /* =========================================================
