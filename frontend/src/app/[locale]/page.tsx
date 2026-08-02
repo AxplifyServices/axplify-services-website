@@ -15,6 +15,10 @@ import {
   HomeBrochureCarousel,
 } from '@/components/home/home-brochure-carousel';
 
+import {
+  HomeServicesSection,
+} from '@/components/home/home-services-section';
+
 import type {
   AppLocale,
 } from '@/i18n/routing';
@@ -66,6 +70,7 @@ export default async function HomePage({
     brochures,
     brochureTranslations,
     aboutTranslations,
+    servicesTranslations,
   ] =
     await Promise.all([
       getPublicHomepageBrochures(
@@ -85,6 +90,13 @@ export default async function HomePage({
         namespace:
           'pages.home.aboutPreview',
       }),
+
+      getTranslations({
+        locale,
+
+        namespace:
+          'pages.home.servicesPreview',
+      }),
     ]);
 
   const pillars = [
@@ -103,6 +115,29 @@ export default async function HomePage({
       description:
         aboutTranslations(
           `pillars.${key}.description`,
+        ),
+    }),
+  );
+
+  const services = [
+    'digital',
+    'automation',
+    'data',
+    'ai',
+    'crm',
+    'architecture',
+  ].map(
+    (
+      key,
+    ) => ({
+      title:
+        servicesTranslations(
+          `items.${key}.title`,
+        ),
+
+      description:
+        servicesTranslations(
+          `items.${key}.description`,
         ),
     }),
   );
@@ -130,41 +165,67 @@ export default async function HomePage({
         }
       />
 
-<HomeAboutSection
-  title={
-    aboutTranslations(
-      'title',
-    )
-  }
-  introduction={
-    aboutTranslations(
-      'introduction',
-    )
-  }
-  description={
-    aboutTranslations(
-      'description',
-    )
-  }
-  promiseLabel={
-    aboutTranslations(
-      'promiseLabel',
-    )
-  }
-  promise={
-    aboutTranslations(
-      'promise',
-    )
-  }
-  pillars={
-    pillars
-  }
-  primaryCta={
-    aboutTranslations(
-      'primaryCta',
-    )
-  }
-/>
+      <HomeServicesSection
+        eyebrow={
+          servicesTranslations(
+            'eyebrow',
+          )
+        }
+        title={
+          servicesTranslations(
+            'title',
+          )
+        }
+        introduction={
+          servicesTranslations(
+            'introduction',
+          )
+        }
+        services={
+          services
+        }
+        cta={
+          servicesTranslations(
+            'cta',
+          )
+        }
+      />
+
+      <HomeAboutSection
+        title={
+          aboutTranslations(
+            'title',
+          )
+        }
+        introduction={
+          aboutTranslations(
+            'introduction',
+          )
+        }
+        description={
+          aboutTranslations(
+            'description',
+          )
+        }
+        promiseLabel={
+          aboutTranslations(
+            'promiseLabel',
+          )
+        }
+        promise={
+          aboutTranslations(
+            'promise',
+          )
+        }
+        pillars={
+          pillars
+        }
+        primaryCta={
+          aboutTranslations(
+            'primaryCta',
+          )
+        }
+      />
     </>
   );
 }

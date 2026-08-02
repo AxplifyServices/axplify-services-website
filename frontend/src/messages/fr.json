@@ -31,6 +31,38 @@
 },
   "pages": {
 "home": {
+  "servicesPreview": {
+  "eyebrow": "Ce que nous pouvons transformer",
+  "title": "Des services pensés pour faire avancer votre entreprise.",
+  "introduction": "Un besoin digital ne commence pas par un outil. Il commence souvent par une tâche qui prend trop de temps, une information difficile à retrouver ou une décision prise sans visibilité.",
+  "cta": "Explorer tous nos services",
+  "items": {
+    "digital": {
+      "title": "Sites, applications et plateformes métier",
+      "description": "Transformez une idée ou un processus complexe en une expérience digitale simple, fluide et adaptée à vos utilisateurs."
+    },
+    "automation": {
+      "title": "Automatisation des opérations",
+      "description": "Confiez aux outils les tâches répétitives pour redonner du temps à vos équipes et réduire les erreurs."
+    },
+    "data": {
+      "title": "Data et pilotage décisionnel",
+      "description": "Rassemblez vos données, suivez les bons indicateurs et prenez vos décisions avec une vision plus claire."
+    },
+    "ai": {
+      "title": "Intelligence artificielle appliquée",
+      "description": "Utilisez l’IA pour prédire, recommander, assister vos équipes ou accélérer le traitement de l’information."
+    },
+    "crm": {
+      "title": "CRM et performance commerciale",
+      "description": "Mieux connaître vos clients, prioriser les opportunités et rendre chaque action commerciale plus pertinente."
+    },
+    "architecture": {
+      "title": "Architecture et mise en production",
+      "description": "Construisez une solution sécurisée, évolutive et prête à accompagner votre activité dans la durée."
+    }
+  }
+},
   "eyebrow": "Transformation digitale · IA · Data",
   "title": "Accueil",
   "description": "Axplify Services transforme les besoins métier en solutions digitales concrètes, utiles et durables.",

@@ -1,112 +1,237 @@
-'use client';
+import type {
+  Metadata,
+} from 'next';
 
 import {
-  LoaderCircle,
-} from 'lucide-react';
+  getTranslations,
+  setRequestLocale,
+} from 'next-intl/server';
 
 import {
-  useRouter,
-} from 'next/navigation';
+  HomeAboutSection,
+} from '@/components/home/home-about-section';
 
 import {
-  useEffect,
-} from 'react';
+  HomeBrochureCarousel,
+} from '@/components/home/home-brochure-carousel';
 
 import {
-  AdminShell,
-} from '@/components/admin/admin-shell';
+  HomeServicesSection,
+} from '@/components/home/home-services-section';
+
+import type {
+  AppLocale,
+} from '@/i18n/routing';
 
 import {
-  useAuth,
-} from '@/components/admin/auth-provider';
+  getPublicHomepageBrochures,
+} from '@/lib/homepage-brochures-api';
 
-export default function AdminDashboardPage() {
-  const router =
-    useRouter();
+import {
+  createPageMetadata,
+} from '@/lib/seo';
 
+type PageProps = {
+  params:
+    Promise<{
+      locale:
+        AppLocale;
+    }>;
+};
+
+const HOME_SERVICE_KEYS = [
+  'digital',
+  'automation',
+  'data',
+  'ai',
+  'crm',
+  'architecture',
+  'analytics',
+  'leadGeneration',
+  'marketingStrategy',
+] as const;
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const {
-    user,
-    status,
+    locale,
   } =
-    useAuth();
+    await params;
 
-  useEffect(
-    () => {
-      if (
-        status ===
-        'unauthenticated'
-      ) {
-        router.replace(
-          '/admin/login',
-        );
-      }
-    },
-    [
-      router,
-      status,
-    ],
+  return createPageMetadata(
+    locale,
+    'home',
+    '/',
+  );
+}
+
+export default async function HomePage({
+  params,
+}: PageProps) {
+  const {
+    locale,
+  } =
+    await params;
+
+  setRequestLocale(
+    locale,
   );
 
-  if (
-    status !==
-      'authenticated' ||
-    !user
-  ) {
-    return (
-      <main className="admin-auth-loading">
-        <LoaderCircle
-          size={
-            32
-          }
-          className="admin-spinner"
-          aria-hidden="true"
-        />
+  const [
+    brochures,
+    brochureTranslations,
+    aboutTranslations,
+    servicesTranslations,
+  ] =
+    await Promise.all([
+      getPublicHomepageBrochures(
+        locale,
+      ),
 
-        <span>
-          Vérification de la session…
-        </span>
-      </main>
+      getTranslations({
+        locale,
+
+        namespace:
+          'pages.home.brochures',
+      }),
+
+      getTranslations({
+        locale,
+
+        namespace:
+          'pages.home.aboutPreview',
+      }),
+
+      getTranslations({
+        locale,
+
+        namespace:
+          'pages.home.servicesPreview',
+      }),
+    ]);
+
+  const pillars = [
+    'clarity',
+    'usefulness',
+    'evolution',
+  ].map(
+    (
+      key,
+    ) => ({
+      title:
+        aboutTranslations(
+          `pillars.${key}.title`,
+        ),
+
+      description:
+        aboutTranslations(
+          `pillars.${key}.description`,
+        ),
+    }),
+  );
+
+  const services =
+    HOME_SERVICE_KEYS.map(
+      (
+        key,
+      ) => ({
+        title:
+          servicesTranslations(
+            `items.${key}.title`,
+          ),
+
+        description:
+          servicesTranslations(
+            `items.${key}.description`,
+          ),
+      }),
     );
-  }
 
   return (
-    <AdminShell>
-      <section className="admin-dashboard">
-        <div className="admin-dashboard__heading">
-          <div>
-            <p>
-              Tableau de bord
-            </p>
+    <>
+      <HomeBrochureCarousel
+        brochures={
+          brochures
+        }
+        previousLabel={
+          brochureTranslations(
+            'previous',
+          )
+        }
+        nextLabel={
+          brochureTranslations(
+            'next',
+          )
+        }
+        goToSlideLabel={
+          brochureTranslations(
+            'goToSlide',
+          )
+        }
+      />
 
-            <h1>
-              Bonjour
-              {
-                user.firstName
-                  ? ` ${user.firstName}`
-                  : ''
-              }
-            </h1>
+      <HomeAboutSection
+        title={
+          aboutTranslations(
+            'title',
+          )
+        }
+        introduction={
+          aboutTranslations(
+            'introduction',
+          )
+        }
+        description={
+          aboutTranslations(
+            'description',
+          )
+        }
+        promiseLabel={
+          aboutTranslations(
+            'promiseLabel',
+          )
+        }
+        promise={
+          aboutTranslations(
+            'promise',
+          )
+        }
+        pillars={
+          pillars
+        }
+        primaryCta={
+          aboutTranslations(
+            'primaryCta',
+          )
+        }
+      />
 
-            <span>
-              Votre espace d’administration est prêt.
-            </span>
-          </div>
-        </div>
-
-        <div className="admin-dashboard__empty">
-          <div className="admin-dashboard__empty-mark">
-            AX
-          </div>
-
-          <h2>
-            Le tableau de bord est prêt
-          </h2>
-
-          <p>
-            Les indicateurs et les modules de gestion apparaîtront ici au fur et à mesure de leur création.
-          </p>
-        </div>
-      </section>
-    </AdminShell>
+      <HomeServicesSection
+        eyebrow={
+          servicesTranslations(
+            'eyebrow',
+          )
+        }
+        title={
+          servicesTranslations(
+            'title',
+          )
+        }
+        introduction={
+          servicesTranslations(
+            'introduction',
+          )
+        }
+        services={
+          services
+        }
+        cta={
+          servicesTranslations(
+            'cta',
+          )
+        }
+      />
+    </>
   );
 }

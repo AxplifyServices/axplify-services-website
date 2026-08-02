@@ -31,6 +31,38 @@
 },
   "pages": {
 "home": {
+  "servicesPreview": {
+  "eyebrow": "What we can transform",
+  "title": "Services designed to move your business forward.",
+  "introduction": "A digital need does not begin with a tool. It often begins with a task that takes too long, information that is difficult to find or a decision made without enough visibility.",
+  "cta": "Explore all our services",
+  "items": {
+    "digital": {
+      "title": "Websites, applications and business platforms",
+      "description": "Turn an idea or a complex process into a simple, fluid digital experience designed around your users."
+    },
+    "automation": {
+      "title": "Operations automation",
+      "description": "Let technology handle repetitive tasks so your teams can save time and reduce avoidable errors."
+    },
+    "data": {
+      "title": "Data and decision support",
+      "description": "Bring your data together, follow the right indicators and make decisions with greater clarity."
+    },
+    "ai": {
+      "title": "Applied artificial intelligence",
+      "description": "Use AI to predict, recommend, support your teams or accelerate the processing of information."
+    },
+    "crm": {
+      "title": "CRM and commercial performance",
+      "description": "Understand your customers, prioritise opportunities and make every commercial action more relevant."
+    },
+    "architecture": {
+      "title": "Architecture and deployment",
+      "description": "Build a secure and scalable solution that can support the long-term development of your business."
+    }
+  }
+},
   "eyebrow": "Digital transformation · AI · Data",
   "title": "Home",
   "description": "Axplify Services turns business needs into practical, valuable and sustainable digital solutions.",
