@@ -32,10 +32,10 @@
   "pages": {
 "home": {
   "servicesPreview": {
-  "eyebrow": "What we can transform",
-  "title": "Services designed to move your business forward.",
-  "introduction": "A digital need does not begin with a tool. It often begins with a task that takes too long, information that is difficult to find or a decision made without enough visibility.",
-  "cta": "Explore all our services",
+"eyebrow": "Our services",
+"title": "Stop letting the same obstacles slow down your growth.",
+"introduction": "Behind every project lies a practical problem to solve: limited visibility, time-consuming tasks, prospects that are difficult to convert or data that remains underused. We turn these obstacles into simple and valuable solutions adapted to your company.",
+"cta": "Discover all our services",
   "items": {
     "digital": {
       "title": "Websites, applications and business platforms",
@@ -57,10 +57,22 @@
       "title": "CRM and commercial performance",
       "description": "Understand your customers, prioritise opportunities and make every commercial action more relevant."
     },
-    "architecture": {
-      "title": "Architecture and deployment",
-      "description": "Build a secure and scalable solution that can support the long-term development of your business."
-    }
+"architecture": {
+  "title": "Architecture and deployment",
+  "description": "Build a secure and scalable solution that can support the long-term development of your business."
+},
+"analytics": {
+  "title": "Analytics and performance tracking",
+  "description": "Understand where your visitors come from, what they do and which actions truly generate leads or sales."
+},
+"leadGeneration": {
+  "title": "Lead generation and closing",
+  "description": "Attract the right prospects, qualify their needs and help your teams turn more opportunities into customers."
+},
+"marketingStrategy": {
+  "title": "Marketing strategy and online visibility",
+  "description": "Analyse your market, competitors and online image to build a strategy that strengthens visibility and credibility."
+}
   }
 },
   "eyebrow": "Digital transformation · AI · Data",
@@ -100,15 +112,276 @@
     "secondaryCta": "Discuss your needs"
   }
 },
-    "services": {
-      "eyebrow": "Our expertise",
-      "title": "Services",
-      "description": "This page will present our digital transformation, automation, data and artificial intelligence services.",
-      "seo": {
-        "title": "Digital transformation, AI and Data services",
-        "description": "Discover how Axplify Services helps companies digitalise their processes, automate their operations and make better use of their data."
-      }
+"services": {
+  "hero": {
+    "eyebrow": "Our services",
+    "title": "Turn everyday obstacles into opportunities for growth.",
+    "introduction": "A company does not always lack ideas. Sometimes it lacks the right tool, the right information or the time needed to move forward.",
+    "description": "Axplify Services supports you from the initial understanding of your needs through to deployment. We combine digital development, automation, data, artificial intelligence and marketing strategy to build solutions that deliver real value to your business.",
+    "navigationCta": "Explore our services",
+    "contactCta": "Discuss your needs"
+  },
+  "navigation": {
+    "label": "Quick access",
+    "title": "Which challenge would you like to solve?"
+  },
+  "common": {
+    "challengeTitle": "The problem we solve",
+    "solutionsTitle": "What we can implement",
+    "benefitsTitle": "What your company gains",
+    "exampleLabel": "Example project",
+    "backToNavigation": "Back to services",
+    "discoverService": "Discuss this service"
+  },
+  "items": {
+    "digital": {
+      "id": "websites-applications-platforms",
+      "shortTitle": "Digital solutions",
+      "title": "Websites, applications and business platforms",
+      "promise": "A digital solution should not only look good. It should simplify an action, solve a problem and support your growth.",
+      "description": "We design websites, applications and business platforms around your users and operational processes. Every journey is made simple, even when the underlying business rules are complex.",
+      "challenge": "Your teams use several disconnected files or tools, your customers encounter friction in their journey, or your activity still depends on many manual operations.",
+      "solutions": [
+        "Multilingual corporate and commercial websites",
+        "Web and mobile applications adapted to your business",
+        "B2B and B2C platforms with dedicated user areas",
+        "Simple and secure administration interfaces",
+        "Booking, ordering and subscription journeys",
+        "Connections to your existing tools, databases and APIs"
+      ],
+      "benefits": [
+        "A simpler experience for customers and teams",
+        "Better centralisation of information",
+        "Fewer manual entries and operational errors",
+        "A solution able to evolve with your business"
+      ],
+      "example": "Design of a vehicle rental platform covering B2C and B2B journeys, vehicle search, quotations, bookings, company quotas and approval workflows."
     },
+    "automation": {
+      "id": "operations-automation",
+      "shortTitle": "Automation",
+      "title": "Operations automation",
+      "promise": "Your teams should spend their time making decisions and serving customers, not repeating the same tasks.",
+      "description": "We identify the operations slowing down your activity and build reliable, traceable automations adapted to your business rules.",
+      "challenge": "Files must be prepared every week, information is copied between several tools, follow-ups are forgotten or some tasks still depend entirely on human intervention.",
+      "solutions": [
+        "Automation of administrative and commercial tasks",
+        "Automatic generation of documents and reports",
+        "Approval workflows and validation processes",
+        "Automatic alerts for delays and anomalies",
+        "Synchronisation between tools and databases",
+        "Orchestration of scheduled processes"
+      ],
+      "benefits": [
+        "Shorter processing times",
+        "Fewer errors and forgotten tasks",
+        "More consistent and better-controlled processes",
+        "More time for higher-value activities"
+      ],
+      "example": "Development of an algorithm connected to business datamarts to automatically consolidate monthly indicators, calculate KPIs and generate presentations used to manage the commercial network."
+    },
+    "data": {
+      "id": "data-decision-support",
+      "shortTitle": "Data and reporting",
+      "title": "Data and decision support",
+      "promise": "Your data becomes valuable when it helps you understand what is happening and make decisions faster.",
+      "description": "We organise, clean and combine your data to turn it into readable, reliable indicators that your teams can use directly.",
+      "challenge": "Your data is scattered, figures differ from one file to another, reports take too long to prepare or management lacks a clear view of performance.",
+      "solutions": [
+        "Design of datamarts adapted to business needs",
+        "Definition of KPIs and calculation rules",
+        "Data cleaning and quality control",
+        "Operational and management dashboards",
+        "Centralisation of several data sources",
+        "Automated alerts and indicator monitoring"
+      ],
+      "benefits": [
+        "Reliable figures understood by everyone",
+        "A faster view of performance",
+        "Decisions based on facts",
+        "Better detection of gaps and opportunities"
+      ],
+      "example": "Management of Marketing, CRM and Commercial Performance datamarts, from collecting requirements through to validating KPIs, aggregation rules and data quality."
+    },
+    "ai": {
+      "id": "artificial-intelligence",
+      "shortTitle": "Artificial intelligence",
+      "title": "Applied artificial intelligence",
+      "promise": "Artificial intelligence becomes useful when it addresses a clearly identified decision, task or opportunity.",
+      "description": "We integrate AI into practical use cases: supporting teams, analysing documents, recommending actions, qualifying prospects and anticipating behaviour.",
+      "challenge": "You want to use AI but do not know which use case to prioritise, how to integrate it into your tools or how to control the reliability of its responses.",
+      "solutions": [
+        "AI assistants and copilots adapted to your business",
+        "Predictive models and scoring systems",
+        "Recommendation engines and Next Best Action",
+        "Automatic analysis of documents, text and audio",
+        "Voice agents for reception and qualification",
+        "Computer vision and object detection"
+      ],
+      "benefits": [
+        "Teams better supported in their decisions",
+        "More precise personalisation of actions",
+        "Faster identification of opportunities",
+        "Practical use of large volumes of information"
+      ],
+      "example": "Design of an AI voice agent connected to commercial documents for property developments, able to answer questions, qualify prospects and send opportunities to the CRM."
+    },
+    "crm": {
+      "id": "crm-commercial-performance",
+      "shortTitle": "CRM and sales",
+      "title": "CRM and commercial performance",
+      "promise": "A commercial opportunity is more likely to succeed when it reaches the right person, at the right time, with the right message.",
+      "description": "We structure customer data, opportunities and commercial actions to help your teams prioritise, follow up and convert more effectively.",
+      "challenge": "Customer information is scattered, opportunities are not properly tracked, follow-ups depend on individual files or teams do not know which prospects to prioritise.",
+      "solutions": [
+        "Structuring and centralisation of customer data",
+        "Opportunity and follow-up management",
+        "Customer and prospect segmentation",
+        "Propensity and commercial priority scoring",
+        "Automation of campaigns and contact actions",
+        "Commercial performance dashboards"
+      ],
+      "benefits": [
+        "Better customer knowledge",
+        "Fewer forgotten opportunities",
+        "Better-targeted commercial actions",
+        "Progressive improvement in conversion rates"
+      ],
+      "example": "Design of an internal commercial opportunity management system, followed by its industrialisation to orchestrate campaigns and prioritise team actions."
+    },
+    "architecture": {
+      "id": "architecture-deployment",
+      "shortTitle": "Architecture and security",
+      "title": "Architecture, security and deployment",
+      "promise": "A reliable solution must remain secure, maintainable and efficient long after it is launched.",
+      "description": "We design the technical architecture, access rights, roles and deployment processes while taking security and future growth into account from the start.",
+      "challenge": "Your solution must support several user profiles, protect sensitive information, evolve over time or be deployed without interrupting operations.",
+      "solutions": [
+        "Frontend, backend and database architecture",
+        "Authentication and role management",
+        "API and access security",
+        "Logging and action traceability",
+        "Containerisation with Docker",
+        "Automated deployments and environments"
+      ],
+      "benefits": [
+        "Better protection of your data",
+        "Access rights adapted to each user",
+        "More reliable deployments",
+        "A technical foundation ready to evolve"
+      ],
+      "example": "Deployment of Next.js and NestJS platforms using PostgreSQL, JWT authentication, role management, Docker, Traefik and automated GitHub Actions workflows."
+    },
+    "analytics": {
+      "id": "analytics-tracking",
+      "shortTitle": "Analytics and tracking",
+      "title": "Analytics, tracking and digital performance analysis",
+      "promise": "You should not invest in visibility without knowing what truly attracts, engages and converts your visitors.",
+      "description": "We implement reliable tracking of your digital journeys to connect visitors, campaigns, prospects and sales within a single view.",
+      "challenge": "You know your overall traffic but cannot clearly identify which campaigns, pages or actions generate forms, baskets, sales or revenue.",
+      "solutions": [
+        "Audit of your website and traffic sources",
+        "Definition of KPIs and creation of a tracking plan",
+        "Installation and configuration of Google Tag Manager",
+        "Configuration of Google Analytics 4",
+        "Tracking of clicks, forms, baskets and transactions",
+        "Connection of CRM, advertising and e-commerce data",
+        "Data centralisation in BigQuery when appropriate",
+        "Creation of custom Looker Studio dashboards"
+      ],
+      "benefits": [
+        "More reliable digital data",
+        "A clear understanding of the conversion funnel",
+        "More accurate measurement of return on investment",
+        "A dashboard updated automatically",
+        "Marketing decisions based on real indicators"
+      ],
+      "example": "Automation of the collection and transformation of digital marketing data to supply decision-making dashboards used to manage commercial performance."
+    },
+    "leadGeneration": {
+      "id": "lead-generation-closing",
+      "shortTitle": "Leads and closing",
+      "title": "Lead generation and closing support",
+      "promise": "Attracting more visitors is not enough. You need a journey capable of turning them into opportunities and then into customers.",
+      "description": "We connect acquisition, content, forms, qualification, CRM and follow-ups to build a clearer and more efficient commercial funnel.",
+      "challenge": "Your company receives too few qualified enquiries, loses prospects after the first interaction or lacks a clear method for following opportunities through to closing.",
+      "solutions": [
+        "Design of conversion-focused landing pages",
+        "Qualification forms and journeys",
+        "Prospect segmentation and scoring",
+        "Connection of leads to the CRM",
+        "Automated follow-up actions",
+        "Prioritisation of commercial opportunities",
+        "Monitoring of the sales funnel and conversion rates",
+        "Support in structuring closing stages and sales arguments"
+      ],
+      "benefits": [
+        "Better-qualified prospects",
+        "Faster handling of enquiries",
+        "Better visibility over the commercial pipeline",
+        "Fewer lost opportunities",
+        "Progressive improvement in conversion rates"
+      ],
+      "example": "Development of segmentation, scoring and opportunity management mechanisms used to prioritise commercial actions and personalise campaigns."
+    },
+    "marketingStrategy": {
+      "id": "marketing-strategy-online-visibility",
+      "shortTitle": "Strategy and visibility",
+      "title": "Marketing strategy, visibility and online image",
+      "promise": "Before communicating more, you need to understand what your market expects, what your competitors offer and what makes your company credible.",
+      "description": "We analyse your environment, positioning and customer journeys to build a coherent, measurable marketing strategy adapted to your resources.",
+      "challenge": "Your company lacks visibility, its message remains unclear, its marketing actions are inconsistent or it does not know how to differentiate itself from competitors.",
+      "solutions": [
+        "Market research and analysis of customer expectations",
+        "Competitor benchmarking and best-practice analysis",
+        "Analysis of positioning and online image",
+        "Clarification of target audiences and messages",
+        "Definition of channels and content plans",
+        "Formalisation of marketing processes",
+        "Improvement of discovery and conversion journeys",
+        "Implementation of monitoring indicators"
+      ],
+      "benefits": [
+        "Clearer positioning",
+        "A more coherent and credible image",
+        "Better-structured marketing actions",
+        "A better understanding of the market",
+        "Visibility built around measurable objectives"
+      ],
+      "example": "Customer knowledge, segmentation, geomarketing and performance analyses used to guide commercial and marketing decisions."
+    }
+  },
+  "method": {
+    "eyebrow": "How we work",
+    "title": "A clear approach, from the initial need to the final result.",
+    "description": "We do not begin with technology. We begin by understanding what is blocking your progress, what needs to change and how the improvement will be measured.",
+    "items": {
+      "diagnosis": {
+        "title": "Understand",
+        "description": "We analyse your activity, users, data and processes to identify the real need."
+      },
+      "design": {
+        "title": "Build",
+        "description": "We define a clear, prioritised solution adapted to your teams before developing the features."
+      },
+      "deployment": {
+        "title": "Deploy and improve",
+        "description": "We secure the deployment, measure the results and improve the solution according to actual usage."
+      }
+    }
+  },
+  "finalCta": {
+    "eyebrow": "Your next project",
+    "title": "You have identified a problem, but not yet the right solution?",
+    "description": "Tell us about your business, difficulties and objectives. We will help you structure the need and identify the most useful actions.",
+    "primaryCta": "Discuss my needs",
+    "secondaryCta": "Help me define my project"
+  },
+  "seo": {
+    "title": "Digital, Data, AI and Marketing Services | Axplify Services",
+    "description": "Discover Axplify Services solutions for web and mobile development, automation, data, artificial intelligence, CRM, analytics, lead generation and marketing strategy."
+  }
+},
     "products": {
       "eyebrow": "Solutions created by Axplify",
       "title": "Products",

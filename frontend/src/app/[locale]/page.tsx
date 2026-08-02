@@ -119,113 +119,116 @@ export default async function HomePage({
     }),
   );
 
-  const services = [
-    'digital',
-    'automation',
-    'data',
-    'ai',
-    'crm',
-    'architecture',
-  ].map(
-    (
-      key,
-    ) => ({
-      title:
-        servicesTranslations(
-          `items.${key}.title`,
-        ),
+const services = [
+  'digital',
+  'automation',
+  'data',
+  'ai',
+  'crm',
+  'architecture',
+  'analytics',
+  'leadGeneration',
+  'marketingStrategy',
+].map(
+  (
+    key,
+  ) => ({
+    title:
+      servicesTranslations(
+        `items.${key}.title`,
+      ),
 
-      description:
-        servicesTranslations(
-          `items.${key}.description`,
-        ),
-    }),
-  );
+    description:
+      servicesTranslations(
+        `items.${key}.description`,
+      ),
+  }),
+);
 
   return (
     <>
-      <HomeBrochureCarousel
-        brochures={
-          brochures
-        }
-        previousLabel={
-          brochureTranslations(
-            'previous',
-          )
-        }
-        nextLabel={
-          brochureTranslations(
-            'next',
-          )
-        }
-        goToSlideLabel={
-          brochureTranslations(
-            'goToSlide',
-          )
-        }
-      />
+<HomeBrochureCarousel
+  brochures={
+    brochures
+  }
+  previousLabel={
+    brochureTranslations(
+      'previous',
+    )
+  }
+  nextLabel={
+    brochureTranslations(
+      'next',
+    )
+  }
+  goToSlideLabel={
+    brochureTranslations(
+      'goToSlide',
+    )
+  }
+/>
 
-      <HomeServicesSection
-        eyebrow={
-          servicesTranslations(
-            'eyebrow',
-          )
-        }
-        title={
-          servicesTranslations(
-            'title',
-          )
-        }
-        introduction={
-          servicesTranslations(
-            'introduction',
-          )
-        }
-        services={
-          services
-        }
-        cta={
-          servicesTranslations(
-            'cta',
-          )
-        }
-      />
+<HomeAboutSection
+  title={
+    aboutTranslations(
+      'title',
+    )
+  }
+  introduction={
+    aboutTranslations(
+      'introduction',
+    )
+  }
+  description={
+    aboutTranslations(
+      'description',
+    )
+  }
+  promiseLabel={
+    aboutTranslations(
+      'promiseLabel',
+    )
+  }
+  promise={
+    aboutTranslations(
+      'promise',
+    )
+  }
+  pillars={
+    pillars
+  }
+  primaryCta={
+    aboutTranslations(
+      'primaryCta',
+    )
+  }
+/>
 
-      <HomeAboutSection
-        title={
-          aboutTranslations(
-            'title',
-          )
-        }
-        introduction={
-          aboutTranslations(
-            'introduction',
-          )
-        }
-        description={
-          aboutTranslations(
-            'description',
-          )
-        }
-        promiseLabel={
-          aboutTranslations(
-            'promiseLabel',
-          )
-        }
-        promise={
-          aboutTranslations(
-            'promise',
-          )
-        }
-        pillars={
-          pillars
-        }
-        primaryCta={
-          aboutTranslations(
-            'primaryCta',
-          )
-        }
-      />
+<HomeServicesSection
+  eyebrow={
+    servicesTranslations(
+      'eyebrow',
+    )
+  }
+  title={
+    servicesTranslations(
+      'title',
+    )
+  }
+  introduction={
+    servicesTranslations(
+      'introduction',
+    )
+  }
+  services={
+    services
+  }
+  cta={
+    servicesTranslations(
+      'cta',
+    )
+  }
+/>
     </>
   );
 }
