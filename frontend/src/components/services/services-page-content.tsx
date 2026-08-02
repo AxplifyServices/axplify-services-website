@@ -1,7 +1,9 @@
 'use client';
 
 import {
+  useRef,
   useState,
+  type CSSProperties,
 } from 'react';
 
 import {
@@ -11,18 +13,19 @@ import {
   BrainCircuit,
   ChartNoAxesCombined,
   Check,
-  ChevronDown,
-PanelLeftClose,
-PanelLeftOpen,
   CodeXml,
   DatabaseZap,
   Gauge,
+  List,
   Megaphone,
+  PanelLeftClose,
+  PanelLeftOpen,
   Radar,
   SearchCheck,
   ShieldCheck,
   Target,
   Workflow,
+  X,
 } from 'lucide-react';
 
 import {
@@ -58,6 +61,8 @@ type ServicesPageContentProps = {
   navigation: {
     label: string;
     title: string;
+    openLabel: string;
+    closeLabel: string;
   };
 
   services: ServicePageItem[];
@@ -107,6 +112,86 @@ export function ServicesPageContent({
     false,
   );
 
+const mobileNavigationButtonRef =
+  useRef<HTMLButtonElement | null>(
+    null,
+  );
+
+const sidebarNavigationRef =
+  useRef<HTMLElement | null>(
+    null,
+  );  
+
+const [
+  mobileSidebarTop,
+  setMobileSidebarTop,
+] = useState(
+  0,
+);  
+const openMobileSidebar =
+  () => {
+    const button =
+      mobileNavigationButtonRef.current;
+
+    if (!button) {
+      return;
+    }
+
+    const buttonRect =
+      button.getBoundingClientRect();
+
+    /*
+     * Le drawer commence juste sous le bouton réellement cliqué.
+     * La valeur est relative au viewport visible.
+     */
+    const calculatedTop =
+      Math.max(
+        8,
+        Math.min(
+          buttonRect.bottom + 8,
+          window.innerHeight - 220,
+        ),
+      );
+
+    setMobileSidebarTop(
+      calculatedTop,
+    );
+
+    setIsSidebarOpen(
+      true,
+    );
+
+    /*
+     * La liste repart toujours du service 01.
+     */
+    window.requestAnimationFrame(
+      () => {
+        sidebarNavigationRef.current?.scrollTo({
+          top: 0,
+          behavior: 'auto',
+        });
+      },
+    );
+  };
+
+
+  const closeSidebar =
+    () => {
+      setIsSidebarOpen(
+        false,
+      );
+    };
+
+  const toggleSidebar =
+    () => {
+      setIsSidebarOpen(
+        (
+          currentValue,
+        ) =>
+          !currentValue,
+      );
+    };
+
   return (
     <div className="services-page">
       <section
@@ -118,7 +203,9 @@ export function ServicesPageContent({
           aria-hidden="true"
         >
           <span className="services-hero__orb services-hero__orb--cyan" />
+
           <span className="services-hero__orb services-hero__orb--violet" />
+
           <span className="services-hero__grid" />
         </div>
 
@@ -231,18 +318,70 @@ export function ServicesPageContent({
         </div>
       </section>
 
-      <div
-        id="services-content"
-        className="services-content"
-      >
 <div
-  className={[
-    'services-content__container',
-    isSidebarOpen
-      ? 'services-content__container--sidebar-open'
-      : 'services-content__container--sidebar-collapsed',
-  ].join(' ')}
+  id="services-content"
+  className="services-content"
+  style={
+    {
+      '--services-mobile-sidebar-top':
+        `${mobileSidebarTop}px`,
+    } as CSSProperties
+  }
 >
+        <div className="services-mobile-navigation">
+<button
+  ref={
+    mobileNavigationButtonRef
+  }
+  type="button"
+  className="services-mobile-navigation__button"
+  onClick={
+    openMobileSidebar
+  }
+            aria-expanded={
+              isSidebarOpen
+            }
+            aria-controls="services-sidebar-navigation"
+          >
+            <List
+              size={19}
+              strokeWidth={2.1}
+              aria-hidden="true"
+            />
+
+            <span>
+              {navigation.label}
+            </span>
+          </button>
+        </div>
+
+        <button
+          type="button"
+          className="services-sidebar__backdrop"
+          data-open={
+            isSidebarOpen
+          }
+          aria-label={
+            navigation.closeLabel
+          }
+          tabIndex={
+            isSidebarOpen
+              ? 0
+              : -1
+          }
+          onClick={
+            closeSidebar
+          }
+        />
+
+        <div
+          className={[
+            'services-content__container',
+            isSidebarOpen
+              ? 'services-content__container--sidebar-open'
+              : 'services-content__container--sidebar-collapsed',
+          ].join(' ')}
+        >
 <aside
   className={[
     'services-sidebar',
@@ -251,112 +390,122 @@ export function ServicesPageContent({
       : 'services-sidebar--collapsed',
   ].join(' ')}
 >
-  <div className="services-sidebar__panel">
-    <div className="services-sidebar__header">
-      <div className="services-sidebar__heading">
-        <span className="services-sidebar__label">
-          {navigation.label}
-        </span>
+            <div className="services-sidebar__panel">
+              <div className="services-sidebar__header">
+                <div className="services-sidebar__heading">
+                  <span className="services-sidebar__label">
+                    {navigation.label}
+                  </span>
 
-        <span className="services-sidebar__title">
-          {navigation.title}
-        </span>
-      </div>
+                  <span className="services-sidebar__title">
+                    {navigation.title}
+                  </span>
+                </div>
 
-      <button
-        type="button"
-        className="services-sidebar__toggle"
-        onClick={
-          () =>
-            setIsSidebarOpen(
-              (
-                currentValue,
-              ) =>
-                !currentValue,
-            )
-        }
-        aria-expanded={
-          isSidebarOpen
-        }
-        aria-controls="services-sidebar-navigation"
-        aria-label={
-          isSidebarOpen
-            ? 'Réduire la navigation des services'
-            : 'Ouvrir la navigation des services'
-        }
-      >
-        {isSidebarOpen ? (
-          <PanelLeftClose
-            size={19}
-            strokeWidth={2.1}
-            aria-hidden="true"
-          />
-        ) : (
-          <PanelLeftOpen
-            size={19}
-            strokeWidth={2.1}
-            aria-hidden="true"
-          />
-        )}
-      </button>
-    </div>
+                <button
+                  type="button"
+                  className="services-sidebar__toggle"
+                  onClick={
+                    toggleSidebar
+                  }
+                  aria-expanded={
+                    isSidebarOpen
+                  }
+                  aria-controls="services-sidebar-navigation"
+                  aria-label={
+                    isSidebarOpen
+                      ? navigation.closeLabel
+                      : navigation.openLabel
+                  }
+                >
+                  <span className="services-sidebar__toggle-desktop">
+                    {isSidebarOpen ? (
+                      <PanelLeftClose
+                        size={19}
+                        strokeWidth={2.1}
+                        aria-hidden="true"
+                      />
+                    ) : (
+                      <PanelLeftOpen
+                        size={19}
+                        strokeWidth={2.1}
+                        aria-hidden="true"
+                      />
+                    )}
+                  </span>
 
-    <nav
-      id="services-sidebar-navigation"
-      className="services-sidebar__navigation"
-      aria-label={
-        navigation.title
-      }
-      aria-hidden={
-        !isSidebarOpen
-      }
-    >
-      {services.map(
-        (
-          service,
-          index,
-        ) => {
-          const Icon =
-            serviceIcons[
-              index %
-                serviceIcons.length
-            ];
+                  <span className="services-sidebar__toggle-mobile">
+                    <X
+                      size={20}
+                      strokeWidth={2.2}
+                      aria-hidden="true"
+                    />
+                  </span>
+                </button>
+              </div>
 
-          return (
-            <a
-              key={service.id}
-              href={`#${service.id}`}
-              className="services-sidebar__item"
-              tabIndex={
-                isSidebarOpen
-                  ? 0
-                  : -1
-              }
-            >
-              <span className="services-sidebar__item-icon">
-                <Icon
-                  size={17}
-                  strokeWidth={1.9}
-                  aria-hidden="true"
-                />
-              </span>
+<nav
+  ref={
+    sidebarNavigationRef
+  }
+  id="services-sidebar-navigation"
+  className="services-sidebar__navigation"
+                aria-label={
+                  navigation.title
+                }
+                aria-hidden={
+                  !isSidebarOpen
+                }
+              >
+                {services.map(
+                  (
+                    service,
+                    index,
+                  ) => {
+                    const Icon =
+                      serviceIcons[
+                        index %
+                          serviceIcons.length
+                      ];
 
-              <span className="services-sidebar__item-text">
-                <span className="services-sidebar__number">
-                  {service.number}
-                </span>
+                    return (
+                      <a
+                        key={service.id}
+                        href={`#${service.id}`}
+                        className="services-sidebar__item"
+                        tabIndex={
+                          isSidebarOpen
+                            ? 0
+                            : -1
+                        }
+                        onClick={
+                          closeSidebar
+                        }
+                      >
+                        <span className="services-sidebar__item-icon">
+                          <Icon
+                            size={17}
+                            strokeWidth={1.9}
+                            aria-hidden="true"
+                          />
+                        </span>
 
-                <span className="services-sidebar__name">
-                  {service.shortTitle}
-                </span>
-              </span>
-            </a>
-          );
-        },
-      )}
-    </nav>
-  </div>
-</aside>
+                        <span className="services-sidebar__item-text">
+                          <span className="services-sidebar__number">
+                            {service.number}
+                          </span>
+
+                          <span className="services-sidebar__name">
+                            {service.shortTitle}
+                          </span>
+                        </span>
+                      </a>
+                    );
+                  },
+                )}
+              </nav>
+            </div>
+          </aside>
 
           <main className="services-details">
             {services.map(
@@ -380,11 +529,7 @@ export function ServicesPageContent({
                     <article className="service-detail__layout">
                       <div
                         className="service-detail__heading"
-                        data-reveal={
-                          index % 2 === 0
-                            ? 'right'
-                            : 'left'
-                        }
+                        data-reveal="up"
                       >
                         <div className="service-detail__heading-top">
                           <span className="service-detail__number">
