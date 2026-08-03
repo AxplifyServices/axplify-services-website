@@ -30,21 +30,6 @@ export const routing = defineRouting({
         '/الخدمات',
     },
 
-  pathnames: {
-    '/':
-      '/',
-
-    '/services': {
-      fr:
-        '/services',
-
-      en:
-        '/services',
-
-      ar:
-        '/الخدمات',
-    },
-
     '/projects': {
       fr:
         '/nos-realisations',

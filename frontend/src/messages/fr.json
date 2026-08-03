@@ -511,6 +511,40 @@
         "description": "Retrouvez les articles, conseils, études de cas et actualités d’Axplify Services sur la digitalisation, l’automatisation, l’IA et la Data."
       }
     },
+
+"projects": {
+  "seo": {
+    "title": "Nos réalisations | Projets digitaux, data et IA | Axplify Services",
+    "description": "Découvrez les projets réalisés par Axplify Services : plateformes digitales, automatisation, data, intelligence artificielle, CRM, analytics et stratégie marketing."
+  },
+  "hero": {
+    "eyebrow": "Des projets pensés pour être utiles",
+    "title": "Nos réalisations",
+    "description": "Chaque projet part d’un besoin concret : simplifier une opération, mieux exploiter les données, améliorer le pilotage ou créer une expérience digitale plus fluide. Découvrez comment nous transformons ces défis en solutions durables."
+  },
+  "filters": {
+    "label": "Filtrer par domaine d’expertise",
+    "all": "Toutes les réalisations",
+    "results": "réalisations",
+    "singleResult": "réalisation"
+  },
+  "empty": {
+    "title": "Aucune réalisation dans cette catégorie",
+    "description": "Aucun projet publié ne correspond actuellement au domaine sélectionné."
+  },
+  "expertise": {
+    "digital": "Sites, applications et plateformes",
+    "automation": "Automatisation des processus",
+    "data": "Exploitation des données",
+    "ai": "Intelligence artificielle",
+    "crm": "CRM et outils métiers",
+    "architecture": "Architecture et infrastructure",
+    "analytics": "Tableaux de bord et analytics",
+    "leadGeneration": "Génération de prospects",
+    "marketingStrategy": "Stratégie marketing"
+  }
+},
+
     "faq": {
       "eyebrow": "Questions fréquentes",
       "title": "FAQ",
@@ -543,37 +577,5 @@
     "title": "Cette page n’existe pas",
     "description": "Le lien utilisé est incorrect ou la page a été déplacée.",
     "backHome": "Retour à l’accueil"
-  },
-"projects": {
-  "seo": {
-    "title": "Nos réalisations | Projets digitaux, data et IA | Axplify Services",
-    "description": "Découvrez les projets réalisés par Axplify Services : plateformes digitales, automatisation, data, intelligence artificielle, CRM, analytics et stratégie marketing."
-  },
-  "hero": {
-    "eyebrow": "Des projets pensés pour être utiles",
-    "title": "Nos réalisations",
-    "description": "Chaque projet part d’un besoin concret : simplifier une opération, mieux exploiter les données, améliorer le pilotage ou créer une expérience digitale plus fluide. Découvrez comment nous transformons ces défis en solutions durables."
-  },
-  "filters": {
-    "label": "Filtrer par domaine d’expertise",
-    "all": "Toutes les réalisations",
-    "results": "réalisations",
-    "singleResult": "réalisation"
-  },
-  "empty": {
-    "title": "Aucune réalisation dans cette catégorie",
-    "description": "Aucun projet publié ne correspond actuellement au domaine sélectionné."
-  },
-  "expertise": {
-    "digital": "Sites, applications et plateformes",
-    "automation": "Automatisation des processus",
-    "data": "Exploitation des données",
-    "ai": "Intelligence artificielle",
-    "crm": "CRM et outils métiers",
-    "architecture": "Architecture et infrastructure",
-    "analytics": "Tableaux de bord et analytics",
-    "leadGeneration": "Génération de prospects",
-    "marketingStrategy": "Stratégie marketing"
   }
-}
 }

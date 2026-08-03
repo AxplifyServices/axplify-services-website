@@ -10799,9 +10799,9 @@ html[dir="rtl"]
   position: relative;
   overflow: hidden;
   padding:
-    clamp(6.5rem, 11vw, 9rem)
+    clamp(4.75rem, 7vw, 6rem)
     0
-    clamp(4rem, 7vw, 6rem);
+    clamp(2.75rem, 4vw, 3.75rem);
   background:
     linear-gradient(
       145deg,
@@ -10811,81 +10811,47 @@ html[dir="rtl"]
     );
 }
 
-.projects-page__hero::before {
-  position: absolute;
-  top: -14rem;
-  right: -10rem;
-  width: 36rem;
-  height: 36rem;
-  border-radius: 50%;
-  background:
-    radial-gradient(
-      circle,
-      rgba(28, 182, 220, 0.15),
-      transparent 68%
-    );
-  content: "";
-  pointer-events: none;
-}
-
-.projects-page__hero::after {
-  position: absolute;
-  bottom: -16rem;
-  left: -10rem;
-  width: 34rem;
-  height: 34rem;
-  border-radius: 50%;
-  background:
-    radial-gradient(
-      circle,
-      rgba(124, 58, 237, 0.1),
-      transparent 68%
-    );
-  content: "";
-  pointer-events: none;
-}
-
 .projects-page__hero-content {
   position: relative;
   z-index: 1;
-  max-width: 58rem;
+  max-width: 48rem;
 }
 
 .projects-page__eyebrow {
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: 0.7rem;
   color: var(--axplify-cyan);
-  font-size: 0.72rem;
+  font-size: 0.66rem;
   font-weight: 900;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 .projects-page__hero h1 {
-  max-width: 54rem;
+  max-width: 46rem;
   margin: 0;
   color: var(--axplify-navy);
   font-size:
     clamp(
-      3rem,
-      7vw,
-      6.6rem
+      2.5rem,
+      4.8vw,
+      4.65rem
     );
-  line-height: 0.97;
-  letter-spacing: -0.065em;
+  line-height: 1;
+  letter-spacing: -0.055em;
 }
 
 .projects-page__hero p {
-  max-width: 48rem;
-  margin: 1.5rem 0 0;
+  max-width: 43rem;
+  margin: 1rem 0 0;
   color: var(--axplify-muted);
   font-size:
     clamp(
-      1rem,
-      1.7vw,
-      1.18rem
+      0.92rem,
+      1.15vw,
+      1.02rem
     );
-  line-height: 1.8;
+  line-height: 1.65;
 }
 
 .projects-page__content {
@@ -11186,18 +11152,29 @@ html[dir="rtl"]
 @media (max-width: 43.99rem) {
   .projects-page__hero {
     padding:
-      5.6rem
+      4.8rem
       0
-      3.8rem;
+      2.8rem;
+  }
+
+  .projects-page__hero-content {
+    max-width: 100%;
   }
 
   .projects-page__hero h1 {
     font-size:
       clamp(
-        2.7rem,
-        15vw,
-        4rem
+        2.35rem,
+        11vw,
+        3.2rem
       );
+    line-height: 1.03;
+  }
+
+  .projects-page__hero p {
+    margin-top: 0.85rem;
+    font-size: 0.92rem;
+    line-height: 1.6;
   }
 
   .projects-page__content {
