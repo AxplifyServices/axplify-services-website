@@ -4,6 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import {
+  BriefcaseBusiness,
+  Building2,
   ChevronLeft,
   ChevronRight,
   Images,
@@ -340,6 +342,75 @@ const pathname =
     Brochures
   </span>
 </Link>
+
+<Link
+  href="/admin/clients"
+  className="admin-sidebar__link"
+  data-active={
+    pathname ===
+      '/admin/clients' ||
+    pathname.startsWith(
+      '/admin/clients/',
+    )
+  }
+  title={
+    isSidebarCollapsed
+      ? 'Clients'
+      : undefined
+  }
+  onClick={
+    () =>
+      setIsMobileMenuOpen(
+        false,
+      )
+  }
+>
+  <Building2
+    size={
+      20
+    }
+    aria-hidden="true"
+  />
+
+  <span>
+    Clients
+  </span>
+</Link>
+
+<Link
+  href="/admin/projects"
+  className="admin-sidebar__link"
+  data-active={
+    pathname ===
+      '/admin/projects' ||
+    pathname.startsWith(
+      '/admin/projects/',
+    )
+  }
+  title={
+    isSidebarCollapsed
+      ? 'Réalisations'
+      : undefined
+  }
+  onClick={
+    () =>
+      setIsMobileMenuOpen(
+        false,
+      )
+  }
+>
+  <BriefcaseBusiness
+    size={
+      20
+    }
+    aria-hidden="true"
+  />
+
+  <span>
+    Réalisations
+  </span>
+</Link>
+
           </nav>
         </div>
 

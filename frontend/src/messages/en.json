@@ -31,6 +31,12 @@
 },
   "pages": {
 "home": {
+  "clientsPreview": {
+  "title": "They trusted us",
+  "introduction": "Companies across different industries trust us with their digital challenges to turn ideas into useful solutions, simplify operations and support lasting growth.",
+  "pause": "Pause this row",
+  "resume": "Resume this row"
+},
   "servicesPreview": {
 "eyebrow": "Our services",
 "title": "Stop letting the same obstacles slow down your growth.",

@@ -14,6 +14,7 @@ import {
 
 import {
   useEffect,
+  useRef,
   useState,
 } from 'react';
 
@@ -70,6 +71,11 @@ export function SiteHeader() {
   ] = useState(
     false,
   );
+
+const aboutDropdownRef =
+  useRef<HTMLDivElement>(
+    null,
+  );  
 
 useEffect(
   () => {
@@ -144,6 +150,57 @@ useEffect(
     [],
   );
 
+useEffect(
+  () => {
+    if (
+      !isAboutOpen
+    ) {
+      return;
+    }
+
+    const closeOnOutsidePointer =
+      (
+        event: PointerEvent,
+      ) => {
+        const target =
+          event.target;
+
+        if (
+          !(target instanceof Node)
+        ) {
+          return;
+        }
+
+        if (
+          aboutDropdownRef.current?.contains(
+            target,
+          )
+        ) {
+          return;
+        }
+
+        setIsAboutOpen(
+          false,
+        );
+      };
+
+    document.addEventListener(
+      'pointerdown',
+      closeOnOutsidePointer,
+    );
+
+    return () => {
+      document.removeEventListener(
+        'pointerdown',
+        closeOnOutsidePointer,
+      );
+    };
+  },
+  [
+    isAboutOpen,
+  ],
+);  
+
   return (
     <header className="site-header">
       <div className="site-container site-header__inner">
@@ -191,12 +248,15 @@ useEffect(
                   );
 
                 return (
-                  <div
-                    key={
-                      item.href
-                    }
-                    className="site-header__dropdown"
-                  >
+<div
+  ref={
+    aboutDropdownRef
+  }
+  key={
+    item.href
+  }
+  className="site-header__dropdown"
+>
                     <button
                       type="button"
                       className="site-header__nav-link"

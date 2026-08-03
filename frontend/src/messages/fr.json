@@ -31,6 +31,13 @@
 },
   "pages": {
 "home": {
+"clientsPreview": {
+  "title": "Ils nous ont fait confiance",
+  "introduction": "Des entreprises de différents secteurs nous confient leurs enjeux digitaux pour transformer leurs idées, simplifier leurs opérations et construire des solutions durables.",
+  "pause": "Mettre cette ligne en pause",
+  "resume": "Relancer cette ligne"
+},
+
   "servicesPreview": {
 "eyebrow": "Nos services",
 "title": "Ne laissez plus les mêmes obstacles ralentir votre croissance.",

@@ -338,6 +338,142 @@ export class StorageService
     };
   }
 
+  async uploadClientLogo(
+    file:
+      Express.Multer.File,
+  ):
+    Promise<UploadedImage>
+  {
+    this.validateImageFile(
+      file,
+    );
+
+    let processedImage:
+      Buffer;
+
+    let outputWidth:
+      number;
+
+    let outputHeight:
+      number;
+
+    try {
+      const result =
+        await sharp(
+          file.buffer,
+          {
+            failOn:
+              'error',
+          },
+        )
+          .rotate()
+          .resize({
+            width:
+              1200,
+
+            height:
+              700,
+
+            fit:
+              'inside',
+
+            withoutEnlargement:
+              true,
+          })
+          .webp({
+            quality:
+              90,
+
+            effort:
+              5,
+
+            smartSubsample:
+              true,
+
+            alphaQuality:
+              100,
+          })
+          .toBuffer({
+            resolveWithObject:
+              true,
+          });
+
+      processedImage =
+        result.data;
+
+      outputWidth =
+        result.info.width;
+
+      outputHeight =
+        result.info.height;
+    } catch {
+      throw new BadRequestException(
+        'Le fichier envoyé ne contient pas une image valide.',
+      );
+    }
+
+    const objectName =
+      [
+        'clients',
+        'logos',
+        `${randomUUID()}.webp`,
+      ].join(
+        '/',
+      );
+
+    try {
+      await this.minioClient
+        .putObject(
+          this.publicBucket,
+          objectName,
+          processedImage,
+          processedImage.length,
+          {
+            'Content-Type':
+              'image/webp',
+
+            'Cache-Control':
+              'public, max-age=31536000, immutable',
+          },
+        );
+    } catch (
+      error
+    ) {
+      this.logger.error(
+        'Impossible d’enregistrer le logo client dans MinIO.',
+        error instanceof Error
+          ? error.stack
+          : undefined,
+      );
+
+      throw new InternalServerErrorException(
+        'Impossible d’enregistrer le logo du client.',
+      );
+    }
+
+    return {
+      url:
+        `${this.publicUrl}/${objectName}`,
+
+      objectName,
+
+      mimeType:
+        'image/webp',
+
+      extension:
+        'webp',
+
+      width:
+        outputWidth,
+
+      height:
+        outputHeight,
+
+      size:
+        processedImage.length,
+    };
+  }  
+
   async uploadHomepageBrochureVideo(
     file:
       Express.Multer.File,
@@ -423,6 +559,61 @@ export class StorageService
       size:
         file.size,
     };
+  }  
+
+  async deleteClientLogoByUrl(
+    fileUrl:
+      string | null | undefined,
+  ):
+    Promise<void>
+  {
+    if (
+      !fileUrl
+    ) {
+      return;
+    }
+
+    const expectedPrefix =
+      `${this.publicUrl}/`;
+
+    if (
+      !fileUrl.startsWith(
+        expectedPrefix,
+      )
+    ) {
+      return;
+    }
+
+    const objectName =
+      fileUrl.slice(
+        expectedPrefix.length,
+      );
+
+    if (
+      !objectName.startsWith(
+        'clients/logos/',
+      )
+    ) {
+      return;
+    }
+
+    try {
+      await this.minioClient
+        .removeObject(
+          this.publicBucket,
+          objectName,
+        );
+    } catch (
+      error
+    ) {
+      this.logger.warn(
+        `Impossible de supprimer le logo MinIO ${objectName}.`,
+      );
+
+      this.logger.debug(
+        error,
+      );
+    }
   }  
 
   async deletePublicFileByUrl(

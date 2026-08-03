@@ -36,8 +36,16 @@ import {
 } from './homepage-brochures/homepage-brochures.module';
 
 import {
+  ProjectsModule,
+} from './projects/projects.module';
+
+import {
   StorageModule,
 } from './storage/storage.module';
+
+import {
+  ClientsModule,
+} from './clients/clients.module';
 
 @Module({
   imports: [
@@ -62,13 +70,17 @@ import {
       },
     ]),
 
-DatabaseModule,
+    DatabaseModule,
 
-StorageModule,
+    StorageModule,
 
-AuthModule,
+    AuthModule,
 
-HomepageBrochuresModule,
+    ClientsModule,
+
+    HomepageBrochuresModule,
+
+    ProjectsModule,
   ],
 
   controllers: [

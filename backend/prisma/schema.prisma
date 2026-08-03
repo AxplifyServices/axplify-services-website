@@ -92,7 +92,9 @@ model users {
   updated_at                               DateTime                @default(now()) @db.Timestamptz(6)
   deleted_at                               DateTime?               @db.Timestamptz(6)
   authentication_events                    authentication_events[]
+  clients                                  clients[]
   homepage_brochures                       homepage_brochures[]
+  projects                                 projects[]
   refresh_sessions                         refresh_sessions[]
   user_roles_user_roles_assigned_byTousers user_roles[]            @relation("user_roles_assigned_byTousers")
   user_roles_user_roles_user_idTousers     user_roles[]            @relation("user_roles_user_idTousers")
@@ -132,4 +134,70 @@ model homepage_brochures {
 
   @@index([created_by_user_id], map: "homepage_brochures_created_by_user_index")
   @@index([is_active, sort_order, created_at], map: "homepage_brochures_public_index")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains an expression index which requires additional setup for migrations. Visit https://pris.ly/d/expression-indexes for more info.
+model clients {
+  id                  String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                String     @db.VarChar(180)
+  industry_fr         String     @db.VarChar(180)
+  industry_en         String?    @db.VarChar(180)
+  industry_ar         String?    @db.VarChar(180)
+  logo_url            String
+  logo_alt_fr         String?    @db.VarChar(255)
+  logo_alt_en         String?    @db.VarChar(255)
+  logo_alt_ar         String?    @db.VarChar(255)
+  show_on_homepage    Boolean    @default(false)
+  homepage_sort_order Int        @default(0)
+  is_active           Boolean    @default(true)
+  created_by_user_id  String?    @db.Uuid
+  created_at          DateTime   @default(now()) @db.Timestamptz(6)
+  updated_at          DateTime   @default(now()) @db.Timestamptz(6)
+  users               users?     @relation(fields: [created_by_user_id], references: [id], onUpdate: NoAction, map: "clients_created_by_user_foreign_key")
+  projects            projects[]
+
+  @@index([is_active, name], map: "clients_admin_list_index")
+  @@index([created_by_user_id], map: "clients_created_by_user_index")
+  @@index([show_on_homepage, is_active, homepage_sort_order, created_at], map: "clients_homepage_index", where: raw("((show_on_homepage = true) AND (is_active = true))"))
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model project_expertise {
+  project_id     String   @db.Uuid
+  expertise_code String   @db.VarChar(50)
+  created_at     DateTime @default(now()) @db.Timestamptz(6)
+  projects       projects @relation(fields: [project_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "project_expertise_project_foreign_key")
+
+  @@id([project_id, expertise_code], map: "project_expertise_primary_key")
+  @@index([expertise_code, project_id], map: "project_expertise_code_index")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model projects {
+  id                 String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  client_id          String              @db.Uuid
+  title_fr           String              @db.VarChar(220)
+  title_en           String?             @db.VarChar(220)
+  title_ar           String?             @db.VarChar(220)
+  description_fr     String
+  description_en     String?
+  description_ar     String?
+  status             String              @default("DRAFT") @db.VarChar(30)
+  sort_order         Int                 @default(0)
+  created_by_user_id String?             @db.Uuid
+  published_at       DateTime?           @db.Timestamptz(6)
+  created_at         DateTime            @default(now()) @db.Timestamptz(6)
+  updated_at         DateTime            @default(now()) @db.Timestamptz(6)
+  project_expertise  project_expertise[]
+  clients            clients             @relation(fields: [client_id], references: [id], onUpdate: NoAction, map: "projects_client_foreign_key")
+  users              users?              @relation(fields: [created_by_user_id], references: [id], onUpdate: NoAction, map: "projects_created_by_user_foreign_key")
+
+  @@index([status, updated_at(sort: Desc)], map: "projects_admin_list_index")
+  @@index([client_id, status], map: "projects_client_index")
+  @@index([created_by_user_id], map: "projects_created_by_user_index")
+  @@index([status, sort_order, published_at(sort: Desc), created_at(sort: Desc)], map: "projects_public_list_index", where: raw("((status)::text = 'PUBLISHED'::text)"))
 }
