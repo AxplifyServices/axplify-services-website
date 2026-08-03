@@ -29,6 +29,10 @@ const primaryLinks = [
     key: 'services',
   },
   {
+    href: '/projects',
+    key: 'projects',
+  },
+  {
     href: '/products',
     key: 'products',
   },

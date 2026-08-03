@@ -5,6 +5,7 @@ export const SITE_URL =
 export const publicPageHrefs = [
   '/',
   '/services',
+  '/projects',
   '/products',
   '/about',
   '/about/work-process',
@@ -58,12 +59,17 @@ export const navigationItems = [
       'insights',
   },
 
+  /*
+   * La page Réalisations remplace la FAQ
+   * dans la navigation principale.
+   * La FAQ reste accessible depuis le footer.
+   */
   {
     href:
-      '/faq',
+      '/projects',
 
     translationKey:
-      'faq',
+      'projects',
   },
 
   {

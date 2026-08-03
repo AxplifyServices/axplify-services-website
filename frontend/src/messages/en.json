@@ -8,9 +8,10 @@
     "about": "About us",
     "aboutOverview": "Discover Axplify",
     "workProcess": "Our work process",
-    "insights": "Articles & news",
-    "faq": "FAQ",
-    "contact": "Contact us",
+"insights": "Articles & news",
+"projects": "Our work",
+"faq": "FAQ",
+"contact": "Contact us",
     "assist": "Discuss your needs",
     "openMenu": "Open menu",
     "closeMenu": "Close menu"
@@ -541,5 +542,37 @@
     "title": "This page does not exist",
     "description": "The link may be incorrect or the page may have been moved.",
     "backHome": "Back to home"
+  },
+ "projects": {
+  "seo": {
+    "title": "Our work | Digital, data and AI projects | Axplify Services",
+    "description": "Discover projects delivered by Axplify Services across digital platforms, automation, data, artificial intelligence, CRM, analytics and marketing strategy."
+  },
+  "hero": {
+    "eyebrow": "Projects designed to deliver real value",
+    "title": "Our work",
+    "description": "Every project begins with a concrete challenge: simplifying an operation, making better use of data, improving management or creating a smoother digital experience. Discover how we turn these challenges into sustainable solutions."
+  },
+  "filters": {
+    "label": "Filter by area of expertise",
+    "all": "All projects",
+    "results": "projects",
+    "singleResult": "project"
+  },
+  "empty": {
+    "title": "No project in this category",
+    "description": "No published project currently matches the selected area of expertise."
+  },
+  "expertise": {
+    "digital": "Websites, applications and platforms",
+    "automation": "Process automation",
+    "data": "Data exploitation",
+    "ai": "Artificial intelligence",
+    "crm": "CRM and business tools",
+    "architecture": "Architecture and infrastructure",
+    "analytics": "Dashboards and analytics",
+    "leadGeneration": "Lead generation",
+    "marketingStrategy": "Marketing strategy"
   }
+} 
 }
