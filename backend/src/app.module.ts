@@ -11,6 +11,10 @@ import {
 } from '@nestjs/core';
 
 import {
+  ScheduleModule,
+} from '@nestjs/schedule';
+
+import {
   ThrottlerGuard,
   ThrottlerModule,
 } from '@nestjs/throttler';
@@ -47,6 +51,10 @@ import {
   ClientsModule,
 } from './clients/clients.module';
 
+import {
+  PublicationsModule,
+} from './publications/publications.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -56,6 +64,8 @@ import {
       envFilePath:
         '.env',
     }),
+
+    ScheduleModule.forRoot(),
 
     ThrottlerModule.forRoot([
       {
@@ -81,6 +91,8 @@ import {
     HomepageBrochuresModule,
 
     ProjectsModule,
+
+    PublicationsModule,
   ],
 
   controllers: [

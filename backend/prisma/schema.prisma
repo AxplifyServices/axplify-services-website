@@ -76,28 +76,31 @@ model user_roles {
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model users {
-  id                                       String                  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  email                                    String                  @unique(map: "users_email_unique") @db.Citext
-  password_hash                            String                  @db.VarChar(255)
-  first_name                               String?                 @db.VarChar(100)
-  last_name                                String?                 @db.VarChar(100)
-  status                                   String                  @default("ACTIVE") @db.VarChar(30)
-  is_email_verified                        Boolean                 @default(false)
-  must_change_password                     Boolean                 @default(true)
-  failed_login_attempts                    Int                     @default(0)
-  locked_until                             DateTime?               @db.Timestamptz(6)
-  password_changed_at                      DateTime?               @db.Timestamptz(6)
-  last_login_at                            DateTime?               @db.Timestamptz(6)
-  created_at                               DateTime                @default(now()) @db.Timestamptz(6)
-  updated_at                               DateTime                @default(now()) @db.Timestamptz(6)
-  deleted_at                               DateTime?               @db.Timestamptz(6)
-  authentication_events                    authentication_events[]
-  clients                                  clients[]
-  homepage_brochures                       homepage_brochures[]
-  projects                                 projects[]
-  refresh_sessions                         refresh_sessions[]
-  user_roles_user_roles_assigned_byTousers user_roles[]            @relation("user_roles_assigned_byTousers")
-  user_roles_user_roles_user_idTousers     user_roles[]            @relation("user_roles_user_idTousers")
+  id                                                    String                  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email                                                 String                  @unique(map: "users_email_unique") @db.Citext
+  password_hash                                         String                  @db.VarChar(255)
+  first_name                                            String?                 @db.VarChar(100)
+  last_name                                             String?                 @db.VarChar(100)
+  status                                                String                  @default("ACTIVE") @db.VarChar(30)
+  is_email_verified                                     Boolean                 @default(false)
+  must_change_password                                  Boolean                 @default(true)
+  failed_login_attempts                                 Int                     @default(0)
+  locked_until                                          DateTime?               @db.Timestamptz(6)
+  password_changed_at                                   DateTime?               @db.Timestamptz(6)
+  last_login_at                                         DateTime?               @db.Timestamptz(6)
+  created_at                                            DateTime                @default(now()) @db.Timestamptz(6)
+  updated_at                                            DateTime                @default(now()) @db.Timestamptz(6)
+  deleted_at                                            DateTime?               @db.Timestamptz(6)
+  authentication_events                                 authentication_events[]
+  clients                                               clients[]
+  homepage_brochures                                    homepage_brochures[]
+  projects                                              projects[]
+  publications_publications_created_by_user_idTousers   publications[]          @relation("publications_created_by_user_idTousers")
+  publications_publications_published_by_user_idTousers publications[]          @relation("publications_published_by_user_idTousers")
+  publications_publications_updated_by_user_idTousers   publications[]          @relation("publications_updated_by_user_idTousers")
+  refresh_sessions                                      refresh_sessions[]
+  user_roles_user_roles_assigned_byTousers              user_roles[]            @relation("user_roles_assigned_byTousers")
+  user_roles_user_roles_user_idTousers                  user_roles[]            @relation("user_roles_user_idTousers")
 
   @@index([created_at(sort: Desc)], map: "users_created_at_index")
   @@index([locked_until], map: "users_locked_until_index", where: raw("(locked_until IS NOT NULL)"))
@@ -178,26 +181,196 @@ model project_expertise {
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model projects {
-  id                 String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  client_id          String              @db.Uuid
-  title_fr           String              @db.VarChar(220)
-  title_en           String?             @db.VarChar(220)
-  title_ar           String?             @db.VarChar(220)
-  description_fr     String
-  description_en     String?
-  description_ar     String?
-  status             String              @default("DRAFT") @db.VarChar(30)
-  sort_order         Int                 @default(0)
-  created_by_user_id String?             @db.Uuid
-  published_at       DateTime?           @db.Timestamptz(6)
-  created_at         DateTime            @default(now()) @db.Timestamptz(6)
-  updated_at         DateTime            @default(now()) @db.Timestamptz(6)
-  project_expertise  project_expertise[]
-  clients            clients             @relation(fields: [client_id], references: [id], onUpdate: NoAction, map: "projects_client_foreign_key")
-  users              users?              @relation(fields: [created_by_user_id], references: [id], onUpdate: NoAction, map: "projects_created_by_user_foreign_key")
+  id                   String                 @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  client_id            String                 @db.Uuid
+  title_fr             String                 @db.VarChar(220)
+  title_en             String?                @db.VarChar(220)
+  title_ar             String?                @db.VarChar(220)
+  description_fr       String
+  description_en       String?
+  description_ar       String?
+  status               String                 @default("DRAFT") @db.VarChar(30)
+  sort_order           Int                    @default(0)
+  created_by_user_id   String?                @db.Uuid
+  published_at         DateTime?              @db.Timestamptz(6)
+  created_at           DateTime               @default(now()) @db.Timestamptz(6)
+  updated_at           DateTime               @default(now()) @db.Timestamptz(6)
+  project_expertise    project_expertise[]
+  clients              clients                @relation(fields: [client_id], references: [id], onUpdate: NoAction, map: "projects_client_foreign_key")
+  users                users?                 @relation(fields: [created_by_user_id], references: [id], onUpdate: NoAction, map: "projects_created_by_user_foreign_key")
+  publication_projects publication_projects[]
 
   @@index([status, updated_at(sort: Desc)], map: "projects_admin_list_index")
   @@index([client_id, status], map: "projects_client_index")
   @@index([created_by_user_id], map: "projects_created_by_user_index")
   @@index([status, sort_order, published_at(sort: Desc), created_at(sort: Desc)], map: "projects_public_list_index", where: raw("((status)::text = 'PUBLISHED'::text)"))
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model publication_expertise {
+  publication_id String       @db.Uuid
+  expertise_code String       @db.VarChar(50)
+  created_at     DateTime     @default(now()) @db.Timestamptz(6)
+  publications   publications @relation(fields: [publication_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "publication_expertise_publication_foreign_key")
+
+  @@id([publication_id, expertise_code], map: "publication_expertise_primary_key")
+  @@index([expertise_code, publication_id], map: "publication_expertise_code_index")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model publication_media {
+  id                             String                           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  publication_id                 String                           @db.Uuid
+  media_type                     String                           @db.VarChar(20)
+  media_url                      String
+  sort_order                     Int                              @default(0)
+  width                          Int?
+  height                         Int?
+  duration_seconds               Int?
+  created_at                     DateTime                         @default(now()) @db.Timestamptz(6)
+  is_card_cover                  Boolean                          @default(false)
+  poster_url                     String?
+  poster_frame_seconds           Decimal?                         @db.Decimal(10, 3)
+  publications                   publications                     @relation(fields: [publication_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "publication_media_publication_foreign_key")
+  publication_media_translations publication_media_translations[]
+
+  @@index([publication_id, is_card_cover(sort: Desc), sort_order, created_at], map: "publication_media_publication_index")
+  @@index([publication_id, is_card_cover], map: "publication_media_card_cover_lookup_index")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model publication_media_translations {
+  id                   String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  publication_media_id String            @db.Uuid
+  locale               String            @db.VarChar(5)
+  alt_text             String?           @db.VarChar(255)
+  caption              String?
+  created_at           DateTime          @default(now()) @db.Timestamptz(6)
+  updated_at           DateTime          @default(now()) @db.Timestamptz(6)
+  publication_media    publication_media @relation(fields: [publication_media_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "publication_media_translations_media_foreign_key")
+
+  @@unique([publication_media_id, locale], map: "publication_media_translations_media_locale_unique")
+  @@index([publication_media_id, locale], map: "publication_media_translations_media_index")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model publication_projects {
+  publication_id String       @db.Uuid
+  project_id     String       @db.Uuid
+  created_at     DateTime     @default(now()) @db.Timestamptz(6)
+  projects       projects     @relation(fields: [project_id], references: [id], onUpdate: NoAction, map: "publication_projects_project_foreign_key")
+  publications   publications @relation(fields: [publication_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "publication_projects_publication_foreign_key")
+
+  @@id([publication_id, project_id], map: "publication_projects_primary_key")
+  @@index([project_id, publication_id], map: "publication_projects_project_index")
+}
+
+model publication_tag_assignments {
+  publication_id     String           @db.Uuid
+  publication_tag_id String           @db.Uuid
+  created_at         DateTime         @default(now()) @db.Timestamptz(6)
+  publications       publications     @relation(fields: [publication_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "publication_tag_assignments_publication_foreign_key")
+  publication_tags   publication_tags @relation(fields: [publication_tag_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "publication_tag_assignments_tag_foreign_key")
+
+  @@id([publication_id, publication_tag_id], map: "publication_tag_assignments_primary_key")
+  @@index([publication_tag_id, publication_id], map: "publication_tag_assignments_tag_index")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model publication_tag_translations {
+  id                 String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  publication_tag_id String           @db.Uuid
+  locale             String           @db.VarChar(5)
+  label              String           @db.VarChar(120)
+  slug               String           @db.VarChar(120)
+  created_at         DateTime         @default(now()) @db.Timestamptz(6)
+  updated_at         DateTime         @default(now()) @db.Timestamptz(6)
+  publication_tags   publication_tags @relation(fields: [publication_tag_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "publication_tag_translations_tag_foreign_key")
+
+  @@unique([locale, slug], map: "publication_tag_translations_locale_slug_unique")
+  @@unique([publication_tag_id, locale], map: "publication_tag_translations_tag_locale_unique")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model contains an expression index which requires additional setup for migrations. Visit https://pris.ly/d/expression-indexes for more info.
+model publication_tags {
+  id                           String                         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  code                         String                         @db.VarChar(80)
+  created_at                   DateTime                       @default(now()) @db.Timestamptz(6)
+  publication_tag_assignments  publication_tag_assignments[]
+  publication_tag_translations publication_tag_translations[]
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model publication_translations {
+  id              String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  publication_id  String       @db.Uuid
+  locale          String       @db.VarChar(5)
+  title           String       @db.VarChar(255)
+  slug            String       @db.VarChar(180)
+  excerpt         String?
+  body            String?
+  cover_alt_text  String?      @db.VarChar(255)
+  seo_title       String?      @db.VarChar(255)
+  seo_description String?      @db.VarChar(320)
+  canonical_url   String?
+  created_at      DateTime     @default(now()) @db.Timestamptz(6)
+  updated_at      DateTime     @default(now()) @db.Timestamptz(6)
+  publications    publications @relation(fields: [publication_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "publication_translations_publication_foreign_key")
+
+  @@unique([locale, slug], map: "publication_translations_locale_slug_unique")
+  @@unique([publication_id, locale], map: "publication_translations_publication_locale_unique")
+  @@index([publication_id, locale], map: "publication_translations_publication_index")
+  @@index([locale, title], map: "publication_translations_search_index")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model publications {
+  id                                             String                        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  content_type                                   String                        @db.VarChar(30)
+  status                                         String                        @default("DRAFT") @db.VarChar(20)
+  is_featured                                    Boolean                       @default(false)
+  featured_sort_order                            Int                           @default(0)
+  allow_indexing                                 Boolean                       @default(true)
+  event_start_at                                 DateTime?                     @db.Timestamptz(6)
+  event_end_at                                   DateTime?                     @db.Timestamptz(6)
+  event_timezone                                 String?                       @db.VarChar(80)
+  event_location_type                            String?                       @db.VarChar(20)
+  event_location_name                            String?                       @db.VarChar(255)
+  event_address                                  String?
+  event_online_url                               String?
+  event_registration_url                         String?
+  event_registration_deadline                    DateTime?                     @db.Timestamptz(6)
+  event_capacity                                 Int?
+  event_status                                   String?                       @db.VarChar(30)
+  scheduled_at                                   DateTime?                     @db.Timestamptz(6)
+  published_at                                   DateTime?                     @db.Timestamptz(6)
+  created_by_user_id                             String?                       @db.Uuid
+  updated_by_user_id                             String?                       @db.Uuid
+  published_by_user_id                           String?                       @db.Uuid
+  created_at                                     DateTime                      @default(now()) @db.Timestamptz(6)
+  updated_at                                     DateTime                      @default(now()) @db.Timestamptz(6)
+  deleted_at                                     DateTime?                     @db.Timestamptz(6)
+  publication_expertise                          publication_expertise[]
+  publication_media                              publication_media[]
+  publication_projects                           publication_projects[]
+  publication_tag_assignments                    publication_tag_assignments[]
+  publication_translations                       publication_translations[]
+  users_publications_created_by_user_idTousers   users?                        @relation("publications_created_by_user_idTousers", fields: [created_by_user_id], references: [id], onUpdate: NoAction, map: "publications_created_by_user_foreign_key")
+  users_publications_published_by_user_idTousers users?                        @relation("publications_published_by_user_idTousers", fields: [published_by_user_id], references: [id], onUpdate: NoAction, map: "publications_published_by_user_foreign_key")
+  users_publications_updated_by_user_idTousers   users?                        @relation("publications_updated_by_user_idTousers", fields: [updated_by_user_id], references: [id], onUpdate: NoAction, map: "publications_updated_by_user_foreign_key")
+
+  @@index([status, updated_at(sort: Desc)], map: "publications_admin_list_index", where: raw("(deleted_at IS NULL)"))
+  @@index([created_by_user_id], map: "publications_created_by_user_index")
+  @@index([event_start_at], map: "publications_event_start_index", where: raw("(((content_type)::text = 'EVENT'::text) AND (deleted_at IS NULL))"))
+  @@index([event_status, event_start_at], map: "publications_event_status_index", where: raw("(((content_type)::text = 'EVENT'::text) AND (deleted_at IS NULL))"))
+  @@index([featured_sort_order, published_at(sort: Desc)], map: "publications_featured_index", where: raw("((is_featured = true) AND ((status)::text = 'PUBLISHED'::text) AND (deleted_at IS NULL))"))
+  @@index([content_type, published_at(sort: Desc), created_at(sort: Desc)], map: "publications_public_list_index", where: raw("(((status)::text = 'PUBLISHED'::text) AND (published_at IS NOT NULL) AND (deleted_at IS NULL))"))
+  @@index([published_by_user_id], map: "publications_published_by_user_index")
+  @@index([scheduled_at], map: "publications_scheduled_publication_index", where: raw("(((status)::text = 'DRAFT'::text) AND (scheduled_at IS NOT NULL) AND (deleted_at IS NULL))"))
+  @@index([updated_by_user_id], map: "publications_updated_by_user_index")
 }

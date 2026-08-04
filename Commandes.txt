@@ -15,7 +15,7 @@ psql -U postgres
 
 ** Execution d'un script 
 
-psql -U postgres -d axplify_db -f "database\migrations\005_create_clients_and_projects.sql
+psql -U postgres -d axplify_db -f "database\migrations\008_fix_publication_media_relation.sql
 
 cd /opt/apps/hire/repo
 
