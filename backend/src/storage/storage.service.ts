@@ -15,8 +15,12 @@ import {
 } from 'node:crypto';
 
 import {
-  spawn,
+  execFile,
 } from 'node:child_process';
+
+import {
+  promisify,
+} from 'node:util';
 
 import {
   mkdtemp,
@@ -34,26 +38,17 @@ import {
 } from 'node:path';
 
 import {
-  createRequire,
-} from 'node:module';
-
-import {
   Client as MinioClient,
 } from 'minio';
 
 import sharp from 'sharp';
 
-const require =
-  createRequire(
-    import.meta.url,
-  );
+import ffmpegPath from 'ffmpeg-static';
 
-const ffmpegPath =
-  require(
-    'ffmpeg-static',
-  ) as
-    string |
-    null;
+const execFileAsync =
+  promisify(
+    execFile,
+  );
 
 export type UploadedImage = {
   url: string;
@@ -1270,98 +1265,73 @@ export class StorageService
   }):
     Promise<void>
   {
+    const executablePath =
+      ffmpegPath;
+
     if (
-      !ffmpegPath
+      !executablePath
     ) {
       throw new InternalServerErrorException(
         'FFmpeg n’est pas disponible.',
       );
     }
 
-    await new Promise<void>(
-      (
-        resolve,
-        reject,
-      ) => {
-        const process =
-          spawn(
-            ffmpegPath,
-            [
-              '-hide_banner',
-              '-loglevel',
-              'error',
-
-              '-ss',
-              String(
-                frameSeconds,
-              ),
-
-              '-i',
-              inputPath,
-
-              '-frames:v',
-              '1',
-
-              '-f',
-              'image2',
-
-              '-y',
-              outputPath,
-            ],
-            {
-              windowsHide:
-                true,
-            },
-          );
-
-        let errorOutput =
-          '';
-
-        process.stderr.on(
-          'data',
-          (
-            chunk:
-              Buffer,
-          ) => {
-            errorOutput +=
-              chunk.toString();
-          },
-        );
-
-        process.once(
+    try {
+      await execFileAsync(
+        executablePath,
+        [
+          '-hide_banner',
+          '-loglevel',
           'error',
-          error => {
-            reject(
-              error,
-            );
-          },
-        );
 
-        process.once(
-          'close',
-          code => {
-            if (
-              code ===
-              0
-            ) {
-              resolve();
+          '-ss',
+          String(
+            frameSeconds,
+          ),
 
-              return;
-            }
+          '-i',
+          inputPath,
 
-            reject(
-              new Error(
-                errorOutput ||
-                `FFmpeg a terminé avec le code ${String(
-                  code,
-                )}.`,
-              ),
-            );
-          },
-        );
-      },
-    );
-  }  
+          '-frames:v',
+          '1',
+
+          '-f',
+          'image2',
+
+          '-y',
+          outputPath,
+        ],
+        {
+          windowsHide:
+            true,
+
+          maxBuffer:
+            10 *
+            1024 *
+            1024,
+        },
+      );
+    } catch (
+      error
+    ) {
+      const stderr =
+        typeof error ===
+          'object' &&
+        error !==
+          null &&
+        'stderr' in
+          error &&
+        typeof error.stderr ===
+          'string'
+          ? error.stderr
+          : '';
+
+      throw new Error(
+        stderr.trim() ||
+        'FFmpeg n’a pas pu extraire une image de la vidéo.',
+      );
+    }
+  } 
 
   private validateImageFile(
     file:
