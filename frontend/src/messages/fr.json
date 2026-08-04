@@ -32,6 +32,25 @@
 },
   "pages": {
 "home": {
+  "insightsPreview": {
+  "eyebrow": "Articles & actualités",
+  "title": "Ne ratez rien de ce qui se passe",
+  "introduction": "Découvrez nos analyses, nos actualités et les expériences qui façonnent les projets digitaux de demain.",
+  "previous": "Afficher les publications précédentes",
+  "next": "Afficher les publications suivantes",
+  "readMore": "Découvrir la publication",
+  "viewAll": "Voir tous les articles et actualités",
+  "types": {
+    "article": "Article",
+    "caseStudy": "Cas d’étude",
+    "news": "Actualité",
+    "event": "Événement",
+    "pressRelease": "Communiqué",
+    "announcement": "Annonce",
+    "guide": "Guide",
+    "resource": "Ressource"
+  }
+},
 "clientsPreview": {
   "title": "Ils nous ont fait confiance",
   "introduction": "Des entreprises de différents secteurs nous confient leurs enjeux digitaux pour transformer leurs idées, simplifier leurs opérations et construire des solutions durables.",
@@ -509,7 +528,29 @@
       "seo": {
         "title": "Articles et actualités sur le digital, l’IA et la Data",
         "description": "Retrouvez les articles, conseils, études de cas et actualités d’Axplify Services sur la digitalisation, l’automatisation, l’IA et la Data."
-      }
+      },
+      "types": {
+  "ARTICLE": "Article",
+  "CASE_STUDY": "Cas d’étude",
+  "NEWS": "Actualité",
+  "EVENT": "Événement",
+  "PRESS_RELEASE": "Communiqué",
+  "ANNOUNCEMENT": "Annonce",
+  "GUIDE": "Guide",
+  "RESOURCE": "Ressource"
+},
+"filters": {
+  "all": "Toutes les publications"
+},
+"readMore": "Lire la publication",
+"empty": {
+  "title": "Aucune publication disponible",
+  "description": "Aucun contenu ne correspond encore à cette catégorie."
+},
+"pagination": {
+  "previous": "Précédent",
+  "next": "Suivant"
+}
     },
 
 "projects": {

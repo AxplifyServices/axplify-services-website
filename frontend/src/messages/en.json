@@ -32,6 +32,25 @@
 },
   "pages": {
 "home": {
+  "insightsPreview": {
+  "eyebrow": "Articles & news",
+  "title": "Do not miss what is happening",
+  "introduction": "Explore our insights, news and real-world experiences shaping tomorrow’s digital projects.",
+  "previous": "View previous publications",
+  "next": "View next publications",
+  "readMore": "Explore the publication",
+  "viewAll": "View all articles and news",
+  "types": {
+    "article": "Article",
+    "caseStudy": "Case study",
+    "news": "News",
+    "event": "Event",
+    "pressRelease": "Press release",
+    "announcement": "Announcement",
+    "guide": "Guide",
+    "resource": "Resource"
+  }
+},
   "clientsPreview": {
   "title": "They trusted us",
   "introduction": "Companies across different industries trust us with their digital challenges to turn ideas into useful solutions, simplify operations and support lasting growth.",
@@ -508,7 +527,29 @@
       "seo": {
         "title": "Digital, AI and Data articles and news",
         "description": "Explore Axplify Services articles, advice, case studies and news about digital transformation, automation, artificial intelligence and Data."
-      }
+      },
+      "filters": {
+  "all": "All publications"
+},
+"readMore": "Read the publication",
+"empty": {
+  "title": "No publications available",
+  "description": "No content currently matches this category."
+},
+"pagination": {
+  "previous": "Previous",
+  "next": "Next"
+},
+      "types": {
+  "ARTICLE": "Article",
+  "CASE_STUDY": "Case study",
+  "NEWS": "News",
+  "EVENT": "Event",
+  "PRESS_RELEASE": "Press release",
+  "ANNOUNCEMENT": "Announcement",
+  "GUIDE": "Guide",
+  "RESOURCE": "Resource"
+}
     },
 
 "projects": {

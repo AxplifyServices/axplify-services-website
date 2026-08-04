@@ -20,6 +20,10 @@ import {
 } from '@/components/home/home-clients-section';
 
 import {
+  HomeInsightsSection,
+} from '@/components/home/home-insights-section';
+
+import {
   HomeServicesSection,
 } from '@/components/home/home-services-section';
 
@@ -34,6 +38,10 @@ import {
 import {
   getPublicHomepageClients,
 } from '@/lib/homepage-clients-api';
+
+import {
+  getFeaturedPublications,
+} from '@/lib/public-publications-api';
 
 import {
   createPageMetadata,
@@ -95,10 +103,12 @@ export default async function HomePage({
   const [
     brochures,
     homepageClients,
+    featuredPublications,
     brochureTranslations,
     aboutTranslations,
     servicesTranslations,
     clientsTranslations,
+    insightsTranslations,
   ] =
     await Promise.all([
       getPublicHomepageBrochures(
@@ -107,6 +117,11 @@ export default async function HomePage({
 
       getPublicHomepageClients(
         locale,
+      ),
+
+      getFeaturedPublications(
+        locale,
+        8,
       ),
 
       getTranslations({
@@ -135,6 +150,13 @@ export default async function HomePage({
 
         namespace:
           'pages.home.clientsPreview',
+      }),
+
+      getTranslations({
+        locale,
+
+        namespace:
+          'pages.home.insightsPreview',
       }),
     ]);
 
@@ -167,6 +189,48 @@ export default async function HomePage({
           ),
       }),
     );
+
+  const publicationTypeLabels = {
+    ARTICLE:
+      insightsTranslations(
+        'types.article',
+      ),
+
+    CASE_STUDY:
+      insightsTranslations(
+        'types.caseStudy',
+      ),
+
+    NEWS:
+      insightsTranslations(
+        'types.news',
+      ),
+
+    EVENT:
+      insightsTranslations(
+        'types.event',
+      ),
+
+    PRESS_RELEASE:
+      insightsTranslations(
+        'types.pressRelease',
+      ),
+
+    ANNOUNCEMENT:
+      insightsTranslations(
+        'types.announcement',
+      ),
+
+    GUIDE:
+      insightsTranslations(
+        'types.guide',
+      ),
+
+    RESOURCE:
+      insightsTranslations(
+        'types.resource',
+      ),
+  };
 
   return (
     <>
@@ -276,6 +340,53 @@ export default async function HomePage({
         }
         clients={
           homepageClients
+        }
+      />
+
+      <HomeInsightsSection
+        locale={
+          locale
+        }
+        eyebrow={
+          insightsTranslations(
+            'eyebrow',
+          )
+        }
+        title={
+          insightsTranslations(
+            'title',
+          )
+        }
+        introduction={
+          insightsTranslations(
+            'introduction',
+          )
+        }
+        previousLabel={
+          insightsTranslations(
+            'previous',
+          )
+        }
+        nextLabel={
+          insightsTranslations(
+            'next',
+          )
+        }
+        readMoreLabel={
+          insightsTranslations(
+            'readMore',
+          )
+        }
+        viewAllLabel={
+          insightsTranslations(
+            'viewAll',
+          )
+        }
+        publicationTypeLabels={
+          publicationTypeLabels
+        }
+        publications={
+          featuredPublications
         }
       />
     </>

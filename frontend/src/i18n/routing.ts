@@ -85,6 +85,17 @@ export const routing = defineRouting({
         '/المقالات-والأخبار',
     },
 
+    '/insights/[slug]': {
+      fr:
+        '/articles-actualites/[slug]',
+
+      en:
+        '/articles-news/[slug]',
+
+      ar:
+        '/المقالات-والأخبار/[slug]',
+    },
+
     '/faq': {
       fr:
         '/faq',
