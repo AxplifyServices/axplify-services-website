@@ -122,6 +122,19 @@ function formatPublicationDate(
   );
 }
 
+type InsightsPageHref = {
+  pathname:
+    '/insights';
+
+  query?: {
+    type?:
+      PublicationContentType;
+
+    page?:
+      string;
+  };
+};
+
 function buildPageHref({
   type,
   page,
@@ -132,37 +145,47 @@ function buildPageHref({
 
   page:
     number;
-}) {
-  const parameters =
-    new URLSearchParams();
+}): InsightsPageHref {
+  const query:
+    NonNullable<
+      InsightsPageHref['query']
+    > = {};
 
   if (
     type
   ) {
-    parameters.set(
-      'type',
-      type,
-    );
+    query.type =
+      type;
   }
 
   if (
     page >
     1
   ) {
-    parameters.set(
-      'page',
+    query.page =
       String(
         page,
-      ),
-    );
+      );
   }
 
-  const query =
-    parameters.toString();
+  if (
+    Object.keys(
+      query,
+    ).length ===
+    0
+  ) {
+    return {
+      pathname:
+        '/insights',
+    };
+  }
 
-  return query
-    ? `/insights?${query}`
-    : '/insights';
+  return {
+    pathname:
+      '/insights',
+
+    query,
+  };
 }
 
 export function InsightsPageContent({

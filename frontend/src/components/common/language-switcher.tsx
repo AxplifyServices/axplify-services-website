@@ -5,6 +5,10 @@ import {
 } from 'next-intl';
 
 import {
+  useParams,
+} from 'next/navigation';
+
+import {
   useEffect,
   useState,
 } from 'react';
@@ -38,6 +42,13 @@ export function LanguageSwitcher() {
   const pathname =
     usePathname();
 
+  const params =
+    useParams<{
+      slug?:
+        string |
+        string[];
+    }>();
+
   const [
     pendingLocale,
     setPendingLocale,
@@ -62,10 +73,12 @@ export function LanguageSwitcher() {
   );
 
   function handleLocaleChange(
-    targetLocale: AppLocale,
+    targetLocale:
+      AppLocale,
   ) {
     if (
-      targetLocale === locale
+      targetLocale ===
+      locale
     ) {
       return;
     }
@@ -80,6 +93,33 @@ export function LanguageSwitcher() {
     );
   }
 
+  const rawSlug =
+    params.slug;
+
+  const slug =
+    Array.isArray(
+      rawSlug,
+    )
+      ? rawSlug[0]
+      : rawSlug;
+
+  const languageSwitcherHref =
+    pathname ===
+      '/insights/[slug]' &&
+    slug
+      ? {
+          pathname:
+            '/insights/[slug]' as const,
+
+          params: {
+            slug,
+          },
+        }
+      : pathname ===
+          '/insights/[slug]'
+        ? '/insights' as const
+        : pathname;
+
   return (
     <div
       className="language-switcher"
@@ -90,69 +130,73 @@ export function LanguageSwitcher() {
         null
       }
     >
-      {routing.locales.map(
-        (
-          targetLocale,
-        ) => {
-          const isActive =
-            locale ===
-            targetLocale;
+      {
+        routing.locales.map(
+          targetLocale => {
+            const isActive =
+              locale ===
+              targetLocale;
 
-          const isPending =
-            pendingLocale ===
-            targetLocale;
+            const isPending =
+              pendingLocale ===
+              targetLocale;
 
-          return (
-            <Link
-              key={
-                targetLocale
-              }
-              href={
-                pathname
-              }
-              locale={
-                targetLocale
-              }
-              hrefLang={
-                targetLocale
-              }
-              className="language-switcher__item"
-              data-active={
-                isActive
-              }
-              data-pending={
-                isPending
-              }
-              aria-current={
-                isActive
-                  ? 'page'
-                  : undefined
-              }
-              onClick={
-                () =>
-                  handleLocaleChange(
-                    targetLocale,
-                  )
-              }
-            >
-              <span className="language-switcher__label">
-                {
-                  languageLabels[
-                    targetLocale
-                  ]
+            return (
+              <Link
+                key={
+                  targetLocale
                 }
-              </span>
+                href={
+                  languageSwitcherHref
+                }
+                locale={
+                  targetLocale
+                }
+                hrefLang={
+                  targetLocale
+                }
+                className="language-switcher__item"
+                data-active={
+                  isActive
+                }
+                data-pending={
+                  isPending
+                }
+                aria-current={
+                  isActive
+                    ? 'page'
+                    : undefined
+                }
+                onClick={
+                  () =>
+                    handleLocaleChange(
+                      targetLocale,
+                    )
+                }
+              >
+                <span className="language-switcher__label">
+                  {
+                    languageLabels[
+                      targetLocale
+                    ]
+                  }
+                </span>
 
-              {isPending ? (
-                <span
-                  className="language-switcher__loader"
-                  aria-hidden="true"
-                />
-              ) : null}
-            </Link>
-          );
-        },
-      )}
+                {
+                  isPending
+                    ? (
+                        <span
+                          className="language-switcher__loader"
+                          aria-hidden="true"
+                        />
+                      )
+                    : null
+                }
+              </Link>
+            );
+          },
+        )
+      }
     </div>
   );
 }
