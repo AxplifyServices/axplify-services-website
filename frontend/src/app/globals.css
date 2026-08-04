@@ -14182,3 +14182,406 @@ html[dir="rtl"]
   cursor: not-allowed;
   opacity: 0.5;
 }
+
+/* =========================================================
+   Gestionnaire des médias de publication
+   ========================================================= */
+
+.publication-media-manager {
+  padding: 1.2rem;
+  border: 1px solid rgba(5, 38, 79, 0.08);
+  border-radius: 1.25rem;
+  background: #ffffff;
+}
+
+.publication-media-manager__heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.publication-media-manager__title {
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  gap: 0.75rem;
+  color: var(--axplify-navy);
+}
+
+.publication-media-manager__title > svg {
+  flex: 0 0 auto;
+  color: var(--axplify-cyan);
+}
+
+.publication-media-manager__title h2,
+.publication-media-manager__title p {
+  margin: 0;
+}
+
+.publication-media-manager__title h2 {
+  font-size: 1.05rem;
+}
+
+.publication-media-manager__title p {
+  margin-top: 0.25rem;
+  color: rgba(5, 38, 79, 0.58);
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+
+.publication-media-manager__counter {
+  display: inline-flex;
+  min-width: 2.7rem;
+  min-height: 1.8rem;
+  padding: 0.25rem 0.6rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(34, 168, 190, 0.1);
+  color: var(--axplify-navy);
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.publication-media-manager__input {
+  display: none;
+}
+
+.publication-media-manager__upload {
+  display: flex;
+  width: 100%;
+  min-height: 7rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.35rem;
+  border: 1px dashed rgba(5, 38, 79, 0.22);
+  border-radius: 1rem;
+  background: rgba(34, 168, 190, 0.035);
+  color: var(--axplify-navy);
+  cursor: pointer;
+  font-weight: 850;
+}
+
+.publication-media-manager__upload:hover:not(:disabled) {
+  border-color: var(--axplify-cyan);
+  background: rgba(34, 168, 190, 0.075);
+}
+
+.publication-media-manager__upload > svg {
+  color: var(--axplify-cyan);
+}
+
+.publication-media-manager__upload small {
+  color: rgba(5, 38, 79, 0.5);
+  font-size: 0.65rem;
+  font-weight: 600;
+}
+
+.publication-media-manager__upload:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.publication-media-manager__limit {
+  margin-top: 1rem;
+  padding: 0.8rem;
+  border-radius: 0.8rem;
+  background: rgba(5, 38, 79, 0.05);
+  color: rgba(5, 38, 79, 0.62);
+  font-size: 0.74rem;
+  text-align: center;
+}
+
+.publication-media-manager__empty {
+  display: flex;
+  min-height: 9rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.35rem;
+  border-radius: 1rem;
+  background: rgba(5, 38, 79, 0.035);
+  color: rgba(5, 38, 79, 0.5);
+  text-align: center;
+}
+
+.publication-media-manager__empty strong {
+  color: var(--axplify-navy);
+  font-size: 0.82rem;
+}
+
+.publication-media-manager__empty p {
+  margin: 0;
+  font-size: 0.7rem;
+}
+
+.publication-media-manager__list {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+
+.publication-media-manager__item {
+  overflow: hidden;
+  border: 1px solid rgba(5, 38, 79, 0.1);
+  border-radius: 1rem;
+  background: #ffffff;
+}
+
+.publication-media-manager__item[data-cover="true"] {
+  border-color: rgba(34, 168, 190, 0.48);
+  box-shadow:
+    0 0 0 3px
+    rgba(34, 168, 190, 0.08);
+}
+
+.publication-media-manager__preview {
+  position: relative;
+  min-height: 10rem;
+  overflow: hidden;
+  background: #eaf1f7;
+}
+
+.publication-media-manager__preview img {
+  display: block;
+  width: 100%;
+  height: 10rem;
+  object-fit: cover;
+}
+
+.publication-media-manager__preview-placeholder {
+  display: flex;
+  min-height: 10rem;
+  align-items: center;
+  justify-content: center;
+  color: rgba(5, 38, 79, 0.35);
+}
+
+.publication-media-manager__type,
+.publication-media-manager__cover-badge {
+  position: absolute;
+  z-index: 2;
+  top: 0.65rem;
+  display: inline-flex;
+  min-height: 1.7rem;
+  padding: 0.25rem 0.55rem;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: 999px;
+  font-size: 0.62rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.publication-media-manager__type {
+  inset-inline-start: 0.65rem;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--axplify-navy);
+}
+
+.publication-media-manager__cover-badge {
+  inset-inline-end: 0.65rem;
+  background: var(--axplify-navy);
+  color: #ffffff;
+}
+
+.publication-media-manager__content {
+  padding: 0.9rem;
+}
+
+.publication-media-manager__item-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.7rem;
+}
+
+.publication-media-manager__item-heading strong,
+.publication-media-manager__item-heading span {
+  display: block;
+}
+
+.publication-media-manager__item-heading strong {
+  color: var(--axplify-navy);
+  font-size: 0.8rem;
+}
+
+.publication-media-manager__item-heading span {
+  margin-top: 0.15rem;
+  color: rgba(5, 38, 79, 0.5);
+  font-size: 0.64rem;
+}
+
+.publication-media-manager__order-actions {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.publication-media-manager__order-actions button {
+  display: inline-flex;
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(5, 38, 79, 0.12);
+  border-radius: 0.55rem;
+  background: #ffffff;
+  color: var(--axplify-navy);
+  cursor: pointer;
+}
+
+.publication-media-manager__order-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+
+.publication-media-manager__fields {
+  display: grid;
+  gap: 0.7rem;
+  margin-top: 0.8rem;
+}
+
+.publication-media-manager__fields label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.publication-media-manager__fields label > span {
+  color: var(--axplify-navy);
+  font-size: 0.67rem;
+  font-weight: 800;
+}
+
+.publication-media-manager__fields input,
+.publication-media-manager__fields textarea {
+  width: 100%;
+  min-width: 0;
+  padding: 0.65rem 0.7rem;
+  border: 1px solid rgba(5, 38, 79, 0.13);
+  border-radius: 0.65rem;
+  outline: 0;
+  color: var(--axplify-text);
+  font: inherit;
+  font-size: 0.72rem;
+}
+
+.publication-media-manager__fields textarea {
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.publication-media-manager__fields input:focus,
+.publication-media-manager__fields textarea:focus {
+  border-color: var(--axplify-cyan);
+  box-shadow:
+    0 0 0 3px
+    rgba(34, 168, 190, 0.09);
+}
+
+.publication-media-manager__actions {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    auto;
+  gap: 0.55rem;
+  margin-top: 0.8rem;
+}
+
+.publication-media-manager__cover-action,
+.publication-media-manager__delete {
+  display: inline-flex;
+  min-height: 2.5rem;
+  padding: 0.5rem 0.7rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border: 1px solid rgba(5, 38, 79, 0.12);
+  border-radius: 0.65rem;
+  background: #ffffff;
+  cursor: pointer;
+  font-size: 0.68rem;
+  font-weight: 850;
+}
+
+.publication-media-manager__cover-action {
+  color: var(--axplify-navy);
+}
+
+.publication-media-manager__cover-action[data-active="true"] {
+  border-color: rgba(34, 168, 190, 0.35);
+  background: rgba(34, 168, 190, 0.08);
+}
+
+.publication-media-manager__delete {
+  color: #b42318;
+}
+
+.publication-media-manager__cover-action:disabled,
+.publication-media-manager__delete:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+@media (max-width: 68rem) {
+  .publication-media-manager {
+    grid-column: 1 / -1;
+  }
+
+  .publication-media-manager__list {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
+  }
+}
+
+@media (max-width: 46rem) {
+  .publication-media-manager__list {
+    grid-template-columns:
+      minmax(0, 1fr);
+  }
+
+  .publication-media-manager__actions {
+    grid-template-columns:
+      minmax(0, 1fr);
+  }
+
+  .publication-media-manager__delete {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   Gestionnaire des médias de publication
+   ========================================================= */
+
+.publication-media-manager {
+  padding: 1.2rem;
+  border: 1px solid rgba(5, 38, 79, 0.08);
+  border-radius: 1.25rem;
+  background: #ffffff;
+}
+
+@media (max-width: 46rem) {
+  .publication-media-manager__list {
+    grid-template-columns:
+      minmax(0, 1fr);
+  }
+
+  .publication-media-manager__actions {
+    grid-template-columns:
+      minmax(0, 1fr);
+  }
+
+  .publication-media-manager__delete {
+    width: 100%;
+  }
+}

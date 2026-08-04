@@ -44,6 +44,14 @@ import {
 } from '@/components/admin/auth-provider';
 
 import {
+  PublicationMediaManager,
+} from '@/components/admin/publication-media-manager';
+
+import type {
+  PublicationMediaItem,
+} from '@/components/admin/publication-media-manager';
+
+import {
   AdminApiError,
 } from '@/lib/admin-api';
 
@@ -195,7 +203,53 @@ type PublicationResponse = {
     PublicationTranslationResponse[];
 
   media:
-    unknown[];
+    Array<{
+      id:
+        string;
+
+      mediaType:
+        'IMAGE' |
+        'VIDEO';
+
+      mediaUrl:
+        string;
+
+      posterUrl:
+        string | null;
+
+      posterFrameSeconds:
+        number | null;
+
+      isCardCover:
+        boolean;
+
+      sortOrder:
+        number;
+
+      width:
+        number | null;
+
+      height:
+        number | null;
+
+      durationSeconds:
+        number | null;
+
+      translations:
+        Array<{
+          id:
+            string;
+
+          locale:
+            StoredLocale;
+
+          altText:
+            string | null;
+
+          caption:
+            string | null;
+        }>;
+    }>;
 
   expertiseCodes:
     ExpertiseCode[];
@@ -272,6 +326,9 @@ type PublicationFormState = {
 
   expertiseCodes:
     ExpertiseCode[];
+
+  media:
+    PublicationMediaItem[];
 
   translations: {
     fr:
@@ -482,6 +539,9 @@ function createInitialForm():
     expertiseCodes:
       [],
 
+    media:
+      [],
+
     translations: {
       fr:
         createEmptyTranslation({
@@ -670,6 +730,99 @@ function mapTranslation(
   };
 }
 
+function mapPublicationMedia(
+  media:
+    PublicationResponse['media'],
+): PublicationMediaItem[] {
+  return media
+    .slice()
+    .sort(
+      (
+        first,
+        second,
+      ) =>
+        first.sortOrder -
+        second.sortOrder,
+    )
+    .map(
+      item => ({
+        id:
+          item.id,
+
+        mediaType:
+          item.mediaType,
+
+        mediaUrl:
+          item.mediaUrl,
+
+        posterUrl:
+          item.posterUrl,
+
+        posterFrameSeconds:
+          item.posterFrameSeconds,
+
+        isCardCover:
+          item.isCardCover,
+
+        sortOrder:
+          item.sortOrder,
+
+        width:
+          item.width,
+
+        height:
+          item.height,
+
+        durationSeconds:
+          item.durationSeconds,
+
+        translations: [
+          {
+            locale:
+              'fr',
+
+            altText:
+              item.translations.find(
+                translation =>
+                  translation.locale ===
+                  'fr',
+              )?.altText ??
+              '',
+
+            caption:
+              item.translations.find(
+                translation =>
+                  translation.locale ===
+                  'fr',
+              )?.caption ??
+              '',
+          },
+
+          {
+            locale:
+              'en',
+
+            altText:
+              item.translations.find(
+                translation =>
+                  translation.locale ===
+                  'en',
+              )?.altText ??
+              '',
+
+            caption:
+              item.translations.find(
+                translation =>
+                  translation.locale ===
+                  'en',
+              )?.caption ??
+              '',
+          },
+        ],
+      }),
+    );
+}
+
 export function PublicationEditor({
   publicationId,
 }: PublicationEditorProps) {
@@ -818,6 +971,11 @@ export function PublicationEditor({
 
             expertiseCodes:
               response.expertiseCodes,
+
+            media:
+              mapPublicationMedia(
+                response.media,
+              ),
 
             translations: {
               fr:
@@ -1176,6 +1334,70 @@ export function PublicationEditor({
       expertiseCodes:
         form.expertiseCodes,
 
+      media:
+        form.media.map(
+          (
+            item,
+            index,
+          ) => ({
+            mediaType:
+              item.mediaType,
+
+            mediaUrl:
+              item.mediaUrl,
+
+            posterUrl:
+              item.posterUrl ??
+              undefined,
+
+            posterFrameSeconds:
+              item.posterFrameSeconds ??
+              undefined,
+
+            isCardCover:
+              item.isCardCover,
+
+            sortOrder:
+              index,
+
+            width:
+              item.width ??
+              undefined,
+
+            height:
+              item.height ??
+              undefined,
+
+            durationSeconds:
+              item.durationSeconds ??
+              undefined,
+
+            translations:
+              item.translations
+                .map(
+                  translation => ({
+                    locale:
+                      translation.locale,
+
+                    altText:
+                      translation.altText.trim() ||
+                      undefined,
+
+                    caption:
+                      translation.caption.trim() ||
+                      undefined,
+                  }),
+                )
+                .filter(
+                  translation =>
+                    translation.altText !==
+                      undefined ||
+                    translation.caption !==
+                      undefined,
+                ),
+          }),
+        ),
+
       ...(isEvent
         ? {
             eventStartAt:
@@ -1386,6 +1608,27 @@ export function PublicationEditor({
   }
 
   async function handlePublish() {
+    if (
+      form.media.length ===
+      0
+    ) {
+      toast.error(
+        'Ajoutez au moins un média avant de publier.',
+      );
+
+      return;
+    }
+
+    if (
+      isSaving
+    ) {
+      toast.error(
+        'Attendez la fin de l’enregistrement.',
+      );
+
+      return;
+    }
+
     await executeWorkflowAction({
       endpoint:
         `/publications/${publicationId}/publish`,
@@ -1399,6 +1642,17 @@ export function PublicationEditor({
   }
 
   async function handleSchedule() {
+    if (
+      form.media.length ===
+      0
+    ) {
+      toast.error(
+        'Ajoutez au moins un média avant de programmer la publication.',
+      );
+
+      return;
+    }
+
     if (
       !scheduledAt
     ) {
@@ -3014,24 +3268,31 @@ export function PublicationEditor({
             </div>
           </section>
 
-          <section className="publication-editor__media-notice">
-            <FileText
-              size={
-                22
-              }
-              aria-hidden="true"
-            />
+          <PublicationMediaManager
+            media={
+              form.media
+            }
+            activeLocale={
+              activeLocale
+            }
+            authorizedFetch={
+              authorizedFetch
+            }
+            disabled={
+              isSaving ||
+              isWorkflowBusy
+            }
+            onChange={
+              media =>
+                setForm(
+                  current => ({
+                    ...current,
 
-            <div>
-              <strong>
-                Médias de la publication
-              </strong>
-
-              <p>
-                L’import de 1 à 5 images ou vidéos sera ajouté dans la prochaine étape.
-              </p>
-            </div>
-          </section>
+                    media,
+                  }),
+                )
+            }
+          />
         </aside>
       </div>
 
@@ -3039,10 +3300,11 @@ export function PublicationEditor({
         <button
           type="submit"
           className="publication-editor__save"
-          disabled={
-            isSaving ||
-            !canSave
-          }
+disabled={
+  isSaving ||
+  isWorkflowBusy ||
+  !canSave
+}
         >
           {
             isSaving
