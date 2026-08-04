@@ -522,12 +522,14 @@
     "title": "Nos réalisations",
     "description": "Chaque projet part d’un besoin concret : simplifier une opération, mieux exploiter les données, améliorer le pilotage ou créer une expérience digitale plus fluide. Découvrez comment nous transformons ces défis en solutions durables."
   },
-  "filters": {
-    "label": "Filtrer par domaine d’expertise",
-    "all": "Toutes les réalisations",
-    "results": "réalisations",
-    "singleResult": "réalisation"
-  },
+"filters": {
+  "label": "Domaines d’expertise",
+  "all": "Toutes les réalisations",
+  "results": "réalisations",
+  "singleResult": "réalisation",
+  "open": "Filtrer les réalisations",
+  "close": "Fermer les filtres"
+},
   "empty": {
     "title": "Aucune réalisation dans cette catégorie",
     "description": "Aucun projet publié ne correspond actuellement au domaine sélectionné."

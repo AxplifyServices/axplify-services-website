@@ -302,13 +302,6 @@ useEffect(
 
         <div className="site-container services-hero__container">
           <div className="services-hero__content">
-            <p
-              className="eyebrow"
-              data-reveal="up"
-              data-reveal-delay="1"
-            >
-              {hero.eyebrow}
-            </p>
 
             <h1
               id="services-page-title"
@@ -333,27 +326,6 @@ useEffect(
             >
               {hero.description}
             </p>
-
-            <div
-              className="services-hero__actions"
-              data-reveal="up"
-              data-reveal-delay="5"
-            >
-              <a
-                href="#services-content"
-                className="services-button services-button--primary"
-              >
-                <span>
-                  {hero.navigationCta}
-                </span>
-
-                <ArrowDown
-                  size={18}
-                  strokeWidth={2.2}
-                  aria-hidden="true"
-                />
-              </a>
-            </div>
           </div>
 
           <div

@@ -521,12 +521,14 @@
     "title": "Our work",
     "description": "Every project begins with a concrete challenge: simplifying an operation, making better use of data, improving management or creating a smoother digital experience. Discover how we turn these challenges into sustainable solutions."
   },
-  "filters": {
-    "label": "Filter by area of expertise",
-    "all": "All projects",
-    "results": "projects",
-    "singleResult": "project"
-  },
+"filters": {
+  "label": "Areas of expertise",
+  "all": "All projects",
+  "results": "projects",
+  "singleResult": "project",
+  "open": "Filter projects",
+  "close": "Close filters"
+},
   "empty": {
     "title": "No project in this category",
     "description": "No published project currently matches the selected area of expertise."

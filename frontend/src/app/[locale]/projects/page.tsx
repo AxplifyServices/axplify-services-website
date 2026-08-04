@@ -109,27 +109,37 @@ export default async function ProjectsPage({
             'hero.description',
           ),
       }}
-      filters={{
-        label:
-          t(
-            'filters.label',
-          ),
+filters={{
+  label:
+    t(
+      'filters.label',
+    ),
 
-        all:
-          t(
-            'filters.all',
-          ),
+  all:
+    t(
+      'filters.all',
+    ),
 
-        results:
-          t(
-            'filters.results',
-          ),
+  results:
+    t(
+      'filters.results',
+    ),
 
-        singleResult:
-          t(
-            'filters.singleResult',
-          ),
-      }}
+  singleResult:
+    t(
+      'filters.singleResult',
+    ),
+
+  open:
+    t(
+      'filters.open',
+    ),
+
+  close:
+    t(
+      'filters.close',
+    ),
+}}
       emptyState={{
         title:
           t(
