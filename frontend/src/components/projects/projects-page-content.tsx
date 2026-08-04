@@ -3,6 +3,8 @@
 import {
   BriefcaseBusiness,
   Check,
+  ChevronLeft,
+  ChevronRight,
   Filter,
   X,
 } from 'lucide-react';
@@ -77,6 +79,8 @@ type ProjectsPageContentProps = {
   expertiseOptions:
     ExpertiseOption[];
 };
+
+const PROJECTS_PER_PAGE = 6;
 
 type ProjectsFiltersProps = {
   selectedExpertise:
@@ -279,6 +283,14 @@ export function ProjectsPageContent({
       false,
     );
 
+  const [
+    currentPage,
+    setCurrentPage,
+  ] =
+    useState(
+      1,
+    );
+
   const filteredProjects =
     useMemo(
       () => {
@@ -304,6 +316,73 @@ export function ProjectsPageContent({
       ],
     );
 
+  const totalPages =
+    Math.max(
+      1,
+      Math.ceil(
+        filteredProjects.length /
+        PROJECTS_PER_PAGE,
+      ),
+    );
+
+  const paginatedProjects =
+    useMemo(
+      () => {
+        const startIndex =
+          (
+            currentPage -
+            1
+          ) *
+          PROJECTS_PER_PAGE;
+
+        return filteredProjects.slice(
+          startIndex,
+          startIndex +
+            PROJECTS_PER_PAGE,
+        );
+      },
+      [
+        currentPage,
+        filteredProjects,
+      ],
+    );
+
+  const paginationLabels =
+    locale ===
+    'fr'
+      ? {
+          previous:
+            'Page précédente',
+          next:
+            'Page suivante',
+          page:
+            'Page',
+          of:
+            'sur',
+        }
+      : locale ===
+          'ar'
+        ? {
+            previous:
+              'الصفحة السابقة',
+            next:
+              'الصفحة التالية',
+            page:
+              'الصفحة',
+            of:
+              'من',
+          }
+        : {
+            previous:
+              'Previous page',
+            next:
+              'Next page',
+            page:
+              'Page',
+            of:
+              'of',
+          };
+
   const expertiseLabelByCode =
     useMemo(
       () =>
@@ -319,6 +398,35 @@ export function ProjectsPageContent({
         expertiseOptions,
       ],
     );
+
+  useEffect(
+    () => {
+      setCurrentPage(
+        1,
+      );
+    },
+    [
+      selectedExpertise,
+      projects,
+    ],
+  );
+
+  useEffect(
+    () => {
+      if (
+        currentPage >
+        totalPages
+      ) {
+        setCurrentPage(
+          totalPages,
+        );
+      }
+    },
+    [
+      currentPage,
+      totalPages,
+    ],
+  );
 
   useEffect(
     () => {
@@ -404,6 +512,47 @@ export function ProjectsPageContent({
               }
             </h1>
 
+            <div className="projects-page__mobile-toolbar">
+              <button
+                type="button"
+                className="projects-page__filter-trigger"
+                aria-expanded={
+                  filtersOpen
+                }
+                aria-controls="projects-mobile-filters"
+                onClick={
+                  () =>
+                    setFiltersOpen(
+                      true,
+                    )
+                }
+              >
+                <Filter
+                  size={
+                    18
+                  }
+                  aria-hidden="true"
+                />
+
+                <span>
+                  {
+                    filters.open
+                  }
+                </span>
+
+                {
+                  selectedExpertise !==
+                    'all'
+                    ? (
+                        <span className="projects-page__filter-indicator">
+                          1
+                        </span>
+                      )
+                    : null
+                }
+              </button>
+            </div>
+
             <p>
               {
                 hero.description
@@ -415,46 +564,6 @@ export function ProjectsPageContent({
 
       <section className="projects-page__content">
         <div className="site-container">
-          <div className="projects-page__mobile-toolbar">
-            <button
-              type="button"
-              className="projects-page__filter-trigger"
-              aria-expanded={
-                filtersOpen
-              }
-              aria-controls="projects-mobile-filters"
-              onClick={
-                () =>
-                  setFiltersOpen(
-                    true,
-                  )
-              }
-            >
-              <Filter
-                size={
-                  18
-                }
-                aria-hidden="true"
-              />
-
-              <span>
-                {
-                  filters.open
-                }
-              </span>
-
-              {
-                selectedExpertise !==
-                'all'
-                  ? (
-                      <span className="projects-page__filter-indicator">
-                        1
-                      </span>
-                    )
-                  : null
-              }
-            </button>
-          </div>
 
           <div className="projects-page__layout">
             <aside className="projects-page__sidebar">
@@ -503,7 +612,7 @@ export function ProjectsPageContent({
                   : (
                       <div className="projects-page__grid">
                         {
-                          filteredProjects.map(
+                          paginatedProjects.map(
                             project => (
                               <article
                                 key={
@@ -587,6 +696,159 @@ export function ProjectsPageContent({
                       </div>
                     )
               }
+
+              {
+                filteredProjects.length >
+                  PROJECTS_PER_PAGE
+                  ? (
+                      <nav
+                        className="projects-page__pagination"
+                        aria-label={
+                          paginationLabels.page
+                        }
+                      >
+                        <button
+                          type="button"
+                          className="projects-page__pagination-arrow"
+                          aria-label={
+                            paginationLabels.previous
+                          }
+                          disabled={
+                            currentPage ===
+                            1
+                          }
+                          onClick={
+                            () =>
+                              setCurrentPage(
+                                page =>
+                                  Math.max(
+                                    1,
+                                    page -
+                                      1,
+                                  ),
+                              )
+                          }
+                        >
+                          {
+                            locale ===
+                            'ar'
+                              ? (
+                                  <ChevronRight
+                                    size={
+                                      18
+                                    }
+                                    aria-hidden="true"
+                                  />
+                                )
+                              : (
+                                  <ChevronLeft
+                                    size={
+                                      18
+                                    }
+                                    aria-hidden="true"
+                                  />
+                                )
+                          }
+                        </button>
+
+                        <div className="projects-page__pagination-pages">
+                          {
+                            Array.from(
+                              {
+                                length:
+                                  totalPages,
+                              },
+                              (
+                                _,
+                                index,
+                              ) => {
+                                const page =
+                                  index +
+                                  1;
+
+                                return (
+                                  <button
+                                    key={
+                                      page
+                                    }
+                                    type="button"
+                                    data-active={
+                                      currentPage ===
+                                      page
+                                    }
+                                    aria-current={
+                                      currentPage ===
+                                      page
+                                        ? 'page'
+                                        : undefined
+                                    }
+                                    aria-label={
+                                      `${paginationLabels.page} ${page} ${paginationLabels.of} ${totalPages}`
+                                    }
+                                    onClick={
+                                      () =>
+                                        setCurrentPage(
+                                          page,
+                                        )
+                                    }
+                                  >
+                                    {
+                                      page
+                                    }
+                                  </button>
+                                );
+                              },
+                            )
+                          }
+                        </div>
+
+                        <button
+                          type="button"
+                          className="projects-page__pagination-arrow"
+                          aria-label={
+                            paginationLabels.next
+                          }
+                          disabled={
+                            currentPage ===
+                            totalPages
+                          }
+                          onClick={
+                            () =>
+                              setCurrentPage(
+                                page =>
+                                  Math.min(
+                                    totalPages,
+                                    page +
+                                      1,
+                                  ),
+                              )
+                          }
+                        >
+                          {
+                            locale ===
+                            'ar'
+                              ? (
+                                  <ChevronLeft
+                                    size={
+                                      18
+                                    }
+                                    aria-hidden="true"
+                                  />
+                                )
+                              : (
+                                  <ChevronRight
+                                    size={
+                                      18
+                                    }
+                                    aria-hidden="true"
+                                  />
+                                )
+                          }
+                        </button>
+                      </nav>
+                    )
+                  : null
+              }
             </div>
           </div>
         </div>
@@ -624,9 +886,6 @@ export function ProjectsPageContent({
                     mobile
                     selectedExpertise={
                       selectedExpertise
-                    }
-                    filteredProjectsCount={
-                      filteredProjects.length
                     }
                     filters={
                       filters

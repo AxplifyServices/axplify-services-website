@@ -75,6 +75,11 @@ export function SiteHeader() {
 const aboutDropdownRef =
   useRef<HTMLDivElement>(
     null,
+  );
+
+const mobileAboutDropdownRef =
+  useRef<HTMLDivElement>(
+    null,
   );  
 
 useEffect(
@@ -174,6 +179,9 @@ useEffect(
         if (
           aboutDropdownRef.current?.contains(
             target,
+          ) ||
+          mobileAboutDropdownRef.current?.contains(
+            target,
           )
         ) {
           return;
@@ -201,12 +209,32 @@ useEffect(
   ],
 );  
 
+  const closeMobileNavigation = () => {
+    setIsMenuOpen(
+      false,
+    );
+
+    setIsAboutOpen(
+      false,
+    );
+
+    /*
+     * Libère immédiatement le défilement de la page cible.
+     * Le Link continue ensuite sa navigation normalement.
+     */
+    document.body.style.overflow =
+      '';
+  };
+
   return (
     <header className="site-header">
       <div className="site-container site-header__inner">
         <Link
           href="/"
           className="site-header__brand"
+          onClick={
+            closeMobileNavigation
+          }
           aria-label={
             t('home')
           }
@@ -420,10 +448,7 @@ useEffect(
               )
             }
             onClick={
-              () =>
-                setIsMenuOpen(
-                  false,
-                )
+              closeMobileNavigation
             }
           />
 
@@ -458,6 +483,9 @@ if (
 
   return (
     <div
+      ref={
+        mobileAboutDropdownRef
+      }
       key={
         item.href
       }
@@ -517,15 +545,7 @@ if (
     '/about'
   }
   onClick={
-    () => {
-      setIsAboutOpen(
-        false,
-      );
-
-      setIsMenuOpen(
-        false,
-      );
-    }
+    closeMobileNavigation
   }
 >
   {
@@ -543,15 +563,7 @@ if (
     '/about/work-process'
   }
   onClick={
-    () => {
-      setIsAboutOpen(
-        false,
-      );
-
-      setIsMenuOpen(
-        false,
-      );
-    }
+    closeMobileNavigation
   }
 >
   {
@@ -580,6 +592,9 @@ if (
                             pathname,
                             item.href,
                           )
+                        }
+                        onClick={
+                          closeMobileNavigation
                         }
                       >
                         {

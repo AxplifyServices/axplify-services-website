@@ -6,6 +6,10 @@ import {
 } from 'react';
 
 import type {
+  PointerEvent as ReactPointerEvent,
+} from 'react';
+
+import type {
   PublicHomepageClient,
 } from '@/lib/homepage-clients-api';
 
@@ -14,9 +18,9 @@ type HomeClientsSectionProps = {
     string;
 
   /*
-   * Ces propriétés restent temporairement acceptées afin de ne pas
-   * casser l’appel existant dans la page d’accueil.
-   * Elles ne sont plus affichées dans l’interface.
+   * Ces propriétés restent acceptées afin de ne pas
+   * modifier l’interface utilisée par la page d’accueil.
+   * Elles ne sont pas affichées visuellement.
    */
   introduction:
     string;
@@ -53,17 +57,19 @@ function LogoRow({
   resumeLabel,
 }: LogoRowProps) {
   const [
-    isPaused,
-    setIsPaused,
+    isPressed,
+    setIsPressed,
   ] =
     useState(
       false,
     );
 
   /*
-   * Chaque ligne possède ses propres clients.
-   * La répétition ci-dessous sert uniquement à assurer
-   * une animation continue dans cette ligne.
+   * La répétition ne duplique les clients que dans
+   * la même ligne pour obtenir une animation continue.
+   *
+   * Elle n’a aucune incidence sur la répartition
+   * entre la première et la deuxième ligne.
    */
   const repeatedClients =
     useMemo(
@@ -77,10 +83,56 @@ function LogoRow({
       ],
     );
 
-  const actionLabel =
-    isPaused
-      ? resumeLabel
-      : pauseLabel;
+  function pauseAnimation(
+    event:
+      ReactPointerEvent<HTMLButtonElement>,
+  ) {
+    /*
+     * Pour une souris, seul le bouton principal
+     * doit déclencher la mise en pause.
+     */
+    if (
+      event.pointerType ===
+        'mouse' &&
+      event.button !==
+        0
+    ) {
+      return;
+    }
+
+    event.currentTarget.setPointerCapture(
+      event.pointerId,
+    );
+
+    setIsPressed(
+      true,
+    );
+  }
+
+  function resumeAnimation(
+    event:
+      ReactPointerEvent<HTMLButtonElement>,
+  ) {
+    if (
+      event.currentTarget.hasPointerCapture(
+        event.pointerId,
+      )
+    ) {
+      event.currentTarget.releasePointerCapture(
+        event.pointerId,
+      );
+    }
+
+    setIsPressed(
+      false,
+    );
+  }
+
+  function cancelPause() {
+    setIsPressed(
+      false,
+    );
+  }
 
   return (
     <div className="home-clients__row-shell">
@@ -91,20 +143,31 @@ function LogoRow({
           direction
         }
         data-paused={
-          isPaused
+          isPressed
         }
         aria-label={
-          actionLabel
+          isPressed
+            ? resumeLabel
+            : pauseLabel
         }
         aria-pressed={
-          isPaused
+          isPressed
         }
-        onClick={
-          () =>
-            setIsPaused(
-              currentValue =>
-                !currentValue,
-            )
+        onPointerDown={
+          pauseAnimation
+        }
+        onPointerUp={
+          resumeAnimation
+        }
+        onPointerCancel={
+          cancelPause
+        }
+        onLostPointerCapture={
+          cancelPause
+        }
+        onContextMenu={
+          event =>
+            event.preventDefault()
         }
       >
         <span className="home-clients__track">
@@ -173,6 +236,10 @@ export function HomeClientsSection({
   resumeLabel,
   clients,
 }: HomeClientsSectionProps) {
+  /*
+   * La liste reçue par cette section provient déjà
+   * de l’endpoint public des clients visibles sur la home.
+   */
   if (
     clients.length <
     3
@@ -180,35 +247,39 @@ export function HomeClientsSection({
     return null;
   }
 
+  const shouldDisplaySecondRow =
+    clients.length >
+    6;
+
   /*
-   * Répartition unique :
-   * - indices pairs dans la première ligne ;
-   * - indices impairs dans la seconde.
+   * Entre 3 et 6 clients :
+   * tous les clients apparaissent dans l’unique ligne.
    *
-   * Un même client ne peut donc jamais apparaître
-   * simultanément dans les deux lignes.
+   * Au-delà de 6 clients :
+   * on sépare la liste en deux groupes distincts.
+   * slice garantit qu’un client ne peut appartenir
+   * qu’à une seule ligne.
    */
   const firstRowClients =
-    clients.filter(
-      (
-        _client,
-        index,
-      ) =>
-        index %
-          2 ===
-        0,
-    );
+    shouldDisplaySecondRow
+      ? clients.slice(
+          0,
+          Math.ceil(
+            clients.length /
+              2,
+          ),
+        )
+      : clients;
 
   const secondRowClients =
-    clients.filter(
-      (
-        _client,
-        index,
-      ) =>
-        index %
-          2 ===
-        1,
-    );
+    shouldDisplaySecondRow
+      ? clients.slice(
+          Math.ceil(
+            clients.length /
+              2,
+          ),
+        )
+      : [];
 
   return (
     <section
@@ -225,7 +296,14 @@ export function HomeClientsSection({
         </header>
       </div>
 
-      <div className="home-clients__rows">
+      <div
+        className="home-clients__rows"
+        data-row-count={
+          shouldDisplaySecondRow
+            ? '2'
+            : '1'
+        }
+      >
         <LogoRow
           clients={
             firstRowClients
@@ -239,18 +317,24 @@ export function HomeClientsSection({
           }
         />
 
-        <LogoRow
-          clients={
-            secondRowClients
-          }
-          direction="left"
-          pauseLabel={
-            pauseLabel
-          }
-          resumeLabel={
-            resumeLabel
-          }
-        />
+        {
+          shouldDisplaySecondRow
+            ? (
+                <LogoRow
+                  clients={
+                    secondRowClients
+                  }
+                  direction="left"
+                  pauseLabel={
+                    pauseLabel
+                  }
+                  resumeLabel={
+                    resumeLabel
+                  }
+                />
+              )
+            : null
+        }
       </div>
     </section>
   );

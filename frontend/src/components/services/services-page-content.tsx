@@ -381,11 +381,63 @@ useEffect(
         </div>
       </section>
 
+      <div className="services-quick-navigation__anchor">
+        <div className="site-container">
+        <button
+          ref={
+            quickNavigationTriggerRef
+          }
+          type="button"
+          className="services-quick-navigation__trigger"
+          aria-expanded={
+            isQuickNavigationOpen
+          }
+          aria-controls="services-quick-navigation-dialog"
+          aria-label={
+            isQuickNavigationOpen
+              ? navigation.closeLabel
+              : navigation.openLabel
+          }
+          onClick={
+            () => {
+              if (
+                isQuickNavigationOpen
+              ) {
+                closeQuickNavigation();
+                return;
+              }
 
-<div
-  id="services-content"
-  className="services-content"
->
+              openQuickNavigation();
+            }
+          }
+        >
+          <span className="services-quick-navigation__trigger-icon">
+            {isQuickNavigationOpen ? (
+              <X
+                size={21}
+                strokeWidth={2.2}
+                aria-hidden="true"
+              />
+            ) : (
+              <ListTree
+                size={21}
+                strokeWidth={2.1}
+                aria-hidden="true"
+              />
+            )}
+          </span>
+
+          <span className="services-quick-navigation__trigger-text">
+            {navigation.label}
+          </span>
+        </button>
+        </div>
+      </div>
+
+      <div
+        id="services-content"
+        className="services-content"
+      >
   <div className="services-content__container">
 
           <main className="services-details">
@@ -699,54 +751,7 @@ useEffect(
           </nav>
         </div>
 
-        <button
-          ref={
-            quickNavigationTriggerRef
-          }
-          type="button"
-          className="services-quick-navigation__trigger"
-          aria-expanded={
-            isQuickNavigationOpen
-          }
-          aria-controls="services-quick-navigation-dialog"
-          aria-label={
-            isQuickNavigationOpen
-              ? navigation.closeLabel
-              : navigation.openLabel
-          }
-          onClick={
-            () => {
-              if (
-                isQuickNavigationOpen
-              ) {
-                closeQuickNavigation();
-                return;
-              }
 
-              openQuickNavigation();
-            }
-          }
-        >
-          <span className="services-quick-navigation__trigger-icon">
-            {isQuickNavigationOpen ? (
-              <X
-                size={21}
-                strokeWidth={2.2}
-                aria-hidden="true"
-              />
-            ) : (
-              <ListTree
-                size={21}
-                strokeWidth={2.1}
-                aria-hidden="true"
-              />
-            )}
-          </span>
-
-          <span className="services-quick-navigation__trigger-text">
-            {navigation.label}
-          </span>
-        </button>
       </div>,
       document.body,
     )

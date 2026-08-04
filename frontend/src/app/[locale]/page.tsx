@@ -191,6 +191,42 @@ export default async function HomePage({
         }
       />
 
+      <HomeAboutSection
+        title={
+          aboutTranslations(
+            'title',
+          )
+        }
+        introduction={
+          aboutTranslations(
+            'introduction',
+          )
+        }
+        description={
+          aboutTranslations(
+            'description',
+          )
+        }
+        promiseLabel={
+          aboutTranslations(
+            'promiseLabel',
+          )
+        }
+        promise={
+          aboutTranslations(
+            'promise',
+          )
+        }
+        pillars={
+          pillars
+        }
+        primaryCta={
+          aboutTranslations(
+            'primaryCta',
+          )
+        }
+      />
+
       <HomeServicesSection
         eyebrow={
           servicesTranslations(
@@ -240,42 +276,6 @@ export default async function HomePage({
         }
         clients={
           homepageClients
-        }
-      />
-
-      <HomeAboutSection
-        title={
-          aboutTranslations(
-            'title',
-          )
-        }
-        introduction={
-          aboutTranslations(
-            'introduction',
-          )
-        }
-        description={
-          aboutTranslations(
-            'description',
-          )
-        }
-        promiseLabel={
-          aboutTranslations(
-            'promiseLabel',
-          )
-        }
-        promise={
-          aboutTranslations(
-            'promise',
-          )
-        }
-        pillars={
-          pillars
-        }
-        primaryCta={
-          aboutTranslations(
-            'primaryCta',
-          )
         }
       />
     </>
