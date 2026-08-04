@@ -1,12 +1,14 @@
 'use client';
 
 import {
-  ArrowLeft,
   ArrowRight,
 } from 'lucide-react';
 
 import {
+  useCallback,
+  useEffect,
   useRef,
+  useState,
 } from 'react';
 
 import {
@@ -26,19 +28,7 @@ type HomeInsightsSectionProps = {
   locale:
     AppLocale;
 
-  eyebrow:
-    string;
-
   title:
-    string;
-
-  introduction:
-    string;
-
-  previousLabel:
-    string;
-
-  nextLabel:
     string;
 
   readMoreLabel:
@@ -84,10 +74,7 @@ function formatPublicationDate(
   }
 
   return new Intl.DateTimeFormat(
-    locale ===
-      'ar'
-      ? 'ar'
-      : locale,
+    locale,
     {
       day:
         'numeric',
@@ -105,11 +92,7 @@ function formatPublicationDate(
 
 export function HomeInsightsSection({
   locale,
-  eyebrow,
   title,
-  introduction,
-  previousLabel,
-  nextLabel,
   readMoreLabel,
   viewAllLabel,
   publicationTypeLabels,
@@ -120,6 +103,145 @@ export function HomeInsightsSection({
       null,
     );
 
+  const [
+    activeIndex,
+    setActiveIndex,
+  ] =
+    useState(
+      0,
+    );
+
+  const updateActiveIndex =
+    useCallback(
+      () => {
+        const track =
+          trackRef.current;
+
+        if (
+          !track
+        ) {
+          return;
+        }
+
+        const cards =
+          Array.from(
+            track.querySelectorAll<HTMLElement>(
+              '.home-insights-card',
+            ),
+          );
+
+        if (
+          cards.length ===
+          0
+        ) {
+          setActiveIndex(
+            0,
+          );
+
+          return;
+        }
+
+        const trackRect =
+          track.getBoundingClientRect();
+
+        const trackStart =
+          locale ===
+          'ar'
+            ? trackRect.right
+            : trackRect.left;
+
+        let nearestIndex =
+          0;
+
+        let nearestDistance =
+          Number.POSITIVE_INFINITY;
+
+        cards.forEach(
+          (
+            card,
+            index,
+          ) => {
+            const cardRect =
+              card.getBoundingClientRect();
+
+            const cardStart =
+              locale ===
+              'ar'
+                ? cardRect.right
+                : cardRect.left;
+
+            const distance =
+              Math.abs(
+                cardStart -
+                trackStart,
+              );
+
+            if (
+              distance <
+              nearestDistance
+            ) {
+              nearestDistance =
+                distance;
+
+              nearestIndex =
+                index;
+            }
+          },
+        );
+
+        setActiveIndex(
+          nearestIndex,
+        );
+      },
+      [
+        locale,
+      ],
+    );
+
+  useEffect(
+    () => {
+      const track =
+        trackRef.current;
+
+      if (
+        !track
+      ) {
+        return;
+      }
+
+      updateActiveIndex();
+
+      track.addEventListener(
+        'scroll',
+        updateActiveIndex,
+        {
+          passive:
+            true,
+        },
+      );
+
+      window.addEventListener(
+        'resize',
+        updateActiveIndex,
+      );
+
+      return () => {
+        track.removeEventListener(
+          'scroll',
+          updateActiveIndex,
+        );
+
+        window.removeEventListener(
+          'resize',
+          updateActiveIndex,
+        );
+      };
+    },
+    [
+      updateActiveIndex,
+    ],
+  );
+
   if (
     publications.length ===
     0
@@ -127,10 +249,9 @@ export function HomeInsightsSection({
     return null;
   }
 
-  function scrollTrack(
-    direction:
-      -1 |
-      1,
+  function goToPublication(
+    index:
+      number,
   ) {
     const track =
       trackRef.current;
@@ -141,33 +262,34 @@ export function HomeInsightsSection({
       return;
     }
 
-    const firstCard =
-      track.querySelector<HTMLElement>(
+    const cards =
+      track.querySelectorAll<HTMLElement>(
         '.home-insights-card',
       );
 
-    const cardWidth =
-      firstCard?.offsetWidth ??
-      Math.min(
-        track.clientWidth *
-          0.85,
-        430,
-      );
+    const targetCard =
+      cards[index];
 
-    const gap =
-      24;
+    if (
+      !targetCard
+    ) {
+      return;
+    }
 
-    track.scrollBy({
-      left:
-        direction *
-        (
-          cardWidth +
-          gap
-        ),
-
+    targetCard.scrollIntoView({
       behavior:
         'smooth',
+
+      block:
+        'nearest',
+
+      inline:
+        'start',
     });
+
+    setActiveIndex(
+      index,
+    );
   }
 
   return (
@@ -180,71 +302,15 @@ export function HomeInsightsSection({
           className="home-insights__heading"
           data-reveal="up"
         >
-          <div className="home-insights__heading-copy">
-            <p className="eyebrow">
-              {eyebrow}
-            </p>
-
-            <h2 id="home-insights-title">
-              {title}
-            </h2>
-          </div>
-
-          <div className="home-insights__heading-side">
-            <p>
-              {introduction}
-            </p>
-
-            <div className="home-insights__actions">
-              <button
-                type="button"
-                className="home-insights__navigation-button"
-                onClick={
-                  () =>
-                    scrollTrack(
-                      locale ===
-                        'ar'
-                        ? 1
-                        : -1,
-                    )
-                }
-                aria-label={
-                  previousLabel
-                }
-              >
-                <ArrowLeft
-                  size={20}
-                  aria-hidden="true"
-                />
-              </button>
-
-              <button
-                type="button"
-                className="home-insights__navigation-button"
-                onClick={
-                  () =>
-                    scrollTrack(
-                      locale ===
-                        'ar'
-                        ? -1
-                        : 1,
-                    )
-                }
-                aria-label={
-                  nextLabel
-                }
-              >
-                <ArrowRight
-                  size={20}
-                  aria-hidden="true"
-                />
-              </button>
-            </div>
-          </div>
+          <h2 id="home-insights-title">
+            {title}
+          </h2>
         </header>
 
         <div
-          ref={trackRef}
+          ref={
+            trackRef
+          }
           className="home-insights__track"
         >
           {
@@ -354,11 +420,17 @@ export function HomeInsightsSection({
                         </h3>
 
                         <div className="home-insights-card__hover-content">
-                          <p>
-                            {
-                              publication.excerpt
-                            }
-                          </p>
+                          {
+                            publication.excerpt
+                              ? (
+                                  <p>
+                                    {
+                                      publication.excerpt
+                                    }
+                                  </p>
+                                )
+                              : null
+                          }
 
                           <span className="home-insights-card__button">
                             <span>
@@ -366,7 +438,9 @@ export function HomeInsightsSection({
                             </span>
 
                             <ArrowRight
-                              size={21}
+                              size={
+                                19
+                              }
                               aria-hidden="true"
                             />
                           </span>
@@ -380,7 +454,7 @@ export function HomeInsightsSection({
           }
         </div>
 
-        <div
+        <footer
           className="home-insights__footer"
           data-reveal="up"
         >
@@ -393,11 +467,64 @@ export function HomeInsightsSection({
             </span>
 
             <ArrowRight
-              size={19}
+              size={
+                18
+              }
               aria-hidden="true"
             />
           </Link>
-        </div>
+
+          {
+            publications.length >
+            1
+              ? (
+                  <div
+                    className="home-insights__pagination"
+                    role="group"
+                    aria-label={title}
+                  >
+                    {
+                      publications.map(
+                        (
+                          publication,
+                          index,
+                        ) => (
+                          <button
+                            key={
+                              publication.id
+                            }
+                            type="button"
+                            className="home-insights__pagination-dot"
+                            data-active={
+                              index ===
+                              activeIndex
+                            }
+                            aria-label={
+                              `${index + 1} / ${publications.length}`
+                            }
+                            aria-current={
+                              index ===
+                                activeIndex
+                                ? 'true'
+                                : undefined
+                            }
+                            onClick={
+                              () =>
+                                goToPublication(
+                                  index,
+                                )
+                            }
+                          >
+                            <span />
+                          </button>
+                        ),
+                      )
+                    }
+                  </div>
+                )
+              : null
+          }
+        </footer>
       </div>
     </section>
   );
