@@ -9,6 +9,8 @@ import {
   Post,
   Query,
   UseGuards,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 
 import {
@@ -55,6 +57,14 @@ import {
   PublicationsService,
 } from './publications.service';
 
+import {
+  FileInterceptor,
+} from '@nestjs/platform-express';
+
+import {
+  StorageService,
+} from '../storage/storage.service';
+
 @Controller(
   'publications',
 )
@@ -69,6 +79,9 @@ export class PublicationsController {
   constructor(
     private readonly publicationsService:
       PublicationsService,
+
+    private readonly storageService:
+      StorageService,
   ) {}
 
   /*
@@ -107,6 +120,84 @@ export class PublicationsController {
         id,
       );
   }
+
+  @Throttle({
+    default: {
+      limit:
+        20,
+
+      ttl:
+        60_000,
+    },
+  })
+  @Post(
+    'upload-image',
+  )
+  @UseInterceptors(
+    FileInterceptor(
+      'file',
+      {
+        limits: {
+          files:
+            1,
+
+          fileSize:
+            10 *
+            1024 *
+            1024,
+        },
+      },
+    ),
+  )
+  uploadImage(
+    @UploadedFile()
+    file:
+      Express.Multer.File,
+  ) {
+    return this.storageService
+      .uploadPublicationImage(
+        file,
+      );
+  }
+
+  @Throttle({
+    default: {
+      limit:
+        10,
+
+      ttl:
+        60_000,
+    },
+  })
+  @Post(
+    'upload-video',
+  )
+  @UseInterceptors(
+    FileInterceptor(
+      'file',
+      {
+        limits: {
+          files:
+            1,
+
+          fileSize:
+            100 *
+            1024 *
+            1024,
+        },
+      },
+    ),
+  )
+  uploadVideo(
+    @UploadedFile()
+    file:
+      Express.Multer.File,
+  ) {
+    return this.storageService
+      .uploadPublicationVideo(
+        file,
+      );
+  }  
 
   @Post()
   @Throttle({

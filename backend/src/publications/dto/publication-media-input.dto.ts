@@ -102,6 +102,36 @@ export class PublicationMediaInputDto {
     string;
 
   @IsOptional()
+  @IsString()
+  @MaxLength(
+    2_000,
+    {
+      message:
+        'L’URL de l’affiche vidéo est trop longue.',
+    },
+  )
+  @Transform(
+    optionalTrimmedString,
+  )
+  posterUrl?:
+    string;
+
+  @IsOptional()
+  @Type(
+    () =>
+      Number,
+  )
+  @IsInt()
+  @Min(
+    0,
+  )
+  @Max(
+    86_400,
+  )
+  posterFrameSeconds?:
+    number;    
+
+  @IsOptional()
   @Transform(
     normalizeBoolean,
   )

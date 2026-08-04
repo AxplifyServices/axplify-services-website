@@ -15,12 +15,47 @@ import {
 } from 'node:crypto';
 
 import {
+  spawn,
+} from 'node:child_process';
+
+import {
+  mkdtemp,
+  readFile,
+  rm,
+  writeFile,
+} from 'node:fs/promises';
+
+import {
+  tmpdir,
+} from 'node:os';
+
+import {
+  join,
+} from 'node:path';
+
+import {
+  createRequire,
+} from 'node:module';
+
+import {
   Client as MinioClient,
 } from 'minio';
 
 import sharp from 'sharp';
 
-type UploadedImage = {
+const require =
+  createRequire(
+    import.meta.url,
+  );
+
+const ffmpegPath =
+  require(
+    'ffmpeg-static',
+  ) as
+    string |
+    null;
+
+export type UploadedImage = {
   url: string;
   objectName: string;
   mimeType: 'image/webp';
@@ -30,7 +65,7 @@ type UploadedImage = {
   size: number;
 };
 
-type UploadedVideo = {
+export type UploadedVideo = {
   url:
     string;
 
@@ -52,6 +87,43 @@ type UploadedVideo = {
     null;
 
   size:
+    number;
+};
+
+export type UploadedPublicationVideo = {
+  url:
+    string;
+
+  objectName:
+    string;
+
+  mimeType:
+    'video/mp4' |
+    'video/webm';
+
+  extension:
+    'mp4' |
+    'webm';
+
+  width:
+    null;
+
+  height:
+    null;
+
+  size:
+    number;
+
+  durationSeconds:
+    null;
+
+  posterUrl:
+    string;
+
+  posterObjectName:
+    string;
+
+  posterFrameSeconds:
     number;
 };
 
@@ -474,6 +546,142 @@ export class StorageService
     };
   }  
 
+  async uploadPublicationImage(
+    file:
+      Express.Multer.File,
+  ):
+    Promise<UploadedImage>
+  {
+    this.validateImageFile(
+      file,
+    );
+
+    let processedImage:
+      Buffer;
+
+    let outputWidth:
+      number;
+
+    let outputHeight:
+      number;
+
+    try {
+      const result =
+        await sharp(
+          file.buffer,
+          {
+            failOn:
+              'error',
+          },
+        )
+          .rotate()
+          .resize({
+            width:
+              2400,
+
+            height:
+              1600,
+
+            fit:
+              'inside',
+
+            withoutEnlargement:
+              true,
+          })
+          .webp({
+            quality:
+              88,
+
+            effort:
+              5,
+
+            smartSubsample:
+              true,
+
+            alphaQuality:
+              100,
+          })
+          .toBuffer({
+            resolveWithObject:
+              true,
+          });
+
+      processedImage =
+        result.data;
+
+      outputWidth =
+        result.info.width;
+
+      outputHeight =
+        result.info.height;
+    } catch {
+      throw new BadRequestException(
+        'Le fichier envoyé ne contient pas une image valide.',
+      );
+    }
+
+    const objectName =
+      [
+        'publications',
+        'media',
+        `${randomUUID()}.webp`,
+      ].join(
+        '/',
+      );
+
+    try {
+      await this.minioClient
+        .putObject(
+          this.publicBucket,
+          objectName,
+          processedImage,
+          processedImage.length,
+          {
+            'Content-Type':
+              'image/webp',
+
+            'Cache-Control':
+              'public, max-age=31536000, immutable',
+          },
+        );
+    } catch (
+      error
+    ) {
+      this.logger.error(
+        'Impossible d’enregistrer l’image de publication dans MinIO.',
+        error instanceof Error
+          ? error.stack
+          : undefined,
+      );
+
+      throw new InternalServerErrorException(
+        'Impossible d’enregistrer l’image de publication.',
+      );
+    }
+
+    return {
+      url:
+        `${this.publicUrl}/${objectName}`,
+
+      objectName,
+
+      mimeType:
+        'image/webp',
+
+      extension:
+        'webp',
+
+      width:
+        outputWidth,
+
+      height:
+        outputHeight,
+
+      size:
+        processedImage.length,
+    };
+  }  
+
   async uploadHomepageBrochureVideo(
     file:
       Express.Multer.File,
@@ -561,6 +769,284 @@ export class StorageService
     };
   }  
 
+  async uploadPublicationVideo(
+    file:
+      Express.Multer.File,
+  ):
+    Promise<UploadedPublicationVideo>
+  {
+    this.validateVideoFile(
+      file,
+    );
+
+    if (
+      !ffmpegPath
+    ) {
+      throw new InternalServerErrorException(
+        'FFmpeg n’est pas disponible sur le serveur.',
+      );
+    }
+
+    const extension =
+      file.mimetype ===
+      'video/webm'
+        ? 'webm'
+        : 'mp4';
+
+    const mimeType:
+      UploadedPublicationVideo[
+        'mimeType'
+      ] =
+        extension ===
+        'webm'
+          ? 'video/webm'
+          : 'video/mp4';
+
+    const mediaId =
+      randomUUID();
+
+    const videoObjectName =
+      [
+        'publications',
+        'media',
+        `${mediaId}.${extension}`,
+      ].join(
+        '/',
+      );
+
+    const posterObjectName =
+      [
+        'publications',
+        'posters',
+        `${mediaId}.webp`,
+      ].join(
+        '/',
+      );
+
+    const temporaryDirectory =
+      await mkdtemp(
+        join(
+          tmpdir(),
+          'axplify-publication-',
+        ),
+      );
+
+    const inputPath =
+      join(
+        temporaryDirectory,
+        `input.${extension}`,
+      );
+
+    const rawPosterPath =
+      join(
+        temporaryDirectory,
+        'poster.png',
+      );
+
+    let posterFrameSeconds =
+      1;
+
+    try {
+      await writeFile(
+        inputPath,
+        file.buffer,
+      );
+
+      try {
+        await this.extractVideoFrame({
+          inputPath,
+
+          outputPath:
+            rawPosterPath,
+
+          frameSeconds:
+            posterFrameSeconds,
+        });
+      } catch {
+        /*
+         * Une vidéo très courte peut ne pas contenir de frame à 1 seconde.
+         * Dans ce cas, on recommence immédiatement au début.
+         */
+        posterFrameSeconds =
+          0;
+
+        await this.extractVideoFrame({
+          inputPath,
+
+          outputPath:
+            rawPosterPath,
+
+          frameSeconds:
+            posterFrameSeconds,
+        });
+      }
+
+      const rawPoster =
+        await readFile(
+          rawPosterPath,
+        );
+
+      const posterResult =
+        await sharp(
+          rawPoster,
+          {
+            failOn:
+              'error',
+          },
+        )
+          .resize({
+            width:
+              1600,
+
+            height:
+              1000,
+
+            fit:
+              'inside',
+
+            withoutEnlargement:
+              true,
+          })
+          .webp({
+            quality:
+              86,
+
+            effort:
+              5,
+
+            smartSubsample:
+              true,
+          })
+          .toBuffer({
+            resolveWithObject:
+              true,
+          });
+
+      try {
+        await this.minioClient
+          .putObject(
+            this.publicBucket,
+            videoObjectName,
+            file.buffer,
+            file.size,
+            {
+              'Content-Type':
+                mimeType,
+
+              'Cache-Control':
+                'public, max-age=31536000, immutable',
+            },
+          );
+
+        await this.minioClient
+          .putObject(
+            this.publicBucket,
+            posterObjectName,
+            posterResult.data,
+            posterResult.data.length,
+            {
+              'Content-Type':
+                'image/webp',
+
+              'Cache-Control':
+                'public, max-age=31536000, immutable',
+            },
+          );
+      } catch (
+        error
+      ) {
+        await Promise.allSettled([
+          this.minioClient
+            .removeObject(
+              this.publicBucket,
+              videoObjectName,
+            ),
+
+          this.minioClient
+            .removeObject(
+              this.publicBucket,
+              posterObjectName,
+            ),
+        ]);
+
+        this.logger.error(
+          'Impossible d’enregistrer la vidéo de publication dans MinIO.',
+          error instanceof Error
+            ? error.stack
+            : undefined,
+        );
+
+        throw new InternalServerErrorException(
+          'Impossible d’enregistrer la vidéo de publication.',
+        );
+      }
+
+      return {
+        url:
+          `${this.publicUrl}/${videoObjectName}`,
+
+        objectName:
+          videoObjectName,
+
+        mimeType,
+
+        extension,
+
+        width:
+          null,
+
+        height:
+          null,
+
+        size:
+          file.size,
+
+        durationSeconds:
+          null,
+
+        posterUrl:
+          `${this.publicUrl}/${posterObjectName}`,
+
+        posterObjectName,
+
+        posterFrameSeconds,
+      };
+    } catch (
+      error
+    ) {
+      if (
+        error instanceof
+          BadRequestException ||
+        error instanceof
+          InternalServerErrorException
+      ) {
+        throw error;
+      }
+
+      this.logger.error(
+        'Impossible de traiter la vidéo de publication.',
+        error instanceof Error
+          ? error.stack
+          : undefined,
+      );
+
+      throw new BadRequestException(
+        'La vidéo envoyée est invalide ou ne peut pas être traitée.',
+      );
+    } finally {
+      await rm(
+        temporaryDirectory,
+        {
+          recursive:
+            true,
+
+          force:
+            true,
+        },
+      );
+    }
+  }  
+
   async deleteClientLogoByUrl(
     fileUrl:
       string | null | undefined,
@@ -614,6 +1100,103 @@ export class StorageService
         error,
       );
     }
+  }  
+
+  async deletePublicationFileByUrl(
+    fileUrl:
+      string |
+      null |
+      undefined,
+  ):
+    Promise<void>
+  {
+    if (
+      !fileUrl
+    ) {
+      return;
+    }
+
+    const expectedPrefix =
+      `${this.publicUrl}/`;
+
+    if (
+      !fileUrl.startsWith(
+        expectedPrefix,
+      )
+    ) {
+      return;
+    }
+
+    const objectName =
+      fileUrl.slice(
+        expectedPrefix.length,
+      );
+
+    const isPublicationFile =
+      objectName.startsWith(
+        'publications/media/',
+      ) ||
+      objectName.startsWith(
+        'publications/posters/',
+      );
+
+    if (
+      !isPublicationFile
+    ) {
+      return;
+    }
+
+    try {
+      await this.minioClient
+        .removeObject(
+          this.publicBucket,
+          objectName,
+        );
+    } catch (
+      error
+    ) {
+      this.logger.warn(
+        `Impossible de supprimer le média de publication ${objectName}.`,
+      );
+
+      this.logger.debug(
+        error,
+      );
+    }
+  }
+
+  isPublicationMediaUrl(
+    fileUrl:
+      string |
+      null |
+      undefined,
+  ) {
+    if (
+      !fileUrl
+    ) {
+      return false;
+    }
+
+    return fileUrl.startsWith(
+      `${this.publicUrl}/publications/media/`,
+    );
+  }
+
+  isPublicationPosterUrl(
+    fileUrl:
+      string |
+      null |
+      undefined,
+  ) {
+    if (
+      !fileUrl
+    ) {
+      return false;
+    }
+
+    return fileUrl.startsWith(
+      `${this.publicUrl}/publications/posters/`,
+    );
   }  
 
   async deletePublicFileByUrl(
@@ -670,6 +1253,115 @@ export class StorageService
       );
     }
   }
+
+  private async extractVideoFrame({
+    inputPath,
+    outputPath,
+    frameSeconds,
+  }: {
+    inputPath:
+      string;
+
+    outputPath:
+      string;
+
+    frameSeconds:
+      number;
+  }):
+    Promise<void>
+  {
+    if (
+      !ffmpegPath
+    ) {
+      throw new InternalServerErrorException(
+        'FFmpeg n’est pas disponible.',
+      );
+    }
+
+    await new Promise<void>(
+      (
+        resolve,
+        reject,
+      ) => {
+        const process =
+          spawn(
+            ffmpegPath,
+            [
+              '-hide_banner',
+              '-loglevel',
+              'error',
+
+              '-ss',
+              String(
+                frameSeconds,
+              ),
+
+              '-i',
+              inputPath,
+
+              '-frames:v',
+              '1',
+
+              '-f',
+              'image2',
+
+              '-y',
+              outputPath,
+            ],
+            {
+              windowsHide:
+                true,
+            },
+          );
+
+        let errorOutput =
+          '';
+
+        process.stderr.on(
+          'data',
+          (
+            chunk:
+              Buffer,
+          ) => {
+            errorOutput +=
+              chunk.toString();
+          },
+        );
+
+        process.once(
+          'error',
+          error => {
+            reject(
+              error,
+            );
+          },
+        );
+
+        process.once(
+          'close',
+          code => {
+            if (
+              code ===
+              0
+            ) {
+              resolve();
+
+              return;
+            }
+
+            reject(
+              new Error(
+                errorOutput ||
+                `FFmpeg a terminé avec le code ${String(
+                  code,
+                )}.`,
+              ),
+            );
+          },
+        );
+      },
+    );
+  }  
 
   private validateImageFile(
     file:

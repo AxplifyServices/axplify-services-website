@@ -48,6 +48,10 @@ import {
 } from './dto/update-publication.dto';
 
 import {
+  StorageService,
+} from '../storage/storage.service';
+
+import {
   DEFAULT_ADMIN_PAGE_SIZE,
   DEFAULT_PUBLICATION_LOCALE,
   DEFAULT_PUBLIC_PAGE_SIZE,
@@ -74,6 +78,9 @@ export class PublicationsService {
   constructor(
     private readonly prisma:
       PrismaService,
+
+    private readonly storageService:
+      StorageService,
   ) {}
 
   async findAllAdmin(
@@ -2546,6 +2553,53 @@ const clientName =
       );
     }
 
+    for (
+      const item of
+      media
+    ) {
+      if (
+        !this.storageService
+          .isPublicationMediaUrl(
+            item.mediaUrl,
+          )
+      ) {
+        throw new BadRequestException(
+          'Un des médias ne provient pas du stockage sécurisé des publications.',
+        );
+      }
+
+      if (
+        item.mediaType ===
+          'IMAGE' &&
+        (
+          item.posterUrl ||
+          item.posterFrameSeconds !==
+            undefined
+        )
+      ) {
+        throw new BadRequestException(
+          'Une image ne peut pas posséder d’affiche vidéo.',
+        );
+      }
+
+      if (
+        item.mediaType ===
+          'VIDEO'
+      ) {
+        if (
+          !item.posterUrl ||
+          !this.storageService
+            .isPublicationPosterUrl(
+              item.posterUrl,
+            )
+        ) {
+          throw new BadRequestException(
+            'La vidéo doit posséder une affiche générée par le serveur.',
+          );
+        }
+      }
+    }    
+
     if (
       media.length ===
       0
@@ -2822,9 +2876,11 @@ const clientName =
                 null,
 
               poster_url:
+                item.posterUrl ??
                 null,
 
               poster_frame_seconds:
+                item.posterFrameSeconds ??
                 null,
             },
           });
