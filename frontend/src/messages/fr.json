@@ -524,7 +524,7 @@
     "insights": {
       "eyebrow": "Ressources",
       "title": "Articles & actualités",
-      "description": "Cette page rassemblera les articles, actualités, études de cas et retours d’expérience d’Axplify Services.",
+      "description": "Découvrez les analyses, actualités, études de cas et ressources qui permettent de mieux comprendre les usages du digital, de la Data et de l’intelligence artificielle.",
       "seo": {
         "title": "Articles et actualités sur le digital, l’IA et la Data",
         "description": "Retrouvez les articles, conseils, études de cas et actualités d’Axplify Services sur la digitalisation, l’automatisation, l’IA et la Data."
@@ -538,6 +538,10 @@
   "ANNOUNCEMENT": "Annonce",
   "GUIDE": "Guide",
   "RESOURCE": "Ressource"
+},
+"imageViewer": {
+  "open": "Agrandir l’image",
+  "close": "Fermer l’image"
 },
 "filters": {
   "all": "Toutes les publications"

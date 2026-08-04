@@ -11,6 +11,10 @@ import {
   setRequestLocale,
 } from 'next-intl/server';
 
+import {
+  PublicationCoverLightbox,
+} from '@/components/insights/publication-cover-lightbox';
+
 import type {
   AppLocale,
 } from '@/i18n/routing';
@@ -227,25 +231,86 @@ export default async function PublicationPage({
         </div>
       </header>
 
-      {
-        publication.coverMedia
-          ? (
-              <div className="site-container publication-page__cover">
-                <img
-                  src={
-                    publication.coverMedia
-                      .cardImageUrl
-                  }
-                  alt={
-                    publication.coverMedia
-                      .altText ||
-                    publication.title
-                  }
-                />
-              </div>
-            )
-          : null
-      }
+{
+  publication.media &&
+  publication.media.length >
+    0
+    ? (
+        <div className="site-container publication-page__cover">
+          <PublicationCoverLightbox
+            media={
+              publication.media
+                .slice()
+                .sort(
+                  (
+                    first,
+                    second,
+                  ) =>
+                    first.sortOrder -
+                    second.sortOrder,
+                )
+            }
+            title={
+              publication.title
+            }
+            openLabel={
+              translations(
+                'imageViewer.open',
+              )
+            }
+            closeLabel={
+              translations(
+                'imageViewer.close',
+              )
+            }
+            previousLabel={
+              translations(
+                'pagination.previous',
+              )
+            }
+            nextLabel={
+              translations(
+                'pagination.next',
+              )
+            }
+          />
+        </div>
+      )
+    : publication.coverMedia
+      ? (
+          <div className="site-container publication-page__cover">
+            <PublicationCoverLightbox
+              media={[
+                publication.coverMedia,
+              ]}
+              title={
+                publication.title
+              }
+              openLabel={
+                translations(
+                  'imageViewer.open',
+                )
+              }
+              closeLabel={
+                translations(
+                  'imageViewer.close',
+                )
+              }
+              previousLabel={
+                translations(
+                  'pagination.previous',
+                )
+              }
+              nextLabel={
+                translations(
+                  'pagination.next',
+                )
+              }
+            />
+          </div>
+        )
+      : null
+}  
 
       <div className="site-container publication-page__content-layout">
         <div

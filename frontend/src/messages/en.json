@@ -523,11 +523,15 @@
     "insights": {
       "eyebrow": "Resources",
       "title": "Articles & news",
-      "description": "This page will bring together Axplify Services articles, news, case studies and business insights.",
+      "description": "Explore analyses, news, case studies and resources that clarify how digital technology, Data and artificial intelligence can support business transformation.",
       "seo": {
         "title": "Digital, AI and Data articles and news",
         "description": "Explore Axplify Services articles, advice, case studies and news about digital transformation, automation, artificial intelligence and Data."
       },
+      "imageViewer": {
+  "open": "Enlarge image",
+  "close": "Close image"
+},
       "filters": {
   "all": "All publications"
 },

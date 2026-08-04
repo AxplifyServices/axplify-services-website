@@ -458,10 +458,10 @@ export function HomeInsightsSection({
           className="home-insights__footer"
           data-reveal="up"
         >
-          <Link
-            href="/insights"
-            className="home-insights__view-all"
-          >
+<Link
+  href="/insights"
+  className="home-services__link home-insights__view-all"
+>
             <span>
               {viewAllLabel}
             </span>
