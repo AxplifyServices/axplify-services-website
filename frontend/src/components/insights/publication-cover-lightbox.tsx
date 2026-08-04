@@ -572,12 +572,9 @@ export function PublicationCoverLightbox({
                   </div>
                 )
               : (
-                  <div
-                    className="publication-gallery__image"
-                    role="button"
-                    tabIndex={
-                      0
-                    }
+                  <button
+                    type="button"
+                    className="publication-gallery__image-button"
                     aria-label={
                       openLabel
                     }
@@ -586,22 +583,6 @@ export function PublicationCoverLightbox({
                         setLightboxIndex(
                           activeIndex,
                         )
-                    }
-                    onKeyDown={
-                      event => {
-                        if (
-                          event.key ===
-                            'Enter' ||
-                          event.key ===
-                            ' '
-                        ) {
-                          event.preventDefault();
-
-                          setLightboxIndex(
-                            activeIndex,
-                          );
-                        }
-                      }
                     }
                   >
                     <img
@@ -614,25 +595,7 @@ export function PublicationCoverLightbox({
                       }
                     />
 
-                    <button
-                      type="button"
-                      className="publication-gallery__expand"
-                      aria-label={
-                        openLabel
-                      }
-                      title={
-                        openLabel
-                      }
-                      onClick={
-                        event => {
-                          event.stopPropagation();
-
-                          setLightboxIndex(
-                            activeIndex,
-                          );
-                        }
-                      }
-                    >
+                    <span className="publication-gallery__expand">
                       <Maximize2
                         size={
                           18
@@ -643,8 +606,8 @@ export function PublicationCoverLightbox({
                       <span>
                         {openLabel}
                       </span>
-                    </button>
-                  </div>
+                    </span>
+                  </button>
                 )
           }
 
