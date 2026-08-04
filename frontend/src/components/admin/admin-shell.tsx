@@ -13,6 +13,7 @@ import {
   LogOut,
   Menu,
   X,
+  Newspaper,
 } from 'lucide-react';
 
 import {
@@ -408,6 +409,40 @@ const pathname =
 
   <span>
     Réalisations
+  </span>
+</Link>
+
+<Link
+  href="/admin/publications"
+  className="admin-sidebar__link"
+  data-active={
+    pathname ===
+      '/admin/publications' ||
+    pathname.startsWith(
+      '/admin/publications/',
+    )
+  }
+  title={
+    isSidebarCollapsed
+      ? 'Articles et actualités'
+      : undefined
+  }
+  onClick={
+    () =>
+      setIsMobileMenuOpen(
+        false,
+      )
+  }
+>
+  <Newspaper
+    size={
+      20
+    }
+    aria-hidden="true"
+  />
+
+  <span>
+    Articles et actualités
   </span>
 </Link>
 
