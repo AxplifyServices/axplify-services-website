@@ -95,25 +95,31 @@ export function HomeServicesSection({
                     )
                   }
                 >
-                  <div
-                    className="home-services__icon"
-                    aria-hidden="true"
-                  >
-                    <Icon
-                      size={22}
-                      strokeWidth={1.9}
-                    />
-                  </div>
+<div className="home-services__card-heading">
+  <div
+    className="home-services__icon"
+    aria-hidden="true"
+  >
+    <Icon
+      size={21}
+      strokeWidth={1.9}
+    />
+  </div>
 
-                  <div className="home-services__card-content">
-                    <h3>
-                      {service.title}
-                    </h3>
+  <h3>
+    {
+      service.title
+    }
+  </h3>
+</div>
 
-                    <p>
-                      {service.description}
-                    </p>
-                  </div>
+<div className="home-services__card-content">
+  <p>
+    {
+      service.description
+    }
+  </p>
+</div>
                 </article>
               );
             },

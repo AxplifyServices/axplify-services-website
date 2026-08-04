@@ -1,11 +1,6 @@
 'use client';
 
 import {
-  Pause,
-  Play,
-} from 'lucide-react';
-
-import {
   useMemo,
   useState,
 } from 'react';
@@ -18,6 +13,11 @@ type HomeClientsSectionProps = {
   title:
     string;
 
+  /*
+   * Ces propriétés restent temporairement acceptées afin de ne pas
+   * casser l’appel existant dans la page d’accueil.
+   * Elles ne sont plus affichées dans l’interface.
+   */
   introduction:
     string;
 
@@ -61,9 +61,9 @@ function LogoRow({
     );
 
   /*
-   * La répétition est purement visuelle.
-   * Les clients ne sont pas dupliqués dans les données
-   * et restent uniques côté API et administration.
+   * Chaque ligne possède ses propres clients.
+   * La répétition ci-dessous sert uniquement à assurer
+   * une animation continue dans cette ligne.
    */
   const repeatedClients =
     useMemo(
@@ -107,34 +107,6 @@ function LogoRow({
             )
         }
       >
-        <span className="home-clients__row-action">
-          {
-            isPaused
-              ? (
-                  <Play
-                    size={
-                      16
-                    }
-                    aria-hidden="true"
-                  />
-                )
-              : (
-                  <Pause
-                    size={
-                      16
-                    }
-                    aria-hidden="true"
-                  />
-                )
-          }
-
-          <span>
-            {
-              actionLabel
-            }
-          </span>
-        </span>
-
         <span className="home-clients__track">
           {
             repeatedClients.map(
@@ -197,22 +169,46 @@ function LogoRow({
 
 export function HomeClientsSection({
   title,
-  introduction,
   pauseLabel,
   resumeLabel,
   clients,
 }: HomeClientsSectionProps) {
-  /*
-   * Le backend retourne déjà un tableau vide sous trois clients.
-   * Cette seconde protection évite tout affichage accidentel
-   * si le contrat de l’API change plus tard.
-   */
   if (
     clients.length <
     3
   ) {
     return null;
   }
+
+  /*
+   * Répartition unique :
+   * - indices pairs dans la première ligne ;
+   * - indices impairs dans la seconde.
+   *
+   * Un même client ne peut donc jamais apparaître
+   * simultanément dans les deux lignes.
+   */
+  const firstRowClients =
+    clients.filter(
+      (
+        _client,
+        index,
+      ) =>
+        index %
+          2 ===
+        0,
+    );
+
+  const secondRowClients =
+    clients.filter(
+      (
+        _client,
+        index,
+      ) =>
+        index %
+          2 ===
+        1,
+    );
 
   return (
     <section
@@ -226,19 +222,13 @@ export function HomeClientsSection({
               title
             }
           </h2>
-
-          <p>
-            {
-              introduction
-            }
-          </p>
         </header>
       </div>
 
       <div className="home-clients__rows">
         <LogoRow
           clients={
-            clients
+            firstRowClients
           }
           direction="right"
           pauseLabel={
@@ -251,7 +241,7 @@ export function HomeClientsSection({
 
         <LogoRow
           clients={
-            clients
+            secondRowClients
           }
           direction="left"
           pauseLabel={

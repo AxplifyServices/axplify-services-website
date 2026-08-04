@@ -83,9 +83,6 @@ type ProjectsFiltersProps = {
     ProjectExpertiseCode |
     'all';
 
-  filteredProjectsCount:
-    number;
-
   filters:
     ProjectsPageContentProps['filters'];
 
@@ -110,33 +107,21 @@ type ProjectsFiltersProps = {
 
 function ProjectsFilters({
   selectedExpertise,
-  filteredProjectsCount,
   filters,
   expertiseOptions,
   onSelect,
   onClose,
   mobile = false,
 }: ProjectsFiltersProps) {
-  const resultLabel =
-    filteredProjectsCount ===
-      1
-      ? filters.singleResult
-      : filters.results;
 
   return (
     <div className="projects-filters">
-      <header className="projects-filters__header">
-        <div>
-          <span className="projects-filters__eyebrow">
-            Axplify Services
-          </span>
-
-          <h2>
-            {
-              filters.label
-            }
-          </h2>
-        </div>
+<header className="projects-filters__header">
+  <h2>
+    {
+      filters.label
+    }
+  </h2>
 
         {
           mobile &&
@@ -163,17 +148,6 @@ function ProjectsFilters({
             : null
         }
       </header>
-
-      <p className="projects-filters__count">
-        <strong>
-          {
-            filteredProjectsCount
-          }
-        </strong>{' '}
-        {
-          resultLabel
-        }
-      </p>
 
       <div
         className="projects-filters__list"
@@ -480,18 +454,6 @@ export function ProjectsPageContent({
                   : null
               }
             </button>
-
-            <span className="projects-page__mobile-count">
-              {
-                filteredProjects.length
-              }{' '}
-              {
-                filteredProjects.length ===
-                  1
-                  ? filters.singleResult
-                  : filters.results
-              }
-            </span>
           </div>
 
           <div className="projects-page__layout">
@@ -499,9 +461,6 @@ export function ProjectsPageContent({
               <ProjectsFilters
                 selectedExpertise={
                   selectedExpertise
-                }
-                filteredProjectsCount={
-                  filteredProjects.length
                 }
                 filters={
                   filters
