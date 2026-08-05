@@ -1707,15 +1707,19 @@ export class PublicationsService {
       return null;
     }
 
+    const resolvedMedia =
+      this.resolvePublicMedia(
+        publication
+          .publication_media,
+        requestedLocale,
+      );
+
     const coverMedia =
-      publication
-        .publication_media
-        .find(
-          media =>
-            media.is_card_cover,
-        ) ??
-      publication
-        .publication_media[0] ??
+      resolvedMedia.media.find(
+        media =>
+          media.is_card_cover,
+      ) ??
+      resolvedMedia.media[0] ??
       null;
 
     const mappedCoverMedia =
@@ -1728,15 +1732,13 @@ export class PublicationsService {
 
     const mappedMedia =
       includeBody
-        ? publication
-            .publication_media
-            .map(
-              media =>
-                this.mapPublicMedia(
-                  media,
-                  requestedLocale,
-                ),
-            )
+        ? resolvedMedia.media.map(
+            media =>
+              this.mapPublicMedia(
+                media,
+                requestedLocale,
+              ),
+          )
         : undefined;
 
     const projects =
@@ -1974,6 +1976,71 @@ const clientName =
         publication.updated_at,
     };
   }
+
+  private resolvePublicMedia(
+    media:
+      Prisma.publication_mediaGetPayload<{
+        include: {
+          publication_media_translations:
+            true;
+        };
+      }>[],
+    requestedLocale:
+      PublicPublicationLocale,
+  ) {
+    const localePriority:
+      PublicationLocale[] =
+      requestedLocale ===
+        'fr'
+        ? [
+            'fr',
+            'en',
+          ]
+        : [
+            'en',
+            'fr',
+          ];
+
+    for (
+      const locale of
+      localePriority
+    ) {
+      const localizedMedia =
+        media
+          .filter(
+            item =>
+              item.locale ===
+              locale,
+          )
+          .sort(
+            (
+              first,
+              second,
+            ) =>
+              first.sort_order -
+              second.sort_order,
+          );
+
+      if (
+        localizedMedia.length >
+        0
+      ) {
+        return {
+          locale,
+          media:
+            localizedMedia,
+        };
+      }
+    }
+
+    return {
+      locale:
+        null,
+
+      media:
+        [],
+    };
+  }  
 
   private mapPublicMedia(
     media:
@@ -2548,19 +2615,57 @@ const clientName =
     media:
       PublicationMediaInputDto[],
   ) {
-    if (
-      media.length >
-      MAX_PUBLICATION_MEDIA
+    const mediaByLocale =
+      new Map<
+        PublicationLocale,
+        PublicationMediaInputDto[]
+      >();
+
+    for (
+      const locale of
+      PUBLICATION_LOCALES
     ) {
-      throw new BadRequestException(
-        'Une publication ne peut pas contenir plus de 5 médias.',
+      mediaByLocale.set(
+        locale,
+        media.filter(
+          item =>
+            item.locale ===
+            locale,
+        ),
       );
+    }
+
+    for (
+      const [
+        locale,
+        localeMedia,
+      ] of
+      mediaByLocale
+    ) {
+      if (
+        localeMedia.length >
+        MAX_PUBLICATION_MEDIA
+      ) {
+        throw new BadRequestException(
+          `Une publication ne peut pas contenir plus de ${MAX_PUBLICATION_MEDIA} médias pour la langue ${locale.toUpperCase()}.`,
+        );
+      }
     }
 
     for (
       const item of
       media
     ) {
+      if (
+        !PUBLICATION_LOCALES.includes(
+          item.locale,
+        )
+      ) {
+        throw new BadRequestException(
+          'La langue d’un média est invalide.',
+        );
+      }
+
       if (
         !this.storageService
           .isPublicationMediaUrl(
@@ -2602,78 +2707,95 @@ const clientName =
           );
         }
       }
-    }    
-
-    if (
-      media.length ===
-      0
-    ) {
-      return [];
     }
 
-    const selectedIndexes =
-      media
-        .map(
+    const normalizedMedia:
+      PublicationMediaInputDto[] =
+      [];
+
+    for (
+      const locale of
+      PUBLICATION_LOCALES
+    ) {
+      const localeMedia =
+        mediaByLocale.get(
+          locale,
+        ) ?? [];
+
+      if (
+        localeMedia.length ===
+        0
+      ) {
+        continue;
+      }
+
+      const selectedIndexes =
+        localeMedia
+          .map(
+            (
+              item,
+              index,
+            ) =>
+              item.isCardCover
+                ? index
+                : -1,
+          )
+          .filter(
+            index =>
+              index >=
+              0,
+          );
+
+      if (
+        selectedIndexes.length >
+        1
+      ) {
+        throw new BadRequestException(
+          `Un seul média peut être utilisé comme affiche pour la langue ${locale.toUpperCase()}.`,
+        );
+      }
+
+      let coverIndex =
+        selectedIndexes[0];
+
+      if (
+        coverIndex ===
+        undefined
+      ) {
+        const firstImageIndex =
+          localeMedia.findIndex(
+            item =>
+              item.mediaType ===
+              'IMAGE',
+          );
+
+        coverIndex =
+          firstImageIndex >=
+          0
+            ? firstImageIndex
+            : 0;
+      }
+
+      normalizedMedia.push(
+        ...localeMedia.map(
           (
             item,
             index,
-          ) =>
-            item.isCardCover
-              ? index
-              : -1,
-        )
-        .filter(
-          index =>
-            index >=
-            0,
-        );
+          ) => ({
+            ...item,
 
-    if (
-      selectedIndexes.length >
-      1
-    ) {
-      throw new BadRequestException(
-        'Un seul média peut être utilisé comme affiche.',
+            isCardCover:
+              index ===
+              coverIndex,
+
+            sortOrder:
+              index,
+          }),
+        ),
       );
     }
 
-    let coverIndex =
-      selectedIndexes[0];
-
-    if (
-      coverIndex ===
-      undefined
-    ) {
-      const firstImageIndex =
-        media.findIndex(
-          item =>
-            item.mediaType ===
-            'IMAGE',
-        );
-
-      coverIndex =
-        firstImageIndex >=
-        0
-          ? firstImageIndex
-          : 0;
-    }
-
-    return media.map(
-      (
-        item,
-        index,
-      ) => ({
-        ...item,
-
-        isCardCover:
-          index ===
-          coverIndex,
-
-        sortOrder:
-          item.sortOrder ??
-          index,
-      }),
-    );
+    return normalizedMedia;
   }
 
   private async validateProjects(
@@ -2852,12 +2974,15 @@ private async createTranslations(
         await tx
           .publication_media
           .create({
-            data: {
-              publication_id:
-                publicationId,
+data: {
+  publication_id:
+    publicationId,
 
-              media_type:
-                item.mediaType,
+  locale:
+    item.locale,
+
+  media_type:
+    item.mediaType,
 
               media_url:
                 item.mediaUrl,
@@ -2993,66 +3118,89 @@ private async createTranslations(
       );
     }
 
-    const coverMedia =
-      publication
-        .publication_media
-        .filter(
+    for (
+      const locale of
+      PUBLICATION_LOCALES
+    ) {
+      const localeMedia =
+        publication
+          .publication_media
+          .filter(
+            media =>
+              media.locale ===
+              locale,
+          );
+
+      if (
+        localeMedia.length ===
+        0
+      ) {
+        continue;
+      }
+
+      const coverMedia =
+        localeMedia.filter(
           media =>
             media.is_card_cover,
         );
 
-    if (
-      coverMedia.length !==
-      1
-    ) {
-      throw new BadRequestException(
-        'Sélectionnez exactement un média d’affiche.',
-      );
-    }
-
-    const cover =
-      coverMedia[0];
-
-    if (
-      cover.media_type ===
-        'VIDEO' &&
-      !cover.poster_url
-    ) {
-      throw new BadRequestException(
-        'La vidéo d’affiche doit disposer d’une image extraite avant publication.',
-      );
-    }
-
-    if (
-      cover.media_type ===
-        'IMAGE'
-    ) {
-      const coverTranslation =
-        cover
-          .publication_media_translations
-          .find(
-            translation =>
-              translation.locale ===
-              primaryTranslation.locale,
-          ) ??
-        cover
-          .publication_media_translations[0];
-
-      const alternativeText =
-        coverTranslation
-          ?.alt_text ??
-        primaryTranslation
-          .cover_alt_text;
-
       if (
-        !alternativeText?.trim()
+        coverMedia.length !==
+        1
       ) {
         throw new BadRequestException(
-          'Le média d’affiche doit avoir un texte alternatif avant publication.',
+          `Sélectionnez exactement un média d’affiche pour la langue ${locale.toUpperCase()}.`,
         );
       }
-    }
 
+      const cover =
+        coverMedia[0];
+
+      if (
+        cover.media_type ===
+          'VIDEO' &&
+        !cover.poster_url
+      ) {
+        throw new BadRequestException(
+          `La vidéo d’affiche ${locale.toUpperCase()} doit disposer d’une image extraite avant publication.`,
+        );
+      }
+
+      if (
+        cover.media_type ===
+          'IMAGE'
+      ) {
+        const coverTranslation =
+          cover
+            .publication_media_translations
+            .find(
+              translation =>
+                translation.locale ===
+                locale,
+            );
+
+        const publicationTranslation =
+          translations.find(
+            translation =>
+              translation.locale ===
+              locale,
+          );
+
+        const alternativeText =
+          coverTranslation
+            ?.alt_text ??
+          publicationTranslation
+            ?.cover_alt_text;
+
+        if (
+          !alternativeText?.trim()
+        ) {
+          throw new BadRequestException(
+            `Le média d’affiche ${locale.toUpperCase()} doit avoir un texte alternatif avant publication.`,
+          );
+        }
+      }
+    }
     if (
       publication.content_type ===
       'EVENT'
@@ -3227,6 +3375,9 @@ private async createTranslations(
             media => ({
               id:
                 media.id,
+
+        locale:
+          media.locale,                
 
               mediaType:
                 media.media_type,

@@ -233,11 +233,14 @@ model publication_media {
   is_card_cover                  Boolean                          @default(false)
   poster_url                     String?
   poster_frame_seconds           Decimal?                         @db.Decimal(10, 3)
+  locale                         String                           @default("fr") @db.VarChar(5)
   publications                   publications                     @relation(fields: [publication_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "publication_media_publication_foreign_key")
   publication_media_translations publication_media_translations[]
 
   @@index([publication_id, is_card_cover(sort: Desc), sort_order, created_at], map: "publication_media_publication_index")
   @@index([publication_id, is_card_cover], map: "publication_media_card_cover_lookup_index")
+  @@index([publication_id, locale, is_card_cover], map: "publication_media_cover_locale_lookup_index")
+  @@index([publication_id, locale, sort_order, created_at], map: "publication_media_publication_locale_index")
 }
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.

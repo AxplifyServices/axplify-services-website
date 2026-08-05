@@ -206,14 +206,18 @@ type PublicationResponse = {
   translations:
     PublicationTranslationResponse[];
 
-  media:
-    Array<{
-      id:
-        string;
+media:
+  Array<{
+    id:
+      string;
 
-      mediaType:
-        'IMAGE' |
-        'VIDEO';
+    locale:
+      'fr' |
+      'en';
+
+    mediaType:
+      'IMAGE' |
+      'VIDEO';
 
       mediaUrl:
         string;
@@ -748,13 +752,16 @@ function mapPublicationMedia(
         first.sortOrder -
         second.sortOrder,
     )
-    .map(
-      item => ({
-        id:
-          item.id,
+.map(
+  item => ({
+    id:
+      item.id,
 
-        mediaType:
-          item.mediaType,
+    locale:
+      item.locale,
+
+    mediaType:
+      item.mediaType,
 
         mediaUrl:
           item.mediaUrl,
@@ -1338,14 +1345,14 @@ export function PublicationEditor({
       expertiseCodes:
         form.expertiseCodes,
 
-      media:
-        form.media.map(
-          (
-            item,
-            index,
-          ) => ({
-            mediaType:
-              item.mediaType,
+media:
+  form.media.map(
+    item => ({
+      locale:
+        item.locale,
+
+      mediaType:
+        item.mediaType,
 
             mediaUrl:
               item.mediaUrl,
@@ -1361,8 +1368,8 @@ export function PublicationEditor({
             isCardCover:
               item.isCardCover,
 
-            sortOrder:
-              index,
+sortOrder:
+  item.sortOrder,
 
             width:
               item.width ??

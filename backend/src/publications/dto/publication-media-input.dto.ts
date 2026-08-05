@@ -78,6 +78,16 @@ export class PublicationMediaTranslationInputDto {
 
 export class PublicationMediaInputDto {
   @IsIn(
+    PUBLICATION_LOCALES,
+    {
+      message:
+        'La langue du média est invalide.',
+    },
+  )
+  locale!:
+    PublicationLocale;
+
+  @IsIn(
     PUBLICATION_MEDIA_TYPES,
     {
       message:

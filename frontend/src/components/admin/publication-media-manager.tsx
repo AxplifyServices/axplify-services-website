@@ -50,6 +50,10 @@ export type PublicationMediaItem = {
   id:
     string;
 
+  locale:
+    'fr' |
+    'en';
+
   mediaType:
     PublicationMediaType;
 
@@ -196,6 +200,12 @@ const ALLOWED_VIDEO_TYPES =
     'video/webm',
   ]);
 
+const PUBLICATION_MEDIA_LOCALES =
+  [
+    'fr',
+    'en',
+  ] as const;
+
 function getErrorMessage(
   error:
     unknown,
@@ -231,16 +241,33 @@ function normalizeMediaOrder(
   items:
     PublicationMediaItem[],
 ) {
-  return items.map(
-    (
-      item,
-      index,
-    ) => ({
-      ...item,
+  return PUBLICATION_MEDIA_LOCALES.flatMap(
+    locale =>
+      items
+        .filter(
+          item =>
+            item.locale ===
+            locale,
+        )
+        .sort(
+          (
+            first,
+            second,
+          ) =>
+            first.sortOrder -
+            second.sortOrder,
+        )
+        .map(
+          (
+            item,
+            index,
+          ) => ({
+            ...item,
 
-      sortOrder:
-        index,
-    }),
+            sortOrder:
+              index,
+          }),
+        ),
   );
 }
 
@@ -248,48 +275,47 @@ function ensureSingleCover(
   items:
     PublicationMediaItem[],
 ) {
-  if (
-    items.length ===
-    0
-  ) {
-    return items;
-  }
+  return PUBLICATION_MEDIA_LOCALES.flatMap(
+    locale => {
+      const localeItems =
+        items.filter(
+          item =>
+            item.locale ===
+            locale,
+        );
 
-  const existingCoverIndex =
-    items.findIndex(
-      item =>
-        item.isCardCover,
-    );
+      if (
+        localeItems.length ===
+        0
+      ) {
+        return [];
+      }
 
-  if (
-    existingCoverIndex >=
-    0
-  ) {
-    return items.map(
-      (
-        item,
-        index,
-      ) => ({
-        ...item,
+      const selectedCoverIndex =
+        localeItems.findIndex(
+          item =>
+            item.isCardCover,
+        );
 
-        isCardCover:
-          index ===
-          existingCoverIndex,
-      }),
-    );
-  }
+      const coverIndex =
+        selectedCoverIndex >=
+        0
+          ? selectedCoverIndex
+          : 0;
 
-  return items.map(
-    (
-      item,
-      index,
-    ) => ({
-      ...item,
+      return localeItems.map(
+        (
+          item,
+          index,
+        ) => ({
+          ...item,
 
-      isCardCover:
-        index ===
-        0,
-    }),
+          isCardCover:
+            index ===
+            coverIndex,
+        }),
+      );
+    },
   );
 }
 
@@ -338,11 +364,27 @@ export function PublicationMediaManager({
       false,
     );
 
+  const activeLocaleMedia =
+    media
+      .filter(
+        item =>
+          item.locale ===
+          activeLocale,
+      )
+      .sort(
+        (
+          first,
+          second,
+        ) =>
+          first.sortOrder -
+          second.sortOrder,
+      );
+
   const remainingPlaces =
     Math.max(
       0,
       MAX_MEDIA_COUNT -
-        media.length,
+        activeLocaleMedia.length,
     );
 
   function emitChange(
@@ -388,6 +430,9 @@ export function PublicationMediaManager({
       id:
         createLocalId(),
 
+      locale:
+        activeLocale,
+
       mediaType:
         'IMAGE',
 
@@ -404,7 +449,7 @@ export function PublicationMediaManager({
         false,
 
       sortOrder:
-        0,
+        activeLocaleMedia.length,
 
       width:
         uploaded.width,
@@ -418,18 +463,7 @@ export function PublicationMediaManager({
       translations: [
         {
           locale:
-            'fr',
-
-          altText:
-            '',
-
-          caption:
-            '',
-        },
-
-        {
-          locale:
-            'en',
+            activeLocale,
 
           altText:
             '',
@@ -474,6 +508,9 @@ export function PublicationMediaManager({
       id:
         createLocalId(),
 
+      locale:
+        activeLocale,
+
       mediaType:
         'VIDEO',
 
@@ -490,7 +527,7 @@ export function PublicationMediaManager({
         false,
 
       sortOrder:
-        0,
+        activeLocaleMedia.length,
 
       width:
         uploaded.width,
@@ -504,18 +541,7 @@ export function PublicationMediaManager({
       translations: [
         {
           locale:
-            'fr',
-
-          altText:
-            '',
-
-          caption:
-            '',
-        },
-
-        {
-          locale:
-            'en',
+            activeLocale,
 
           altText:
             '',
@@ -592,7 +618,7 @@ export function PublicationMediaManager({
       0
     ) {
       toast.error(
-        'Une publication ne peut contenir que cinq médias.',
+        `La limite de cinq médias ${activeLocale.toUpperCase()} est atteinte.`,
       );
 
       return;
@@ -608,7 +634,7 @@ export function PublicationMediaManager({
           1
             ? 's'
             : ''
-        }.`,
+        } pour la langue ${activeLocale.toUpperCase()}.`,
       );
 
       return;
@@ -639,7 +665,8 @@ export function PublicationMediaManager({
     );
 
     const importedMedia:
-      PublicationMediaItem[] = [];
+      PublicationMediaItem[] =
+      [];
 
     try {
       for (
@@ -670,8 +697,8 @@ export function PublicationMediaManager({
       toast.success(
         importedMedia.length >
         1
-          ? `${importedMedia.length} médias ont été importés.`
-          : 'Le média a été importé.',
+          ? `${importedMedia.length} médias ${activeLocale.toUpperCase()} ont été importés.`
+          : `Le média ${activeLocale.toUpperCase()} a été importé.`,
       );
     } catch (
       error
@@ -708,43 +735,12 @@ export function PublicationMediaManager({
           ...item,
 
           isCardCover:
-            item.id ===
-            mediaId,
+            item.locale ===
+            activeLocale
+              ? item.id ===
+                mediaId
+              : item.isCardCover,
         }),
-      ),
-    );
-  }
-
-  function removeMedia(
-    mediaId:
-      string,
-  ) {
-    const target =
-      media.find(
-        item =>
-          item.id ===
-          mediaId,
-      );
-
-    if (
-      !target
-    ) {
-      return;
-    }
-
-    if (
-      !window.confirm(
-        'Retirer ce média de la publication ? La modification sera définitive après l’enregistrement.',
-      )
-    ) {
-      return;
-    }
-
-    emitChange(
-      media.filter(
-        item =>
-          item.id !==
-          mediaId,
       ),
     );
   }
@@ -765,18 +761,18 @@ export function PublicationMediaManager({
       destinationIndex <
         0 ||
       destinationIndex >=
-        media.length
+        activeLocaleMedia.length
     ) {
       return;
     }
 
-    const nextMedia =
-      [...media];
+    const reorderedLocaleMedia =
+      activeLocaleMedia.slice();
 
     const [
       movedItem,
     ] =
-      nextMedia.splice(
+      reorderedLocaleMedia.splice(
         currentIndex,
         1,
       );
@@ -787,14 +783,69 @@ export function PublicationMediaManager({
       return;
     }
 
-    nextMedia.splice(
+    reorderedLocaleMedia.splice(
       destinationIndex,
       0,
       movedItem,
     );
 
+    const reorderedIds =
+      new Map(
+        reorderedLocaleMedia.map(
+          (
+            item,
+            index,
+          ) => [
+            item.id,
+            index,
+          ],
+        ),
+      );
+
     emitChange(
-      nextMedia,
+      media.map(
+        item =>
+          item.locale ===
+          activeLocale
+            ? {
+                ...item,
+
+                sortOrder:
+                  reorderedIds.get(
+                    item.id,
+                  ) ??
+                  item.sortOrder,
+              }
+            : item,
+      ),
+    );
+  }
+
+  function removeMedia(
+    mediaId:
+      string,
+  ) {
+    const selectedMedia =
+      media.find(
+        item =>
+          item.id ===
+          mediaId,
+      );
+
+    if (
+      !selectedMedia ||
+      selectedMedia.locale !==
+        activeLocale
+    ) {
+      return;
+    }
+
+    emitChange(
+      media.filter(
+        item =>
+          item.id !==
+          mediaId,
+      ),
     );
   }
 
@@ -814,7 +865,9 @@ export function PublicationMediaManager({
         item => {
           if (
             item.id !==
-            mediaId
+            mediaId ||
+            item.locale !==
+            activeLocale
           ) {
             return item;
           }
@@ -868,13 +921,23 @@ export function PublicationMediaManager({
             </h2>
 
             <p>
-              Ajoutez jusqu’à cinq images ou vidéos. L’ordre défini ici sera conservé sur le site.
+              Ajoutez jusqu’à cinq images ou vidéos pour chaque langue.
+              L’ordre défini ici sera conservé sur le site.
+            </p>
+
+            <p className="publication-media-manager__locale-note">
+              {
+                activeLocale ===
+                  'fr'
+                  ? 'Vous gérez actuellement les médias français.'
+                  : 'Vous gérez actuellement les médias anglais.'
+              }
             </p>
           </div>
         </div>
 
         <span className="publication-media-manager__counter">
-          {media.length}/{MAX_MEDIA_COUNT}
+          {activeLocaleMedia.length}/{MAX_MEDIA_COUNT}
         </span>
       </div>
 
@@ -940,7 +1003,10 @@ export function PublicationMediaManager({
                   {
                     isUploading
                       ? 'Import en cours…'
-                      : 'Importer des images ou vidéos'
+                      : activeLocale ===
+                          'fr'
+                        ? 'Importer les médias français'
+                        : 'Importer les médias anglais'
                   }
                 </span>
 
@@ -951,13 +1017,13 @@ export function PublicationMediaManager({
             )
           : (
               <div className="publication-media-manager__limit">
-                La limite de cinq médias est atteinte.
+                La limite de cinq médias {activeLocale.toUpperCase()} est atteinte.
               </div>
             )
       }
 
       {
-        media.length ===
+        activeLocaleMedia.length ===
         0
           ? (
               <div className="publication-media-manager__empty">
@@ -969,18 +1035,23 @@ export function PublicationMediaManager({
                 />
 
                 <strong>
-                  Aucun média importé
+                  Aucun média {activeLocale.toUpperCase()} importé
                 </strong>
 
                 <p>
-                  Ajoutez au moins un média avant de publier le contenu.
+                  {
+                    activeLocale ===
+                      'fr'
+                      ? 'En l’absence de médias français, le site utilisera les médias anglais lorsqu’ils existent.'
+                      : 'En l’absence de médias anglais, le site utilisera les médias français lorsqu’ils existent.'
+                  }
                 </p>
               </div>
             )
           : (
               <div className="publication-media-manager__list">
                 {
-                  media.map(
+                  activeLocaleMedia.map(
                     (
                       item,
                       index,
@@ -1146,7 +1217,7 @@ export function PublicationMediaManager({
                                   disabled={
                                     disabled ||
                                     index ===
-                                      media.length -
+                                      activeLocaleMedia.length -
                                         1
                                   }
                                   onClick={

@@ -14980,3 +14980,11 @@ html[dir="rtl"]
     width: 100%;
   }
 }
+
+.publication-media-manager__locale-note {
+  margin: 0.35rem 0 0;
+  color: rgba(5, 38, 79, 0.62);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
