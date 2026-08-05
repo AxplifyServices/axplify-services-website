@@ -1461,146 +1461,6 @@ useEffect(
               }
             </p>
           </div>
-
-          <aside className="contact-direct-card">
-            <div className="contact-direct-card__heading">
-              <span className="contact-direct-card__icon">
-                <MessageCircle
-                  size={
-                    22
-                  }
-                  aria-hidden="true"
-                />
-              </span>
-
-              <div>
-                <h2>
-                  {
-                    copy.directContact
-                      .title
-                  }
-                </h2>
-
-                <p>
-                  {
-                    copy.directContact
-                      .description
-                  }
-                </p>
-              </div>
-            </div>
-
-            <div className="contact-direct-card__actions">
-              {
-                whatsappUrl
-                  ? (
-                      <a
-                        href={
-                          whatsappUrl
-                        }
-                        target="_blank"
-                        rel="noreferrer"
-                        className="contact-direct-card__whatsapp"
-                      >
-                        <MessageCircle
-                          size={
-                            20
-                          }
-                          aria-hidden="true"
-                        />
-
-                        <span>
-                          {
-                            copy.directContact
-                              .whatsappLabel
-                          }
-                        </span>
-
-                        <ArrowRight
-                          size={
-                            18
-                          }
-                          aria-hidden="true"
-                        />
-                      </a>
-                    )
-                  : null
-              }
-
-              {
-                publicEmail
-                  ? (
-                      <a
-                        href={
-                          `mailto:${publicEmail}`
-                        }
-                        className="contact-direct-card__line"
-                      >
-                        <Mail
-                          size={
-                            18
-                          }
-                          aria-hidden="true"
-                        />
-
-                        <span>
-                          <small>
-                            {
-                              copy.directContact
-                                .emailLabel
-                            }
-                          </small>
-
-                          <strong>
-                            {
-                              publicEmail
-                            }
-                          </strong>
-                        </span>
-                      </a>
-                    )
-                  : null
-              }
-
-              {
-                publicPhone
-                  ? (
-                      <a
-                        href={
-                          `tel:${publicPhone.replace(
-                            /\s/g,
-                            '',
-                          )}`
-                        }
-                        className="contact-direct-card__line"
-                      >
-                        <Phone
-                          size={
-                            18
-                          }
-                          aria-hidden="true"
-                        />
-
-                        <span>
-                          <small>
-                            {
-                              copy.directContact
-                                .phoneLabel
-                            }
-                          </small>
-
-                          <strong>
-                            {
-                              publicPhone
-                            }
-                          </strong>
-                        </span>
-                      </a>
-                    )
-                  : null
-              }
-            </div>
-          </aside>
         </div>
       </section>
 
@@ -2455,6 +2315,150 @@ useEffect(
               }
             </button>
           </form>
+        </div>
+      </section>
+
+      <section className="contact-direct-section">
+        <div className="site-container">
+          <aside className="contact-direct-card">
+            <div className="contact-direct-card__heading">
+              <span className="contact-direct-card__icon">
+                <MessageCircle
+                  size={
+                    22
+                  }
+                  aria-hidden="true"
+                />
+              </span>
+
+              <div>
+                <h2>
+                  {
+                    copy.directContact
+                      .title
+                  }
+                </h2>
+
+                <p>
+                  {
+                    copy.directContact
+                      .description
+                  }
+                </p>
+              </div>
+            </div>
+
+            <div className="contact-direct-card__actions">
+              {
+                whatsappUrl
+                  ? (
+                      <a
+                        href={
+                          whatsappUrl
+                        }
+                        target="_blank"
+                        rel="noreferrer"
+                        className="contact-direct-card__whatsapp"
+                      >
+                        <MessageCircle
+                          size={
+                            20
+                          }
+                          aria-hidden="true"
+                        />
+
+                        <span>
+                          {
+                            copy.directContact
+                              .whatsappLabel
+                          }
+                        </span>
+
+                        <ArrowRight
+                          size={
+                            18
+                          }
+                          aria-hidden="true"
+                        />
+                      </a>
+                    )
+                  : null
+              }
+
+              {
+                publicEmail
+                  ? (
+                      <a
+                        href={
+                          `mailto:${publicEmail}`
+                        }
+                        className="contact-direct-card__line"
+                      >
+                        <Mail
+                          size={
+                            18
+                          }
+                          aria-hidden="true"
+                        />
+
+                        <span>
+                          <small>
+                            {
+                              copy.directContact
+                                .emailLabel
+                            }
+                          </small>
+
+                          <strong>
+                            {
+                              publicEmail
+                            }
+                          </strong>
+                        </span>
+                      </a>
+                    )
+                  : null
+              }
+
+              {
+                publicPhone
+                  ? (
+                      <a
+                        href={
+                          `tel:${publicPhone.replace(
+                            /\s/g,
+                            '',
+                          )}`
+                        }
+                        className="contact-direct-card__line"
+                      >
+                        <Phone
+                          size={
+                            18
+                          }
+                          aria-hidden="true"
+                        />
+
+                        <span>
+                          <small>
+                            {
+                              copy.directContact
+                                .phoneLabel
+                            }
+                          </small>
+
+                          <strong>
+                            {
+                              publicPhone
+                            }
+                          </strong>
+                        </span>
+                      </a>
+                    )
+                  : null
+              }
+            </div>
+          </aside>
         </div>
       </section>
 

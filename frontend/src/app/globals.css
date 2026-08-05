@@ -15088,13 +15088,11 @@ html[dir="rtl"]
 }
 
 .contact-page__hero-content {
-  display: grid;
-  grid-template-columns:
-    minmax(0, 1.12fr)
-    minmax(20rem, 0.72fr);
-  align-items: center;
-  gap:
-    clamp(2.5rem, 7vw, 7rem);
+  display: block;
+}
+
+.contact-page__hero-copy {
+  max-width: 58rem;
 }
 
 .contact-page__hero-copy {
@@ -15171,6 +15169,28 @@ html[dir="rtl"]
   color: var(--axplify-cyan-bright);
 }
 
+.contact-direct-section {
+  padding:
+    0
+    0
+    clamp(4rem, 7vw, 7rem);
+  background:
+    linear-gradient(
+      145deg,
+      var(--axplify-navy-deep) 0%,
+      var(--axplify-navy) 68%,
+      #07356b 100%
+    );
+}
+
+.contact-direct-section .contact-direct-card {
+  width:
+    min(
+      100%,
+      58rem
+    );
+  margin-inline: auto;
+}
 /* =========================================================
    CONTACT — DIRECT CONTACT CARD
    ========================================================= */
