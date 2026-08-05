@@ -11,6 +11,7 @@ import {
   Images,
   LayoutDashboard,
   LogOut,
+  MailQuestion,
   Menu,
   X,
   Newspaper,
@@ -443,6 +444,40 @@ const pathname =
 
   <span>
     Articles et actualités
+  </span>
+</Link>
+
+<Link
+  href="/admin/contact-requests"
+  className="admin-sidebar__link"
+  data-active={
+    pathname ===
+      '/admin/contact-requests' ||
+    pathname.startsWith(
+      '/admin/contact-requests/',
+    )
+  }
+  title={
+    isSidebarCollapsed
+      ? 'Demandes de contact'
+      : undefined
+  }
+  onClick={
+    () =>
+      setIsMobileMenuOpen(
+        false,
+      )
+  }
+>
+  <MailQuestion
+    size={
+      20
+    }
+    aria-hidden="true"
+  />
+
+  <span>
+    Demandes de contact
   </span>
 </Link>
 

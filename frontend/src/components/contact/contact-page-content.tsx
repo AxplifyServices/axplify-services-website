@@ -19,8 +19,13 @@ import {
 import {
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
+
+import {
+  createPortal,
+} from 'react-dom';
 
 import type {
   ChangeEvent,
@@ -87,6 +92,20 @@ type ContactFormState = {
 
   website:
     string;
+};
+
+type PrivacyModalPosition = {
+  top:
+    number;
+
+  left:
+    number;
+
+  width:
+    number;
+
+  maxHeight:
+    number;
 };
 
 export type ContactPageCopy = {
@@ -552,7 +571,35 @@ export function ContactPageContent({
   ] =
     useState(
       false,
-    );    
+    );   
+    
+const privacyButtonRef =
+  useRef<HTMLButtonElement>(
+    null,
+  );
+
+const privacyDialogRef =
+  useRef<HTMLElement>(
+    null,
+  );
+
+const [
+  privacyModalPosition,
+  setPrivacyModalPosition,
+] =
+  useState<PrivacyModalPosition>({
+    top:
+      16,
+
+    left:
+      16,
+
+    width:
+      320,
+
+    maxHeight:
+      500,
+  });    
 
   const normalizedWhatsappNumber =
     useMemo(
@@ -616,54 +663,235 @@ export function ContactPageContent({
       [],
     );
 
-  useEffect(
-    () => {
+function updatePrivacyModalPosition() {
+  const trigger =
+    privacyButtonRef.current;
+
+  if (
+    !trigger
+  ) {
+    return;
+  }
+
+  const triggerRect =
+    trigger.getBoundingClientRect();
+
+  const viewportWidth =
+    window.innerWidth;
+
+  const viewportHeight =
+    window.innerHeight;
+
+  const margin =
+    viewportWidth <=
+    736
+      ? 10
+      : 16;
+
+  const gap =
+    10;
+
+  const desiredWidth =
+    viewportWidth <=
+    736
+      ? viewportWidth -
+        margin *
+          2
+      : Math.min(
+          560,
+          viewportWidth -
+            margin *
+              2,
+        );
+
+  const maximumHeight =
+    Math.min(
+      620,
+      viewportHeight -
+        margin *
+          2,
+    );
+
+  const measuredHeight =
+    privacyDialogRef.current
+      ?.getBoundingClientRect()
+      .height ??
+    maximumHeight;
+
+  const effectiveHeight =
+    Math.min(
+      measuredHeight,
+      maximumHeight,
+    );
+
+  const isRtl =
+    document.documentElement
+      .dir ===
+    'rtl';
+
+  const preferredLeft =
+    triggerRect.left +
+    triggerRect.width /
+      2 -
+    desiredWidth /
+      2;
+
+  const left =
+    Math.min(
+      Math.max(
+        preferredLeft,
+        margin,
+      ),
+      viewportWidth -
+        desiredWidth -
+        margin,
+    );
+
+  const spaceBelow =
+    viewportHeight -
+    triggerRect.bottom -
+    margin -
+    gap;
+
+  const spaceAbove =
+    triggerRect.top -
+    margin -
+    gap;
+
+  let top:
+    number;
+
+  if (
+    spaceBelow >=
+    Math.min(
+      effectiveHeight,
+      360,
+    )
+  ) {
+    top =
+      triggerRect.bottom +
+      gap;
+  } else if (
+    spaceAbove >=
+    Math.min(
+      effectiveHeight,
+      360,
+    )
+  ) {
+    top =
+      triggerRect.top -
+      effectiveHeight -
+      gap;
+  } else {
+    top =
+      Math.min(
+        Math.max(
+          triggerRect.top -
+            effectiveHeight /
+              2,
+          margin,
+        ),
+        viewportHeight -
+          effectiveHeight -
+          margin,
+      );
+  }
+
+  setPrivacyModalPosition({
+    top,
+
+    left,
+
+    width:
+      desiredWidth,
+
+    maxHeight:
+      maximumHeight,
+  });
+}
+
+function openPrivacyModal() {
+  updatePrivacyModalPosition();
+
+  setIsPrivacyModalOpen(
+    true,
+  );
+}    
+
+useEffect(
+  () => {
+    if (
+      !isPrivacyModalOpen
+    ) {
+      return;
+    }
+
+    function handleKeyDown(
+      event:
+        KeyboardEvent,
+    ) {
       if (
-        !isPrivacyModalOpen
+        event.key ===
+        'Escape'
       ) {
-        return;
+        event.preventDefault();
+
+        setIsPrivacyModalOpen(
+          false,
+        );
       }
+    }
 
-      function handleKeyDown(
-        event:
-          KeyboardEvent,
-      ) {
-        if (
-          event.key ===
-          'Escape'
-        ) {
-          setIsPrivacyModalOpen(
-            false,
-          );
-        }
-      }
+    function handleViewportChange() {
+      updatePrivacyModalPosition();
+    }
 
-      const previousOverflow =
-        document.body.style
-          .overflow;
+    const previousOverflow =
+      document.body.style
+        .overflow;
 
+    document.body.style.overflow =
+      'hidden';
+
+    window.requestAnimationFrame(
+      () => {
+        updatePrivacyModalPosition();
+
+        window.requestAnimationFrame(
+          updatePrivacyModalPosition,
+        );
+      },
+    );
+
+    window.addEventListener(
+      'keydown',
+      handleKeyDown,
+    );
+
+    window.addEventListener(
+      'resize',
+      handleViewportChange,
+    );
+
+    return () => {
       document.body.style.overflow =
-        'hidden';
+        previousOverflow;
 
-      window.addEventListener(
+      window.removeEventListener(
         'keydown',
         handleKeyDown,
       );
 
-      return () => {
-        document.body.style.overflow =
-          previousOverflow;
-
-        window.removeEventListener(
-          'keydown',
-          handleKeyDown,
-        );
-      };
-    },
-    [
-      isPrivacyModalOpen,
-    ],
-  );    
+      window.removeEventListener(
+        'resize',
+        handleViewportChange,
+      );
+    };
+  },
+  [
+    isPrivacyModalOpen,
+  ],
+);    
 
   function updateTextField(
     event:
@@ -2127,16 +2355,22 @@ export function ContactPageContent({
                 {' '}
 
 <button
+  ref={
+    privacyButtonRef
+  }
   type="button"
   className="contact-form__privacy-button"
+  aria-haspopup="dialog"
+  aria-expanded={
+    isPrivacyModalOpen
+  }
+  aria-controls="contact-privacy-modal-dialog"
   onClick={
     event => {
       event.preventDefault();
       event.stopPropagation();
 
-      setIsPrivacyModalOpen(
-        true,
-      );
+      openPrivacyModal();
     }
   }
 >
@@ -2225,8 +2459,10 @@ export function ContactPageContent({
       </section>
 
       {
-        isPrivacyModalOpen
-          ? (
+        isPrivacyModalOpen &&
+        typeof document !==
+          'undefined'
+          ? createPortal(
               <div
                 className="contact-privacy-modal"
                 role="presentation"
@@ -2243,12 +2479,29 @@ export function ContactPageContent({
                   }
                 }
               >
-                <section
-                  className="contact-privacy-modal__dialog"
-                  role="dialog"
-                  aria-modal="true"
-                  aria-labelledby="contact-privacy-modal-title"
-                >
+<section
+  ref={
+    privacyDialogRef
+  }
+  id="contact-privacy-modal-dialog"
+  className="contact-privacy-modal__dialog"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="contact-privacy-modal-title"
+  style={{
+    top:
+      `${privacyModalPosition.top}px`,
+
+    left:
+      `${privacyModalPosition.left}px`,
+
+    width:
+      `${privacyModalPosition.width}px`,
+
+    maxHeight:
+      `${privacyModalPosition.maxHeight}px`,
+  }}
+>
                   <div className="contact-privacy-modal__header">
                     <div>
                       <p className="eyebrow">
@@ -2463,7 +2716,8 @@ export function ContactPageContent({
                     </button>
                   </div>
                 </section>
-              </div>
+              </div>,
+              document.body,
             )
           : null
       }
