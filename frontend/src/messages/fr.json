@@ -677,11 +677,41 @@
         "remove": "Supprimer cette disponibilité",
         "maximum": "Trois disponibilités maximum."
       },
-      "privacy": {
-        "prefix": "J’accepte que mes informations soient utilisées afin de traiter ma demande conformément à la",
-        "linkLabel": "politique de confidentialité",
-        "suffix": "."
-      },
+"privacy": {
+  "prefix": "J’accepte que mes informations soient utilisées afin de traiter ma demande conformément à la",
+  "linkLabel": "politique de confidentialité",
+  "suffix": ".",
+  "modal": {
+    "eyebrow": "Protection de vos informations",
+    "title": "Comment utilisons-nous les données de ce formulaire ?",
+    "introduction": "Les informations que vous transmettez sont utilisées uniquement pour comprendre votre besoin, vous répondre et, lorsque vous le demandez, organiser un rendez-vous avec Axplify Services.",
+    "collectedDataTitle": "Informations enregistrées",
+    "collectedData": [
+      "Votre nom, votre prénom et vos coordonnées professionnelles.",
+      "Le nom de votre entreprise et votre fonction.",
+      "La description de votre besoin.",
+      "Vos éventuelles disponibilités pour un rendez-vous.",
+      "L’origine de la demande et certaines informations techniques nécessaires à la sécurité du formulaire."
+    ],
+    "purposesTitle": "Pourquoi collectons-nous ces informations ?",
+    "purposes": [
+      "Étudier et qualifier votre demande.",
+      "Vous recontacter par téléphone ou par e-mail.",
+      "Préparer et organiser un éventuel rendez-vous.",
+      "Assurer le suivi de la demande dans notre interface administrative.",
+      "Protéger le formulaire contre les abus et les envois automatisés."
+    ],
+    "accessTitle": "Qui peut accéder à ces informations ?",
+    "accessDescription": "Seuls les administrateurs autorisés d’Axplify Services et les prestataires techniques strictement nécessaires au fonctionnement sécurisé du site peuvent y accéder.",
+    "retentionTitle": "Combien de temps sont-elles conservées ?",
+    "retentionDescription": "Les informations sont conservées pendant la durée nécessaire au traitement et au suivi de votre demande, puis supprimées ou archivées conformément aux obligations applicables et aux procédures internes d’Axplify Services.",
+    "rightsTitle": "Quels sont vos droits ?",
+    "rightsDescription": "Vous pouvez demander l’accès, la rectification ou la suppression de vos informations, ainsi que vous opposer à leur utilisation lorsque la réglementation applicable le permet, en contactant Axplify Services.",
+    "securityTitle": "Comment sont-elles protégées ?",
+    "securityDescription": "Les demandes sont enregistrées dans une interface administrative protégée, accessible uniquement aux utilisateurs autorisés. Des mesures techniques et organisationnelles sont appliquées pour limiter les accès non autorisés.",
+    "close": "J’ai compris"
+  }
+},
       "submit": "Envoyer ma demande",
       "submitting": "Envoi en cours…",
       "required": "Les champs suivis d’un astérisque sont obligatoires."

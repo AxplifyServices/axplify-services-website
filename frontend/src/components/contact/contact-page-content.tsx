@@ -13,9 +13,11 @@ import {
   Send,
   Trash2,
   UserRound,
+  X,
 } from 'lucide-react';
 
 import {
+  useEffect,
   useMemo,
   useState,
 } from 'react';
@@ -257,6 +259,56 @@ export type ContactPageCopy = {
 
       suffix:
         string;
+
+      modal: {
+        eyebrow:
+          string;
+
+        title:
+          string;
+
+        introduction:
+          string;
+
+        collectedDataTitle:
+          string;
+
+        collectedData:
+          string[];
+
+        purposesTitle:
+          string;
+
+        purposes:
+          string[];
+
+        accessTitle:
+          string;
+
+        accessDescription:
+          string;
+
+        retentionTitle:
+          string;
+
+        retentionDescription:
+          string;
+
+        rightsTitle:
+          string;
+
+        rightsDescription:
+          string;
+
+        securityTitle:
+          string;
+
+        securityDescription:
+          string;
+
+        close:
+          string;
+      };
     };
 
     submit:
@@ -494,6 +546,14 @@ export function ContactPageContent({
       null,
     );
 
+  const [
+    isPrivacyModalOpen,
+    setIsPrivacyModalOpen,
+  ] =
+    useState(
+      false,
+    );    
+
   const normalizedWhatsappNumber =
     useMemo(
       () =>
@@ -555,6 +615,55 @@ export function ContactPageContent({
       },
       [],
     );
+
+  useEffect(
+    () => {
+      if (
+        !isPrivacyModalOpen
+      ) {
+        return;
+      }
+
+      function handleKeyDown(
+        event:
+          KeyboardEvent,
+      ) {
+        if (
+          event.key ===
+          'Escape'
+        ) {
+          setIsPrivacyModalOpen(
+            false,
+          );
+        }
+      }
+
+      const previousOverflow =
+        document.body.style
+          .overflow;
+
+      document.body.style.overflow =
+        'hidden';
+
+      window.addEventListener(
+        'keydown',
+        handleKeyDown,
+      );
+
+      return () => {
+        document.body.style.overflow =
+          previousOverflow;
+
+        window.removeEventListener(
+          'keydown',
+          handleKeyDown,
+        );
+      };
+    },
+    [
+      isPrivacyModalOpen,
+    ],
+  );    
 
   function updateTextField(
     event:
@@ -2017,13 +2126,26 @@ export function ContactPageContent({
 
                 {' '}
 
-<strong>
+<button
+  type="button"
+  className="contact-form__privacy-button"
+  onClick={
+    event => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      setIsPrivacyModalOpen(
+        true,
+      );
+    }
+  }
+>
   {
     copy.form
       .privacy
       .linkLabel
   }
-</strong>
+</button>
 
                 {
                   copy.form
@@ -2101,6 +2223,250 @@ export function ContactPageContent({
           </form>
         </div>
       </section>
+
+      {
+        isPrivacyModalOpen
+          ? (
+              <div
+                className="contact-privacy-modal"
+                role="presentation"
+                onMouseDown={
+                  event => {
+                    if (
+                      event.target ===
+                      event.currentTarget
+                    ) {
+                      setIsPrivacyModalOpen(
+                        false,
+                      );
+                    }
+                  }
+                }
+              >
+                <section
+                  className="contact-privacy-modal__dialog"
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby="contact-privacy-modal-title"
+                >
+                  <div className="contact-privacy-modal__header">
+                    <div>
+                      <p className="eyebrow">
+                        {
+                          copy.form
+                            .privacy
+                            .modal
+                            .eyebrow
+                        }
+                      </p>
+
+                      <h2 id="contact-privacy-modal-title">
+                        {
+                          copy.form
+                            .privacy
+                            .modal
+                            .title
+                        }
+                      </h2>
+                    </div>
+
+                    <button
+                      type="button"
+                      className="contact-privacy-modal__close"
+                      onClick={
+                        () =>
+                          setIsPrivacyModalOpen(
+                            false,
+                          )
+                      }
+                      aria-label={
+                        copy.form
+                          .privacy
+                          .modal
+                          .close
+                      }
+                    >
+                      <X
+                        size={
+                          21
+                        }
+                        aria-hidden="true"
+                      />
+                    </button>
+                  </div>
+
+                  <div className="contact-privacy-modal__content">
+                    <p className="contact-privacy-modal__introduction">
+                      {
+                        copy.form
+                          .privacy
+                          .modal
+                          .introduction
+                      }
+                    </p>
+
+                    <article>
+                      <h3>
+                        {
+                          copy.form
+                            .privacy
+                            .modal
+                            .collectedDataTitle
+                        }
+                      </h3>
+
+                      <ul>
+                        {
+                          copy.form
+                            .privacy
+                            .modal
+                            .collectedData
+                            .map(
+                              item => (
+                                <li key={item}>
+                                  {
+                                    item
+                                  }
+                                </li>
+                              ),
+                            )
+                        }
+                      </ul>
+                    </article>
+
+                    <article>
+                      <h3>
+                        {
+                          copy.form
+                            .privacy
+                            .modal
+                            .purposesTitle
+                        }
+                      </h3>
+
+                      <ul>
+                        {
+                          copy.form
+                            .privacy
+                            .modal
+                            .purposes
+                            .map(
+                              item => (
+                                <li key={item}>
+                                  {
+                                    item
+                                  }
+                                </li>
+                              ),
+                            )
+                        }
+                      </ul>
+                    </article>
+
+                    <article>
+                      <h3>
+                        {
+                          copy.form
+                            .privacy
+                            .modal
+                            .accessTitle
+                        }
+                      </h3>
+
+                      <p>
+                        {
+                          copy.form
+                            .privacy
+                            .modal
+                            .accessDescription
+                        }
+                      </p>
+                    </article>
+
+                    <article>
+                      <h3>
+                        {
+                          copy.form
+                            .privacy
+                            .modal
+                            .retentionTitle
+                        }
+                      </h3>
+
+                      <p>
+                        {
+                          copy.form
+                            .privacy
+                            .modal
+                            .retentionDescription
+                        }
+                      </p>
+                    </article>
+
+                    <article>
+                      <h3>
+                        {
+                          copy.form
+                            .privacy
+                            .modal
+                            .rightsTitle
+                        }
+                      </h3>
+
+                      <p>
+                        {
+                          copy.form
+                            .privacy
+                            .modal
+                            .rightsDescription
+                        }
+                      </p>
+                    </article>
+
+                    <article>
+                      <h3>
+                        {
+                          copy.form
+                            .privacy
+                            .modal
+                            .securityTitle
+                        }
+                      </h3>
+
+                      <p>
+                        {
+                          copy.form
+                            .privacy
+                            .modal
+                            .securityDescription
+                        }
+                      </p>
+                    </article>
+                  </div>
+
+                  <div className="contact-privacy-modal__footer">
+                    <button
+                      type="button"
+                      onClick={
+                        () =>
+                          setIsPrivacyModalOpen(
+                            false,
+                          )
+                      }
+                    >
+                      {
+                        copy.form
+                          .privacy
+                          .modal
+                          .close
+                      }
+                    </button>
+                  </div>
+                </section>
+              </div>
+            )
+          : null
+      }
     </main>
   );
 }

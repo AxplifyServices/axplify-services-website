@@ -676,11 +676,41 @@
         "remove": "Remove this availability",
         "maximum": "A maximum of three availabilities."
       },
-      "privacy": {
-        "prefix": "I agree that my information may be used to process my request in accordance with the",
-        "linkLabel": "privacy policy",
-        "suffix": "."
-      },
+"privacy": {
+  "prefix": "I agree that my information may be used to process my request in accordance with the",
+  "linkLabel": "privacy policy",
+  "suffix": ".",
+  "modal": {
+    "eyebrow": "Protecting your information",
+    "title": "How do we use the information submitted through this form?",
+    "introduction": "The information you submit is used only to understand your requirements, respond to you and, when requested, arrange a meeting with Axplify Services.",
+    "collectedDataTitle": "Information we record",
+    "collectedData": [
+      "Your first name, last name and professional contact details.",
+      "Your company name and your role.",
+      "The description of your requirements.",
+      "Any availability you provide for a meeting.",
+      "The source of the request and certain technical information required to secure the form."
+    ],
+    "purposesTitle": "Why do we collect this information?",
+    "purposes": [
+      "To review and qualify your request.",
+      "To contact you by telephone or email.",
+      "To prepare and arrange a potential meeting.",
+      "To track the request through our administrative interface.",
+      "To protect the form against abuse and automated submissions."
+    ],
+    "accessTitle": "Who can access this information?",
+    "accessDescription": "Only authorised Axplify Services administrators and technical providers strictly required for the secure operation of the website may access it.",
+    "retentionTitle": "How long is it retained?",
+    "retentionDescription": "The information is retained for the period required to process and follow up your request, and is then deleted or archived in accordance with applicable obligations and Axplify Services’ internal procedures.",
+    "rightsTitle": "What are your rights?",
+    "rightsDescription": "You may request access to, correction or deletion of your information, and object to its use where permitted by applicable regulations, by contacting Axplify Services.",
+    "securityTitle": "How is it protected?",
+    "securityDescription": "Requests are stored in a protected administrative interface accessible only to authorised users. Technical and organisational safeguards are applied to limit unauthorised access.",
+    "close": "I understand"
+  }
+},
       "submit": "Send my request",
       "submitting": "Sending…",
       "required": "Fields marked with an asterisk are required."
