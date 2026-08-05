@@ -48,6 +48,10 @@ import {
 } from './dto/update-publication.dto';
 
 import {
+  sanitizePublicationBody,
+} from './publication-body-sanitizer';
+
+import {
   StorageService,
 } from '../storage/storage.service';
 
@@ -2705,61 +2709,62 @@ const clientName =
     }
   }
 
-  private async createTranslations(
-    tx:
-      PrismaTransaction,
+private async createTranslations(
+  tx:
+    PrismaTransaction,
 
-    publicationId:
-      string,
+  publicationId:
+    string,
 
-    translations:
-      CreatePublicationDto['translations'],
-  ) {
-    await tx
-      .publication_translations
-      .createMany({
-        data:
-          translations.map(
-            translation => ({
-              publication_id:
-                publicationId,
+  translations:
+    CreatePublicationDto['translations'],
+) {
+  await tx
+    .publication_translations
+    .createMany({
+      data:
+        translations.map(
+          translation => ({
+            publication_id:
+              publicationId,
 
-              locale:
-                translation.locale,
+            locale:
+              translation.locale,
 
-              title:
-                translation.title,
+            title:
+              translation.title,
 
-              slug:
-                translation.slug,
+            slug:
+              translation.slug,
 
-              excerpt:
-                translation.excerpt ??
-                null,
+            excerpt:
+              translation.excerpt ??
+              null,
 
-              body:
-                translation.body ??
-                null,
+            body:
+              sanitizePublicationBody(
+                translation.body,
+              ),
 
-              cover_alt_text:
-                translation.coverAltText ??
-                null,
+            cover_alt_text:
+              translation.coverAltText ??
+              null,
 
-              seo_title:
-                translation.seoTitle ??
-                null,
+            seo_title:
+              translation.seoTitle ??
+              null,
 
-              seo_description:
-                translation.seoDescription ??
-                null,
+            seo_description:
+              translation.seoDescription ??
+              null,
 
-              canonical_url:
-                translation.canonicalUrl ??
-                null,
-            }),
-          ),
-      });
-  }
+            canonical_url:
+              translation.canonicalUrl ??
+              null,
+          }),
+        ),
+    });
+}
 
   private async createExpertise(
     tx:

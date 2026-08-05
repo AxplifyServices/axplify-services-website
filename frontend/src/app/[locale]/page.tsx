@@ -347,29 +347,9 @@ export default async function HomePage({
         locale={
           locale
         }
-        eyebrow={
-          insightsTranslations(
-            'eyebrow',
-          )
-        }
         title={
           insightsTranslations(
             'title',
-          )
-        }
-        introduction={
-          insightsTranslations(
-            'introduction',
-          )
-        }
-        previousLabel={
-          insightsTranslations(
-            'previous',
-          )
-        }
-        nextLabel={
-          insightsTranslations(
-            'next',
           )
         }
         readMoreLabel={

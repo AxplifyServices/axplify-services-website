@@ -52,6 +52,10 @@ import type {
 } from '@/components/admin/publication-media-manager';
 
 import {
+  PublicationRichTextEditor,
+} from '@/components/admin/publication-rich-text-editor';
+
+import {
   AdminApiError,
 } from '@/lib/admin-api';
 
@@ -2207,34 +2211,26 @@ export function PublicationEditor({
                         </small>
                       </label>
 
-                      <label className="publication-editor__field">
+                      <div className="publication-editor__field">
                         <span>
                           Contenu
                         </span>
 
-                        <textarea
-                          className="publication-editor__body"
+                        <PublicationRichTextEditor
                           value={
                             activeTranslation.body
                           }
-                          rows={
-                            18
-                          }
                           placeholder="Rédigez le contenu de la publication…"
                           onChange={
-                            event =>
+                            body =>
                               updateTranslation(
                                 activeLocale,
                                 'body',
-                                event.target.value,
+                                body,
                               )
                           }
                         />
-
-                        <small>
-                          L’éditeur enrichi sera ajouté lors de la prochaine étape.
-                        </small>
-                      </label>
+                      </div>
                     </div>
                   )
                 : (
