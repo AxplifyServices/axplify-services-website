@@ -55,6 +55,10 @@ import {
   PublicationsModule,
 } from './publications/publications.module';
 
+import {
+  ContactRequestsModule,
+} from './contact-requests/contact-requests.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -93,6 +97,8 @@ import {
     ProjectsModule,
 
     PublicationsModule,
+
+    ContactRequestsModule,
   ],
 
   controllers: [
