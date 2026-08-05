@@ -18023,3 +18023,571 @@ html[dir="rtl"]
     width: 100%;
   }
 }
+/* =========================================================
+   CONTACT PAGE — COMPACT LAYOUT OVERRIDES
+   Desktop: intro + quick contact left, form right
+   Mobile/tablet: intro, form, quick contact
+   ========================================================= */
+
+.contact-page {
+  background: #ffffff;
+}
+
+.contact-page__hero {
+  padding:
+    clamp(4.75rem, 7vw, 6rem)
+    0
+    clamp(1.75rem, 2.5vw, 2.5rem);
+  background:
+    linear-gradient(
+      145deg,
+      var(--axplify-navy-deep) 0%,
+      var(--axplify-navy) 58%,
+      #07356b 100%
+    );
+  color: var(--axplify-white);
+}
+
+.contact-page__hero::before {
+  opacity: 1;
+}
+
+.contact-page__hero-glow--one {
+  background:
+    radial-gradient(
+      circle,
+      rgba(28, 182, 220, 0.2) 0%,
+      rgba(28, 182, 220, 0) 70%
+    );
+}
+
+.contact-page__hero-glow--two {
+  background:
+    radial-gradient(
+      circle,
+      rgba(139, 92, 246, 0.18) 0%,
+      rgba(139, 92, 246, 0) 72%
+    );
+}
+
+.contact-page__hero-content,
+.contact-page__hero-copy {
+  width: 100%;
+  max-width: none;
+}
+
+.contact-page__hero-copy .eyebrow {
+  color: var(--axplify-cyan-bright);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+}
+
+.contact-page__hero-copy h1 {
+  width: 100%;
+  max-width: 46rem;
+  margin: 0;
+  color: var(--axplify-white);
+  font-size:
+    clamp(
+      2.25rem,
+      4vw,
+      4rem
+    );
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.contact-page__hero-description {
+  width: 100%;
+  max-width: 43rem;
+  margin: 0.9rem 0 0;
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.76
+    );
+  font-size:
+    clamp(
+      0.88rem,
+      1vw,
+      0.98rem
+    );
+  line-height: 1.65;
+}
+
+.contact-page__hero-reassurance {
+  margin-top: 0.9rem;
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.86
+    );
+  font-size: 0.7rem;
+}
+
+.contact-page__hero-reassurance svg {
+  color: var(--axplify-cyan-bright);
+}
+
+.contact-form-section {
+  padding:
+    clamp(1.5rem, 2.5vw, 2.25rem)
+    0
+    clamp(4rem, 7vw, 6rem);
+  background: #ffffff;
+}
+
+.contact-form-section__layout {
+  display: grid;
+  grid-template-columns:
+    minmax(17rem, 20.5rem)
+    minmax(0, 1fr);
+  grid-template-areas:
+    "intro form"
+    "direct form";
+  align-items: start;
+  gap:
+    1rem
+    clamp(1.4rem, 3vw, 2.5rem);
+}
+
+.contact-form-section__introduction {
+  position: static;
+  grid-area: intro;
+}
+
+.contact-form-section__introduction h2 {
+  max-width: 25rem;
+  margin: 0.65rem 0 0;
+  font-size:
+    clamp(
+      1.55rem,
+      2.25vw,
+      2.35rem
+    );
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.contact-form-section__introduction > p:not(.eyebrow) {
+  max-width: 25rem;
+  margin: 0.8rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.62;
+}
+
+.contact-form-section__steps {
+  gap: 0.45rem;
+  margin-top: 1rem;
+}
+
+.contact-form-section__steps span {
+  min-height: 2.55rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 0.75rem;
+  font-size: 0.69rem;
+}
+
+.contact-form-section__steps svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.contact-form {
+  grid-area: form;
+  padding:
+    clamp(1rem, 2vw, 1.5rem);
+  border-radius: 1.25rem;
+  box-shadow:
+    0 1rem 3rem
+    rgba(5, 38, 79, 0.07);
+}
+
+.contact-form__required {
+  margin-bottom: 0.8rem;
+  font-size: 0.66rem;
+}
+
+.contact-form__fieldset + .contact-form__fieldset {
+  margin-top: 1.35rem;
+  padding-top: 1.35rem;
+}
+
+.contact-form__fieldset legend {
+  margin-bottom: 0.8rem;
+  font-size:
+    clamp(
+      0.95rem,
+      1.4vw,
+      1.1rem
+    );
+}
+
+.contact-form__grid {
+  gap: 0.75rem;
+}
+
+.contact-form__field {
+  gap: 0.35rem;
+}
+
+.contact-form__field > span {
+  font-size: 0.68rem;
+}
+
+.contact-form__field input {
+  min-height: 2.85rem;
+  padding: 0.65rem 0.8rem;
+}
+
+.contact-form__field textarea {
+  min-height: 8rem;
+  padding: 0.75rem 0.8rem;
+}
+
+.contact-form__field input,
+.contact-form__field textarea {
+  border-radius: 0.72rem;
+  font-size: 0.78rem;
+}
+
+.contact-form__field small {
+  font-size: 0.63rem;
+}
+
+.contact-appointment-choice {
+  gap: 0.85rem;
+}
+
+.contact-appointment-choice h3,
+.contact-availabilities__heading h3 {
+  font-size: 0.82rem;
+}
+
+.contact-appointment-choice p,
+.contact-availabilities__heading p {
+  font-size: 0.69rem;
+}
+
+.contact-appointment-choice__options button {
+  min-height: 2.5rem;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.65rem;
+}
+
+.contact-availabilities {
+  margin-top: 1rem;
+  padding: 0.9rem;
+}
+
+.contact-form__privacy {
+  margin-top: 1.1rem;
+  font-size: 0.66rem;
+}
+
+.contact-form__submit {
+  min-height: 3rem;
+  margin-top: 1rem;
+  padding: 0.7rem 1.05rem;
+  font-size: 0.73rem;
+}
+
+.contact-direct-card--embedded {
+  grid-area: direct;
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  background:
+    linear-gradient(
+      145deg,
+      var(--axplify-navy-deep) 0%,
+      var(--axplify-navy) 68%,
+      #07356b 100%
+    );
+  box-shadow:
+    0 1rem 2.5rem
+    rgba(5, 38, 79, 0.16);
+  backdrop-filter: none;
+}
+
+.contact-direct-card--embedded .contact-direct-card__icon {
+  width: 2.45rem;
+  height: 2.45rem;
+  border-radius: 0.75rem;
+}
+
+.contact-direct-card--embedded .contact-direct-card__heading {
+  gap: 0.7rem;
+}
+
+.contact-direct-card--embedded .contact-direct-card__heading h2 {
+  font-size: 1rem;
+}
+
+.contact-direct-card--embedded .contact-direct-card__heading p {
+  margin-top: 0.3rem;
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+
+.contact-direct-card--embedded .contact-direct-card__actions {
+  gap: 0.45rem;
+  margin-top: 0.85rem;
+}
+
+.contact-direct-card--embedded .contact-direct-card__whatsapp {
+  min-height: 3rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.75rem;
+  font-size: 0.68rem;
+}
+
+.contact-direct-card--embedded .contact-direct-card__line {
+  padding: 0.6rem 0.1rem;
+}
+
+.contact-direct-card--embedded .contact-direct-card__line small {
+  font-size: 0.56rem;
+}
+
+.contact-direct-card--embedded .contact-direct-card__line strong {
+  font-size: 0.68rem;
+}
+
+.contact-direct-section {
+  display: none;
+}
+
+@media (max-width: 68rem) {
+  .contact-form-section__layout {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "intro"
+      "form"
+      "direct";
+    gap: 1.25rem;
+  }
+
+  .contact-form-section__introduction h2,
+  .contact-form-section__introduction > p:not(.eyebrow) {
+    max-width: 45rem;
+  }
+
+  .contact-form-section__steps {
+    grid-template-columns:
+      repeat(
+        3,
+        minmax(0, 1fr)
+      );
+  }
+
+  .contact-direct-card--embedded {
+    width: min(100%, 42rem);
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 46rem) {
+  .contact-page__hero {
+    padding:
+      3.4rem
+      0
+      1.8rem;
+  }
+
+  .contact-page__hero-copy h1 {
+    font-size:
+      clamp(
+        2.05rem,
+        10vw,
+        3rem
+      );
+  }
+
+  .contact-page__hero-description {
+    font-size: 0.86rem;
+  }
+
+  .contact-form-section {
+    padding:
+      1.25rem
+      0
+      3.5rem;
+  }
+
+  .contact-form-section__steps {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .contact-form {
+    padding: 0.9rem;
+    border-radius: 1rem;
+  }
+
+  .contact-direct-card--embedded {
+    width: 100%;
+    padding: 1rem;
+  }
+}
+
+/* =========================================================
+   CONTACT — HERO ALIGNÉ SUR LA PAGE « NOS RÉALISATIONS »
+   Ce bloc final surcharge les anciennes règles sans modifier
+   les autres pages du site.
+   ========================================================= */
+
+.contact-page__hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding:
+    clamp(4rem, 6vw, 5.75rem)
+    0
+    clamp(3rem, 4.5vw, 4.25rem);
+  background:
+    linear-gradient(
+      135deg,
+      #06345f 0%,
+      #082f63 58%,
+      #203f87 100%
+    );
+  color: var(--axplify-white);
+}
+
+.contact-page__hero-content {
+  display: block;
+}
+
+.contact-page__hero-copy {
+  width: 100%;
+  max-width: 100%;
+}
+
+.contact-page__hero-copy .eyebrow {
+  margin: 0;
+  color: var(--axplify-cyan-bright);
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.contact-page__hero-copy h1 {
+  width: 100%;
+  max-width: 76rem;
+  margin:
+    1.35rem
+    0
+    0;
+  color: var(--axplify-white);
+  font-size:
+    clamp(
+      3.25rem,
+      4.65vw,
+      4.55rem
+    );
+  font-weight: 500;
+  letter-spacing: -0.052em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.contact-page__hero-description {
+  width: 100%;
+  max-width: 79rem;
+  margin:
+    1.35rem
+    0
+    0;
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.76
+    );
+  font-size:
+    clamp(
+      1rem,
+      1.25vw,
+      1.08rem
+    );
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+.contact-page__hero-reassurance {
+  display: inline-flex;
+  margin:
+    1.2rem
+    0
+    0;
+  align-items: center;
+  gap: 0.55rem;
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.9
+    );
+  font-size: 0.76rem;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.contact-page__hero-reassurance svg {
+  flex: 0 0 auto;
+  color: var(--axplify-cyan-bright);
+}
+
+html[dir="rtl"] .contact-page__hero-copy h1 {
+  max-width: 76rem;
+  letter-spacing: 0;
+  line-height: 1.12;
+}
+
+@media (max-width: 46rem) {
+  .contact-page__hero {
+    padding:
+      3.15rem
+      0
+      2.6rem;
+  }
+
+  .contact-page__hero-copy .eyebrow {
+    font-size: 0.68rem;
+  }
+
+  .contact-page__hero-copy h1 {
+    max-width: 100%;
+    margin-top: 1rem;
+    font-size:
+      clamp(
+        2.15rem,
+        10vw,
+        3rem
+      );
+    font-weight: 650;
+    letter-spacing: -0.045em;
+    line-height: 1.03;
+  }
+
+  .contact-page__hero-description {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  .contact-page__hero-reassurance {
+    margin-top: 1rem;
+    align-items: flex-start;
+    font-size: 0.72rem;
+  }
+}

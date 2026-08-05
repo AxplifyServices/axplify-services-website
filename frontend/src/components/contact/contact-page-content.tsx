@@ -2315,12 +2315,8 @@ useEffect(
               }
             </button>
           </form>
-        </div>
-      </section>
 
-      <section className="contact-direct-section">
-        <div className="site-container">
-          <aside className="contact-direct-card">
+          <aside className="contact-direct-card contact-direct-card--embedded">
             <div className="contact-direct-card__heading">
               <span className="contact-direct-card__icon">
                 <MessageCircle
@@ -2461,6 +2457,8 @@ useEffect(
           </aside>
         </div>
       </section>
+
+
 
       {
         isPrivacyModalOpen &&
