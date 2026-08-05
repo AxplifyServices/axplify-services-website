@@ -2241,6 +2241,32 @@ export function PublicationEditor({
             }
           </section>
 
+          <PublicationMediaManager
+            media={
+              form.media
+            }
+            activeLocale={
+              activeLocale
+            }
+            authorizedFetch={
+              authorizedFetch
+            }
+            disabled={
+              isSaving ||
+              isWorkflowBusy
+            }
+            onChange={
+              media =>
+                setForm(
+                  current => ({
+                    ...current,
+
+                    media,
+                  }),
+                )
+            }
+          />
+
           {
             isEvent
               ? (
@@ -3263,32 +3289,6 @@ export function PublicationEditor({
               }
             </div>
           </section>
-
-          <PublicationMediaManager
-            media={
-              form.media
-            }
-            activeLocale={
-              activeLocale
-            }
-            authorizedFetch={
-              authorizedFetch
-            }
-            disabled={
-              isSaving ||
-              isWorkflowBusy
-            }
-            onChange={
-              media =>
-                setForm(
-                  current => ({
-                    ...current,
-
-                    media,
-                  }),
-                )
-            }
-          />
         </aside>
       </div>
 
