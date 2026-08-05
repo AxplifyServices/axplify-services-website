@@ -831,20 +831,20 @@ useEffect(
             </div>
 
             <div className="services-final-cta__actions">
-              <Link
-                href="/assist"
-                className="services-button services-button--light"
-              >
-                <span>
-                  {finalCta.secondaryCta}
-                </span>
+<Link
+  href="/contact"
+  className="services-button services-button--light"
+>
+  <span>
+    {finalCta.secondaryCta}
+  </span>
 
-                <Target
-                  size={18}
-                  strokeWidth={2}
-                  aria-hidden="true"
-                />
-              </Link>
+  <Target
+    size={18}
+    strokeWidth={2}
+    aria-hidden="true"
+  />
+</Link>
             </div>
           </div>
         </div>

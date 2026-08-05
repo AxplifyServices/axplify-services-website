@@ -511,15 +511,155 @@
     "secondaryCta": "Contact us directly"
   }
 },
-    "workProcess": {
-      "eyebrow": "Our approach",
-      "title": "Our work process",
-      "description": "This page will explain the journey from understanding a business need to delivering and continuously improving the solution.",
-      "seo": {
-        "title": "Our work process",
-        "description": "Discover the Axplify Services approach: understand your needs, identify priorities, design the right solution and support its implementation."
+"workProcess": {
+  "hero": {
+    "eyebrow": "Our work process",
+    "title": "Every strong solution starts with a need that is truly understood",
+    "description": "We move forward step by step, with clear approvals, concrete examples and continuous visibility throughout the project. The journey then leads either to the right Axplify product or to a custom-built solution.",
+    "reassurance": "No important stage begins before the previous one has been approved."
+  },
+  "steps": {
+    "understand": {
+      "eyebrow": "Understand",
+      "title": "Listen to the need in its real context",
+      "description": "We begin by understanding your activity, objectives and current difficulties without immediately imposing a solution or technology.",
+      "points": {
+        "challenge": "Identify the problem to solve and its consequences.",
+        "users": "Understand users, habits and operating constraints.",
+        "objectives": "Define the expected business or operational outcomes."
       }
     },
+    "observe": {
+      "eyebrow": "Analyse",
+      "title": "Observe how work is currently performed",
+      "description": "We study how information, decisions and tasks currently move through the organisation to distinguish the expressed request from its real cause.",
+      "points": {
+        "process": "Reconstruct the main stages of the current process.",
+        "tools": "Review the tools, data and exchanges already in use.",
+        "friction": "Identify delays, duplicate entry, errors and bottlenecks."
+      }
+    },
+    "reframe": {
+      "eyebrow": "Reframe",
+      "title": "Turn observations into a clear need",
+      "description": "We restate what we have understood, present comparable examples and separate immediate priorities from future developments.",
+      "points": {
+        "summary": "Present a clear and understandable summary of the need.",
+        "examples": "Show examples, journeys or comparable projects.",
+        "priorities": "Define the priority scope and expected outcomes."
+      }
+    },
+    "validate": {
+      "eyebrow": "Approve",
+      "title": "Confirm the direction together before moving forward",
+      "description": "The framing must be understood and approved. We do not select the solution or start delivery until this foundation has been validated.",
+      "points": {
+        "approval": "Approve the problem, scope and priorities.",
+        "adjustments": "Correct misunderstandings or complete missing information.",
+        "decision": "Obtain clear approval before the next stage."
+      }
+    },
+    "delivery": {
+      "eyebrow": "Deliver",
+      "title": "Build progressively without losing direction",
+      "description": "Delivery is divided into coherent and testable increments. Every advance remains connected to the approved need and produces a visible result.",
+      "points": {
+        "increments": "Deliver journeys and features progressively.",
+        "reviews": "Present progress regularly and collect feedback.",
+        "quality": "Control security, access, data and overall quality."
+      }
+    },
+    "launch": {
+      "eyebrow": "Launch and improve",
+      "title": "Put the solution into service and help it evolve",
+      "description": "We prepare the launch, user adoption and future improvements based on real usage and measured results.",
+      "points": {
+        "deployment": "Prepare deployment, data and user access.",
+        "support": "Support users during the launch.",
+        "evolution": "Prioritise improvements based on real feedback."
+      }
+    }
+  },
+  "validationLoop": {
+    "label": "Approval loop",
+    "title": "A doubt is not ignored: it takes us back to the right stage",
+    "description": "When an assumption, priority or user journey is not clear enough, we return to understanding, observation or reframing. This loop protects the project from premature decisions.",
+    "returnLabel": "Return to the stage that needs clarification, then approve again"
+  },
+  "decision": {
+    "eyebrow": "Solution direction",
+    "title": "The need is approved: what is now the most appropriate answer?",
+    "description": "We compare the need with our products, previous projects and experience to avoid both unnecessary development and a poorly fitted standard solution.",
+    "product": {
+      "label": "The need has already been addressed",
+      "title": "An Axplify product matches the need",
+      "description": "We start from an existing and proven solution, then adapt it to the way your organisation works.",
+      "points": {
+        "configuration": "Select and configure the useful modules.",
+        "integration": "Adapt access, data and integrations.",
+        "deployment": "Deploy faster from an existing foundation."
+      }
+    },
+    "custom": {
+      "label": "The need is new or specific",
+      "title": "We create a custom solution",
+      "description": "We design the solution from scratch while reusing our experience, proven architectures and lessons learned from previous projects.",
+      "points": {
+        "design": "Design around the client’s specific processes.",
+        "experience": "Reuse knowledge acquired through our projects.",
+        "architecture": "Build a secure and scalable foundation for real usage."
+      }
+    },
+    "convergence": "Product or custom solution: the journey becomes shared and progressive again."
+  },
+  "prototype": {
+    "eyebrow": "Make the solution tangible",
+    "title": "See the outcome before committing to full development",
+    "description": "Depending on the project, we can quickly create a demonstration, proof of concept or MVP. This helps the client visualise the solution, test assumptions and correct important choices early.",
+    "demo": {
+      "title": "Demo",
+      "description": "A rapid representation of screens and journeys that makes the future solution concrete."
+    },
+    "poc": {
+      "title": "POC",
+      "description": "A focused proof of concept that verifies the feasibility of a technical or business mechanism."
+    },
+    "mvp": {
+      "title": "MVP",
+      "description": "A first usable version with essential features to test value with real users."
+    },
+    "conclusion": "Seeing, handling and correcting early prevents poor choices from being discovered after months of development."
+  },
+  "testing": {
+    "eyebrow": "Continuous visibility",
+    "title": "A project you can follow and test",
+    "description": "Collaboration is not limited to status reports. The client has a regular and concrete view of what is actually being built.",
+    "items": {
+      "environment": {
+        "title": "Testing environment",
+        "description": "A dedicated version makes it possible to review screens and features without waiting for production."
+      },
+      "access": {
+        "title": "Available at any time",
+        "description": "Authorised people can test changes, centralise feedback and verify corrections."
+      },
+      "followUp": {
+        "title": "Usually weekly follow-up",
+        "description": "A regular meeting presents progress, supports decisions and prepares the next priorities."
+      }
+    }
+  },
+  "finalCta": {
+    "eyebrow": "Tell us about your need",
+    "title": "Let us begin by understanding what you truly want to improve",
+    "description": "We will help you clarify the need and determine whether the right answer is an Axplify product or a purpose-built solution.",
+    "button": "Present my need"
+  },
+  "seo": {
+    "title": "Our work process",
+    "description": "Discover the Axplify Services methodology: understanding and approving the need, demo, POC or MVP, existing product or custom development, testing environment and regular follow-up."
+  }
+},
     "insights": {
       "eyebrow": "Resources",
       "title": "Articles & news",

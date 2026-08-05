@@ -12,7 +12,6 @@ export const publicPageHrefs = [
   '/insights',
   '/faq',
   '/contact',
-  '/assist',
 ] as const;
 
 export type PublicPageHref =

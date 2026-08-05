@@ -512,15 +512,155 @@
     "secondaryCta": "Nous contacter directement"
   }
 },
-    "workProcess": {
-      "eyebrow": "Notre approche",
-      "title": "Méthode de travail",
-      "description": "Cette page détaillera le parcours allant de la compréhension du besoin à la mise en œuvre et à l’évolution de la solution.",
-      "seo": {
-        "title": "Notre méthode de travail",
-        "description": "Découvrez la méthode Axplify Services : comprendre le besoin, identifier les priorités, concevoir la solution et accompagner sa mise en œuvre."
+"workProcess": {
+  "hero": {
+    "eyebrow": "Notre méthodologie de travail",
+    "title": "Chaque bonne solution commence par un besoin réellement compris",
+    "description": "Nous avançons étape par étape, avec des validations claires, des exemples concrets et une visibilité continue sur le projet. Le parcours nous conduit ensuite vers le produit Axplify adapté ou vers une création sur mesure.",
+    "reassurance": "Aucune étape importante n’est engagée avant la validation de la précédente."
+  },
+  "steps": {
+    "understand": {
+      "eyebrow": "Comprendre",
+      "title": "Écouter le besoin dans son contexte réel",
+      "description": "Nous commençons par comprendre votre activité, vos objectifs et les difficultés rencontrées, sans imposer immédiatement une solution ou une technologie.",
+      "points": {
+        "challenge": "Identifier le problème à résoudre et ses conséquences.",
+        "users": "Comprendre les utilisateurs, leurs habitudes et leurs contraintes.",
+        "objectives": "Définir les résultats commerciaux ou opérationnels attendus."
       }
     },
+    "observe": {
+      "eyebrow": "Analyser",
+      "title": "Observer le fonctionnement actuel",
+      "description": "Nous étudions la manière dont les informations, les décisions et les tâches circulent aujourd’hui afin de distinguer le besoin exprimé de sa cause réelle.",
+      "points": {
+        "process": "Reconstituer les principales étapes du processus.",
+        "tools": "Examiner les outils, données et échanges déjà utilisés.",
+        "friction": "Repérer les lenteurs, doubles saisies, erreurs et blocages."
+      }
+    },
+    "reframe": {
+      "eyebrow": "Reformuler",
+      "title": "Transformer les constats en besoin clair",
+      "description": "Nous reformulons ce que nous avons compris, présentons des exemples comparables et séparons les priorités immédiates des évolutions futures.",
+      "points": {
+        "summary": "Présenter une synthèse compréhensible du besoin.",
+        "examples": "Montrer des exemples, parcours ou projets comparables.",
+        "priorities": "Définir le périmètre prioritaire et les résultats attendus."
+      }
+    },
+    "validate": {
+      "eyebrow": "Valider",
+      "title": "Confirmer ensemble avant d’aller plus loin",
+      "description": "Le cadrage doit être compris et approuvé. Nous ne choisissons pas la solution et nous ne lançons pas la réalisation tant que cette base n’est pas validée.",
+      "points": {
+        "approval": "Valider le problème, le périmètre et les priorités.",
+        "adjustments": "Corriger les incompréhensions ou compléter les informations.",
+        "decision": "Obtenir un accord clair avant la prochaine étape."
+      }
+    },
+    "delivery": {
+      "eyebrow": "Réaliser",
+      "title": "Construire progressivement sans perdre le cap",
+      "description": "La réalisation est découpée en ensembles cohérents et testables. Chaque avancée reste reliée au besoin validé et produit un résultat visible.",
+      "points": {
+        "increments": "Livrer progressivement les parcours et fonctionnalités.",
+        "reviews": "Présenter régulièrement les avancées et recueillir les retours.",
+        "quality": "Contrôler la sécurité, les accès, les données et la qualité."
+      }
+    },
+    "launch": {
+      "eyebrow": "Déployer et améliorer",
+      "title": "Mettre en service puis faire évoluer",
+      "description": "Nous préparons la mise en ligne, l’adoption de la solution et son évolution en fonction des usages réels et des résultats observés.",
+      "points": {
+        "deployment": "Préparer le déploiement, les données et les accès.",
+        "support": "Accompagner les utilisateurs au moment du lancement.",
+        "evolution": "Prioriser les améliorations à partir des retours réels."
+      }
+    }
+  },
+  "validationLoop": {
+    "label": "Boucle de validation",
+    "title": "Un doute n’est pas ignoré : il nous fait revenir à l’étape utile",
+    "description": "Si une hypothèse, une priorité ou un parcours n’est pas suffisamment clair, nous revenons à la compréhension, à l’observation ou à la reformulation. Cette boucle protège le projet contre les mauvaises décisions prises trop tôt.",
+    "returnLabel": "Retour vers l’étape à préciser, puis nouvelle validation"
+  },
+  "decision": {
+    "eyebrow": "Orientation de la solution",
+    "title": "Le besoin est validé : quelle est maintenant la meilleure réponse ?",
+    "description": "Nous confrontons le besoin à nos produits, à nos projets précédents et à notre expérience afin d’éviter aussi bien le développement inutile que la solution standard mal adaptée.",
+    "product": {
+      "label": "Le besoin a déjà été traité",
+      "title": "Un produit Axplify correspond au besoin",
+      "description": "Nous partons d’une solution déjà structurée et éprouvée, puis nous l’adaptons au fonctionnement de votre organisation.",
+      "points": {
+        "configuration": "Choix et configuration des modules utiles.",
+        "integration": "Adaptation des accès, données et intégrations.",
+        "deployment": "Mise en place plus rapide sur une base existante."
+      }
+    },
+    "custom": {
+      "label": "Le besoin est nouveau ou spécifique",
+      "title": "Nous créons la solution sur mesure",
+      "description": "Nous concevons la solution à partir de zéro tout en réutilisant notre expérience, nos architectures éprouvées et les enseignements de nos projets.",
+      "points": {
+        "design": "Conception autour des processus propres au client.",
+        "experience": "Réutilisation des connaissances acquises sur nos projets.",
+        "architecture": "Base sécurisée, évolutive et pensée pour les usages réels."
+      }
+    },
+    "convergence": "Produit ou sur mesure : le parcours redevient commun et progressif."
+  },
+  "prototype": {
+    "eyebrow": "Rendre la solution tangible",
+    "title": "Voir le résultat avant d’engager tout le développement",
+    "description": "Selon la nature du projet, nous pouvons créer rapidement une démonstration, une preuve de concept ou un MVP. Le client peut ainsi mieux visualiser la solution, tester une hypothèse et corriger tôt les choix importants.",
+    "demo": {
+      "title": "Démo",
+      "description": "Une représentation rapide des écrans et du parcours pour rendre la future solution concrète."
+    },
+    "poc": {
+      "title": "POC",
+      "description": "Une preuve de concept ciblée pour vérifier la faisabilité d’un mécanisme technique ou métier."
+    },
+    "mvp": {
+      "title": "MVP",
+      "description": "Une première version utilisable avec les fonctions essentielles pour tester la valeur auprès de vrais utilisateurs."
+    },
+    "conclusion": "Voir, manipuler et corriger tôt permet d’éviter de découvrir un mauvais choix après plusieurs mois de développement."
+  },
+  "testing": {
+    "eyebrow": "Visibilité continue",
+    "title": "Un projet que vous pouvez suivre et tester",
+    "description": "La collaboration ne repose pas uniquement sur des comptes rendus. Le client dispose d’une vision concrète et régulière de ce qui est réellement construit.",
+    "items": {
+      "environment": {
+        "title": "Environnement de test",
+        "description": "Une version dédiée permet de consulter les écrans et fonctionnalités sans attendre la mise en production."
+      },
+      "access": {
+        "title": "Accessible à tout moment",
+        "description": "Les personnes autorisées peuvent tester les évolutions, centraliser leurs retours et vérifier les corrections."
+      },
+      "followUp": {
+        "title": "Suivi généralement hebdomadaire",
+        "description": "Un point régulier permet de présenter l’avancement, prendre les décisions et préparer les prochaines priorités."
+      }
+    }
+  },
+  "finalCta": {
+    "eyebrow": "Parlons de votre besoin",
+    "title": "Commençons par comprendre ce que vous souhaitez réellement améliorer",
+    "description": "Nous vous aiderons à clarifier le besoin, puis à déterminer si la meilleure réponse est un produit Axplify ou une solution conçue sur mesure.",
+    "button": "Présenter mon besoin"
+  },
+  "seo": {
+    "title": "Notre méthodologie de travail",
+    "description": "Découvrez la méthodologie Axplify Services : compréhension et validation du besoin, démonstration, POC ou MVP, produit existant ou développement sur mesure, environnement de test et suivi régulier."
+  }
+},
     "insights": {
       "eyebrow": "Ressources",
       "title": "Articles & actualités",

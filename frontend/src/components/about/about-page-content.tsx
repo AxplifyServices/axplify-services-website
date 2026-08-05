@@ -514,7 +514,7 @@ export function AboutPageContent({
   data-reveal-delay="2"
 >
   <Link
-    href="/assist"
+    href="/contact"
     className="button button--primary"
   >
     <span>

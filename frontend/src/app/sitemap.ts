@@ -69,13 +69,10 @@ MetadataRoute.Sitemap {
               ? 'weekly'
               : 'monthly',
 
-          priority:
-            href === '/'
-              ? 1
-              : href ===
-                  '/assist'
-                ? 0.9
-                : 0.7,
+priority:
+  href === '/'
+    ? 1
+    : 0.7,
 
           alternates: {
             languages,

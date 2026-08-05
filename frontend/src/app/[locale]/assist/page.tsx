@@ -1,32 +1,32 @@
-import type {Metadata} from 'next';
-import {setRequestLocale} from 'next-intl/server';
+import {
+  permanentRedirect,
+} from 'next/navigation';
 
-import {PagePlaceholder} from '@/components/common/page-placeholder';
-import type {AppLocale} from '@/i18n/routing';
-import {createPageMetadata} from '@/lib/seo';
+import {
+  getPathname,
+} from '@/i18n/navigation';
+
+import type {
+  AppLocale,
+} from '@/i18n/routing';
 
 type PageProps = {
-  params: Promise<{locale: AppLocale}>;
+  params: Promise<{
+    locale: AppLocale;
+  }>;
 };
-
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
-  const {locale} = await params;
-
-  return createPageMetadata(
-    locale,
-    'assist',
-    '/assist',
-  );
-}
 
 export default async function AssistPage({
   params,
 }: PageProps) {
-  const {locale} = await params;
+  const {
+    locale,
+  } = await params;
 
-  setRequestLocale(locale);
-
-  return <PagePlaceholder namespace="assist" />;
+  permanentRedirect(
+    getPathname({
+      locale,
+      href: '/contact',
+    }),
+  );
 }
