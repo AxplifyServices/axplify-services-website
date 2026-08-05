@@ -601,15 +601,110 @@
         "description": "Consultez les réponses aux questions fréquentes sur les solutions sur mesure, les produits digitaux et l’accompagnement proposé par Axplify Services."
       }
     },
-    "contact": {
-      "eyebrow": "Échangeons",
-      "title": "Nous contacter",
-      "description": "Cette page accueillera les parcours de contact pour un projet spécifique ou pour la découverte d’un produit Axplify.",
-      "seo": {
-        "title": "Contacter Axplify Services",
-        "description": "Présentez votre projet, votre besoin de digitalisation ou votre intérêt pour un produit Axplify Services afin de recevoir une première orientation."
-      }
+"contact": {
+  "seo": {
+    "title": "Nous contacter | Axplify Services",
+    "description": "Présentez votre besoin à Axplify Services, proposez vos disponibilités pour un rendez-vous ou contactez-nous directement sur WhatsApp."
+  },
+  "content": {
+    "hero": {
+      "eyebrow": "Parlons de votre projet",
+      "title": "Une première conversation peut débloquer la suite de votre projet",
+      "description": "Expliquez-nous votre situation, vos objectifs et les difficultés que vous rencontrez. Notre équipe étudiera votre demande afin de vous proposer une première orientation adaptée à votre entreprise.",
+      "reassurance": "Votre demande sera étudiée par notre équipe, sans engagement."
     },
+    "directContact": {
+      "title": "Besoin d’échanger rapidement ?",
+      "description": "Vous pouvez aussi nous contacter immédiatement sur WhatsApp.",
+      "whatsappLabel": "Contactez-nous dès maintenant sur WhatsApp",
+      "whatsappMessage": "Bonjour Axplify Services, je souhaite échanger avec vous au sujet d’un besoin pour mon entreprise.",
+      "emailLabel": "Adresse e-mail",
+      "phoneLabel": "Téléphone"
+    },
+    "form": {
+      "eyebrow": "Votre demande",
+      "title": "Aidez-nous à comprendre ce que vous souhaitez accomplir",
+      "description": "Quelques informations suffisent pour nous permettre de préparer un échange pertinent et de vous orienter vers la bonne approche.",
+      "sections": {
+        "identity": "Vos coordonnées professionnelles",
+        "need": "Votre besoin",
+        "appointment": "Organiser un rendez-vous"
+      },
+      "fields": {
+        "firstName": {
+          "label": "Prénom *",
+          "placeholder": "Votre prénom"
+        },
+        "lastName": {
+          "label": "Nom *",
+          "placeholder": "Votre nom"
+        },
+        "companyName": {
+          "label": "Entreprise *",
+          "placeholder": "Nom de votre entreprise"
+        },
+        "jobTitle": {
+          "label": "Votre rôle dans l’entreprise *",
+          "placeholder": "Ex. Directeur général, responsable commercial…"
+        },
+        "email": {
+          "label": "Adresse e-mail professionnelle *",
+          "placeholder": "nom@entreprise.com"
+        },
+        "phoneNumber": {
+          "label": "Numéro de téléphone *",
+          "placeholder": "+212 6 00 00 00 00"
+        },
+        "needDescription": {
+          "label": "Décrivez votre besoin *",
+          "placeholder": "Décrivez votre situation actuelle, vos objectifs, les difficultés rencontrées et le résultat que vous souhaitez obtenir.",
+          "hint": "Plus votre description est précise, plus notre premier retour pourra être pertinent."
+        }
+      },
+      "appointment": {
+        "title": "Souhaitez-vous organiser un rendez-vous ?",
+        "description": "Indiquez-nous vos disponibilités et nous pourrons préparer un échange adapté à votre besoin.",
+        "yes": "Oui, proposer mes disponibilités",
+        "no": "Pas pour le moment",
+        "availabilityTitle": "Disponibilité",
+        "availabilityDescription": "Vous pouvez proposer jusqu’à trois plages horaires.",
+        "date": "Date *",
+        "startTime": "Disponible à partir de *",
+        "endTime": "Disponible jusqu’à *",
+        "note": "Précision facultative",
+        "notePlaceholder": "Ex. Je préfère être contacté au début de cette plage.",
+        "add": "Ajouter une autre disponibilité",
+        "remove": "Supprimer cette disponibilité",
+        "maximum": "Trois disponibilités maximum."
+      },
+      "privacy": {
+        "prefix": "J’accepte que mes informations soient utilisées afin de traiter ma demande conformément à la",
+        "linkLabel": "politique de confidentialité",
+        "suffix": "."
+      },
+      "submit": "Envoyer ma demande",
+      "submitting": "Envoi en cours…",
+      "required": "Les champs suivis d’un astérisque sont obligatoires."
+    },
+    "success": {
+      "eyebrow": "Demande reçue",
+      "title": "Votre projet vient de franchir une première étape",
+      "description": "Merci pour votre confiance. Notre équipe va prendre connaissance de votre besoin et reviendra vers vous avec une première orientation.",
+      "reference": "Référence de votre demande",
+      "newRequest": "Envoyer une autre demande",
+      "whatsapp": "Nous contacter sur WhatsApp"
+    },
+    "errors": {
+      "generic": "Une erreur est survenue pendant l’envoi. Veuillez réessayer.",
+      "requiredFields": "Veuillez compléter tous les champs obligatoires.",
+      "privacy": "Vous devez accepter la politique de confidentialité avant d’envoyer votre demande.",
+      "descriptionLength": "La description de votre besoin doit contenir au moins 20 caractères.",
+      "appointmentAvailability": "Veuillez proposer au moins une disponibilité pour le rendez-vous.",
+      "invalidAvailability": "Vérifiez les heures indiquées. L’heure de fin doit être postérieure à l’heure de début.",
+      "pastAvailability": "Les disponibilités proposées doivent être situées dans le futur."
+    }
+  }
+},
     "assist": {
       "eyebrow": "Qualification du besoin",
       "title": "Comment pouvons-nous vous aider ?",

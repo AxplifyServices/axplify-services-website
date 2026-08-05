@@ -600,15 +600,110 @@
         "description": "Find answers to frequently asked questions about custom solutions, digital products and the support provided by Axplify Services."
       }
     },
-    "contact": {
-      "eyebrow": "Let’s talk",
-      "title": "Contact us",
-      "description": "This page will provide contact paths for a specific project or for discovering an Axplify product.",
-      "seo": {
-        "title": "Contact Axplify Services",
-        "description": "Tell us about your project, your digital transformation needs or your interest in an Axplify product and receive an initial recommendation."
-      }
+"contact": {
+  "seo": {
+    "title": "Contact us | Axplify Services",
+    "description": "Tell Axplify Services about your needs, suggest times for a meeting or contact us directly on WhatsApp."
+  },
+  "content": {
+    "hero": {
+      "eyebrow": "Let’s discuss your project",
+      "title": "One conversation can unlock the next stage of your project",
+      "description": "Tell us about your situation, goals and current challenges. Our team will review your request and provide an initial direction suited to your company.",
+      "reassurance": "Our team will review your request with no obligation."
     },
+    "directContact": {
+      "title": "Need to talk quickly?",
+      "description": "You can also contact us immediately on WhatsApp.",
+      "whatsappLabel": "Contact us now on WhatsApp",
+      "whatsappMessage": "Hello Axplify Services, I would like to discuss a business need with your team.",
+      "emailLabel": "Email address",
+      "phoneLabel": "Phone"
+    },
+    "form": {
+      "eyebrow": "Your request",
+      "title": "Help us understand what you want to achieve",
+      "description": "A few details will help us prepare a relevant conversation and direct you towards the right approach.",
+      "sections": {
+        "identity": "Your professional details",
+        "need": "Your requirements",
+        "appointment": "Arrange a meeting"
+      },
+      "fields": {
+        "firstName": {
+          "label": "First name *",
+          "placeholder": "Your first name"
+        },
+        "lastName": {
+          "label": "Last name *",
+          "placeholder": "Your last name"
+        },
+        "companyName": {
+          "label": "Company *",
+          "placeholder": "Your company name"
+        },
+        "jobTitle": {
+          "label": "Your role within the company *",
+          "placeholder": "E.g. CEO, sales manager…"
+        },
+        "email": {
+          "label": "Professional email address *",
+          "placeholder": "name@company.com"
+        },
+        "phoneNumber": {
+          "label": "Phone number *",
+          "placeholder": "+212 6 00 00 00 00"
+        },
+        "needDescription": {
+          "label": "Describe your requirements *",
+          "placeholder": "Describe your current situation, your objectives, the challenges you face and the outcome you would like to achieve.",
+          "hint": "The more precise your description is, the more relevant our initial response can be."
+        }
+      },
+      "appointment": {
+        "title": "Would you like to arrange a meeting?",
+        "description": "Share your availability so that we can prepare a conversation suited to your needs.",
+        "yes": "Yes, suggest my availability",
+        "no": "Not at the moment",
+        "availabilityTitle": "Availability",
+        "availabilityDescription": "You can suggest up to three time ranges.",
+        "date": "Date *",
+        "startTime": "Available from *",
+        "endTime": "Available until *",
+        "note": "Optional note",
+        "notePlaceholder": "E.g. I would prefer to be contacted at the beginning of this time range.",
+        "add": "Add another availability",
+        "remove": "Remove this availability",
+        "maximum": "A maximum of three availabilities."
+      },
+      "privacy": {
+        "prefix": "I agree that my information may be used to process my request in accordance with the",
+        "linkLabel": "privacy policy",
+        "suffix": "."
+      },
+      "submit": "Send my request",
+      "submitting": "Sending…",
+      "required": "Fields marked with an asterisk are required."
+    },
+    "success": {
+      "eyebrow": "Request received",
+      "title": "Your project has just taken its first step forward",
+      "description": "Thank you for your trust. Our team will review your requirements and contact you with an initial direction.",
+      "reference": "Your request reference",
+      "newRequest": "Send another request",
+      "whatsapp": "Contact us on WhatsApp"
+    },
+    "errors": {
+      "generic": "An error occurred while sending your request. Please try again.",
+      "requiredFields": "Please complete all required fields.",
+      "privacy": "You must accept the privacy policy before sending your request.",
+      "descriptionLength": "Your requirements description must contain at least 20 characters.",
+      "appointmentAvailability": "Please suggest at least one availability for the meeting.",
+      "invalidAvailability": "Check the selected times. The end time must be later than the start time.",
+      "pastAvailability": "Suggested availabilities must be in the future."
+    }
+  }
+},
     "assist": {
       "eyebrow": "Needs assessment",
       "title": "How can we assist you?",

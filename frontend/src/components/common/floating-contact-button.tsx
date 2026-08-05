@@ -205,14 +205,23 @@ export function FloatingContactButton() {
    * /fr/contact, /en/contact et /ar/contact correspondent
    * donc toutes à /contact ici.
    */
-  if (
-    pathname === '/contact' ||
-    pathname.startsWith(
-      '/contact/',
-    )
-  ) {
-    return null;
-  }
+const shouldHideFloatingContactButton =
+  pathname ===
+    '/contact' ||
+  pathname.startsWith(
+    '/contact/',
+  ) ||
+  pathname ===
+    '/assist' ||
+  pathname.startsWith(
+    '/assist/',
+  );
+
+if (
+  shouldHideFloatingContactButton
+) {
+  return null;
+}
 
   const label =
     t(

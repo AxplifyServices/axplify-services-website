@@ -72,6 +72,22 @@ import type {
 type PrismaTransaction =
   Prisma.TransactionClient;
 
+type PublicPublicationMedia =
+  Prisma.publication_mediaGetPayload<{
+    include: {
+      publication_media_translations:
+        true;
+    };
+  }>;
+
+type ResolvedPublicMedia = {
+  locale:
+    PublicationLocale | null;
+
+  media:
+    PublicPublicationMedia[];
+};  
+
 @Injectable()
 export class PublicationsService {
   private readonly logger =
@@ -1977,17 +1993,13 @@ const clientName =
     };
   }
 
-  private resolvePublicMedia(
-    media:
-      Prisma.publication_mediaGetPayload<{
-        include: {
-          publication_media_translations:
-            true;
-        };
-      }>[],
-    requestedLocale:
-      PublicPublicationLocale,
-  ) {
+private resolvePublicMedia(
+  media:
+    PublicPublicationMedia[],
+
+  requestedLocale:
+    PublicPublicationLocale,
+): ResolvedPublicMedia {
     const localePriority:
       PublicationLocale[] =
       requestedLocale ===
@@ -2042,18 +2054,13 @@ const clientName =
     };
   }  
 
-  private mapPublicMedia(
-    media:
-      Prisma.publication_mediaGetPayload<{
-        include: {
-          publication_media_translations:
-            true;
-        };
-      }>,
+private mapPublicMedia(
+  media:
+    PublicPublicationMedia,
 
-    requestedLocale:
-      PublicPublicationLocale,
-  ) {
+  requestedLocale:
+    PublicPublicationLocale,
+) {
     const resolvedLocale =
       this.resolveStoredLocale(
         requestedLocale,

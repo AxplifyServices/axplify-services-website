@@ -1384,12 +1384,12 @@ export class ContactRequestsService {
       );
     }
 
-    const data:
-      Prisma.contact_requestsUpdateInput =
-      {
-        updated_by_user_id:
-          currentUser.id,
-      };
+const data:
+  Prisma.contact_requestsUncheckedUpdateInput =
+  {
+    updated_by_user_id:
+      currentUser.id,
+  };
 
     if (
       Object.prototype.hasOwnProperty.call(
