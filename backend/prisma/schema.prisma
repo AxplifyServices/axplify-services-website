@@ -76,31 +76,36 @@ model user_roles {
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model users {
-  id                                                    String                  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  email                                                 String                  @unique(map: "users_email_unique") @db.Citext
-  password_hash                                         String                  @db.VarChar(255)
-  first_name                                            String?                 @db.VarChar(100)
-  last_name                                             String?                 @db.VarChar(100)
-  status                                                String                  @default("ACTIVE") @db.VarChar(30)
-  is_email_verified                                     Boolean                 @default(false)
-  must_change_password                                  Boolean                 @default(true)
-  failed_login_attempts                                 Int                     @default(0)
-  locked_until                                          DateTime?               @db.Timestamptz(6)
-  password_changed_at                                   DateTime?               @db.Timestamptz(6)
-  last_login_at                                         DateTime?               @db.Timestamptz(6)
-  created_at                                            DateTime                @default(now()) @db.Timestamptz(6)
-  updated_at                                            DateTime                @default(now()) @db.Timestamptz(6)
-  deleted_at                                            DateTime?               @db.Timestamptz(6)
-  authentication_events                                 authentication_events[]
-  clients                                               clients[]
-  homepage_brochures                                    homepage_brochures[]
-  projects                                              projects[]
-  publications_publications_created_by_user_idTousers   publications[]          @relation("publications_created_by_user_idTousers")
-  publications_publications_published_by_user_idTousers publications[]          @relation("publications_published_by_user_idTousers")
-  publications_publications_updated_by_user_idTousers   publications[]          @relation("publications_updated_by_user_idTousers")
-  refresh_sessions                                      refresh_sessions[]
-  user_roles_user_roles_assigned_byTousers              user_roles[]            @relation("user_roles_assigned_byTousers")
-  user_roles_user_roles_user_idTousers                  user_roles[]            @relation("user_roles_user_idTousers")
+  id                                                           String                           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email                                                        String                           @unique(map: "users_email_unique") @db.Citext
+  password_hash                                                String                           @db.VarChar(255)
+  first_name                                                   String?                          @db.VarChar(100)
+  last_name                                                    String?                          @db.VarChar(100)
+  status                                                       String                           @default("ACTIVE") @db.VarChar(30)
+  is_email_verified                                            Boolean                          @default(false)
+  must_change_password                                         Boolean                          @default(true)
+  failed_login_attempts                                        Int                              @default(0)
+  locked_until                                                 DateTime?                        @db.Timestamptz(6)
+  password_changed_at                                          DateTime?                        @db.Timestamptz(6)
+  last_login_at                                                DateTime?                        @db.Timestamptz(6)
+  created_at                                                   DateTime                         @default(now()) @db.Timestamptz(6)
+  updated_at                                                   DateTime                         @default(now()) @db.Timestamptz(6)
+  deleted_at                                                   DateTime?                        @db.Timestamptz(6)
+  authentication_events                                        authentication_events[]
+  clients                                                      clients[]
+  contact_request_project_links                                contact_request_project_links[]
+  contact_request_service_links                                contact_request_service_links[]
+  contact_request_status_history                               contact_request_status_history[]
+  contact_requests_contact_requests_assigned_to_user_idTousers contact_requests[]               @relation("contact_requests_assigned_to_user_idTousers")
+  contact_requests_contact_requests_updated_by_user_idTousers  contact_requests[]               @relation("contact_requests_updated_by_user_idTousers")
+  homepage_brochures                                           homepage_brochures[]
+  projects                                                     projects[]
+  publications_publications_created_by_user_idTousers          publications[]                   @relation("publications_created_by_user_idTousers")
+  publications_publications_published_by_user_idTousers        publications[]                   @relation("publications_published_by_user_idTousers")
+  publications_publications_updated_by_user_idTousers          publications[]                   @relation("publications_updated_by_user_idTousers")
+  refresh_sessions                                             refresh_sessions[]
+  user_roles_user_roles_assigned_byTousers                     user_roles[]                     @relation("user_roles_assigned_byTousers")
+  user_roles_user_roles_user_idTousers                         user_roles[]                     @relation("user_roles_user_idTousers")
 
   @@index([created_at(sort: Desc)], map: "users_created_at_index")
   @@index([locked_until], map: "users_locked_until_index", where: raw("(locked_until IS NOT NULL)"))
@@ -181,24 +186,25 @@ model project_expertise {
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model projects {
-  id                   String                 @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  client_id            String                 @db.Uuid
-  title_fr             String                 @db.VarChar(220)
-  title_en             String?                @db.VarChar(220)
-  title_ar             String?                @db.VarChar(220)
-  description_fr       String
-  description_en       String?
-  description_ar       String?
-  status               String                 @default("DRAFT") @db.VarChar(30)
-  sort_order           Int                    @default(0)
-  created_by_user_id   String?                @db.Uuid
-  published_at         DateTime?              @db.Timestamptz(6)
-  created_at           DateTime               @default(now()) @db.Timestamptz(6)
-  updated_at           DateTime               @default(now()) @db.Timestamptz(6)
-  project_expertise    project_expertise[]
-  clients              clients                @relation(fields: [client_id], references: [id], onUpdate: NoAction, map: "projects_client_foreign_key")
-  users                users?                 @relation(fields: [created_by_user_id], references: [id], onUpdate: NoAction, map: "projects_created_by_user_foreign_key")
-  publication_projects publication_projects[]
+  id                            String                          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  client_id                     String                          @db.Uuid
+  title_fr                      String                          @db.VarChar(220)
+  title_en                      String?                         @db.VarChar(220)
+  title_ar                      String?                         @db.VarChar(220)
+  description_fr                String
+  description_en                String?
+  description_ar                String?
+  status                        String                          @default("DRAFT") @db.VarChar(30)
+  sort_order                    Int                             @default(0)
+  created_by_user_id            String?                         @db.Uuid
+  published_at                  DateTime?                       @db.Timestamptz(6)
+  created_at                    DateTime                        @default(now()) @db.Timestamptz(6)
+  updated_at                    DateTime                        @default(now()) @db.Timestamptz(6)
+  contact_request_project_links contact_request_project_links[]
+  project_expertise             project_expertise[]
+  clients                       clients                         @relation(fields: [client_id], references: [id], onUpdate: NoAction, map: "projects_client_foreign_key")
+  users                         users?                          @relation(fields: [created_by_user_id], references: [id], onUpdate: NoAction, map: "projects_created_by_user_foreign_key")
+  publication_projects          publication_projects[]
 
   @@index([status, updated_at(sort: Desc)], map: "projects_admin_list_index")
   @@index([client_id, status], map: "projects_client_index")
@@ -376,4 +382,108 @@ model publications {
   @@index([published_by_user_id], map: "publications_published_by_user_index")
   @@index([scheduled_at], map: "publications_scheduled_publication_index", where: raw("(((status)::text = 'DRAFT'::text) AND (scheduled_at IS NOT NULL) AND (deleted_at IS NULL))"))
   @@index([updated_by_user_id], map: "publications_updated_by_user_index")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model contact_request_availabilities {
+  id                 String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  contact_request_id String           @db.Uuid
+  starts_at          DateTime         @db.Timestamptz(6)
+  ends_at            DateTime         @db.Timestamptz(6)
+  timezone           String           @default("Africa/Casablanca") @db.VarChar(80)
+  note               String?          @db.VarChar(500)
+  sort_order         Int              @default(0)
+  created_at         DateTime         @default(now()) @db.Timestamptz(6)
+  updated_at         DateTime         @default(now()) @db.Timestamptz(6)
+  contact_requests   contact_requests @relation(fields: [contact_request_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "contact_request_availabilities_request_foreign_key")
+
+  @@index([contact_request_id, sort_order, starts_at], map: "contact_request_availabilities_request_index")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model contact_request_project_links {
+  contact_request_id String           @db.Uuid
+  project_id         String           @db.Uuid
+  linked_by_user_id  String?          @db.Uuid
+  created_at         DateTime         @default(now()) @db.Timestamptz(6)
+  projects           projects         @relation(fields: [project_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "contact_request_project_links_project_foreign_key")
+  contact_requests   contact_requests @relation(fields: [contact_request_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "contact_request_project_links_request_foreign_key")
+  users              users?           @relation(fields: [linked_by_user_id], references: [id], onUpdate: NoAction, map: "contact_request_project_links_user_foreign_key")
+
+  @@id([contact_request_id, project_id], map: "contact_request_project_links_primary_key")
+  @@index([project_id, created_at(sort: Desc)], map: "contact_request_project_links_project_index")
+  @@index([linked_by_user_id], map: "contact_request_project_links_user_index")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model contact_request_service_links {
+  contact_request_id String           @db.Uuid
+  service_code       String           @db.VarChar(100)
+  linked_by_user_id  String?          @db.Uuid
+  created_at         DateTime         @default(now()) @db.Timestamptz(6)
+  contact_requests   contact_requests @relation(fields: [contact_request_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "contact_request_service_links_request_foreign_key")
+  users              users?           @relation(fields: [linked_by_user_id], references: [id], onUpdate: NoAction, map: "contact_request_service_links_user_foreign_key")
+
+  @@id([contact_request_id, service_code], map: "contact_request_service_links_primary_key")
+  @@index([service_code, created_at(sort: Desc)], map: "contact_request_service_links_service_index")
+  @@index([linked_by_user_id], map: "contact_request_service_links_user_index")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model contact_request_status_history {
+  id                 String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  contact_request_id String           @db.Uuid
+  previous_status    String?          @db.VarChar(30)
+  new_status         String           @db.VarChar(30)
+  changed_by_user_id String?          @db.Uuid
+  change_note        String?          @db.VarChar(500)
+  created_at         DateTime         @default(now()) @db.Timestamptz(6)
+  contact_requests   contact_requests @relation(fields: [contact_request_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "contact_request_status_history_request_foreign_key")
+  users              users?           @relation(fields: [changed_by_user_id], references: [id], onUpdate: NoAction, map: "contact_request_status_history_user_foreign_key")
+
+  @@index([contact_request_id, created_at(sort: Desc)], map: "contact_request_status_history_request_index")
+  @@index([changed_by_user_id, created_at(sort: Desc)], map: "contact_request_status_history_user_index")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model contact_requests {
+  id                                                String                           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  source                                            String                           @db.VarChar(30)
+  locale                                            String                           @default("fr") @db.VarChar(5)
+  first_name                                        String                           @db.VarChar(100)
+  last_name                                         String                           @db.VarChar(100)
+  company_name                                      String                           @db.VarChar(180)
+  job_title                                         String                           @db.VarChar(180)
+  need_description                                  String
+  phone_number                                      String                           @db.VarChar(40)
+  email                                             String                           @db.Citext
+  status                                            String                           @default("RECEIVED") @db.VarChar(30)
+  status_changed_at                                 DateTime                         @default(now()) @db.Timestamptz(6)
+  assigned_to_user_id                               String?                          @db.Uuid
+  updated_by_user_id                                String?                          @db.Uuid
+  internal_note                                     String?
+  wants_appointment                                 Boolean                          @default(false)
+  privacy_consent                                   Boolean                          @default(false)
+  privacy_consent_at                                DateTime?                        @db.Timestamptz(6)
+  user_agent                                        String?
+  created_at                                        DateTime                         @default(now()) @db.Timestamptz(6)
+  updated_at                                        DateTime                         @default(now()) @db.Timestamptz(6)
+  archived_at                                       DateTime?                        @db.Timestamptz(6)
+  contact_request_availabilities                    contact_request_availabilities[]
+  contact_request_project_links                     contact_request_project_links[]
+  contact_request_service_links                     contact_request_service_links[]
+  contact_request_status_history                    contact_request_status_history[]
+  users_contact_requests_assigned_to_user_idTousers users?                           @relation("contact_requests_assigned_to_user_idTousers", fields: [assigned_to_user_id], references: [id], onUpdate: NoAction, map: "contact_requests_assigned_to_user_foreign_key")
+  users_contact_requests_updated_by_user_idTousers  users?                           @relation("contact_requests_updated_by_user_idTousers", fields: [updated_by_user_id], references: [id], onUpdate: NoAction, map: "contact_requests_updated_by_user_foreign_key")
+
+  @@index([status, created_at(sort: Desc)], map: "contact_requests_admin_list_index", where: raw("(archived_at IS NULL)"))
+  @@index([assigned_to_user_id, status, created_at(sort: Desc)], map: "contact_requests_assigned_to_user_index", where: raw("(archived_at IS NULL)"))
+  @@index([company_name], map: "contact_requests_company_name_index")
+  @@index([email], map: "contact_requests_email_index")
+  @@index([created_at], map: "contact_requests_pending_index", where: raw("((archived_at IS NULL) AND ((status)::text = ANY ((ARRAY['RECEIVED'::character varying, 'IN_PROGRESS'::character varying])::text[])))"))
+  @@index([source, created_at(sort: Desc)], map: "contact_requests_source_index", where: raw("(archived_at IS NULL)"))
 }
