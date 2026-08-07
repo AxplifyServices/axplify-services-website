@@ -732,15 +732,31 @@
   }
 },
 
-    "faq": {
-      "eyebrow": "Questions fréquentes",
-      "title": "FAQ",
-      "description": "Cette page répondra aux principales questions sur les projets sur mesure, les produits et l’accompagnement Axplify.",
-      "seo": {
-        "title": "Questions fréquentes",
-        "description": "Consultez les réponses aux questions fréquentes sur les solutions sur mesure, les produits digitaux et l’accompagnement proposé par Axplify Services."
-      }
-    },
+"faq": {
+  "eyebrow": "Questions fréquentes",
+  "title": "Une question ? La réponse est peut-être déjà ici.",
+  "description": "Découvrez comment nous abordons vos besoins, nos projets sur mesure, nos produits, les démonstrations, le suivi et l’accompagnement après le lancement.",
+  "searchPlaceholder": "Rechercher une question...",
+  "allCategories": "Toutes",
+  "noResultTitle": "Aucune réponse trouvée",
+  "noResultDescription": "Essayez une autre recherche ou consultez l’ensemble des catégories.",
+  "countSingular": "question",
+  "countPlural": "questions",
+  "categories": {
+    "offer": "Offre et solutions",
+    "methodology": "Méthodologie",
+    "prototype": "Démo, POC et MVP",
+    "delivery": "Réalisation et suivi",
+    "budget": "Budget et délais",
+    "technical": "Technique et intégrations",
+    "support": "Support et accompagnement",
+    "general": "Général"
+  },
+  "seo": {
+    "title": "Questions fréquentes",
+    "description": "Retrouvez les réponses aux questions fréquentes sur les solutions Axplify, les projets sur mesure, les démos, POC et MVP, les délais, les intégrations et l’accompagnement."
+  }
+},
 "contact": {
   "seo": {
     "title": "Nous contacter | Axplify Services",

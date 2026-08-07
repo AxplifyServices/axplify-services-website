@@ -15,6 +15,7 @@ import {
   Menu,
   X,
   Newspaper,
+  CircleHelp,
 } from 'lucide-react';
 
 import {
@@ -444,6 +445,38 @@ const pathname =
 
   <span>
     Articles et actualités
+  </span>
+</Link>
+
+<Link
+  href="/admin/faqs"
+  className="admin-sidebar__link"
+  data-active={
+    pathname ===
+      '/admin/faqs' ||
+    pathname.startsWith(
+      '/admin/faqs/',
+    )
+  }
+  title={
+    isSidebarCollapsed
+      ? 'FAQ'
+      : undefined
+  }
+  onClick={
+    () =>
+      setIsMobileMenuOpen(
+        false,
+      )
+  }
+>
+  <CircleHelp
+    size={20}
+    aria-hidden="true"
+  />
+
+  <span>
+    FAQ
   </span>
 </Link>
 

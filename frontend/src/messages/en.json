@@ -731,15 +731,31 @@
   }
 }, 
 
-    "faq": {
-      "eyebrow": "Frequently asked questions",
-      "title": "FAQ",
-      "description": "This page will answer the main questions about custom projects, Axplify products and our support services.",
-      "seo": {
-        "title": "Frequently asked questions",
-        "description": "Find answers to frequently asked questions about custom solutions, digital products and the support provided by Axplify Services."
-      }
-    },
+"faq": {
+  "eyebrow": "Frequently asked questions",
+  "title": "Have a question? The answer may already be here.",
+  "description": "Learn how we approach your needs, custom projects, Axplify products, demonstrations, project follow-up and support after launch.",
+  "searchPlaceholder": "Search for a question...",
+  "allCategories": "All",
+  "noResultTitle": "No answer found",
+  "noResultDescription": "Try another search or browse all categories.",
+  "countSingular": "question",
+  "countPlural": "questions",
+  "categories": {
+    "offer": "Solutions and services",
+    "methodology": "Methodology",
+    "prototype": "Demo, POC and MVP",
+    "delivery": "Delivery and follow-up",
+    "budget": "Budget and timelines",
+    "technical": "Technical and integrations",
+    "support": "Support and assistance",
+    "general": "General"
+  },
+  "seo": {
+    "title": "Frequently asked questions",
+    "description": "Find answers about Axplify solutions, custom projects, demos, POCs and MVPs, timelines, integrations and ongoing support."
+  }
+},
 "contact": {
   "seo": {
     "title": "Contact us | Axplify Services",
