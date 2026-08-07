@@ -98,6 +98,8 @@ model users {
   contact_request_status_history                               contact_request_status_history[]
   contact_requests_contact_requests_assigned_to_user_idTousers contact_requests[]               @relation("contact_requests_assigned_to_user_idTousers")
   contact_requests_contact_requests_updated_by_user_idTousers  contact_requests[]               @relation("contact_requests_updated_by_user_idTousers")
+  faq_items_faq_items_created_by_user_idTousers                faq_items[]                      @relation("faq_items_created_by_user_idTousers")
+  faq_items_faq_items_updated_by_user_idTousers                faq_items[]                      @relation("faq_items_updated_by_user_idTousers")
   homepage_brochures                                           homepage_brochures[]
   projects                                                     projects[]
   publications_publications_created_by_user_idTousers          publications[]                   @relation("publications_created_by_user_idTousers")
@@ -486,4 +488,41 @@ model contact_requests {
   @@index([email], map: "contact_requests_email_index")
   @@index([created_at], map: "contact_requests_pending_index", where: raw("((archived_at IS NULL) AND ((status)::text = ANY ((ARRAY['RECEIVED'::character varying, 'IN_PROGRESS'::character varying])::text[])))"))
   @@index([source, created_at(sort: Desc)], map: "contact_requests_source_index", where: raw("(archived_at IS NULL)"))
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model faq_item_translations {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  faq_item_id String    @db.Uuid
+  locale      String    @db.VarChar(5)
+  question    String    @db.VarChar(300)
+  answer      String
+  created_at  DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime  @default(now()) @db.Timestamptz(6)
+  faq_items   faq_items @relation(fields: [faq_item_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "faq_item_translations_faq_item_foreign_key")
+
+  @@unique([faq_item_id, locale], map: "faq_item_translations_item_locale_unique")
+  @@index([locale, faq_item_id], map: "faq_item_translations_locale_index")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model faq_items {
+  id                                        String                  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  category_code                             String                  @default("GENERAL") @db.VarChar(50)
+  sort_order                                Int                     @default(0)
+  is_visible                                Boolean                 @default(false)
+  created_by_user_id                        String?                 @db.Uuid
+  updated_by_user_id                        String?                 @db.Uuid
+  created_at                                DateTime                @default(now()) @db.Timestamptz(6)
+  updated_at                                DateTime                @default(now()) @db.Timestamptz(6)
+  faq_item_translations                     faq_item_translations[]
+  users_faq_items_created_by_user_idTousers users?                  @relation("faq_items_created_by_user_idTousers", fields: [created_by_user_id], references: [id], onUpdate: NoAction, map: "faq_items_created_by_user_foreign_key")
+  users_faq_items_updated_by_user_idTousers users?                  @relation("faq_items_updated_by_user_idTousers", fields: [updated_by_user_id], references: [id], onUpdate: NoAction, map: "faq_items_updated_by_user_foreign_key")
+
+  @@index([category_code, is_visible, sort_order, updated_at(sort: Desc)], map: "faq_items_admin_list_index")
+  @@index([created_by_user_id], map: "faq_items_created_by_user_index")
+  @@index([category_code, sort_order, created_at], map: "faq_items_public_list_index", where: raw("(is_visible = true)"))
+  @@index([updated_by_user_id], map: "faq_items_updated_by_user_index")
 }
