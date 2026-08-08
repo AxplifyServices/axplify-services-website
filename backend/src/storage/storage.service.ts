@@ -677,6 +677,142 @@ export class StorageService
     };
   }  
 
+async uploadProductImage(
+  file:
+    Express.Multer.File,
+):
+  Promise<UploadedImage>
+{
+  this.validateImageFile(
+    file,
+  );
+
+  let processedImage:
+    Buffer;
+
+  let outputWidth:
+    number;
+
+  let outputHeight:
+    number;
+
+  try {
+    const result =
+      await sharp(
+        file.buffer,
+        {
+          failOn:
+            'error',
+        },
+      )
+        .rotate()
+        .resize({
+          width:
+            2000,
+
+          height:
+            1600,
+
+          fit:
+            'inside',
+
+          withoutEnlargement:
+            true,
+        })
+        .webp({
+          quality:
+            88,
+
+          effort:
+            5,
+
+          smartSubsample:
+            true,
+
+          alphaQuality:
+            100,
+        })
+        .toBuffer({
+          resolveWithObject:
+            true,
+        });
+
+    processedImage =
+      result.data;
+
+    outputWidth =
+      result.info.width;
+
+    outputHeight =
+      result.info.height;
+  } catch {
+    throw new BadRequestException(
+      'Le fichier envoyé ne contient pas une image valide.',
+    );
+  }
+
+  const objectName =
+    [
+      'products',
+      'images',
+      `${randomUUID()}.webp`,
+    ].join(
+      '/',
+    );
+
+  try {
+    await this.minioClient
+      .putObject(
+        this.publicBucket,
+        objectName,
+        processedImage,
+        processedImage.length,
+        {
+          'Content-Type':
+            'image/webp',
+
+          'Cache-Control':
+            'public, max-age=31536000, immutable',
+        },
+      );
+  } catch (
+    error
+  ) {
+    this.logger.error(
+      'Impossible d’enregistrer l’image produit dans MinIO.',
+      error instanceof Error
+        ? error.stack
+        : undefined,
+    );
+
+    throw new InternalServerErrorException(
+      'Impossible d’enregistrer l’image produit.',
+    );
+  }
+
+  return {
+    url:
+      `${this.publicUrl}/${objectName}`,
+
+    objectName,
+
+    mimeType:
+      'image/webp',
+
+    extension:
+      'webp',
+
+    width:
+      outputWidth,
+
+    height:
+      outputHeight,
+
+    size:
+      processedImage.length,
+  };
+}  
+
   async uploadHomepageBrochureVideo(
     file:
       Express.Multer.File,

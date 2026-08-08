@@ -43,6 +43,12 @@ export class ProductsService {
       PrismaService,
   ) {}
 
+  /*
+   * =========================================================
+   * VALIDATIONS
+   * =========================================================
+   */
+
   private validateLinkUrl(
     linkUrl: string,
   ) {
@@ -52,11 +58,12 @@ export class ProductsService {
     /*
      * Lien interne Axplify.
      *
+     * Exemples :
      * /fr/...
      * /nous-contacter
      *
-     * On refuse //domain.com afin d'éviter
-     * les URL protocol-relative.
+     * On refuse volontairement //domain.com
+     * afin d'empêcher les URL protocol-relative.
      */
     if (
       value.startsWith('/') &&
@@ -79,7 +86,7 @@ export class ProductsService {
     }
 
     /*
-     * Empêche notamment :
+     * Bloque notamment :
      *
      * javascript:
      * data:
@@ -147,74 +154,120 @@ export class ProductsService {
     }
   }
 
-  private mapAdminProduct(
-    product: {
-      id: string;
-      link_url: string;
-      is_active: boolean;
-      sort_order: number;
-      show_on_homepage: boolean;
-      homepage_sort_order: number;
-      created_at: Date;
-      updated_at: Date;
-
-      product_translations: Array<{
-        locale: string;
-        name: string;
-        title: string;
-        description: string;
-        category: string;
-      }>;
-    },
+  private validateImages(
+    images:
+      CreateProductDto['images'],
   ) {
-    return {
-      id:
-        product.id,
+    if (
+      !images
+    ) {
+      return;
+    }
 
-      linkUrl:
-        product.link_url,
+    if (
+      images.length >
+      5
+    ) {
+      throw new BadRequestException(
+        'Un produit ne peut pas contenir plus de 5 images.',
+      );
+    }
 
-      isActive:
-        product.is_active,
+    const urls =
+      images.map(
+        image =>
+          image.imageUrl.trim(),
+      );
 
-      sortOrder:
-        product.sort_order,
+    /*
+     * La même image ne peut pas être enregistrée
+     * plusieurs fois sur le même produit.
+     */
+    if (
+      new Set(
+        urls,
+      ).size !==
+      urls.length
+    ) {
+      throw new BadRequestException(
+        'La même image ne peut pas être ajoutée plusieurs fois au produit.',
+      );
+    }
 
-      showOnHomepage:
-        product.show_on_homepage,
+    images.forEach(
+      (
+        image,
+        index,
+      ) => {
+        const imageUrl =
+          image.imageUrl.trim();
 
-      homepageSortOrder:
-        product.homepage_sort_order,
+        if (
+          !imageUrl
+        ) {
+          throw new BadRequestException(
+            `L’image ${index + 1} ne possède pas d’URL valide.`,
+          );
+        }
 
-      createdAt:
-        product.created_at,
+        /*
+         * Les URL d'images sont normalement générées
+         * par StorageService après upload MinIO.
+         *
+         * On vérifie tout de même qu'on ne reçoit pas
+         * un protocole dangereux.
+         */
+        let parsedImageUrl:
+          URL;
 
-      updatedAt:
-        product.updated_at,
+        try {
+          parsedImageUrl =
+            new URL(
+              imageUrl,
+            );
+        } catch {
+          throw new BadRequestException(
+            `L’URL de l’image ${index + 1} est invalide.`,
+          );
+        }
 
-      translations:
-        product
-          .product_translations
-          .map(
-            translation => ({
-              locale:
-                translation.locale,
+        if (
+          parsedImageUrl.protocol !==
+            'http:' &&
+          parsedImageUrl.protocol !==
+            'https:'
+        ) {
+          throw new BadRequestException(
+            `L’URL de l’image ${index + 1} doit utiliser http ou https.`,
+          );
+        }
 
-              name:
-                translation.name,
+        const locales =
+          image.translations?.map(
+            translation =>
+              translation.locale,
+          ) ??
+          [];
 
-              title:
-                translation.title,
-
-              description:
-                translation.description,
-
-              category:
-                translation.category,
-            }),
-          ),
-    };
+        if (
+          new Set(
+            locales,
+          ).size !==
+          locales.length
+        ) {
+          throw new BadRequestException(
+            `L’image ${index + 1} contient plusieurs textes alternatifs pour la même langue.`,
+          );
+        }
+      },
+    );
   }
+
+  /*
+   * =========================================================
+   * TRANSLATIONS / FALLBACKS
+   * =========================================================
+   */
 
   private resolveTranslation(
     translations: Array<{
@@ -258,21 +311,211 @@ export class ProductsService {
     return null;
   }
 
-  private mapPublicProduct(
+  private resolveImageAltText(
+    translations: Array<{
+      locale: string;
+      alt_text: string | null;
+    }>,
+
+    requestedLocale:
+      ProductLocale,
+  ) {
+    const fallbackLocales =
+      PRODUCT_LOCALE_FALLBACKS[
+        requestedLocale
+      ];
+
+    for (
+      const locale
+      of fallbackLocales
+    ) {
+      const translation =
+        translations.find(
+          item =>
+            item.locale ===
+            locale,
+        );
+
+      const altText =
+        translation
+          ?.alt_text
+          ?.trim();
+
+      if (
+        altText
+      ) {
+        return altText;
+      }
+    }
+
+    return null;
+  }
+
+  /*
+   * =========================================================
+   * MAPPERS
+   * =========================================================
+   */
+
+  private mapAdminProduct(
     product: {
       id: string;
+
       link_url: string;
+
+      is_active: boolean;
       sort_order: number;
+
       show_on_homepage: boolean;
       homepage_sort_order: number;
+
+      created_at: Date;
       updated_at: Date;
 
       product_translations: Array<{
         locale: string;
+
         name: string;
         title: string;
         description: string;
         category: string;
+      }>;
+
+      product_images: Array<{
+        id: string;
+
+        image_url: string;
+        sort_order: number;
+
+        width: number | null;
+        height: number | null;
+
+        product_image_translations: Array<{
+          locale: string;
+          alt_text: string | null;
+        }>;
+      }>;
+    },
+  ) {
+    return {
+      id:
+        product.id,
+
+      linkUrl:
+        product.link_url,
+
+      isActive:
+        product.is_active,
+
+      sortOrder:
+        product.sort_order,
+
+      showOnHomepage:
+        product.show_on_homepage,
+
+      homepageSortOrder:
+        product.homepage_sort_order,
+
+      createdAt:
+        product.created_at,
+
+      updatedAt:
+        product.updated_at,
+
+      images:
+        product
+          .product_images
+          .map(
+            image => ({
+              id:
+                image.id,
+
+              imageUrl:
+                image.image_url,
+
+              sortOrder:
+                image.sort_order,
+
+              width:
+                image.width,
+
+              height:
+                image.height,
+
+              translations:
+                image
+                  .product_image_translations
+                  .map(
+                    translation => ({
+                      locale:
+                        translation.locale,
+
+                      altText:
+                        translation.alt_text,
+                    }),
+                  ),
+            }),
+          ),
+
+      translations:
+        product
+          .product_translations
+          .map(
+            translation => ({
+              locale:
+                translation.locale,
+
+              name:
+                translation.name,
+
+              title:
+                translation.title,
+
+              description:
+                translation.description,
+
+              category:
+                translation.category,
+            }),
+          ),
+    };
+  }
+
+  private mapPublicProduct(
+    product: {
+      id: string;
+
+      link_url: string;
+
+      sort_order: number;
+
+      show_on_homepage: boolean;
+      homepage_sort_order: number;
+
+      updated_at: Date;
+
+      product_translations: Array<{
+        locale: string;
+
+        name: string;
+        title: string;
+        description: string;
+        category: string;
+      }>;
+
+      product_images: Array<{
+        id: string;
+
+        image_url: string;
+        sort_order: number;
+
+        width: number | null;
+        height: number | null;
+
+        product_image_translations: Array<{
+          locale: string;
+          alt_text: string | null;
+        }>;
       }>;
     },
 
@@ -290,6 +533,44 @@ export class ProductsService {
     ) {
       return null;
     }
+
+    const images =
+      product
+        .product_images
+        .map(
+          image => {
+            const altText =
+              this.resolveImageAltText(
+                image.product_image_translations,
+                requestedLocale,
+              );
+
+            return {
+              id:
+                image.id,
+
+              imageUrl:
+                image.image_url,
+
+              sortOrder:
+                image.sort_order,
+
+              width:
+                image.width,
+
+              height:
+                image.height,
+
+              /*
+               * Si aucun ALT spécifique n'existe,
+               * le nom traduit du produit sert de fallback.
+               */
+              altText:
+                altText ??
+                resolved.translation.name,
+            };
+          },
+        );
 
     return {
       id:
@@ -309,6 +590,8 @@ export class ProductsService {
 
       category:
         resolved.translation.category,
+
+      images,
 
       requestedLocale,
 
@@ -332,6 +615,12 @@ export class ProductsService {
         product.updated_at,
     };
   }
+
+  /*
+   * =========================================================
+   * ADMIN READ
+   * =========================================================
+   */
 
   async findAllAdmin(
     query:
@@ -456,6 +745,29 @@ export class ProductsService {
                   'asc',
               },
             },
+
+            product_images: {
+              orderBy: [
+                {
+                  sort_order:
+                    'asc',
+                },
+
+                {
+                  created_at:
+                    'asc',
+                },
+              ],
+
+              include: {
+                product_image_translations: {
+                  orderBy: {
+                    locale:
+                      'asc',
+                  },
+                },
+              },
+            },
           },
 
           orderBy: [
@@ -510,6 +822,29 @@ export class ProductsService {
                   'asc',
               },
             },
+
+            product_images: {
+              orderBy: [
+                {
+                  sort_order:
+                    'asc',
+                },
+
+                {
+                  created_at:
+                    'asc',
+                },
+              ],
+
+              include: {
+                product_image_translations: {
+                  orderBy: {
+                    locale:
+                      'asc',
+                  },
+                },
+              },
+            },
           },
         });
 
@@ -525,6 +860,12 @@ export class ProductsService {
       product,
     );
   }
+
+  /*
+   * =========================================================
+   * PUBLIC READ
+   * =========================================================
+   */
 
   async findAllPublic(
     query:
@@ -549,6 +890,25 @@ export class ProductsService {
           include: {
             product_translations:
               true,
+
+            product_images: {
+              orderBy: [
+                {
+                  sort_order:
+                    'asc',
+                },
+
+                {
+                  created_at:
+                    'asc',
+                },
+              ],
+
+              include: {
+                product_image_translations:
+                  true,
+              },
+            },
           },
 
           orderBy: [
@@ -574,7 +934,8 @@ export class ProductsService {
       )
       .filter(
         product =>
-          product !== null,
+          product !==
+          null,
       );
   }
 
@@ -604,6 +965,25 @@ export class ProductsService {
           include: {
             product_translations:
               true,
+
+            product_images: {
+              orderBy: [
+                {
+                  sort_order:
+                    'asc',
+                },
+
+                {
+                  created_at:
+                    'asc',
+                },
+              ],
+
+              include: {
+                product_image_translations:
+                  true,
+              },
+            },
           },
 
           orderBy: [
@@ -634,9 +1014,16 @@ export class ProductsService {
       )
       .filter(
         product =>
-          product !== null,
+          product !==
+          null,
       );
   }
+
+  /*
+   * =========================================================
+   * CREATE
+   * =========================================================
+   */
 
   async create(
     dto:
@@ -649,6 +1036,10 @@ export class ProductsService {
       dto.translations,
     );
 
+    this.validateImages(
+      dto.images,
+    );
+
     const linkUrl =
       this.validateLinkUrl(
         dto.linkUrl,
@@ -658,6 +1049,9 @@ export class ProductsService {
       await this.prisma
         .$transaction(
           async transaction => {
+            /*
+             * 1. Produit
+             */
             const createdProduct =
               await transaction
                 .products
@@ -690,6 +1084,9 @@ export class ProductsService {
                   },
                 });
 
+            /*
+             * 2. Traductions du produit
+             */
             await transaction
               .product_translations
               .createMany({
@@ -717,6 +1114,81 @@ export class ProductsService {
                   ),
               });
 
+            /*
+             * 3. Galerie
+             *
+             * L'ordre envoyé par le navigateur
+             * n'est pas utilisé directement.
+             *
+             * L'ordre du tableau devient :
+             *
+             * 0 = couverture
+             * 1 = image 2
+             * ...
+             * 4 = image 5
+             */
+            if (
+              dto.images?.length
+            ) {
+              for (
+                const [
+                  index,
+                  image,
+                ] of dto.images.entries()
+              ) {
+                const createdImage =
+                  await transaction
+                    .product_images
+                    .create({
+                      data: {
+                        product_id:
+                          createdProduct.id,
+
+                        image_url:
+                          image.imageUrl.trim(),
+
+                        sort_order:
+                          index,
+
+                        width:
+                          image.width ??
+                          null,
+
+                        height:
+                          image.height ??
+                          null,
+                      },
+                    });
+
+                if (
+                  image.translations?.length
+                ) {
+                  await transaction
+                    .product_image_translations
+                    .createMany({
+                      data:
+                        image.translations.map(
+                          translation => ({
+                            product_image_id:
+                              createdImage.id,
+
+                            locale:
+                              translation.locale,
+
+                            alt_text:
+                              translation.altText
+                                ?.trim() ||
+                              null,
+                          }),
+                        ),
+                    });
+                }
+              }
+            }
+
+            /*
+             * 4. Retour complet
+             */
             return transaction
               .products
               .findUniqueOrThrow({
@@ -732,6 +1204,29 @@ export class ProductsService {
                         'asc',
                     },
                   },
+
+                  product_images: {
+                    orderBy: [
+                      {
+                        sort_order:
+                          'asc',
+                      },
+
+                      {
+                        created_at:
+                          'asc',
+                      },
+                    ],
+
+                    include: {
+                      product_image_translations: {
+                        orderBy: {
+                          locale:
+                            'asc',
+                        },
+                      },
+                    },
+                  },
                 },
               });
           },
@@ -741,6 +1236,12 @@ export class ProductsService {
       product,
     );
   }
+
+  /*
+   * =========================================================
+   * UPDATE
+   * =========================================================
+   */
 
   async update(
     id: string,
@@ -784,6 +1285,14 @@ export class ProductsService {
       );
     }
 
+    if (
+      dto.images
+    ) {
+      this.validateImages(
+        dto.images,
+      );
+    }
+
     const linkUrl =
       dto.linkUrl !==
       undefined
@@ -796,6 +1305,9 @@ export class ProductsService {
       await this.prisma
         .$transaction(
           async transaction => {
+            /*
+             * 1. Données principales
+             */
             await transaction
               .products
               .update({
@@ -852,6 +1364,9 @@ export class ProductsService {
                 },
               });
 
+            /*
+             * 2. Traductions
+             */
             if (
               dto.translations
             ) {
@@ -863,9 +1378,11 @@ export class ProductsService {
 
               /*
                * L'arabe est facultatif.
-               * S'il est retiré depuis l'éditeur,
-               * la traduction AR existante est supprimée
-               * et le fallback anglais reprendra la main.
+               *
+               * Si la traduction AR est retirée
+               * depuis l'éditeur, elle est supprimée
+               * afin que le fallback EN reprenne
+               * automatiquement la main.
                */
               await transaction
                 .product_translations
@@ -938,6 +1455,100 @@ export class ProductsService {
               }
             }
 
+            /*
+             * 3. Galerie
+             *
+             * Important :
+             *
+             * - dto.images === undefined
+             *   => on ne touche pas à la galerie.
+             *
+             * - dto.images === []
+             *   => on retire toutes les images.
+             *
+             * - dto.images contient des éléments
+             *   => la galerie est remplacée par
+             *      celle reçue.
+             *
+             * Maximum : 5.
+             */
+            if (
+              dto.images !==
+              undefined
+            ) {
+              /*
+               * Grâce au ON DELETE CASCADE,
+               * supprimer product_images supprime
+               * également les ALT associés.
+               */
+              await transaction
+                .product_images
+                .deleteMany({
+                  where: {
+                    product_id:
+                      id,
+                  },
+                });
+
+              for (
+                const [
+                  index,
+                  image,
+                ] of dto.images.entries()
+              ) {
+                const createdImage =
+                  await transaction
+                    .product_images
+                    .create({
+                      data: {
+                        product_id:
+                          id,
+
+                        image_url:
+                          image.imageUrl.trim(),
+
+                        sort_order:
+                          index,
+
+                        width:
+                          image.width ??
+                          null,
+
+                        height:
+                          image.height ??
+                          null,
+                      },
+                    });
+
+                if (
+                  image.translations?.length
+                ) {
+                  await transaction
+                    .product_image_translations
+                    .createMany({
+                      data:
+                        image.translations.map(
+                          translation => ({
+                            product_image_id:
+                              createdImage.id,
+
+                            locale:
+                              translation.locale,
+
+                            alt_text:
+                              translation.altText
+                                ?.trim() ||
+                              null,
+                          }),
+                        ),
+                    });
+                }
+              }
+            }
+
+            /*
+             * 4. Retour complet
+             */
             return transaction
               .products
               .findUniqueOrThrow({
@@ -952,6 +1563,29 @@ export class ProductsService {
                         'asc',
                     },
                   },
+
+                  product_images: {
+                    orderBy: [
+                      {
+                        sort_order:
+                          'asc',
+                      },
+
+                      {
+                        created_at:
+                          'asc',
+                      },
+                    ],
+
+                    include: {
+                      product_image_translations: {
+                        orderBy: {
+                          locale:
+                            'asc',
+                        },
+                      },
+                    },
+                  },
                 },
               });
           },
@@ -961,6 +1595,12 @@ export class ProductsService {
       product,
     );
   }
+
+  /*
+   * =========================================================
+   * DELETE / ARCHIVE
+   * =========================================================
+   */
 
   async remove(
     id: string,
@@ -993,6 +1633,13 @@ export class ProductsService {
       );
     }
 
+    /*
+     * Suppression logique.
+     *
+     * On conserve volontairement les images
+     * et traductions en base puisque le produit
+     * lui-même reste archivé.
+     */
     await this.prisma
       .products
       .update({

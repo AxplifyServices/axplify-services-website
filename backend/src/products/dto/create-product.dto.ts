@@ -19,6 +19,10 @@ import {
 } from 'class-validator';
 
 import {
+  ProductImageInputDto,
+} from './product-image-input.dto';
+
+import {
   ProductTranslationInputDto,
 } from './product-translation-input.dto';
 
@@ -59,6 +63,25 @@ export class CreateProductDto {
   @Min(0)
   @Max(100_000)
   homepageSortOrder?: number;
+
+  @IsOptional()
+  @IsArray()
+  @ArrayMaxSize(
+    5,
+    {
+      message:
+        'Un produit ne peut pas contenir plus de 5 images.',
+    },
+  )
+  @ValidateNested({
+    each: true,
+  })
+  @Type(
+    () =>
+      ProductImageInputDto,
+  )
+  images?:
+    ProductImageInputDto[];
 
   @IsArray()
   @ArrayMinSize(

@@ -2,6 +2,22 @@ import type {
   AppLocale,
 } from '@/i18n/routing';
 
+export type PublicProductImage = {
+  id: string;
+
+  imageUrl: string;
+
+  sortOrder: number;
+
+  width:
+    number | null;
+
+  height:
+    number | null;
+
+  altText: string;
+};
+
 export type PublicProduct = {
   id: string;
 
@@ -14,6 +30,9 @@ export type PublicProduct = {
   description: string;
 
   category: string;
+
+  images:
+    PublicProductImage[];
 
   requestedLocale:
     AppLocale;
@@ -64,6 +83,21 @@ function asNumber(
     : 0;
 }
 
+function asNullableNumber(
+  value:
+    unknown,
+):
+  number | null
+{
+  return typeof value ===
+      'number' &&
+    Number.isFinite(
+      value,
+    )
+    ? value
+    : null;
+}
+
 function asLocale(
   value:
     unknown,
@@ -80,6 +114,70 @@ function asLocale(
   }
 
   return 'fr';
+}
+
+function normalizeProductImage(
+  value:
+    unknown,
+):
+  PublicProductImage | null
+{
+  if (
+    !value ||
+    typeof value !==
+      'object'
+  ) {
+    return null;
+  }
+
+  const image =
+    value as Record<
+      string,
+      unknown
+    >;
+
+  const id =
+    asString(
+      image.id,
+    );
+
+  const imageUrl =
+    asString(
+      image.imageUrl,
+    );
+
+  if (
+    !id ||
+    !imageUrl
+  ) {
+    return null;
+  }
+
+  return {
+    id,
+
+    imageUrl,
+
+    sortOrder:
+      asNumber(
+        image.sortOrder,
+      ),
+
+    width:
+      asNullableNumber(
+        image.width,
+      ),
+
+    height:
+      asNullableNumber(
+        image.height,
+      ),
+
+    altText:
+      asString(
+        image.altText,
+      ),
+  };
 }
 
 function normalizeProduct(
@@ -143,6 +241,35 @@ function normalizeProduct(
     return null;
   }
 
+  const images =
+    Array.isArray(
+      product.images,
+    )
+      ? product.images
+          .map(
+            normalizeProductImage,
+          )
+          .filter(
+            (
+              image,
+            ): image is PublicProductImage =>
+              image !==
+              null,
+          )
+          .sort(
+            (
+              left,
+              right,
+            ) =>
+              left.sortOrder -
+              right.sortOrder,
+          )
+          .slice(
+            0,
+            5,
+          )
+      : [];
+
   return {
     id,
 
@@ -155,6 +282,8 @@ function normalizeProduct(
     description,
 
     category,
+
+    images,
 
     requestedLocale:
       asLocale(
@@ -191,12 +320,13 @@ function normalizeProduct(
   };
 }
 
-export async function getPublicProducts(
+async function getProducts(
+  endpoint:
+    string,
+
   locale:
     AppLocale,
-): Promise<
-  PublicProduct[]
-> {
+) {
   try {
     const parameters =
       new URLSearchParams({
@@ -205,7 +335,7 @@ export async function getPublicProducts(
 
     const response =
       await fetch(
-        `${API_URL}/products/public?${parameters.toString()}`,
+        `${API_URL}${endpoint}?${parameters.toString()}`,
         {
           headers: {
             Accept:
@@ -253,64 +383,30 @@ export async function getPublicProducts(
   }
 }
 
-export async function getFeaturedProducts(
+export function getPublicProducts(
   locale:
     AppLocale,
-): Promise<
-  PublicProduct[]
-> {
-  try {
-    const parameters =
-      new URLSearchParams({
-        locale,
-      });
+):
+  Promise<
+    PublicProduct[]
+  >
+{
+  return getProducts(
+    '/products/public',
+    locale,
+  );
+}
 
-    const response =
-      await fetch(
-        `${API_URL}/products/public/featured?${parameters.toString()}`,
-        {
-          headers: {
-            Accept:
-              'application/json',
-          },
-
-          next: {
-            revalidate:
-              300,
-          },
-        },
-      );
-
-    if (
-      !response.ok
-    ) {
-      return [];
-    }
-
-    const payload =
-      await response.json() as
-        unknown;
-
-    if (
-      !Array.isArray(
-        payload,
-      )
-    ) {
-      return [];
-    }
-
-    return payload
-      .map(
-        normalizeProduct,
-      )
-      .filter(
-        (
-          product,
-        ): product is PublicProduct =>
-          product !==
-          null,
-      );
-  } catch {
-    return [];
-  }
+export function getFeaturedProducts(
+  locale:
+    AppLocale,
+):
+  Promise<
+    PublicProduct[]
+  >
+{
+  return getProducts(
+    '/products/public/featured',
+    locale,
+  );
 }

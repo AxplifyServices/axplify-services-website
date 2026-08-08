@@ -8,7 +8,9 @@ import {
   Patch,
   Post,
   Query,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 
 import {
@@ -51,6 +53,14 @@ import {
   ProductsService,
 } from './products.service';
 
+import {
+  FileInterceptor,
+} from '@nestjs/platform-express';
+
+import {
+  StorageService,
+} from '../storage/storage.service';
+
 @Controller(
   'products',
 )
@@ -62,10 +72,13 @@ import {
   'SUPER_ADMIN',
 )
 export class ProductsController {
-  constructor(
-    private readonly productsService:
-      ProductsService,
-  ) {}
+constructor(
+  private readonly productsService:
+    ProductsService,
+
+  private readonly storageService:
+    StorageService,
+) {}
 
   @Get(
     'admin',
@@ -96,6 +109,45 @@ export class ProductsController {
         id,
       );
   }
+
+@Post(
+  'upload-image',
+)
+@Throttle({
+  default: {
+    limit:
+      20,
+
+    ttl:
+      60_000,
+  },
+})
+@UseInterceptors(
+  FileInterceptor(
+    'file',
+    {
+      limits: {
+        files:
+          1,
+
+        fileSize:
+          10 *
+          1024 *
+          1024,
+      },
+    },
+  ),
+)
+uploadImage(
+  @UploadedFile()
+  file:
+    Express.Multer.File,
+) {
+  return this.storageService
+    .uploadProductImage(
+      file,
+    );
+}
 
   @Post()
   @Throttle({
