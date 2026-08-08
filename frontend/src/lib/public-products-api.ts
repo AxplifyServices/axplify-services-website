@@ -3,11 +3,14 @@ import type {
 } from '@/i18n/routing';
 
 export type PublicProductImage = {
-  id: string;
+  id:
+    string;
 
-  imageUrl: string;
+  imageUrl:
+    string;
 
-  sortOrder: number;
+  sortOrder:
+    number;
 
   width:
     number | null;
@@ -15,21 +18,28 @@ export type PublicProductImage = {
   height:
     number | null;
 
-  altText: string;
+  altText:
+    string;
 };
 
 export type PublicProduct = {
-  id: string;
+  id:
+    string;
 
-  linkUrl: string;
+  linkUrl:
+    string;
 
-  name: string;
+  name:
+    string;
 
-  title: string;
+  title:
+    string;
 
-  description: string;
+  description:
+    string;
 
-  category: string;
+  category:
+    string;
 
   images:
     PublicProductImage[];
@@ -53,6 +63,45 @@ export type PublicProduct = {
     number;
 
   updatedAt:
+    string;
+};
+
+export type PublicProductsPagination = {
+  page:
+    number;
+
+  limit:
+    number;
+
+  total:
+    number;
+
+  totalPages:
+    number;
+};
+
+export type PublicProductsResponse = {
+  items:
+    PublicProduct[];
+
+  categories:
+    string[];
+
+  pagination:
+    PublicProductsPagination;
+};
+
+type GetPublicProductsOptions = {
+  locale:
+    AppLocale;
+
+  page?:
+    number;
+
+  limit?:
+    number;
+
+  category?:
     string;
 };
 
@@ -320,13 +369,292 @@ function normalizeProduct(
   };
 }
 
-async function getProducts(
-  endpoint:
-    string,
+function normalizeProductArray(
+  value:
+    unknown,
+) {
+  if (
+    !Array.isArray(
+      value,
+    )
+  ) {
+    return [];
+  }
 
+  return value
+    .map(
+      normalizeProduct,
+    )
+    .filter(
+      (
+        product,
+      ): product is PublicProduct =>
+        product !==
+        null,
+    );
+}
+
+function normalizePagination(
+  value:
+    unknown,
+):
+  PublicProductsPagination
+{
+  if (
+    !value ||
+    typeof value !==
+      'object'
+  ) {
+    return {
+      page:
+        1,
+
+      limit:
+        10,
+
+      total:
+        0,
+
+      totalPages:
+        0,
+    };
+  }
+
+  const pagination =
+    value as Record<
+      string,
+      unknown
+    >;
+
+  return {
+    page:
+      Math.max(
+        1,
+        asNumber(
+          pagination.page,
+        ) ||
+          1,
+      ),
+
+    limit:
+      Math.max(
+        1,
+        asNumber(
+          pagination.limit,
+        ) ||
+          10,
+      ),
+
+    total:
+      Math.max(
+        0,
+        asNumber(
+          pagination.total,
+        ),
+      ),
+
+    totalPages:
+      Math.max(
+        0,
+        asNumber(
+          pagination.totalPages,
+        ),
+      ),
+  };
+}
+
+export async function getPublicProducts({
+  locale,
+  page = 1,
+  limit = 10,
+  category,
+}: GetPublicProductsOptions):
+  Promise<
+    PublicProductsResponse
+  >
+{
+  try {
+    const parameters =
+      new URLSearchParams({
+        locale,
+
+        page:
+          String(
+            page,
+          ),
+
+        limit:
+          String(
+            Math.min(
+              10,
+              Math.max(
+                1,
+                limit,
+              ),
+            ),
+          ),
+      });
+
+    const normalizedCategory =
+      category?.trim();
+
+    if (
+      normalizedCategory
+    ) {
+      parameters.set(
+        'category',
+        normalizedCategory,
+      );
+    }
+
+    const response =
+      await fetch(
+        `${API_URL}/products/public?${parameters.toString()}`,
+        {
+          headers: {
+            Accept:
+              'application/json',
+          },
+
+          next: {
+            revalidate:
+              300,
+          },
+        },
+      );
+
+    if (
+      !response.ok
+    ) {
+      return {
+        items:
+          [],
+
+        categories:
+          [],
+
+        pagination: {
+          page:
+            1,
+
+          limit:
+            10,
+
+          total:
+            0,
+
+          totalPages:
+            0,
+        },
+      };
+    }
+
+    const payload =
+      await response.json() as
+        unknown;
+
+    if (
+      !payload ||
+      typeof payload !==
+        'object'
+    ) {
+      return {
+        items:
+          [],
+
+        categories:
+          [],
+
+        pagination: {
+          page:
+            1,
+
+          limit:
+            10,
+
+          total:
+            0,
+
+          totalPages:
+            0,
+        },
+      };
+    }
+
+    const data =
+      payload as Record<
+        string,
+        unknown
+      >;
+
+    const categories =
+      Array.isArray(
+        data.categories,
+      )
+        ? data.categories
+            .map(
+              asString,
+            )
+            .filter(
+              Boolean,
+            )
+        : [];
+
+    return {
+      items:
+        normalizeProductArray(
+          data.items,
+        ),
+
+      categories,
+
+      pagination:
+        normalizePagination(
+          data.pagination,
+        ),
+    };
+  } catch {
+    return {
+      items:
+        [],
+
+      categories:
+        [],
+
+      pagination: {
+        page:
+          1,
+
+        limit:
+          10,
+
+        total:
+          0,
+
+        totalPages:
+          0,
+      },
+    };
+  }
+}
+
+/*
+ * IMPORTANT :
+ *
+ * Cet endpoint reste volontairement distinct de
+ * getPublicProducts().
+ *
+ * Il est utilisé par la home et ne doit pas être
+ * limité par la pagination du catalogue.
+ */
+export async function getFeaturedProducts(
   locale:
     AppLocale,
-) {
+):
+  Promise<
+    PublicProduct[]
+  >
+{
   try {
     const parameters =
       new URLSearchParams({
@@ -335,7 +663,7 @@ async function getProducts(
 
     const response =
       await fetch(
-        `${API_URL}${endpoint}?${parameters.toString()}`,
+        `${API_URL}/products/public/featured?${parameters.toString()}`,
         {
           headers: {
             Accept:
@@ -359,54 +687,10 @@ async function getProducts(
       await response.json() as
         unknown;
 
-    if (
-      !Array.isArray(
-        payload,
-      )
-    ) {
-      return [];
-    }
-
-    return payload
-      .map(
-        normalizeProduct,
-      )
-      .filter(
-        (
-          product,
-        ): product is PublicProduct =>
-          product !==
-          null,
-      );
+    return normalizeProductArray(
+      payload,
+    );
   } catch {
     return [];
   }
-}
-
-export function getPublicProducts(
-  locale:
-    AppLocale,
-):
-  Promise<
-    PublicProduct[]
-  >
-{
-  return getProducts(
-    '/products/public',
-    locale,
-  );
-}
-
-export function getFeaturedProducts(
-  locale:
-    AppLocale,
-):
-  Promise<
-    PublicProduct[]
-  >
-{
-  return getProducts(
-    '/products/public/featured',
-    locale,
-  );
 }

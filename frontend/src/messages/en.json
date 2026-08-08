@@ -434,10 +434,16 @@
     "results": "products",
     "singleResult": "product"
   },
-  "card": {
-    "discover": "Discover the product"
-  },
-  "empty": {
+"card": {
+  "discover": "Discover the product"
+},
+"pagination": {
+  "previous": "Previous",
+  "next": "Next",
+  "page": "Page",
+  "of": "of"
+},
+"empty": {
     "title": "No products available",
     "description": "Our catalogue is evolving. Come back soon to discover new Axplify solutions."
   },

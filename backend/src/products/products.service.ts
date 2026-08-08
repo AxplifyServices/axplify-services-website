@@ -867,64 +867,383 @@ export class ProductsService {
    * =========================================================
    */
 
-  async findAllPublic(
-    query:
-      PublicProductQueryDto,
+async findAllPublic(
+  query:
+    PublicProductQueryDto,
+) {
+  const requestedLocale =
+    query.locale ??
+    'fr';
+
+  const page =
+    query.page ??
+    1;
+
+  const limit =
+    query.limit ??
+    10;
+
+  /*
+   * ---------------------------------------------------------
+   * 1. Récupération légère du catalogue
+   * ---------------------------------------------------------
+   *
+   * Cette première requête NE charge PAS les images.
+   *
+   * Elle sert uniquement à :
+   * - déterminer la traduction réellement visible ;
+   * - construire la liste complète des catégories ;
+   * - identifier les produits correspondant au filtre.
+   *
+   * C'est nécessaire car :
+   *
+   * AR peut utiliser EN en fallback,
+   * et les catégories sont elles-mêmes traduites.
+   *
+   * On ne peut donc pas simplement calculer les catégories
+   * à partir des 10 produits de la page courante.
+   */
+  const catalogProducts =
+    await this.prisma
+      .products
+      .findMany({
+        where: {
+          is_active:
+            true,
+
+          deleted_at:
+            null,
+        },
+
+        select: {
+          id:
+            true,
+
+          product_translations: {
+            select: {
+              locale:
+                true,
+
+              name:
+                true,
+
+              title:
+                true,
+
+              description:
+                true,
+
+              category:
+                true,
+            },
+          },
+        },
+
+        orderBy: [
+          {
+            sort_order:
+              'asc',
+          },
+
+          {
+            created_at:
+              'asc',
+          },
+        ],
+      });
+
+  /*
+   * On applique exactement la même logique de fallback
+   * linguistique que pour l'affichage final.
+   */
+  const resolvedCatalog =
+    catalogProducts
+      .map(
+        product => {
+          const resolved =
+            this.resolveTranslation(
+              product.product_translations,
+              requestedLocale,
+            );
+
+          if (
+            !resolved
+          ) {
+            return null;
+          }
+
+          return {
+            id:
+              product.id,
+
+            category:
+              resolved.translation.category.trim(),
+          };
+        },
+      )
+      .filter(
+        (
+          product,
+        ): product is {
+          id:
+            string;
+
+          category:
+            string;
+        } =>
+          product !==
+          null,
+      );
+
+  /*
+   * ---------------------------------------------------------
+   * 2. Liste complète des catégories
+   * ---------------------------------------------------------
+   */
+
+  const categoryMap =
+    new Map<
+      string,
+      string
+    >();
+
+  resolvedCatalog.forEach(
+    product => {
+      const category =
+        product.category.trim();
+
+      if (
+        !category
+      ) {
+        return;
+      }
+
+      const normalizedCategory =
+        category.toLocaleLowerCase(
+          requestedLocale,
+        );
+
+      if (
+        !categoryMap.has(
+          normalizedCategory,
+        )
+      ) {
+        categoryMap.set(
+          normalizedCategory,
+          category,
+        );
+      }
+    },
+  );
+
+  const categories =
+    Array.from(
+      categoryMap.values(),
+    ).sort(
+      (
+        left,
+        right,
+      ) =>
+        left.localeCompare(
+          right,
+          requestedLocale,
+          {
+            sensitivity:
+              'base',
+          },
+        ),
+    );
+
+  /*
+   * ---------------------------------------------------------
+   * 3. Application éventuelle du filtre catégorie
+   * ---------------------------------------------------------
+   */
+
+  const requestedCategory =
+    query.category
+      ?.trim();
+
+  const normalizedRequestedCategory =
+    requestedCategory
+      ? requestedCategory.toLocaleLowerCase(
+          requestedLocale,
+        )
+      : null;
+
+  const filteredProductIds =
+    normalizedRequestedCategory
+      ? resolvedCatalog
+          .filter(
+            product =>
+              product.category
+                .toLocaleLowerCase(
+                  requestedLocale,
+                ) ===
+              normalizedRequestedCategory,
+          )
+          .map(
+            product =>
+              product.id,
+          )
+      : resolvedCatalog.map(
+          product =>
+            product.id,
+        );
+
+  const total =
+    filteredProductIds.length;
+
+  const totalPages =
+    total ===
+    0
+      ? 0
+      : Math.ceil(
+          total /
+            limit,
+        );
+
+  /*
+   * Si quelqu'un demande ?page=999,
+   * l'API reste stable.
+   */
+  const safePage =
+    totalPages >
+    0
+      ? Math.min(
+          page,
+          totalPages,
+        )
+      : 1;
+
+  const startIndex =
+    (
+      safePage -
+      1
+    ) *
+    limit;
+
+  const pageProductIds =
+    filteredProductIds.slice(
+      startIndex,
+      startIndex +
+        limit,
+    );
+
+  /*
+   * Aucun produit à hydrater.
+   */
+  if (
+    pageProductIds.length ===
+    0
   ) {
-    const requestedLocale =
-      query.locale ??
-      'fr';
+    return {
+      items:
+        [],
 
-    const products =
-      await this.prisma
-        .products
-        .findMany({
-          where: {
-            is_active:
-              true,
+      categories,
 
-            deleted_at:
-              null,
+      pagination: {
+        page:
+          safePage,
+
+        limit,
+
+        total,
+
+        totalPages,
+      },
+    };
+  }
+
+  /*
+   * ---------------------------------------------------------
+   * 4. Chargement complet UNIQUEMENT des produits de la page
+   * ---------------------------------------------------------
+   *
+   * Ici seulement on charge :
+   * - descriptions ;
+   * - images ;
+   * - ALT multilingues.
+   */
+  const products =
+    await this.prisma
+      .products
+      .findMany({
+        where: {
+          id: {
+            in:
+              pageProductIds,
           },
 
-          include: {
-            product_translations:
-              true,
+          is_active:
+            true,
 
-            product_images: {
-              orderBy: [
-                {
-                  sort_order:
-                    'asc',
-                },
+          deleted_at:
+            null,
+        },
 
-                {
-                  created_at:
-                    'asc',
-                },
-              ],
+        include: {
+          product_translations:
+            true,
 
-              include: {
-                product_image_translations:
-                  true,
+          product_images: {
+            orderBy: [
+              {
+                sort_order:
+                  'asc',
               },
+
+              {
+                created_at:
+                  'asc',
+              },
+            ],
+
+            include: {
+              product_image_translations:
+                true,
             },
           },
+        },
+      });
 
-          orderBy: [
-            {
-              sort_order:
-                'asc',
-            },
+  /*
+   * findMany + IN ne garantit pas l'ordre du tableau
+   * pageProductIds.
+   *
+   * On rétablit donc explicitement l'ordre métier.
+   */
+  const productById =
+    new Map(
+      products.map(
+        product => [
+          product.id,
+          product,
+        ],
+      ),
+    );
 
-            {
-              created_at:
-                'asc',
-            },
-          ],
-        });
+  const orderedProducts =
+    pageProductIds
+      .map(
+        productId =>
+          productById.get(
+            productId,
+          ),
+      )
+      .filter(
+        (
+          product,
+        ): product is NonNullable<
+          typeof product
+        > =>
+          product !==
+          undefined,
+      );
 
-    return products
+  const items =
+    orderedProducts
       .map(
         product =>
           this.mapPublicProduct(
@@ -933,11 +1252,32 @@ export class ProductsService {
           ),
       )
       .filter(
-        product =>
+        (
+          product,
+        ): product is NonNullable<
+          typeof product
+        > =>
           product !==
           null,
       );
-  }
+
+  return {
+    items,
+
+    categories,
+
+    pagination: {
+      page:
+        safePage,
+
+      limit,
+
+      total,
+
+      totalPages,
+    },
+  };
+}
 
   async findFeaturedPublic(
     query:

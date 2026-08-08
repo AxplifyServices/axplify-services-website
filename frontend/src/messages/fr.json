@@ -435,10 +435,16 @@
     "results": "produits",
     "singleResult": "produit"
   },
-  "card": {
-    "discover": "Découvrir le produit"
-  },
-  "empty": {
+"card": {
+  "discover": "Découvrir le produit"
+},
+"pagination": {
+  "previous": "Précédent",
+  "next": "Suivant",
+  "page": "Page",
+  "of": "sur"
+},
+"empty": {
     "title": "Aucun produit disponible",
     "description": "Notre catalogue est en cours d’évolution. Revenez prochainement pour découvrir les nouvelles solutions Axplify."
   },

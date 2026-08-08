@@ -29,7 +29,54 @@ type PageProps = {
       locale:
         AppLocale;
     }>;
+
+  searchParams:
+    Promise<{
+      page?:
+        string;
+
+      category?:
+        string;
+    }>;
 };
+
+function resolvePage(
+  value:
+    string |
+    undefined,
+) {
+  const parsedPage =
+    Number.parseInt(
+      value ??
+        '1',
+      10,
+    );
+
+  if (
+    !Number.isFinite(
+      parsedPage,
+    ) ||
+    parsedPage <
+      1
+  ) {
+    return 1;
+  }
+
+  return parsedPage;
+}
+
+function resolveCategory(
+  value:
+    string |
+    undefined,
+) {
+  const normalizedValue =
+    value?.trim();
+
+  return normalizedValue
+    ? normalizedValue
+    : undefined;
+}
 
 export async function generateMetadata({
   params,
@@ -48,24 +95,53 @@ export async function generateMetadata({
 
 export default async function ProductsPage({
   params,
+  searchParams,
 }: PageProps) {
+  const [
+    resolvedParams,
+    resolvedSearchParams,
+  ] =
+    await Promise.all([
+      params,
+      searchParams,
+    ]);
+
   const {
     locale,
   } =
-    await params;
+    resolvedParams;
+
+  const requestedPage =
+    resolvePage(
+      resolvedSearchParams.page,
+    );
+
+  const selectedCategory =
+    resolveCategory(
+      resolvedSearchParams.category,
+    );
 
   setRequestLocale(
     locale,
   );
 
   const [
-    products,
+    productsResponse,
     t,
   ] =
     await Promise.all([
-      getPublicProducts(
+      getPublicProducts({
         locale,
-      ),
+
+        page:
+          requestedPage,
+
+        limit:
+          10,
+
+        category:
+          selectedCategory,
+      }),
 
       getTranslations({
         locale,
@@ -81,7 +157,23 @@ export default async function ProductsPage({
         locale
       }
       products={
-        products
+        productsResponse.items
+      }
+      categories={
+        productsResponse.categories
+      }
+      selectedCategory={
+        selectedCategory ??
+        'all'
+      }
+      currentPage={
+        productsResponse.pagination.page
+      }
+      totalPages={
+        productsResponse.pagination.totalPages
+      }
+      totalResults={
+        productsResponse.pagination.total
       }
       hero={{
         eyebrow:
@@ -128,6 +220,27 @@ export default async function ProductsPage({
         singleResult:
           t(
             'filters.singleResult',
+          ),
+      }}
+      pagination={{
+        previous:
+          t(
+            'pagination.previous',
+          ),
+
+        next:
+          t(
+            'pagination.next',
+          ),
+
+        page:
+          t(
+            'pagination.page',
+          ),
+
+        of:
+          t(
+            'pagination.of',
           ),
       }}
       card={{

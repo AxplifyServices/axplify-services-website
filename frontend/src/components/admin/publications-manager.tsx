@@ -476,7 +476,7 @@ export function PublicationsManager() {
                 ),
 
               limit:
-                '20',
+                '10',
 
               sort:
                 'UPDATED_DESC',

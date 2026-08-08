@@ -150,10 +150,10 @@ export const DEFAULT_PUBLICATION_LOCALE:
     'fr';
 
 export const DEFAULT_ADMIN_PAGE_SIZE =
-  20;
+  10;
 
 export const DEFAULT_PUBLIC_PAGE_SIZE =
-  9;
+  10;
 
 export const MAX_ADMIN_PAGE_SIZE =
   100;
