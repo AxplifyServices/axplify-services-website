@@ -64,14 +64,20 @@ export function ProductCard({
     images.length >
     1;
 
+  const safeImageIndex =
+    Math.min(
+      activeImageIndex,
+      Math.max(
+        images.length -
+          1,
+        0,
+      ),
+    );
+
   const activeImage =
     hasImages
       ? images[
-          Math.min(
-            activeImageIndex,
-            images.length -
-              1,
-          )
+          safeImageIndex
         ]
       : null;
 
@@ -84,7 +90,7 @@ export function ProductCard({
 
     setActiveImageIndex(
       current =>
-        current ===
+        current <=
         0
           ? images.length -
             1
@@ -102,58 +108,12 @@ export function ProductCard({
 
     setActiveImageIndex(
       current =>
-        current ===
+        current >=
         images.length -
           1
           ? 0
           : current +
             1,
-    );
-  }
-
-  function preventCardNavigation(
-    event:
-      React.SyntheticEvent,
-  ) {
-    event.preventDefault();
-    event.stopPropagation();
-  }
-
-  function handlePrevious(
-    event:
-      React.MouseEvent<HTMLButtonElement>,
-  ) {
-    preventCardNavigation(
-      event,
-    );
-
-    previousImage();
-  }
-
-  function handleNext(
-    event:
-      React.MouseEvent<HTMLButtonElement>,
-  ) {
-    preventCardNavigation(
-      event,
-    );
-
-    nextImage();
-  }
-
-  function handleIndicator(
-    event:
-      React.MouseEvent<HTMLButtonElement>,
-
-    index:
-      number,
-  ) {
-    preventCardNavigation(
-      event,
-    );
-
-    setActiveImageIndex(
-      index,
     );
   }
 
@@ -179,7 +139,7 @@ export function ProductCard({
   ) {
     if (
       swipeStartX ===
-      null ||
+        null ||
       !hasGallery
     ) {
       setSwipeStartX(
@@ -197,11 +157,6 @@ export function ProductCard({
       null,
     );
 
-    /*
-     * Seuil volontairement assez important
-     * pour ne pas déclencher un changement
-     * d'image lors d'un simple tap.
-     */
     if (
       Math.abs(
         deltaX,
@@ -233,26 +188,27 @@ export function ProductCard({
           : undefined
       }
     >
-      <a
-        href={
-          product.linkUrl
+      <div
+        className="product-card__media"
+        onPointerDown={
+          handlePointerDown
         }
-        className="product-card__link"
+        onPointerUp={
+          handlePointerUp
+        }
+        onPointerCancel={
+          () =>
+            setSwipeStartX(
+              null,
+            )
+        }
       >
-        <div
-          className="product-card__media"
-          onPointerDown={
-            handlePointerDown
+        <a
+          href={
+            product.linkUrl
           }
-          onPointerUp={
-            handlePointerUp
-          }
-          onPointerCancel={
-            () =>
-              setSwipeStartX(
-                null,
-              )
-          }
+          className="product-card__media-link"
+          aria-label={`${product.name} — ${product.title}`}
         >
           {activeImage ? (
             <img
@@ -298,112 +254,126 @@ export function ProductCard({
               />
             </span>
           </div>
+        </a>
 
-          {hasGallery ? (
-            <>
-              <button
-                type="button"
-                className="product-card__gallery-arrow product-card__gallery-arrow--previous"
-                aria-label="Image précédente"
-                onClick={
-                  handlePrevious
+        {hasGallery ? (
+          <>
+            <button
+              type="button"
+              className="product-card__gallery-arrow product-card__gallery-arrow--previous"
+              aria-label="Image précédente"
+              onClick={
+                event => {
+                  event.preventDefault();
+                  event.stopPropagation();
+
+                  previousImage();
                 }
-              >
-                <ArrowLeft
-                  size={17}
-                  aria-hidden="true"
-                />
-              </button>
+              }
+            >
+              <ArrowLeft
+                size={17}
+                aria-hidden="true"
+              />
+            </button>
 
-              <button
-                type="button"
-                className="product-card__gallery-arrow product-card__gallery-arrow--next"
-                aria-label="Image suivante"
-                onClick={
-                  handleNext
+            <button
+              type="button"
+              className="product-card__gallery-arrow product-card__gallery-arrow--next"
+              aria-label="Image suivante"
+              onClick={
+                event => {
+                  event.preventDefault();
+                  event.stopPropagation();
+
+                  nextImage();
                 }
-              >
-                <ArrowRight
-                  size={17}
-                  aria-hidden="true"
-                />
-              </button>
+              }
+            >
+              <ArrowRight
+                size={17}
+                aria-hidden="true"
+              />
+            </button>
 
-              <div
-                className="product-card__gallery-dots"
-                role="group"
-                aria-label="Images du produit"
-                onClick={
-                  event =>
-                    event.preventDefault()
-                }
-              >
-                {images.map(
-                  (
-                    image,
-                    index,
-                  ) => (
-                    <button
-                      key={
-                        image.id
-                      }
-                      type="button"
-                      aria-label={`Afficher l’image ${index + 1}`}
-                      aria-pressed={
-                        activeImageIndex ===
-                        index
-                      }
-                      data-active={
-                        activeImageIndex ===
-                        index
-                      }
-                      onClick={
-                        event =>
-                          handleIndicator(
-                            event,
-                            index,
-                          )
-                      }
-                    />
-                  ),
-                )}
-              </div>
+            <div
+              className="product-card__gallery-dots"
+              role="group"
+              aria-label="Images du produit"
+            >
+              {images.map(
+                (
+                  image,
+                  index,
+                ) => (
+                  <button
+                    key={
+                      image.id
+                    }
+                    type="button"
+                    aria-label={`Afficher l’image ${index + 1}`}
+                    aria-pressed={
+                      safeImageIndex ===
+                      index
+                    }
+                    data-active={
+                      safeImageIndex ===
+                      index
+                    }
+                    onClick={
+                      event => {
+                        event.preventDefault();
+                        event.stopPropagation();
 
-              <span className="product-card__gallery-counter">
-                {activeImageIndex +
-                  1}
-                /
-                {images.length}
-              </span>
-            </>
-          ) : null}
+                        setActiveImageIndex(
+                          index,
+                        );
+                      }
+                    }
+                  />
+                ),
+              )}
+            </div>
+
+            <span className="product-card__gallery-counter">
+              {safeImageIndex +
+                1}
+              /
+              {images.length}
+            </span>
+          </>
+        ) : null}
+      </div>
+
+      <a
+        href={
+          product.linkUrl
+        }
+        className="product-card__content"
+      >
+        <div className="product-card__identity">
+          <span className="product-card__name">
+            {product.name}
+          </span>
+
+          <h2>
+            {product.title}
+          </h2>
         </div>
 
-        <div className="product-card__content">
-          <div className="product-card__identity">
-            <span className="product-card__name">
-              {product.name}
-            </span>
+        <p className="product-card__description">
+          {product.description}
+        </p>
 
-            <h2>
-              {product.title}
-            </h2>
-          </div>
+        <div className="product-card__footer">
+          <span>
+            {discoverLabel}
+          </span>
 
-          <p className="product-card__description">
-            {product.description}
-          </p>
-
-          <div className="product-card__footer">
-            <span>
-              {discoverLabel}
-            </span>
-
-            <ArrowUpRight
-              size={17}
-              aria-hidden="true"
-            />
-          </div>
+          <ArrowUpRight
+            size={17}
+            aria-hidden="true"
+          />
         </div>
       </a>
     </article>
