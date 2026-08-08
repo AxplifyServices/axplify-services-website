@@ -55,6 +55,14 @@ import {
   getFeaturedProducts,
 } from '@/lib/public-products-api';
 
+import {
+  HomeReviewsSection,
+} from '@/components/home/home-reviews-section';
+
+import {
+  getHomepageReviews,
+} from '@/lib/public-reviews-api';
+
 type PageProps = {
   params:
     Promise<{
@@ -114,12 +122,14 @@ const [
   homepageClients,
   featuredPublications,
   featuredProducts,
+  homepageReviews,
   brochureTranslations,
   aboutTranslations,
   servicesTranslations,
   clientsTranslations,
   insightsTranslations,
   productsTranslations,
+  reviewsTranslations,
 ] =
   await Promise.all([
     getPublicHomepageBrochures(
@@ -135,16 +145,18 @@ const [
       8,
     ),
 
-    getFeaturedProducts(
-      locale,
-    ),
+getFeaturedProducts(
+  locale,
+),
 
-    getTranslations({
-      locale,
+getHomepageReviews(),
 
-      namespace:
-        'pages.home.brochures',
-    }),
+getTranslations({
+  locale,
+
+  namespace:
+    'pages.home.brochures',
+}),
 
     getTranslations({
       locale,
@@ -174,12 +186,19 @@ const [
         'pages.home.insightsPreview',
     }),
 
-    getTranslations({
-      locale,
+getTranslations({
+  locale,
 
-      namespace:
-        'pages.home.productsPreview',
-    }),
+  namespace:
+    'pages.home.productsPreview',
+}),
+
+getTranslations({
+  locale,
+
+  namespace:
+    'pages.home.reviewsPreview',
+}),
   ]);
 
   const pillars =
@@ -424,7 +443,51 @@ const [
       'viewAll',
     )
   }
-/>      
+/>    
+
+<HomeReviewsSection
+  locale={
+    locale
+  }
+  reviews={
+    homepageReviews
+  }
+  eyebrow={
+    reviewsTranslations(
+      'eyebrow',
+    )
+  }
+  title={
+    reviewsTranslations(
+      'title',
+    )
+  }
+  description={
+    reviewsTranslations(
+      'description',
+    )
+  }
+  projectLabel={
+    reviewsTranslations(
+      'project',
+    )
+  }
+  viewAllLabel={
+    reviewsTranslations(
+      'viewAll',
+    )
+  }
+  previousLabel={
+    reviewsTranslations(
+      'previous',
+    )
+  }
+  nextLabel={
+    reviewsTranslations(
+      'next',
+    )
+  }
+/>
     </>
   );
 }

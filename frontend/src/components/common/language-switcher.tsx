@@ -42,12 +42,26 @@ export function LanguageSwitcher() {
   const pathname =
     usePathname();
 
-  const params =
-    useParams<{
-      slug?:
-        string |
-        string[];
-    }>();
+const params =
+  useParams<{
+    slug?:
+      string |
+      string[];
+
+    token?:
+      string |
+      string[];
+  }>();
+
+const rawToken =
+  params.token;
+
+const token =
+  Array.isArray(
+    rawToken,
+  )
+    ? rawToken[0]
+    : rawToken;  
 
   const [
     pendingLocale,
@@ -103,22 +117,36 @@ export function LanguageSwitcher() {
       ? rawSlug[0]
       : rawSlug;
 
-  const languageSwitcherHref =
-    pathname ===
-      '/insights/[slug]' &&
-    slug
-      ? {
-          pathname:
-            '/insights/[slug]' as const,
+const languageSwitcherHref =
+  pathname ===
+    '/insights/[slug]' &&
+  slug
+    ? {
+        pathname:
+          '/insights/[slug]' as const,
 
-          params: {
-            slug,
-          },
-        }
+        params: {
+          slug,
+        },
+      }
+    : pathname ===
+        '/insights/[slug]'
+      ? '/insights' as const
       : pathname ===
-          '/insights/[slug]'
-        ? '/insights' as const
-        : pathname;
+          '/reviews/submit/[token]' &&
+        token
+        ? {
+            pathname:
+              '/reviews/submit/[token]' as const,
+
+            params: {
+              token,
+            },
+          }
+        : pathname ===
+            '/reviews/submit/[token]'
+          ? '/' as const
+          : pathname;
 
   return (
     <div

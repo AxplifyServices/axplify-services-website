@@ -11,6 +11,7 @@ export const publicPageHrefs = [
   '/about/work-process',
   '/insights',
   '/faq',
+  '/reviews',
   '/contact',
 ] as const;
 

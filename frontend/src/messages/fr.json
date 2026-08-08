@@ -32,6 +32,16 @@
 },
   "pages": {
 "home": {
+
+  "reviewsPreview": {
+  "eyebrow": "Ils nous ont fait confiance",
+  "title": "Des projets vécus de l’intérieur, racontés par ceux qui nous ont fait confiance.",
+  "description": "Derrière chaque solution livrée, il y a un besoin réel, des échanges, des décisions et une collaboration. Découvrez ce que nos clients retiennent de leur expérience avec Axplify Services.",
+  "project": "Projet associé",
+  "viewAll": "Voir tous les avis",
+  "previous": "Avis précédent",
+  "next": "Avis suivant"
+},
   "productsPreview": {
   "eyebrow": "Nos produits",
   "title": "Des solutions déjà prêtes pour accélérer vos projets.",
@@ -843,6 +853,35 @@
         "moderation": "Votre avis est maintenant transmis à notre équipe. Il ne sera visible sur le site qu’après validation."
       }
     }
+  }
+},
+
+"reviews": {
+  "seo": {
+    "title": "Avis clients | Expériences avec Axplify Services",
+    "description": "Découvrez les témoignages de clients ayant collaboré avec Axplify Services sur leurs projets digitaux, Data, IA, automatisation et transformation métier."
+  },
+  "hero": {
+    "eyebrow": "Ils racontent leur expérience",
+    "title": "Derrière chaque projet, il y a une collaboration qui compte.",
+    "description": "Un besoin à comprendre, des choix à faire et une solution à construire ensemble. Découvrez comment nos clients ont vécu leur collaboration avec Axplify Services et les projets que nous avons menés à leurs côtés."
+  },
+  "results": {
+    "label": "avis clients",
+    "single": "avis client"
+  },
+  "card": {
+    "project": "Projet associé"
+  },
+  "empty": {
+    "title": "Les premiers témoignages arrivent bientôt",
+    "description": "Les avis publiés par nos clients apparaîtront ici après validation."
+  },
+  "pagination": {
+    "previous": "Précédent",
+    "next": "Suivant",
+    "page": "Page",
+    "of": "sur"
   }
 },
 

@@ -32,6 +32,16 @@
 },
   "pages": {
 "home": {
+
+  "reviewsPreview": {
+  "eyebrow": "Trusted by our clients",
+  "title": "Real projects, shared by the people who experienced them.",
+  "description": "Behind every solution we deliver is a real challenge, conversations, decisions and a collaboration. Discover what our clients remember about working with Axplify Services.",
+  "project": "Related project",
+  "viewAll": "View all reviews",
+  "previous": "Previous review",
+  "next": "Next review"
+},
   "productsPreview": {
   "eyebrow": "Our products",
   "title": "Ready-to-use solutions designed to move your projects faster.",
@@ -842,6 +852,35 @@
         "moderation": "Your review has now been sent to our team. It will only appear on the website after approval."
       }
     }
+  }
+},
+
+"reviews": {
+  "seo": {
+    "title": "Client reviews | Experiences with Axplify Services",
+    "description": "Discover what clients say about working with Axplify Services on digital, Data, AI, automation and business transformation projects."
+  },
+  "hero": {
+    "eyebrow": "Their experience, in their own words",
+    "title": "Behind every project is a collaboration that matters.",
+    "description": "A challenge to understand, decisions to make and a solution to build together. Discover how our clients experienced working with Axplify Services and the projects we delivered alongside them."
+  },
+  "results": {
+    "label": "client reviews",
+    "single": "client review"
+  },
+  "card": {
+    "project": "Related project"
+  },
+  "empty": {
+    "title": "Our first client stories are coming soon",
+    "description": "Approved client reviews will appear here."
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page",
+    "of": "of"
   }
 },
 
