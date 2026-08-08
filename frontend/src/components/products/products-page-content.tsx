@@ -1,6 +1,8 @@
 'use client';
 
 import {
+  ArrowLeft,
+  ArrowRight,
   Check,
   Filter,
   PackageOpen,
@@ -17,6 +19,11 @@ import {
   ProductCard,
 } from '@/components/products/product-card';
 
+import {
+  Link,
+  useRouter,
+} from '@/i18n/navigation';
+
 import type {
   AppLocale,
 } from '@/i18n/routing';
@@ -31,6 +38,21 @@ type ProductsPageContentProps = {
 
   products:
     PublicProduct[];
+
+  categories:
+    string[];
+
+  selectedCategory:
+    string;
+
+  currentPage:
+    number;
+
+  totalPages:
+    number;
+
+  totalResults:
+    number;
 
   hero: {
     eyebrow:
@@ -63,6 +85,20 @@ type ProductsPageContentProps = {
       string;
   };
 
+  pagination: {
+    previous:
+      string;
+
+    next:
+      string;
+
+    page:
+      string;
+
+    of:
+      string;
+  };
+
   card: {
     discover:
       string;
@@ -76,6 +112,72 @@ type ProductsPageContentProps = {
       string;
   };
 };
+
+type ProductsPageHref = {
+  pathname:
+    '/products';
+
+  query?: {
+    category?:
+      string;
+
+    page?:
+      string;
+  };
+};
+
+function buildProductsHref({
+  category,
+  page,
+}: {
+  category:
+    string;
+
+  page:
+    number;
+}): ProductsPageHref {
+  const query:
+    NonNullable<
+      ProductsPageHref['query']
+    > = {};
+
+  if (
+    category !==
+    'all'
+  ) {
+    query.category =
+      category;
+  }
+
+  if (
+    page >
+    1
+  ) {
+    query.page =
+      String(
+        page,
+      );
+  }
+
+  if (
+    Object.keys(
+      query,
+    ).length ===
+    0
+  ) {
+    return {
+      pathname:
+        '/products',
+    };
+  }
+
+  return {
+    pathname:
+      '/products',
+
+    query,
+  };
+}
 
 type ProductsFiltersProps = {
   categories:
@@ -225,18 +327,19 @@ function ProductsFilters({
 export function ProductsPageContent({
   locale,
   products,
+  categories,
+  selectedCategory,
+  currentPage,
+  totalPages,
+  totalResults,
   hero,
   filters,
+  pagination,
   card,
   emptyState,
 }: ProductsPageContentProps) {
-  const [
-    selectedCategory,
-    setSelectedCategory,
-  ] =
-    useState(
-      'all',
-    );
+  const router =
+    useRouter();
 
   const [
     filtersOpen,
@@ -244,99 +347,6 @@ export function ProductsPageContent({
   ] =
     useState(
       false,
-    );
-
-  /*
-   * La catégorie reste une valeur libre
-   * en base.
-   *
-   * Ici on construit simplement le catalogue
-   * des catégories réellement utilisées.
-   *
-   * Deux produits ayant la même catégorie
-   * n'afficheront qu'un seul filtre.
-   */
-  const categories =
-    useMemo(
-      () => {
-        const values =
-          new Map<
-            string,
-            string
-          >();
-
-        products.forEach(
-          product => {
-            const category =
-              product.category.trim();
-
-            if (
-              !category
-            ) {
-              return;
-            }
-
-            const normalized =
-              category.toLocaleLowerCase(
-                locale,
-              );
-
-            if (
-              !values.has(
-                normalized,
-              )
-            ) {
-              values.set(
-                normalized,
-                category,
-              );
-            }
-          },
-        );
-
-        return Array.from(
-          values.values(),
-        ).sort(
-          (
-            left,
-            right,
-          ) =>
-            left.localeCompare(
-              right,
-              locale,
-              {
-                sensitivity:
-                  'base',
-              },
-            ),
-        );
-      },
-      [
-        locale,
-        products,
-      ],
-    );
-
-  const filteredProducts =
-    useMemo(
-      () => {
-        if (
-          selectedCategory ===
-          'all'
-        ) {
-          return products;
-        }
-
-        return products.filter(
-          product =>
-            product.category ===
-            selectedCategory,
-        );
-      },
-      [
-        products,
-        selectedCategory,
-      ],
     );
 
   useEffect(
@@ -388,17 +398,22 @@ export function ProductsPageContent({
     category:
       string,
   ) {
-    setSelectedCategory(
-      category,
-    );
-
     setFiltersOpen(
       false,
+    );
+
+    router.push(
+      buildProductsHref({
+        category,
+
+        page:
+          1,
+      }),
     );
   }
 
   const resultLabel =
-    filteredProducts.length ===
+    totalResults ===
     1
       ? filters.singleResult
       : filters.results;
@@ -469,9 +484,11 @@ export function ProductsPageContent({
 
       <section className="products-page__content">
         <div className="site-container">
-          {products.length ===
-          0 ? (
-            <div className="products-page__empty">
+{products.length ===
+  0 &&
+categories.length ===
+  0 ? (
+  <div className="products-page__empty">
               <PackageOpen
                 size={34}
                 aria-hidden="true"
@@ -507,12 +524,10 @@ export function ProductsPageContent({
               <div className="products-page__results">
                 <header className="products-page__results-header">
                   <p>
-                    <strong>
-                      {
-                        filteredProducts.length
-                      }
-                    </strong>{' '}
-                    {resultLabel}
+<strong>
+  {totalResults}
+</strong>{' '}
+{resultLabel}
                   </p>
 
                   {selectedCategory !==
@@ -523,8 +538,8 @@ export function ProductsPageContent({
                   ) : null}
                 </header>
 
-                {filteredProducts.length ===
-                0 ? (
+{products.length ===
+0 ? (
                   <div className="products-page__empty products-page__empty--small">
                     <PackageOpen
                       size={30}
@@ -540,23 +555,160 @@ export function ProductsPageContent({
                     </p>
                   </div>
                 ) : (
-                  <div className="products-page__grid">
-                    {filteredProducts.map(
-                      product => (
-                        <ProductCard
-                          key={
-                            product.id
-                          }
-                          product={
-                            product
-                          }
-                          discoverLabel={
-                            card.discover
-                          }
-                        />
-                      ),
-                    )}
-                  </div>
+<>
+  <div className="products-page__grid">
+    {products.map(
+      product => (
+        <ProductCard
+          key={
+            product.id
+          }
+          product={
+            product
+          }
+          discoverLabel={
+            card.discover
+          }
+        />
+      ),
+    )}
+  </div>
+
+  {totalPages >
+  1 ? (
+    <nav
+      className="products-pagination"
+      aria-label={`${pagination.page} ${currentPage} ${pagination.of} ${totalPages}`}
+    >
+      {currentPage >
+      1 ? (
+        <Link
+          href={
+            buildProductsHref({
+              category:
+                selectedCategory,
+
+              page:
+                currentPage -
+                1,
+            })
+          }
+          className="products-pagination__direction"
+        >
+          <ArrowLeft
+            size={18}
+            aria-hidden="true"
+          />
+
+          <span>
+            {pagination.previous}
+          </span>
+        </Link>
+      ) : (
+        <span
+          className="products-pagination__direction is-disabled"
+          aria-disabled="true"
+        >
+          <ArrowLeft
+            size={18}
+            aria-hidden="true"
+          />
+
+          <span>
+            {pagination.previous}
+          </span>
+        </span>
+      )}
+
+      <div className="products-pagination__pages">
+        {Array.from(
+          {
+            length:
+              totalPages,
+          },
+
+          (
+            _,
+            index,
+          ) =>
+            index +
+            1,
+        ).map(
+          page => (
+            <Link
+              key={
+                page
+              }
+              href={
+                buildProductsHref({
+                  category:
+                    selectedCategory,
+
+                  page,
+                })
+              }
+              className={
+                page ===
+                currentPage
+                  ? 'products-pagination__page is-active'
+                  : 'products-pagination__page'
+              }
+              aria-current={
+                page ===
+                currentPage
+                  ? 'page'
+                  : undefined
+              }
+              aria-label={`${pagination.page} ${page} ${pagination.of} ${totalPages}`}
+            >
+              {page}
+            </Link>
+          ),
+        )}
+      </div>
+
+      {currentPage <
+      totalPages ? (
+        <Link
+          href={
+            buildProductsHref({
+              category:
+                selectedCategory,
+
+              page:
+                currentPage +
+                1,
+            })
+          }
+          className="products-pagination__direction"
+        >
+          <span>
+            {pagination.next}
+          </span>
+
+          <ArrowRight
+            size={18}
+            aria-hidden="true"
+          />
+        </Link>
+      ) : (
+        <span
+          className="products-pagination__direction is-disabled"
+          aria-disabled="true"
+        >
+          <span>
+            {pagination.next}
+          </span>
+
+          <ArrowRight
+            size={18}
+            aria-hidden="true"
+          />
+        </span>
+      )}
+    </nav>
+  ) : null}
+</>
                 )}
               </div>
             </div>
