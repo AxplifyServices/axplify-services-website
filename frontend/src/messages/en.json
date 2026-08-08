@@ -32,7 +32,6 @@
 },
   "pages": {
 "home": {
-
   "productsPreview": {
   "eyebrow": "Our products",
   "title": "Ready-to-use solutions designed to move your projects faster.",
@@ -420,8 +419,8 @@
 },
 "products": {
   "eyebrow": "Solutions created by Axplify",
-  "title": "Our products",
-  "description": "You do not always need to build a solution from scratch. Axplify also develops ready-to-use products for specific business needs, helping organisations save time, simplify operations and move faster into real-world use.",
+  "title": "Products",
+  "description": "This page will present the digital products designed and developed by Axplify Services.",
   "hero": {
     "eyebrow": "Axplify products",
     "title": "Find the solution that already matches your need.",
@@ -443,8 +442,8 @@
     "description": "Our catalogue is evolving. Come back soon to discover new Axplify solutions."
   },
   "seo": {
-    "title": "Digital products for businesses | Axplify Services",
-    "description": "Discover Axplify Services digital products designed to simplify operations, make better use of data and accelerate business projects."
+    "title": "Digital products for businesses",
+    "description": "Discover Axplify Services products designed to structure operations, improve management and support sustainable business growth."
   }
 },
 "about": {

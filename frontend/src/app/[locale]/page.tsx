@@ -108,6 +108,7 @@ export default async function HomePage({
     locale,
   );
 
+
 const [
   brochures,
   homepageClients,
@@ -121,65 +122,65 @@ const [
   productsTranslations,
 ] =
   await Promise.all([
-      getPublicHomepageBrochures(
-        locale,
-      ),
+    getPublicHomepageBrochures(
+      locale,
+    ),
 
-      getPublicHomepageClients(
-        locale,
-      ),
+    getPublicHomepageClients(
+      locale,
+    ),
 
-      getFeaturedPublications(
-        locale,
-        8,
-      ),
+    getFeaturedPublications(
+      locale,
+      8,
+    ),
 
-      getFeaturedProducts(
-        locale,
-      ),  
+    getFeaturedProducts(
+      locale,
+    ),
 
-      getTranslations({
-        locale,
+    getTranslations({
+      locale,
 
-        namespace:
-          'pages.home.brochures',
-      }),
+      namespace:
+        'pages.home.brochures',
+    }),
 
-      getTranslations({
-        locale,
+    getTranslations({
+      locale,
 
-        namespace:
-          'pages.home.aboutPreview',
-      }),
+      namespace:
+        'pages.home.aboutPreview',
+    }),
 
-      getTranslations({
-        locale,
+    getTranslations({
+      locale,
 
-        namespace:
-          'pages.home.productsPreview',
-      }),      
+      namespace:
+        'pages.home.servicesPreview',
+    }),
 
-      getTranslations({
-        locale,
+    getTranslations({
+      locale,
 
-        namespace:
-          'pages.home.servicesPreview',
-      }),
+      namespace:
+        'pages.home.clientsPreview',
+    }),
 
-      getTranslations({
-        locale,
+    getTranslations({
+      locale,
 
-        namespace:
-          'pages.home.clientsPreview',
-      }),
+      namespace:
+        'pages.home.insightsPreview',
+    }),
 
-      getTranslations({
-        locale,
+    getTranslations({
+      locale,
 
-        namespace:
-          'pages.home.insightsPreview',
-      }),
-    ]);
+      namespace:
+        'pages.home.productsPreview',
+    }),
+  ]);
 
   const pillars =
     ABOUT_PILLAR_KEYS.map(
