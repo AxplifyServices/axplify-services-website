@@ -14,8 +14,9 @@ import {
   MailQuestion,
   Menu,
   X,
-  Newspaper,
-  CircleHelp,
+Newspaper,
+CircleHelp,
+Package,
 } from 'lucide-react';
 
 import {
@@ -411,6 +412,38 @@ const pathname =
 
   <span>
     Réalisations
+  </span>
+</Link>
+
+<Link
+  href="/admin/products"
+  className="admin-sidebar__link"
+  data-active={
+    pathname ===
+      '/admin/products' ||
+    pathname.startsWith(
+      '/admin/products/',
+    )
+  }
+  title={
+    isSidebarCollapsed
+      ? 'Produits'
+      : undefined
+  }
+  onClick={
+    () =>
+      setIsMobileMenuOpen(
+        false,
+      )
+  }
+>
+  <Package
+    size={20}
+    aria-hidden="true"
+  />
+
+  <span>
+    Produits
   </span>
 </Link>
 

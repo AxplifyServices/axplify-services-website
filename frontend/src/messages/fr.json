@@ -32,6 +32,13 @@
 },
   "pages": {
 "home": {
+  "productsPreview": {
+  "eyebrow": "Nos produits",
+  "title": "Des solutions déjà prêtes pour accélérer vos projets.",
+  "description": "Certains besoins ne nécessitent pas de repartir de zéro. Découvrez les produits développés par Axplify pour répondre rapidement à des problématiques concrètes et vous permettre de passer plus vite de l’idée à l’usage.",
+  "discover": "Découvrir le produit",
+  "viewAll": "Voir tous les produits"
+},
   "insightsPreview": {
   "eyebrow": "Articles & actualités",
   "title": "Ne ratez rien de ce qui se passe",
@@ -411,15 +418,35 @@
     "description": "Découvrez les services Axplify Services : développement web et mobile, automatisation, data, IA, CRM, analytics, génération de leads et stratégie marketing."
   }
 },
-    "products": {
-      "eyebrow": "Solutions éditées par Axplify",
-      "title": "Produits",
-      "description": "Cette page présentera les produits digitaux conçus et développés par Axplify Services.",
-      "seo": {
-        "title": "Produits digitaux pour les entreprises",
-        "description": "Découvrez les produits Axplify Services conçus pour structurer les opérations, améliorer le pilotage et accompagner la croissance des entreprises."
-      }
-    },
+"products": {
+  "eyebrow": "Solutions éditées par Axplify",
+  "title": "Nos produits",
+  "description": "Vous n’avez pas toujours besoin de construire une solution depuis zéro. Axplify développe aussi des produits prêts à répondre à des besoins métier précis, afin de vous permettre de gagner du temps, simplifier vos opérations et accélérer le passage à l’usage.",
+  "hero": {
+    "eyebrow": "Produits Axplify",
+    "title": "Trouvez la solution qui répond déjà à votre besoin.",
+    "description": "Explorez notre catalogue de produits digitaux conçus autour de problématiques concrètes. Filtrez les solutions par catégorie, identifiez celle qui correspond à votre contexte et accédez directement au produit."
+  },
+  "filters": {
+    "title": "Catégories",
+    "all": "Tous les produits",
+    "open": "Filtrer les produits",
+    "close": "Fermer les filtres",
+    "results": "produits",
+    "singleResult": "produit"
+  },
+  "card": {
+    "discover": "Découvrir le produit"
+  },
+  "empty": {
+    "title": "Aucun produit disponible",
+    "description": "Notre catalogue est en cours d’évolution. Revenez prochainement pour découvrir les nouvelles solutions Axplify."
+  },
+  "seo": {
+    "title": "Produits digitaux pour les entreprises | Axplify Services",
+    "description": "Découvrez les produits digitaux Axplify Services conçus pour simplifier les opérations, mieux exploiter les données et accélérer les projets des entreprises."
+  }
+},
 "about": {
   "eyebrow": "L’entreprise",
   "title": "À propos d’Axplify Services",

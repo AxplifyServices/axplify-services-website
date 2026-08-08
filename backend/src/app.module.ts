@@ -63,6 +63,10 @@ import {
   FaqsModule,
 } from './faqs/faqs.module';
 
+import {
+  ProductsModule,
+} from './products/products.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -105,6 +109,8 @@ import {
     ContactRequestsModule,
 
     FaqsModule,
+
+    ProductsModule,
   ],
 
   controllers: [

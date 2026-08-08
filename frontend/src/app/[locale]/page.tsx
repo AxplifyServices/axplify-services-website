@@ -47,6 +47,14 @@ import {
   createPageMetadata,
 } from '@/lib/seo';
 
+import {
+  HomeProductsSection,
+} from '@/components/home/home-products-section';
+
+import {
+  getFeaturedProducts,
+} from '@/lib/public-products-api';
+
 type PageProps = {
   params:
     Promise<{
@@ -100,17 +108,19 @@ export default async function HomePage({
     locale,
   );
 
-  const [
-    brochures,
-    homepageClients,
-    featuredPublications,
-    brochureTranslations,
-    aboutTranslations,
-    servicesTranslations,
-    clientsTranslations,
-    insightsTranslations,
-  ] =
-    await Promise.all([
+const [
+  brochures,
+  homepageClients,
+  featuredPublications,
+  featuredProducts,
+  brochureTranslations,
+  aboutTranslations,
+  servicesTranslations,
+  clientsTranslations,
+  insightsTranslations,
+  productsTranslations,
+] =
+  await Promise.all([
       getPublicHomepageBrochures(
         locale,
       ),
@@ -123,6 +133,10 @@ export default async function HomePage({
         locale,
         8,
       ),
+
+      getFeaturedProducts(
+        locale,
+      ),  
 
       getTranslations({
         locale,
@@ -137,6 +151,13 @@ export default async function HomePage({
         namespace:
           'pages.home.aboutPreview',
       }),
+
+      getTranslations({
+        locale,
+
+        namespace:
+          'pages.home.productsPreview',
+      }),      
 
       getTranslations({
         locale,
@@ -369,6 +390,40 @@ export default async function HomePage({
           featuredPublications
         }
       />
+
+<HomeProductsSection
+  locale={
+    locale
+  }
+  products={
+    featuredProducts
+  }
+  eyebrow={
+    productsTranslations(
+      'eyebrow',
+    )
+  }
+  title={
+    productsTranslations(
+      'title',
+    )
+  }
+  description={
+    productsTranslations(
+      'description',
+    )
+  }
+  discoverLabel={
+    productsTranslations(
+      'discover',
+    )
+  }
+  viewAllLabel={
+    productsTranslations(
+      'viewAll',
+    )
+  }
+/>      
     </>
   );
 }

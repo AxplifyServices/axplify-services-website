@@ -32,6 +32,14 @@
 },
   "pages": {
 "home": {
+
+  "productsPreview": {
+  "eyebrow": "Our products",
+  "title": "Ready-to-use solutions designed to move your projects faster.",
+  "description": "Not every business need requires starting from scratch. Discover Axplify products built to address concrete challenges and help organisations move faster from an idea to real-world use.",
+  "discover": "Discover the product",
+  "viewAll": "View all products"
+},
   "insightsPreview": {
   "eyebrow": "Articles & news",
   "title": "Do not miss what is happening",
@@ -410,15 +418,35 @@
     "description": "Discover Axplify Services solutions for web and mobile development, automation, data, artificial intelligence, CRM, analytics, lead generation and marketing strategy."
   }
 },
-    "products": {
-      "eyebrow": "Solutions created by Axplify",
-      "title": "Products",
-      "description": "This page will present the digital products designed and developed by Axplify Services.",
-      "seo": {
-        "title": "Digital products for businesses",
-        "description": "Discover Axplify Services products designed to structure operations, improve management and support sustainable business growth."
-      }
-    },
+"products": {
+  "eyebrow": "Solutions created by Axplify",
+  "title": "Our products",
+  "description": "You do not always need to build a solution from scratch. Axplify also develops ready-to-use products for specific business needs, helping organisations save time, simplify operations and move faster into real-world use.",
+  "hero": {
+    "eyebrow": "Axplify products",
+    "title": "Find the solution that already matches your need.",
+    "description": "Explore our catalogue of digital products built around concrete business challenges. Filter solutions by category, identify the one that fits your context and access the product directly."
+  },
+  "filters": {
+    "title": "Categories",
+    "all": "All products",
+    "open": "Filter products",
+    "close": "Close filters",
+    "results": "products",
+    "singleResult": "product"
+  },
+  "card": {
+    "discover": "Discover the product"
+  },
+  "empty": {
+    "title": "No products available",
+    "description": "Our catalogue is evolving. Come back soon to discover new Axplify solutions."
+  },
+  "seo": {
+    "title": "Digital products for businesses | Axplify Services",
+    "description": "Discover Axplify Services digital products designed to simplify operations, make better use of data and accelerate business projects."
+  }
+},
 "about": {
   "eyebrow": "The company",
   "title": "About Axplify Services",
