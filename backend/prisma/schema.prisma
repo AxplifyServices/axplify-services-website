@@ -108,6 +108,8 @@ model users {
   publications_publications_published_by_user_idTousers        publications[]                   @relation("publications_published_by_user_idTousers")
   publications_publications_updated_by_user_idTousers          publications[]                   @relation("publications_updated_by_user_idTousers")
   refresh_sessions                                             refresh_sessions[]
+  review_invitations                                           review_invitations[]
+  reviews                                                      reviews[]
   user_roles_user_roles_assigned_byTousers                     user_roles[]                     @relation("user_roles_assigned_byTousers")
   user_roles_user_roles_user_idTousers                         user_roles[]                     @relation("user_roles_user_idTousers")
 
@@ -209,6 +211,8 @@ model projects {
   clients                       clients                         @relation(fields: [client_id], references: [id], onUpdate: NoAction, map: "projects_client_foreign_key")
   users                         users?                          @relation(fields: [created_by_user_id], references: [id], onUpdate: NoAction, map: "projects_created_by_user_foreign_key")
   publication_projects          publication_projects[]
+  review_invitations            review_invitations[]
+  reviews                       reviews[]
 
   @@index([status, updated_at(sort: Desc)], map: "projects_admin_list_index")
   @@index([client_id, status], map: "projects_client_index")
@@ -603,4 +607,56 @@ model product_images {
   products                   products                     @relation(fields: [product_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "product_images_product_foreign_key")
 
   @@index([product_id, sort_order, created_at], map: "product_images_product_order_index")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model review_invitations {
+  id                 String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  token_hash         String    @unique(map: "review_invitations_token_hash_unique") @db.VarChar(64)
+  project_id         String?   @db.Uuid
+  expires_at         DateTime  @db.Timestamptz(6)
+  used_at            DateTime? @db.Timestamptz(6)
+  revoked_at         DateTime? @db.Timestamptz(6)
+  created_by_user_id String?   @db.Uuid
+  created_at         DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at         DateTime  @default(now()) @db.Timestamptz(6)
+  users              users?    @relation(fields: [created_by_user_id], references: [id], onUpdate: NoAction, map: "review_invitations_created_by_user_foreign_key")
+  projects           projects? @relation(fields: [project_id], references: [id], onUpdate: NoAction, map: "review_invitations_project_foreign_key")
+  reviews            reviews?
+
+  @@index([expires_at, used_at, revoked_at], map: "review_invitations_active_index", where: raw("((used_at IS NULL) AND (revoked_at IS NULL))"))
+  @@index([created_by_user_id], map: "review_invitations_created_by_user_index")
+  @@index([project_id], map: "review_invitations_project_index")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model reviews {
+  id                   String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  invitation_id        String             @unique(map: "reviews_invitation_unique") @db.Uuid
+  project_id           String?            @db.Uuid
+  rating               Int                @db.SmallInt
+  comment              String
+  first_name           String             @db.VarChar(120)
+  last_name            String             @db.VarChar(120)
+  company_name         String             @db.VarChar(180)
+  company_role         String             @db.VarChar(180)
+  locale               String             @default("fr") @db.VarChar(5)
+  status               String             @default("PENDING_REVIEW") @db.VarChar(30)
+  show_on_homepage     Boolean            @default(false)
+  homepage_sort_order  Int                @default(0)
+  published_at         DateTime?          @db.Timestamptz(6)
+  published_by_user_id String?            @db.Uuid
+  created_at           DateTime           @default(now()) @db.Timestamptz(6)
+  updated_at           DateTime           @default(now()) @db.Timestamptz(6)
+  review_invitations   review_invitations @relation(fields: [invitation_id], references: [id], onUpdate: NoAction, map: "reviews_invitation_foreign_key")
+  projects             projects?          @relation(fields: [project_id], references: [id], onUpdate: NoAction, map: "reviews_project_foreign_key")
+  users                users?             @relation(fields: [published_by_user_id], references: [id], onUpdate: NoAction, map: "reviews_published_by_user_foreign_key")
+
+  @@index([status, created_at(sort: Desc)], map: "reviews_admin_list_index")
+  @@index([homepage_sort_order, published_at(sort: Desc)], map: "reviews_homepage_index", where: raw("(((status)::text = 'PUBLISHED'::text) AND (show_on_homepage = true))"))
+  @@index([project_id, status], map: "reviews_project_index")
+  @@index([published_at(sort: Desc), created_at(sort: Desc)], map: "reviews_public_list_index", where: raw("((status)::text = 'PUBLISHED'::text)"))
+  @@index([rating], map: "reviews_rating_index", where: raw("((status)::text = 'PUBLISHED'::text)"))
 }

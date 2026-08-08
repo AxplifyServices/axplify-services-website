@@ -8,15 +8,16 @@ import {
   Building2,
   ChevronLeft,
   ChevronRight,
+  CircleHelp,
   Images,
   LayoutDashboard,
   LogOut,
   MailQuestion,
   Menu,
+  Newspaper,
+  Package,
+  Star,
   X,
-Newspaper,
-CircleHelp,
-Package,
 } from 'lucide-react';
 
 import {
@@ -544,6 +545,38 @@ const pathname =
 
   <span>
     Demandes de contact
+  </span>
+</Link>
+
+<Link
+  href="/admin/reviews"
+  className="admin-sidebar__link"
+  data-active={
+    pathname ===
+      '/admin/reviews' ||
+    pathname.startsWith(
+      '/admin/reviews/',
+    )
+  }
+  title={
+    isSidebarCollapsed
+      ? 'Reviews'
+      : undefined
+  }
+  onClick={
+    () =>
+      setIsMobileMenuOpen(
+        false,
+      )
+  }
+>
+  <Star
+    size={20}
+    aria-hidden="true"
+  />
+
+  <span>
+    Reviews
   </span>
 </Link>
 

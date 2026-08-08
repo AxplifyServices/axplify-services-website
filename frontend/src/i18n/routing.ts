@@ -107,6 +107,17 @@ export const routing = defineRouting({
         '/الأسئلة-الشائعة',
     },
 
+'/reviews/submit/[token]': {
+  fr:
+    '/reviews/donner-mon-avis/[token]',
+
+  en:
+    '/reviews/share-your-review/[token]',
+
+  ar:
+    '/reviews/شارك-تجربتك/[token]',
+},    
+
     '/contact': {
       fr:
         '/nous-contacter',

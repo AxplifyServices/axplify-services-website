@@ -764,6 +764,87 @@
   }
 }, 
 
+"reviewSubmission": {
+  "metadata": {
+    "title": "Share your experience | Axplify Services",
+    "description": "Private space for invited Axplify Services clients to share their experience."
+  },
+  "content": {
+    "hero": {
+      "eyebrow": "Your experience matters",
+      "title": "A few words about our work together can tell a powerful story",
+      "description": "You have worked with Axplify Services. Share your experience freely, what you valued and what our collaboration helped you achieve."
+    },
+    "project": {
+      "label": "Your review is about",
+      "clientLabel": "Company"
+    },
+    "rating": {
+      "label": "How would you rate your experience?",
+      "description": "Select a rating from 1 to 5 stars.",
+      "selected": "{rating} / 5",
+      "required": "Please select a rating before submitting your review."
+    },
+    "fields": {
+      "firstName": {
+        "label": "First name *",
+        "placeholder": "Your first name"
+      },
+      "lastName": {
+        "label": "Last name *",
+        "placeholder": "Your last name"
+      },
+      "companyName": {
+        "label": "Company *",
+        "placeholder": "Your company name"
+      },
+      "companyRole": {
+        "label": "Your role within the company *",
+        "placeholder": "E.g. CEO, marketing manager…"
+      },
+      "comment": {
+        "label": "Your testimonial *",
+        "placeholder": "How would you describe your experience with Axplify Services? You can mention your original challenge, how we worked together, the solution delivered or the results achieved.",
+        "hint": "Our team will review your testimonial before it is published."
+      }
+    },
+    "privacy": {
+      "text": "By submitting this review, you agree that Axplify Services may publish it on its website together with your first name, last name, company and role. Reviews are never published automatically."
+    },
+    "submit": "Submit my review",
+    "submitting": "Submitting…",
+    "validation": {
+      "required": "Please complete all required fields.",
+      "commentMin": "Your testimonial must contain at least 10 characters.",
+      "commentMax": "Your testimonial cannot exceed 3,000 characters."
+    },
+    "states": {
+      "loading": {
+        "title": "Checking your invitation",
+        "description": "We are checking that this link is still valid."
+      },
+      "invalid": {
+        "title": "This link is not valid",
+        "description": "This invitation does not exist or is no longer available. If you believe this is a mistake, please contact your Axplify Services representative."
+      },
+      "expired": {
+        "title": "This invitation has expired",
+        "description": "This link is no longer valid. Your Axplify Services representative can send you a new invitation."
+      },
+      "used": {
+        "title": "Your review has already been submitted",
+        "description": "This invitation has already been used. Each private link can only be used to submit one testimonial."
+      },
+      "success": {
+        "eyebrow": "Thank you",
+        "title": "We have received your testimonial",
+        "description": "Thank you for taking the time to share your experience with Axplify Services.",
+        "moderation": "Your review has now been sent to our team. It will only appear on the website after approval."
+      }
+    }
+  }
+},
+
 "faq": {
   "eyebrow": "Frequently asked questions",
   "title": "Have a question? The answer may already be here.",

@@ -765,6 +765,87 @@
   }
 },
 
+"reviewSubmission": {
+  "metadata": {
+    "title": "Partager votre expérience | Axplify Services",
+    "description": "Espace privé permettant aux clients invités par Axplify Services de partager leur expérience."
+  },
+  "content": {
+    "hero": {
+      "eyebrow": "Votre expérience compte",
+      "title": "Quelques mots sur notre collaboration peuvent raconter beaucoup",
+      "description": "Vous avez travaillé avec Axplify Services. Partagez librement votre expérience, ce que vous avez apprécié et ce que notre collaboration vous a permis d’accomplir."
+    },
+    "project": {
+      "label": "Votre avis concerne",
+      "clientLabel": "Entreprise"
+    },
+    "rating": {
+      "label": "Comment évaluez-vous votre expérience ?",
+      "description": "Sélectionnez une note de 1 à 5 étoiles.",
+      "selected": "{rating} / 5",
+      "required": "Veuillez sélectionner une note avant d’envoyer votre avis."
+    },
+    "fields": {
+      "firstName": {
+        "label": "Prénom *",
+        "placeholder": "Votre prénom"
+      },
+      "lastName": {
+        "label": "Nom *",
+        "placeholder": "Votre nom"
+      },
+      "companyName": {
+        "label": "Entreprise *",
+        "placeholder": "Nom de votre entreprise"
+      },
+      "companyRole": {
+        "label": "Votre rôle dans l’entreprise *",
+        "placeholder": "Ex. Directeur général, responsable marketing…"
+      },
+      "comment": {
+        "label": "Votre témoignage *",
+        "placeholder": "Comment décririez-vous votre expérience avec Axplify Services ? Vous pouvez parler du besoin initial, de notre manière de travailler, de la solution mise en place ou des résultats obtenus.",
+        "hint": "Votre témoignage sera lu par notre équipe avant toute publication."
+      }
+    },
+    "privacy": {
+      "text": "En envoyant cet avis, vous acceptez qu’Axplify Services puisse le publier sur son site avec votre prénom, votre nom, votre entreprise et votre fonction. Aucun avis n’est publié automatiquement."
+    },
+    "submit": "Envoyer mon avis",
+    "submitting": "Envoi en cours…",
+    "validation": {
+      "required": "Merci de compléter tous les champs obligatoires.",
+      "commentMin": "Votre témoignage doit contenir au moins 10 caractères.",
+      "commentMax": "Votre témoignage ne peut pas dépasser 3 000 caractères."
+    },
+    "states": {
+      "loading": {
+        "title": "Vérification de votre invitation",
+        "description": "Nous vérifions que ce lien est toujours valide."
+      },
+      "invalid": {
+        "title": "Ce lien n’est pas valide",
+        "description": "Cette invitation n’existe pas ou n’est plus disponible. Si vous pensez qu’il s’agit d’une erreur, contactez directement votre interlocuteur Axplify Services."
+      },
+      "expired": {
+        "title": "Cette invitation a expiré",
+        "description": "La période de validité de ce lien est terminée. Votre interlocuteur Axplify Services peut vous transmettre une nouvelle invitation."
+      },
+      "used": {
+        "title": "Votre avis a déjà été envoyé",
+        "description": "Cette invitation a déjà été utilisée. Un même lien ne permet d’envoyer qu’un seul témoignage."
+      },
+      "success": {
+        "eyebrow": "Merci",
+        "title": "Votre témoignage nous est bien parvenu",
+        "description": "Merci d’avoir pris le temps de partager votre expérience avec Axplify Services.",
+        "moderation": "Votre avis est maintenant transmis à notre équipe. Il ne sera visible sur le site qu’après validation."
+      }
+    }
+  }
+},
+
 "faq": {
   "eyebrow": "Questions fréquentes",
   "title": "Une question ? La réponse est peut-être déjà ici.",

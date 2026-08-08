@@ -16,10 +16,14 @@ MetadataRoute.Robots {
       allow:
         '/',
 
-      disallow: [
-        '/admin',
-        '/api',
-      ],
+disallow: [
+  '/admin',
+  '/api',
+
+  '/fr/reviews/donner-mon-avis/',
+  '/en/reviews/share-your-review/',
+  '/ar/reviews/شارك-تجربتك/',
+],
     },
 
     sitemap:
