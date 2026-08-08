@@ -11815,6 +11815,109 @@ html[dir="rtl"]
 }
 
 /* =========================================================
+   HOME — MOBILE CARD CAROUSEL CONTROLS
+   ========================================================= */
+
+.home-carousel-controls {
+  display: none;
+}
+
+@media (max-width: 52rem) {
+  .home-carousel-controls {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 0.65rem;
+  }
+
+  .home-carousel-controls__arrow {
+    width: 2.7rem;
+    height: 2.7rem;
+
+    display: grid;
+    place-items: center;
+
+    flex: 0 0 auto;
+
+    cursor: pointer;
+
+    border:
+      1px solid
+      rgba(5, 38, 79, 0.13);
+
+    border-radius: 999px;
+
+    background: #ffffff;
+
+    color: var(--axplify-navy);
+
+    box-shadow:
+      0 0.45rem 1.2rem
+      rgba(5, 38, 79, 0.08);
+
+    transition:
+      transform
+        180ms
+        ease,
+      background-color
+        180ms
+        ease,
+      border-color
+        180ms
+        ease,
+      color
+        180ms
+        ease;
+  }
+
+  .home-carousel-controls__arrow:active {
+    transform:
+      scale(
+        0.94
+      );
+  }
+
+  .home-carousel-controls__arrow:focus-visible {
+    outline:
+      3px solid
+      rgba(28, 182, 220, 0.38);
+
+    outline-offset:
+      2px;
+  }
+
+  .home-carousel-controls__counter {
+    min-width: 3.25rem;
+    min-height: 2.2rem;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 999px;
+
+    padding-inline: 0.7rem;
+
+    background:
+      rgba(5, 38, 79, 0.06);
+
+    color: var(--axplify-navy);
+
+    font-size: 0.68rem;
+    font-weight: 900;
+  }
+
+  html[dir="rtl"]
+  .home-carousel-controls__arrow svg {
+    transform:
+      rotate(
+        180deg
+      );
+  }
+}
+
+/* =========================================================
    Home — Articles et actualités
    ========================================================= */
 
@@ -12283,6 +12386,59 @@ html[dir="rtl"] .home-insights__view-all:hover svg {
   }
 }
 
+
+
+@media (max-width: 52rem) {
+  .home-insights__track {
+    grid-auto-columns:
+      100%;
+
+    gap: 0;
+
+    overflow-x: auto;
+
+    scroll-snap-type:
+      inline mandatory;
+
+    scrollbar-width: none;
+  }
+
+  .home-insights-card {
+    width: 100%;
+
+    scroll-snap-align:
+      start;
+
+    scroll-snap-stop:
+      always;
+  }
+
+  .home-insights__footer {
+    align-items: center;
+
+    gap: 0.8rem;
+  }
+
+  .home-insights__mobile-controls {
+    margin-inline-start:
+      auto;
+  }
+
+  .home-insights__pagination {
+    display: none;
+  }
+}
+
+@media (max-width: 40rem) {
+  .home-insights__footer {
+    flex-wrap: wrap;
+  }
+
+  .home-insights__view-all {
+    flex:
+      1 1 auto;
+  }
+}
 
 /* =========================================================
    Page d’une publication
@@ -24297,7 +24453,7 @@ html[dir="rtl"]
     4;
 }
 
-.home-products__mobile-footer {
+.home-products__mobile-controls {
   display: none;
 }
 
@@ -24470,12 +24626,84 @@ html[dir="rtl"]
     display: none;
   }
 
-  .home-products__mobile-footer {
+  .home-products__mobile-controls {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-    justify-content: center;
+    gap: 0.8rem;
 
     margin-top: 1.3rem;
+  }
+
+  .home-products__mobile-controls
+  .home-products__view-all {
+    flex: 0 0 auto;
+  }
+
+  .home-products
+  .home-carousel-controls__arrow {
+    border-color:
+      rgba(255, 255, 255, 0.22);
+
+    background:
+      rgba(255, 255, 255, 0.1);
+
+    color: #ffffff;
+
+    box-shadow: none;
+  }
+
+  .home-products
+  .home-carousel-controls__counter {
+    background:
+      rgba(255, 255, 255, 0.1);
+
+    color: #ffffff;
+  }
+
+  .home-products__grid {
+    display: grid;
+
+    grid-auto-flow:
+      column;
+
+    grid-auto-columns:
+      100%;
+
+    grid-template-columns:
+      none;
+
+    gap: 0;
+
+    overflow-x: auto;
+
+    overscroll-behavior-inline:
+      contain;
+
+    scroll-behavior:
+      smooth;
+
+    scroll-snap-type:
+      inline mandatory;
+
+    scrollbar-width:
+      none;
+  }
+
+  .home-products__grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .home-products__grid
+  > .product-card {
+    width: 100%;
+
+    scroll-snap-align:
+      start;
+
+    scroll-snap-stop:
+      always;
   }
 }
 
@@ -24495,8 +24723,7 @@ html[dir="rtl"]
     margin-bottom: 0.75rem;
   }
 
-  .products-page__grid,
-  .home-products__grid {
+  .products-page__grid {
     grid-template-columns:
       1fr;
   }

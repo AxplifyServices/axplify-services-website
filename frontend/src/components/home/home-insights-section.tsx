@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  ArrowLeft,
   ArrowRight,
 } from 'lucide-react';
 
@@ -292,6 +293,34 @@ export function HomeInsightsSection({
     );
   }
 
+  function goToPreviousPublication() {
+    const nextIndex =
+      activeIndex <=
+      0
+        ? publications.length -
+          1
+        : activeIndex -
+          1;
+
+    goToPublication(
+      nextIndex,
+    );
+  }
+
+  function goToNextPublication() {
+    const nextIndex =
+      activeIndex >=
+      publications.length -
+        1
+        ? 0
+        : activeIndex +
+          1;
+
+    goToPublication(
+      nextIndex,
+    );
+  }
+
   return (
     <section
       className="home-insights"
@@ -474,56 +503,49 @@ export function HomeInsightsSection({
             />
           </Link>
 
-          {
-            publications.length >
-            1
-              ? (
-                  <div
-                    className="home-insights__pagination"
-                    role="group"
-                    aria-label={title}
-                  >
-                    {
-                      publications.map(
-                        (
-                          publication,
-                          index,
-                        ) => (
-                          <button
-                            key={
-                              publication.id
-                            }
-                            type="button"
-                            className="home-insights__pagination-dot"
-                            data-active={
-                              index ===
-                              activeIndex
-                            }
-                            aria-label={
-                              `${index + 1} / ${publications.length}`
-                            }
-                            aria-current={
-                              index ===
-                                activeIndex
-                                ? 'true'
-                                : undefined
-                            }
-                            onClick={
-                              () =>
-                                goToPublication(
-                                  index,
-                                )
-                            }
-                          >
-                            <span />
-                          </button>
-                        ),
-                      )
-                    }
-                  </div>
-                )
-              : null
-          }
+          {publications.length >
+          1 ? (
+            <div
+              className="home-carousel-controls home-insights__mobile-controls"
+              role="group"
+              aria-label={title}
+            >
+              <button
+                type="button"
+                className="home-carousel-controls__arrow"
+                aria-label="Article précédent"
+                onClick={
+                  goToPreviousPublication
+                }
+              >
+                <ArrowLeft
+                  size={18}
+                  aria-hidden="true"
+                />
+              </button>
+
+              <span className="home-carousel-controls__counter">
+                {activeIndex +
+                  1}
+                /
+                {publications.length}
+              </span>
+
+              <button
+                type="button"
+                className="home-carousel-controls__arrow"
+                aria-label="Article suivant"
+                onClick={
+                  goToNextPublication
+                }
+              >
+                <ArrowRight
+                  size={18}
+                  aria-hidden="true"
+                />
+              </button>
+            </div>
+          ) : null}
         </footer>
       </div>
     </section>
