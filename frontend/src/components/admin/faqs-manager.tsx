@@ -3,6 +3,8 @@
 import {
   Check,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   ChevronUp,
   CircleHelp,
   Eye,
@@ -20,7 +22,6 @@ import {
   FormEvent,
   useCallback,
   useEffect,
-  useMemo,
   useState,
 } from 'react';
 
@@ -118,6 +119,31 @@ type VisibilityFilter =
   | 'all'
   | 'visible'
   | 'hidden';
+
+type FaqPagination = {
+  page:
+    number;
+
+  limit:
+    number;
+
+  total:
+    number;
+
+  totalPages:
+    number;
+};
+
+type FaqListResponse = {
+  items:
+    FaqItem[];
+
+  pagination:
+    FaqPagination;
+};
+
+const FAQ_PAGE_SIZE =
+  10;
 
 const CATEGORY_OPTIONS:
   Array<{
@@ -435,6 +461,24 @@ export function FaqsManager() {
       'all',
     );
 
+  const [
+    pagination,
+    setPagination,
+  ] =
+    useState<FaqPagination>({
+      page:
+        1,
+
+      limit:
+        FAQ_PAGE_SIZE,
+
+      total:
+        0,
+
+      totalPages:
+        0,
+    });
+
   const loadFaqs =
     useCallback(
       async () => {
@@ -446,12 +490,29 @@ export function FaqsManager() {
           const params =
             new URLSearchParams();
 
+          params.set(
+            'page',
+            String(
+              pagination.page,
+            ),
+          );
+
+          params.set(
+            'limit',
+            String(
+              FAQ_PAGE_SIZE,
+            ),
+          );
+
+          const normalizedSearch =
+            search.trim();
+
           if (
-            search.trim()
+            normalizedSearch
           ) {
             params.set(
               'search',
-              search.trim(),
+              normalizedSearch,
             );
           }
 
@@ -475,22 +536,30 @@ export function FaqsManager() {
             );
           }
 
-          const queryString =
-            params.toString();
-
           const response =
             await authorizedFetch<
-              FaqItem[]
+              FaqListResponse
             >(
-              `/faqs/admin${
-                queryString
-                  ? `?${queryString}`
-                  : ''
-              }`,
+              `/faqs/admin?${params.toString()}`,
             );
 
           setItems(
-            response,
+            response.items,
+          );
+
+          setPagination(
+            response.pagination,
+          );
+
+          setExpandedId(
+            current =>
+              response.items.some(
+                item =>
+                  item.id ===
+                  current,
+              )
+                ? current
+                : null,
           );
         } catch (
           error
@@ -509,6 +578,7 @@ export function FaqsManager() {
       [
         authorizedFetch,
         categoryFilter,
+        pagination.page,
         search,
         visibilityFilter,
       ],
@@ -535,17 +605,16 @@ export function FaqsManager() {
     ],
   );
 
-  const visibleCount =
-    useMemo(
-      () =>
-        items.filter(
-          item =>
-            item.isVisible,
-        ).length,
-      [
-        items,
-      ],
+  function resetToFirstPage() {
+    setPagination(
+      current => ({
+        ...current,
+
+        page:
+          1,
+      }),
     );
+  }
 
   function openCreateForm() {
     setEditingId(
@@ -613,6 +682,7 @@ export function FaqsManager() {
     setForm(
       current => ({
         ...current,
+
         [key]:
           value,
       }),
@@ -732,7 +802,17 @@ export function FaqsManager() {
         );
       }
 
-      closeForm();
+      setEditingId(
+        null,
+      );
+
+      setForm(
+        EMPTY_FORM,
+      );
+
+      setShowForm(
+        false,
+      );
 
       await loadFaqs();
     } catch (
@@ -769,26 +849,22 @@ export function FaqsManager() {
         },
       );
 
-      setItems(
-        currentItems =>
-          currentItems.map(
-            currentItem =>
-              currentItem.id ===
-              item.id
-                ? {
-                    ...currentItem,
-                    isVisible:
-                      !currentItem.isVisible,
-                  }
-                : currentItem,
-          ),
-      );
-
       toast.success(
         item.isVisible
           ? 'La FAQ est maintenant masquée.'
           : 'La FAQ est maintenant visible sur le site.',
       );
+
+      /*
+       * On recharge la page depuis l'API plutôt que de
+       * modifier uniquement le tableau local.
+       *
+       * C'est nécessaire lorsque le filtre "visible" ou
+       * "masquée" est actif : l'élément peut devoir
+       * disparaître immédiatement de la page et le total
+       * doit également être recalculé.
+       */
+      await loadFaqs();
     } catch (
       error
     ) {
@@ -846,6 +922,31 @@ export function FaqsManager() {
         'La FAQ a été supprimée.',
       );
 
+      /*
+       * Si on supprime le dernier élément d'une page
+       * supérieure à 1, on revient à la page précédente.
+       *
+       * Sinon on recharge simplement la page courante.
+       */
+      if (
+        items.length ===
+          1 &&
+        pagination.page >
+          1
+      ) {
+        setPagination(
+          current => ({
+            ...current,
+
+            page:
+              current.page -
+              1,
+          }),
+        );
+
+        return;
+      }
+
       await loadFaqs();
     } catch (
       error
@@ -856,6 +957,42 @@ export function FaqsManager() {
         ),
       );
     }
+  }
+
+  function goToPage(
+    page:
+      number,
+  ) {
+    if (
+      page <
+        1 ||
+      page >
+        pagination.totalPages ||
+      page ===
+        pagination.page
+    ) {
+      return;
+    }
+
+    setExpandedId(
+      null,
+    );
+
+    setPagination(
+      current => ({
+        ...current,
+
+        page,
+      }),
+    );
+
+    window.scrollTo({
+      top:
+        0,
+
+      behavior:
+        'smooth',
+    });
   }
 
   return (
@@ -898,27 +1035,35 @@ export function FaqsManager() {
       <div className="admin-faqs__summary">
         <span>
           <strong>
-            {items.length}
+            {
+              pagination.total
+            }
           </strong>
 
+          {' '}
           question
-          {items.length >
+          {pagination.total >
           1
             ? 's'
             : ''}
         </span>
 
         <span>
+          Page{' '}
           <strong>
-            {visibleCount}
+            {
+              pagination.page
+            }
           </strong>
 
-          visible
-          {visibleCount >
-          1
-            ? 's'
-            : ''}
-          sur le site
+          {' '}sur{' '}
+
+          <strong>
+            {Math.max(
+              1,
+              pagination.totalPages,
+            )}
+          </strong>
         </span>
       </div>
 
@@ -1288,11 +1433,14 @@ export function FaqsManager() {
             }
             placeholder="Rechercher une question ou une réponse"
             onChange={
-              event =>
+              event => {
                 setSearch(
                   event.target
                     .value,
-                )
+                );
+
+                resetToFirstPage();
+              }
             }
           />
         </label>
@@ -1302,13 +1450,16 @@ export function FaqsManager() {
             categoryFilter
           }
           onChange={
-            event =>
+            event => {
               setCategoryFilter(
                 event.target
                   .value as
                   FaqCategoryCode |
                   'all',
-              )
+              );
+
+              resetToFirstPage();
+            }
           }
         >
           <option value="all">
@@ -1338,12 +1489,15 @@ export function FaqsManager() {
             visibilityFilter
           }
           onChange={
-            event =>
+            event => {
               setVisibilityFilter(
                 event.target
                   .value as
                   VisibilityFilter,
-              )
+              );
+
+              resetToFirstPage();
+            }
           }
         >
           <option value="all">
@@ -1374,261 +1528,365 @@ export function FaqsManager() {
         </div>
       ) : items.length ===
         0 ? (
-        <div className="admin-faqs__empty">
-          <CircleHelp
-            size={24}
-            aria-hidden="true"
-          />
+          <div className="admin-faqs__empty">
+            <CircleHelp
+              size={24}
+              aria-hidden="true"
+            />
 
-          <h2>
-            Aucune question trouvée
-          </h2>
+            <h2>
+              Aucune question trouvée
+            </h2>
 
-          <p>
-            Créez une FAQ ou modifiez
-            les filtres utilisés.
-          </p>
-        </div>
-      ) : (
-        <div className="admin-faqs__list">
-          {items.map(
-            item => {
-              const fr =
-                getTranslation(
-                  item,
-                  'fr',
-                );
+            <p>
+              Créez une FAQ ou modifiez
+              les filtres utilisés.
+            </p>
+          </div>
+        ) : (
+          <>
+            <div className="admin-faqs__list">
+              {items.map(
+                item => {
+                  const fr =
+                    getTranslation(
+                      item,
+                      'fr',
+                    );
 
-              const isExpanded =
-                expandedId ===
-                item.id;
+                  const isExpanded =
+                    expandedId ===
+                    item.id;
 
-              return (
-                <article
-                  key={
-                    item.id
-                  }
-                  className="admin-faqs__item"
-                  data-visible={
-                    item.isVisible
-                  }
-                  data-expanded={
-                    isExpanded
-                  }
-                >
-                  <button
-                    type="button"
-                    className="admin-faqs__item-toggle"
-                    aria-expanded={
-                      isExpanded
-                    }
-                    onClick={
-                      () =>
-                        setExpandedId(
-                          current =>
-                            current ===
-                            item.id
-                              ? null
-                              : item.id,
-                        )
-                    }
-                  >
-                    <div className="admin-faqs__item-heading">
-                      <div className="admin-faqs__item-meta">
-                        <span className="admin-faqs__category">
-                          {
-                            getCategoryLabel(
-                              item.categoryCode,
+                  return (
+                    <article
+                      key={
+                        item.id
+                      }
+                      className="admin-faqs__item"
+                      data-visible={
+                        item.isVisible
+                      }
+                      data-expanded={
+                        isExpanded
+                      }
+                    >
+                      <button
+                        type="button"
+                        className="admin-faqs__item-toggle"
+                        aria-expanded={
+                          isExpanded
+                        }
+                        onClick={
+                          () =>
+                            setExpandedId(
+                              current =>
+                                current ===
+                                item.id
+                                  ? null
+                                  : item.id,
                             )
-                          }
-                        </span>
+                        }
+                      >
+                        <div className="admin-faqs__item-heading">
+                          <div className="admin-faqs__item-meta">
+                            <span className="admin-faqs__category">
+                              {
+                                getCategoryLabel(
+                                  item.categoryCode,
+                                )
+                              }
+                            </span>
 
-                        <span className="admin-faqs__order">
-                          Ordre{' '}
-                          {
-                            item.sortOrder
-                          }
-                        </span>
+                            <span className="admin-faqs__order">
+                              Ordre{' '}
+                              {
+                                item.sortOrder
+                              }
+                            </span>
 
-                        <span
-                          className="admin-faqs__status"
-                          data-visible={
-                            item.isVisible
-                          }
-                        >
-                          {item.isVisible ? (
-                            <>
-                              <Eye
-                                size={13}
-                                aria-hidden="true"
-                              />
+                            <span
+                              className="admin-faqs__status"
+                              data-visible={
+                                item.isVisible
+                              }
+                            >
+                              {item.isVisible ? (
+                                <>
+                                  <Eye
+                                    size={13}
+                                    aria-hidden="true"
+                                  />
 
-                              Visible
-                            </>
+                                  Visible
+                                </>
+                              ) : (
+                                <>
+                                  <EyeOff
+                                    size={13}
+                                    aria-hidden="true"
+                                  />
+
+                                  Masquée
+                                </>
+                              )}
+                            </span>
+                          </div>
+
+                          <strong>
+                            {
+                              fr?.question ??
+                              'Question sans traduction française'
+                            }
+                          </strong>
+                        </div>
+
+                        <span className="admin-faqs__chevron">
+                          {isExpanded ? (
+                            <ChevronUp
+                              size={18}
+                              aria-hidden="true"
+                            />
                           ) : (
-                            <>
-                              <EyeOff
-                                size={13}
-                                aria-hidden="true"
-                              />
-
-                              Masquée
-                            </>
+                            <ChevronDown
+                              size={18}
+                              aria-hidden="true"
+                            />
                           )}
                         </span>
-                      </div>
+                      </button>
 
-                      <strong>
-                        {
-                          fr?.question ??
-                          'Question sans traduction française'
-                        }
-                      </strong>
-                    </div>
-
-                    <span className="admin-faqs__chevron">
                       {isExpanded ? (
-                        <ChevronUp
-                          size={18}
-                          aria-hidden="true"
-                        />
-                      ) : (
-                        <ChevronDown
-                          size={18}
-                          aria-hidden="true"
-                        />
-                      )}
-                    </span>
-                  </button>
+                        <div className="admin-faqs__item-body">
+                          <div className="admin-faqs__preview">
+                            <p>
+                              {
+                                fr?.answer ??
+                                'Aucune réponse française.'
+                              }
+                            </p>
+                          </div>
 
-                  {isExpanded ? (
-                    <div className="admin-faqs__item-body">
-                      <div className="admin-faqs__preview">
-                        <p>
-                          {
-                            fr?.answer ??
-                            'Aucune réponse française.'
-                          }
-                        </p>
-                      </div>
+                          <div className="admin-faqs__translation-status">
+                            {(
+                              [
+                                'fr',
+                                'en',
+                                'ar',
+                              ] as FaqLocale[]
+                            ).map(
+                              locale => {
+                                const translation =
+                                  getTranslation(
+                                    item,
+                                    locale,
+                                  );
 
-                      <div className="admin-faqs__translation-status">
-                        {(
-                          [
-                            'fr',
-                            'en',
-                            'ar',
-                          ] as FaqLocale[]
-                        ).map(
-                          locale => {
-                            const translation =
-                              getTranslation(
-                                item,
-                                locale,
-                              );
+                                return (
+                                  <span
+                                    key={
+                                      locale
+                                    }
+                                    data-complete={
+                                      Boolean(
+                                        translation?.question &&
+                                        translation?.answer,
+                                      )
+                                    }
+                                  >
+                                    <Check
+                                      size={13}
+                                      aria-hidden="true"
+                                    />
 
-                            return (
-                              <span
-                                key={
-                                  locale
-                                }
-                                data-complete={
-                                  Boolean(
-                                    translation?.question &&
-                                      translation?.answer,
+                                    {
+                                      locale.toUpperCase()
+                                    }
+                                  </span>
+                                );
+                              },
+                            )}
+                          </div>
+
+                          <div className="admin-faqs__item-actions">
+                            <button
+                              type="button"
+                              onClick={
+                                () =>
+                                  void toggleVisibility(
+                                    item,
                                   )
-                                }
-                              >
-                                <Check
-                                  size={13}
+                              }
+                            >
+                              {item.isVisible ? (
+                                <EyeOff
+                                  size={15}
                                   aria-hidden="true"
                                 />
+                              ) : (
+                                <Eye
+                                  size={15}
+                                  aria-hidden="true"
+                                />
+                              )}
 
-                                {
-                                  locale.toUpperCase()
-                                }
+                              <span>
+                                {item.isVisible
+                                  ? 'Masquer du site'
+                                  : 'Afficher sur le site'}
                               </span>
-                            );
-                          },
-                        )}
-                      </div>
+                            </button>
 
-                      <div className="admin-faqs__item-actions">
-                        <button
-                          type="button"
-                          onClick={
-                            () =>
-                              void toggleVisibility(
-                                item,
-                              )
-                          }
-                        >
-                          {item.isVisible ? (
-                            <EyeOff
-                              size={15}
-                              aria-hidden="true"
-                            />
-                          ) : (
-                            <Eye
-                              size={15}
-                              aria-hidden="true"
-                            />
-                          )}
+                            <button
+                              type="button"
+                              onClick={
+                                () =>
+                                  openEditForm(
+                                    item,
+                                  )
+                              }
+                            >
+                              <Pencil
+                                size={15}
+                                aria-hidden="true"
+                              />
 
-                          <span>
-                            {item.isVisible
-                              ? 'Masquer du site'
-                              : 'Afficher sur le site'}
-                          </span>
-                        </button>
+                              <span>
+                                Modifier
+                              </span>
+                            </button>
 
-                        <button
-                          type="button"
-                          onClick={
-                            () =>
-                              openEditForm(
-                                item,
-                              )
-                          }
-                        >
-                          <Pencil
-                            size={15}
-                            aria-hidden="true"
-                          />
+                            <button
+                              type="button"
+                              className="admin-faqs__delete-button"
+                              onClick={
+                                () =>
+                                  void handleDelete(
+                                    item,
+                                  )
+                              }
+                            >
+                              <Trash2
+                                size={15}
+                                aria-hidden="true"
+                              />
 
-                          <span>
-                            Modifier
-                          </span>
-                        </button>
+                              <span>
+                                Supprimer
+                              </span>
+                            </button>
+                          </div>
+                        </div>
+                      ) : null}
+                    </article>
+                  );
+                },
+              )}
+            </div>
 
-                        <button
-                          type="button"
-                          className="admin-faqs__delete-button"
-                          onClick={
-                            () =>
-                              void handleDelete(
-                                item,
-                              )
-                          }
-                        >
-                          <Trash2
-                            size={15}
-                            aria-hidden="true"
-                          />
+            {pagination.totalPages >
+            1 ? (
+              <nav
+                className="admin-faqs__pagination"
+                aria-label="Pagination des FAQ"
+              >
+                <button
+                  type="button"
+                  disabled={
+                    pagination.page <=
+                    1
+                  }
+                  aria-label="Page précédente"
+                  onClick={
+                    () =>
+                      goToPage(
+                        pagination.page -
+                          1,
+                      )
+                  }
+                >
+                  <ChevronLeft
+                    size={16}
+                    aria-hidden="true"
+                  />
 
-                          <span>
-                            Supprimer
-                          </span>
-                        </button>
-                      </div>
-                    </div>
-                  ) : null}
-                </article>
-              );
-            },
-          )}
-        </div>
-      )}
+                  <span>
+                    Précédent
+                  </span>
+                </button>
+
+                <div className="admin-faqs__pagination-pages">
+                  {Array.from(
+                    {
+                      length:
+                        pagination.totalPages,
+                    },
+
+                    (
+                      _,
+                      index,
+                    ) =>
+                      index +
+                      1,
+                  ).map(
+                    page => (
+                      <button
+                        key={
+                          page
+                        }
+                        type="button"
+                        data-active={
+                          pagination.page ===
+                          page
+                        }
+                        aria-current={
+                          pagination.page ===
+                          page
+                            ? 'page'
+                            : undefined
+                        }
+                        aria-label={`Page ${page} sur ${pagination.totalPages}`}
+                        onClick={
+                          () =>
+                            goToPage(
+                              page,
+                            )
+                        }
+                      >
+                        {page}
+                      </button>
+                    ),
+                  )}
+                </div>
+
+                <button
+                  type="button"
+                  disabled={
+                    pagination.page >=
+                    pagination.totalPages
+                  }
+                  aria-label="Page suivante"
+                  onClick={
+                    () =>
+                      goToPage(
+                        pagination.page +
+                          1,
+                      )
+                  }
+                >
+                  <span>
+                    Suivant
+                  </span>
+
+                  <ChevronRight
+                    size={16}
+                    aria-hidden="true"
+                  />
+                </button>
+              </nav>
+            ) : null}
+          </>
+        )}
     </section>
   );
 }

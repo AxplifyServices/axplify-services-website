@@ -24890,3 +24890,216 @@ svg {
       2;
   }
 }
+
+/* =========================================================
+   FAQ — PUBLIC PAGINATION
+   ========================================================= */
+
+.faq-pagination {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    auto
+    minmax(0, 1fr);
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.faq-pagination__arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--axplify-navy);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.faq-pagination__arrow:last-child {
+  justify-self: end;
+}
+
+.faq-pagination__arrow.is-disabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.faq-pagination__pages {
+  display: flex;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+.faq-pagination__pages a {
+  display: inline-flex;
+  width: 2.35rem;
+  height: 2.35rem;
+  align-items: center;
+  justify-content: center;
+  border:
+    1px solid
+    var(--axplify-border);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--axplify-navy);
+  font-size: 0.7rem;
+  font-weight: 850;
+  text-decoration: none;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.faq-pagination__pages a:hover {
+  border-color: var(--axplify-navy);
+  transform: translateY(-1px);
+}
+
+.faq-pagination__pages a[data-active="true"] {
+  border-color: var(--axplify-navy);
+  background: var(--axplify-navy);
+  color: #ffffff;
+}
+
+html[dir="rtl"]
+.faq-pagination__arrow svg {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 42rem) {
+  .faq-pagination {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(
+          0,
+          1fr
+        )
+      );
+  }
+
+  .faq-pagination__pages {
+    grid-column:
+      1 /
+      -1;
+    grid-row: 1;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: 0.2rem;
+    scrollbar-width: thin;
+  }
+
+  .faq-pagination__arrow {
+    grid-row: 2;
+  }
+}
+
+/* =========================================================
+   ADMIN FAQ — PAGINATION
+   ========================================================= */
+
+.admin-faqs__pagination {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    auto
+    minmax(0, 1fr);
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.admin-faqs__pagination > button,
+.admin-faqs__pagination-pages button {
+  min-height: 2.25rem;
+  border:
+    1px solid
+    var(--axplify-border);
+  border-radius: 0.65rem;
+  background: #ffffff;
+  color: var(--axplify-navy);
+  font-size: 0.68rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease,
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.admin-faqs__pagination > button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  width: fit-content;
+  padding-inline: 0.75rem;
+}
+
+.admin-faqs__pagination > button:last-child {
+  justify-self: end;
+}
+
+.admin-faqs__pagination > button:hover:not(:disabled),
+.admin-faqs__pagination-pages button:hover:not([data-active="true"]) {
+  border-color: rgba(5, 38, 79, 0.28);
+  background: var(--axplify-surface);
+  transform: translateY(-1px);
+}
+
+.admin-faqs__pagination > button:disabled {
+  opacity: 0.4;
+  cursor: default;
+  transform: none;
+}
+
+.admin-faqs__pagination-pages {
+  display: flex;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+.admin-faqs__pagination-pages button {
+  width: 2.25rem;
+  padding: 0;
+}
+
+.admin-faqs__pagination-pages
+button[data-active="true"] {
+  border-color: var(--axplify-navy);
+  background: var(--axplify-navy);
+  color: #ffffff;
+}
+
+@media (max-width: 48rem) {
+  .admin-faqs__pagination {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(
+          0,
+          1fr
+        )
+      );
+  }
+
+  .admin-faqs__pagination-pages {
+    grid-column:
+      1 /
+      -1;
+    grid-row: 1;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: 0.2rem;
+    scrollbar-width: thin;
+  }
+
+  .admin-faqs__pagination > button {
+    grid-row: 2;
+  }
+}
+

@@ -114,7 +114,7 @@ export class AdminProjectQueryDto {
     1,
   )
   @Max(
-    100,
+    10,
   )
   limit?:
     number;

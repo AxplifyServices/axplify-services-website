@@ -775,6 +775,12 @@
   "noResultDescription": "Essayez une autre recherche ou consultez l’ensemble des catégories.",
   "countSingular": "question",
   "countPlural": "questions",
+  "pagination": {
+  "previous": "Précédent",
+  "next": "Suivant",
+  "page": "Page",
+  "of": "sur"
+},
   "categories": {
     "offer": "Offre et solutions",
     "methodology": "Méthodologie",

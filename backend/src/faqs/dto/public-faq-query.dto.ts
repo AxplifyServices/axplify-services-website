@@ -1,6 +1,16 @@
 import {
+  Transform,
+  Type,
+} from 'class-transformer';
+
+import {
   IsIn,
+  IsInt,
   IsOptional,
+  IsString,
+  Max,
+  MaxLength,
+  Min,
 } from 'class-validator';
 
 import {
@@ -12,6 +22,27 @@ import type {
   FaqCategoryCode,
   FaqLocale,
 } from '../faq.constants';
+
+const emptyStringToUndefined = ({
+  value,
+}: {
+  value:
+    unknown;
+}) => {
+  if (
+    typeof value !==
+    'string'
+  ) {
+    return value;
+  }
+
+  const normalizedValue =
+    value.trim();
+
+  return normalizedValue
+    ? normalizedValue
+    : undefined;
+};
 
 export class PublicFaqQueryDto {
   @IsOptional()
@@ -27,4 +58,42 @@ export class PublicFaqQueryDto {
   )
   categoryCode?:
     FaqCategoryCode;
+
+  @IsOptional()
+  @Transform(
+    emptyStringToUndefined,
+  )
+  @IsString()
+  @MaxLength(
+    200,
+  )
+  search?:
+    string;
+
+  @IsOptional()
+  @Type(
+    () =>
+      Number,
+  )
+  @IsInt()
+  @Min(
+    1,
+  )
+  page?:
+    number;
+
+  @IsOptional()
+  @Type(
+    () =>
+      Number,
+  )
+  @IsInt()
+  @Min(
+    1,
+  )
+  @Max(
+    25,
+  )
+  limit?:
+    number;
 }

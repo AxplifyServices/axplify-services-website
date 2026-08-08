@@ -1,12 +1,16 @@
 import {
   Transform,
+  Type,
 } from 'class-transformer';
 
 import {
   IsIn,
+  IsInt,
   IsOptional,
   IsString,
+  Max,
   MaxLength,
+  Min,
 } from 'class-validator';
 
 import {
@@ -67,4 +71,31 @@ export class AdminFaqQueryDto {
     'visible' |
     'hidden' |
     'all';
+
+  @IsOptional()
+  @Type(
+    () =>
+      Number,
+  )
+  @IsInt()
+  @Min(
+    1,
+  )
+  page?:
+    number;
+
+  @IsOptional()
+  @Type(
+    () =>
+      Number,
+  )
+  @IsInt()
+  @Min(
+    1,
+  )
+  @Max(
+    10,
+  )
+  limit?:
+    number;
 }

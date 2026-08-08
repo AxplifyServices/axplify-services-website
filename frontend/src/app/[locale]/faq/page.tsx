@@ -16,6 +16,7 @@ import type {
 } from '@/i18n/routing';
 
 import {
+  FAQ_CATEGORY_CODES,
   getPublicFaqs,
 } from '@/lib/public-faqs-api';
 
@@ -33,7 +34,74 @@ type PageProps = {
       locale:
         AppLocale;
     }>;
+
+  searchParams:
+    Promise<{
+      page?:
+        string;
+
+      category?:
+        string;
+
+      search?:
+        string;
+    }>;
 };
+
+function resolvePage(
+  value:
+    string |
+    undefined,
+) {
+  const parsedPage =
+    Number.parseInt(
+      value ??
+        '1',
+      10,
+    );
+
+  return Number.isFinite(
+    parsedPage,
+  ) &&
+    parsedPage >
+      0
+    ? parsedPage
+    : 1;
+}
+
+function resolveCategory(
+  value:
+    string |
+    undefined,
+):
+  PublicFaqCategoryCode |
+  undefined
+{
+  if (
+    !value
+  ) {
+    return undefined;
+  }
+
+  return FAQ_CATEGORY_CODES.includes(
+    value as PublicFaqCategoryCode,
+  )
+    ? value as PublicFaqCategoryCode
+    : undefined;
+}
+
+function resolveSearch(
+  value:
+    string |
+    undefined,
+) {
+  const normalizedValue =
+    value?.trim();
+
+  return normalizedValue
+    ? normalizedValue
+    : undefined;
+}
 
 export async function generateMetadata({
   params,
@@ -52,11 +120,36 @@ export async function generateMetadata({
 
 export default async function FaqPage({
   params,
+  searchParams,
 }: PageProps) {
+  const [
+    resolvedParams,
+    resolvedSearchParams,
+  ] =
+    await Promise.all([
+      params,
+      searchParams,
+    ]);
+
   const {
     locale,
   } =
-    await params;
+    resolvedParams;
+
+  const requestedPage =
+    resolvePage(
+      resolvedSearchParams.page,
+    );
+
+  const selectedCategory =
+    resolveCategory(
+      resolvedSearchParams.category,
+    );
+
+  const search =
+    resolveSearch(
+      resolvedSearchParams.search,
+    );
 
   setRequestLocale(
     locale,
@@ -64,7 +157,7 @@ export default async function FaqPage({
 
   const [
     t,
-    items,
+    faqResponse,
   ] =
     await Promise.all([
       getTranslations({
@@ -74,9 +167,20 @@ export default async function FaqPage({
           'pages.faq',
       }),
 
-      getPublicFaqs(
+      getPublicFaqs({
         locale,
-      ),
+
+        page:
+          requestedPage,
+
+        limit:
+          25,
+
+        categoryCode:
+          selectedCategory,
+
+        search,
+      }),
     ]);
 
   const categories:
@@ -126,7 +230,7 @@ export default async function FaqPage({
   };
 
   const structuredData =
-    items.length >
+    faqResponse.items.length >
     0
       ? {
           '@context':
@@ -136,7 +240,7 @@ export default async function FaqPage({
             'FAQPage',
 
           mainEntity:
-            items.map(
+            faqResponse.items.map(
               item => ({
                 '@type':
                   'Question',
@@ -175,7 +279,27 @@ export default async function FaqPage({
 
       <FaqPageContent
         items={
-          items
+          faqResponse.items
+        }
+        availableCategories={
+          faqResponse.availableCategories
+        }
+        selectedCategory={
+          selectedCategory ??
+          'ALL'
+        }
+        search={
+          search ??
+          ''
+        }
+        currentPage={
+          faqResponse.pagination.page
+        }
+        totalPages={
+          faqResponse.pagination.totalPages
+        }
+        totalResults={
+          faqResponse.pagination.total
         }
         hero={{
           eyebrow:
@@ -222,6 +346,26 @@ export default async function FaqPage({
           countPlural:
             t(
               'countPlural',
+            ),
+
+          previous:
+            t(
+              'pagination.previous',
+            ),
+
+          next:
+            t(
+              'pagination.next',
+            ),
+
+          page:
+            t(
+              'pagination.page',
+            ),
+
+          of:
+            t(
+              'pagination.of',
             ),
         }}
         categories={

@@ -774,6 +774,12 @@
   "noResultDescription": "جربوا بحثا آخر أو تصفحوا جميع الفئات.",
   "countSingular": "سؤال",
   "countPlural": "أسئلة",
+  "pagination": {
+  "previous": "السابق",
+  "next": "التالي",
+  "page": "الصفحة",
+  "of": "من"
+},
   "categories": {
     "offer": "العروض والحلول",
     "methodology": "منهجية العمل",

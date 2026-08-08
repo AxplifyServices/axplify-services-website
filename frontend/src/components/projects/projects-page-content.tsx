@@ -15,6 +15,11 @@ import {
   useState,
 } from 'react';
 
+import {
+  Link,
+  useRouter,
+} from '@/i18n/navigation';
+
 import type {
   ProjectExpertiseCode,
   PublicProject,
@@ -78,9 +83,33 @@ type ProjectsPageContentProps = {
 
   expertiseOptions:
     ExpertiseOption[];
+
+  selectedExpertise:
+    ProjectExpertiseCode |
+    'all';
+
+  currentPage:
+    number;
+
+  totalPages:
+    number;
+
+  totalResults:
+    number;
 };
 
-const PROJECTS_PER_PAGE = 10;
+type ProjectsPageHref = {
+  pathname:
+    '/projects';
+
+  query?: {
+    expertise?:
+      ProjectExpertiseCode;
+
+    page?:
+      string;
+  };
+};
 
 type ProjectsFiltersProps = {
   selectedExpertise:
@@ -109,6 +138,60 @@ type ProjectsFiltersProps = {
     boolean;
 };
 
+function buildProjectsHref({
+  expertise,
+  page,
+}: {
+  expertise:
+    ProjectExpertiseCode |
+    'all';
+
+  page:
+    number;
+}): ProjectsPageHref {
+  const query:
+    NonNullable<
+      ProjectsPageHref['query']
+    > = {};
+
+  if (
+    expertise !==
+    'all'
+  ) {
+    query.expertise =
+      expertise;
+  }
+
+  if (
+    page >
+    1
+  ) {
+    query.page =
+      String(
+        page,
+      );
+  }
+
+  if (
+    Object.keys(
+      query,
+    ).length ===
+    0
+  ) {
+    return {
+      pathname:
+        '/projects',
+    };
+  }
+
+  return {
+    pathname:
+      '/projects',
+
+    query,
+  };
+}
+
 function ProjectsFilters({
   selectedExpertise,
   filters,
@@ -117,40 +200,31 @@ function ProjectsFilters({
   onClose,
   mobile = false,
 }: ProjectsFiltersProps) {
-
   return (
     <div className="projects-filters">
-<header className="projects-filters__header">
-  <h2>
-    {
-      filters.label
-    }
-  </h2>
+      <header className="projects-filters__header">
+        <h2>
+          {filters.label}
+        </h2>
 
-        {
-          mobile &&
-          onClose
-            ? (
-                <button
-                  type="button"
-                  className="projects-filters__close"
-                  aria-label={
-                    filters.close
-                  }
-                  onClick={
-                    onClose
-                  }
-                >
-                  <X
-                    size={
-                      20
-                    }
-                    aria-hidden="true"
-                  />
-                </button>
-              )
-            : null
-        }
+        {mobile &&
+        onClose ? (
+          <button
+            type="button"
+            className="projects-filters__close"
+            aria-label={
+              filters.close
+            }
+            onClick={
+              onClose
+            }
+          >
+            <X
+              size={20}
+              aria-hidden="true"
+            />
+          </button>
+        ) : null}
       </header>
 
       <div
@@ -178,79 +252,63 @@ function ProjectsFilters({
           }
         >
           <span className="projects-filters__check">
-            {
-              selectedExpertise ===
-              'all'
-                ? (
-                    <Check
-                      size={
-                        14
-                      }
-                      aria-hidden="true"
-                    />
-                  )
-                : null
-            }
+            {selectedExpertise ===
+            'all' ? (
+              <Check
+                size={14}
+                aria-hidden="true"
+              />
+            ) : null}
           </span>
 
           <span>
-            {
-              filters.all
-            }
+            {filters.all}
           </span>
         </button>
 
-        {
-          expertiseOptions.map(
-            option => {
-              const isActive =
-                selectedExpertise ===
-                option.code;
+        {expertiseOptions.map(
+          option => {
+            const isActive =
+              selectedExpertise ===
+              option.code;
 
-              return (
-                <button
-                  key={
-                    option.code
-                  }
-                  type="button"
-                  data-active={
-                    isActive
-                  }
-                  aria-pressed={
-                    isActive
-                  }
-                  onClick={
-                    () =>
-                      onSelect(
-                        option.code,
-                      )
-                  }
-                >
-                  <span className="projects-filters__check">
-                    {
-                      isActive
-                        ? (
-                            <Check
-                              size={
-                                14
-                              }
-                              aria-hidden="true"
-                            />
-                          )
-                        : null
-                    }
-                  </span>
+            return (
+              <button
+                key={
+                  option.code
+                }
+                type="button"
+                data-active={
+                  isActive
+                }
+                aria-pressed={
+                  isActive
+                }
+                onClick={
+                  () =>
+                    onSelect(
+                      option.code,
+                    )
+                }
+              >
+                <span className="projects-filters__check">
+                  {isActive ? (
+                    <Check
+                      size={14}
+                      aria-hidden="true"
+                    />
+                  ) : null}
+                </span>
 
-                  <span>
-                    {
-                      option.label
-                    }
-                  </span>
-                </button>
-              );
-            },
-          )
-        }
+                <span>
+                  {
+                    option.label
+                  }
+                </span>
+              </button>
+            );
+          },
+        )}
       </div>
     </div>
   );
@@ -263,17 +321,13 @@ export function ProjectsPageContent({
   emptyState,
   projects,
   expertiseOptions,
+  selectedExpertise,
+  currentPage,
+  totalPages,
+  totalResults,
 }: ProjectsPageContentProps) {
-  const [
-    selectedExpertise,
-    setSelectedExpertise,
-  ] =
-    useState<
-      ProjectExpertiseCode |
-      'all'
-    >(
-      'all',
-    );
+  const router =
+    useRouter();
 
   const [
     filtersOpen,
@@ -283,80 +337,19 @@ export function ProjectsPageContent({
       false,
     );
 
-  const [
-    currentPage,
-    setCurrentPage,
-  ] =
-    useState(
-      1,
-    );
-
-  const filteredProjects =
-    useMemo(
-      () => {
-        if (
-          selectedExpertise ===
-          'all'
-        ) {
-          return projects;
-        }
-
-        return projects.filter(
-          project =>
-            project
-              .expertiseCodes
-              .includes(
-                selectedExpertise,
-              ),
-        );
-      },
-      [
-        projects,
-        selectedExpertise,
-      ],
-    );
-
-  const totalPages =
-    Math.max(
-      1,
-      Math.ceil(
-        filteredProjects.length /
-        PROJECTS_PER_PAGE,
-      ),
-    );
-
-  const paginatedProjects =
-    useMemo(
-      () => {
-        const startIndex =
-          (
-            currentPage -
-            1
-          ) *
-          PROJECTS_PER_PAGE;
-
-        return filteredProjects.slice(
-          startIndex,
-          startIndex +
-            PROJECTS_PER_PAGE,
-        );
-      },
-      [
-        currentPage,
-        filteredProjects,
-      ],
-    );
-
   const paginationLabels =
     locale ===
     'fr'
       ? {
           previous:
             'Page précédente',
+
           next:
             'Page suivante',
+
           page:
             'Page',
+
           of:
             'sur',
         }
@@ -365,20 +358,26 @@ export function ProjectsPageContent({
         ? {
             previous:
               'الصفحة السابقة',
+
             next:
               'الصفحة التالية',
+
             page:
               'الصفحة',
+
             of:
               'من',
           }
         : {
             previous:
               'Previous page',
+
             next:
               'Next page',
+
             page:
               'Page',
+
             of:
               'of',
           };
@@ -398,35 +397,6 @@ export function ProjectsPageContent({
         expertiseOptions,
       ],
     );
-
-  useEffect(
-    () => {
-      setCurrentPage(
-        1,
-      );
-    },
-    [
-      selectedExpertise,
-      projects,
-    ],
-  );
-
-  useEffect(
-    () => {
-      if (
-        currentPage >
-        totalPages
-      ) {
-        setCurrentPage(
-          totalPages,
-        );
-      }
-    },
-    [
-      currentPage,
-      totalPages,
-    ],
-  );
 
   useEffect(
     () => {
@@ -478,14 +448,25 @@ export function ProjectsPageContent({
       ProjectExpertiseCode |
       'all',
   ) {
-    setSelectedExpertise(
-      expertise,
-    );
-
     setFiltersOpen(
       false,
     );
+
+    router.push(
+      buildProjectsHref({
+        expertise,
+
+        page:
+          1,
+      }),
+    );
   }
+
+  const resultLabel =
+    totalResults ===
+    1
+      ? filters.singleResult
+      : filters.results;
 
   return (
     <main
@@ -501,15 +482,11 @@ export function ProjectsPageContent({
         <div className="site-container">
           <div className="projects-page__hero-content">
             <span className="projects-page__eyebrow">
-              {
-                hero.eyebrow
-              }
+              {hero.eyebrow}
             </span>
 
             <h1>
-              {
-                hero.title
-              }
+              {hero.title}
             </h1>
 
             <div className="projects-page__mobile-toolbar">
@@ -528,28 +505,20 @@ export function ProjectsPageContent({
                 }
               >
                 <Filter
-                  size={
-                    18
-                  }
+                  size={18}
                   aria-hidden="true"
                 />
 
                 <span>
-                  {
-                    filters.open
-                  }
+                  {filters.open}
                 </span>
 
-                {
-                  selectedExpertise !==
-                    'all'
-                    ? (
-                        <span className="projects-page__filter-indicator">
-                          1
-                        </span>
-                      )
-                    : null
-                }
+                {selectedExpertise !==
+                'all' ? (
+                  <span className="projects-page__filter-indicator">
+                    1
+                  </span>
+                ) : null}
               </button>
             </div>
 
@@ -564,7 +533,6 @@ export function ProjectsPageContent({
 
       <section className="projects-page__content">
         <div className="site-container">
-
           <div className="projects-page__layout">
             <aside className="projects-page__sidebar">
               <ProjectsFilters
@@ -584,330 +552,331 @@ export function ProjectsPageContent({
             </aside>
 
             <div className="projects-page__results">
-              {
-                filteredProjects.length ===
-                0
-                  ? (
-                      <div className="projects-page__empty">
-                        <BriefcaseBusiness
-                          size={
-                            44
-                          }
-                          aria-hidden="true"
-                        />
+              <header className="projects-page__results-header">
+                <p>
+                  <strong>
+                    {
+                      totalResults
+                    }
+                  </strong>{' '}
+                  {
+                    resultLabel
+                  }
+                </p>
+              </header>
 
-                        <h2>
-                          {
-                            emptyState.title
-                          }
-                        </h2>
+              {projects.length ===
+              0 ? (
+                <div className="projects-page__empty">
+                  <BriefcaseBusiness
+                    size={44}
+                    aria-hidden="true"
+                  />
 
-                        <p>
-                          {
-                            emptyState.description
+                  <h2>
+                    {
+                      emptyState.title
+                    }
+                  </h2>
+
+                  <p>
+                    {
+                      emptyState.description
+                    }
+                  </p>
+                </div>
+              ) : (
+                <>
+                  <div className="projects-page__grid">
+                    {projects.map(
+                      project => (
+                        <article
+                          key={
+                            project.id
                           }
-                        </p>
-                      </div>
-                    )
-                  : (
-                      <div className="projects-page__grid">
-                        {
-                          paginatedProjects.map(
-                            project => (
-                              <article
-                                key={
-                                  project.id
+                          className="project-card"
+                        >
+                          <header className="project-card__client">
+                            <div className="project-card__logo">
+                              <img
+                                src={
+                                  project.client.logoUrl
                                 }
-                                className="project-card"
-                              >
-                                <header className="project-card__client">
-                                  <div className="project-card__logo">
-                                    <img
-                                      src={
-                                        project.client.logoUrl
-                                      }
-                                      alt={
-                                        project.client.logoAlt
-                                      }
-                                      loading="lazy"
-                                      decoding="async"
-                                    />
-                                  </div>
+                                alt={
+                                  project.client.logoAlt
+                                }
+                                loading="lazy"
+                                decoding="async"
+                              />
+                            </div>
 
-                                  <div className="project-card__client-copy">
-                                    <strong>
-                                      {
-                                        project.client.name
-                                      }
-                                    </strong>
+                            <div className="project-card__client-copy">
+                              <strong>
+                                {
+                                  project.client.name
+                                }
+                              </strong>
 
-                                    {
-                                      project.client.industry
-                                        ? (
-                                            <span>
-                                              {
-                                                project.client.industry
-                                              }
-                                            </span>
-                                          )
-                                        : null
+                              {project.client.industry ? (
+                                <span>
+                                  {
+                                    project.client.industry
+                                  }
+                                </span>
+                              ) : null}
+                            </div>
+                          </header>
+
+                          <div className="project-card__body">
+                            <div className="project-card__expertises">
+                              {project.expertiseCodes.map(
+                                expertiseCode => (
+                                  <span
+                                    key={
+                                      expertiseCode
                                     }
-                                  </div>
-                                </header>
-
-                                <div className="project-card__body">
-                                  <div className="project-card__expertises">
+                                  >
                                     {
-                                      project.expertiseCodes.map(
-                                        expertiseCode => (
-                                          <span
-                                            key={
-                                              expertiseCode
-                                            }
-                                          >
-                                            {
-                                              expertiseLabelByCode.get(
-                                                expertiseCode,
-                                              ) ??
-                                              expertiseCode
-                                            }
-                                          </span>
-                                        ),
-                                      )
+                                      expertiseLabelByCode.get(
+                                        expertiseCode,
+                                      ) ??
+                                      expertiseCode
                                     }
-                                  </div>
+                                  </span>
+                                ),
+                              )}
+                            </div>
 
-                                  <h2>
-                                    {
-                                      project.title
-                                    }
-                                  </h2>
+                            <h2>
+                              {
+                                project.title
+                              }
+                            </h2>
 
-                                  <p>
-                                    {
-                                      project.description
-                                    }
-                                  </p>
-                                </div>
-                              </article>
-                            ),
-                          )
-                        }
-                      </div>
-                    )
-              }
+                            <p>
+                              {
+                                project.description
+                              }
+                            </p>
+                          </div>
+                        </article>
+                      ),
+                    )}
+                  </div>
 
-              {
-                filteredProjects.length >
-                  PROJECTS_PER_PAGE
-                  ? (
-                      <nav
-                        className="projects-page__pagination"
-                        aria-label={
-                          paginationLabels.page
-                        }
-                      >
-                        <button
-                          type="button"
+                  {totalPages >
+                  1 ? (
+                    <nav
+                      className="projects-page__pagination"
+                      aria-label={`${paginationLabels.page} ${currentPage} ${paginationLabels.of} ${totalPages}`}
+                    >
+                      {currentPage >
+                      1 ? (
+                        <Link
+                          href={
+                            buildProjectsHref({
+                              expertise:
+                                selectedExpertise,
+
+                              page:
+                                currentPage -
+                                1,
+                            })
+                          }
                           className="projects-page__pagination-arrow"
                           aria-label={
                             paginationLabels.previous
                           }
-                          disabled={
-                            currentPage ===
-                            1
-                          }
-                          onClick={
-                            () =>
-                              setCurrentPage(
-                                page =>
-                                  Math.max(
-                                    1,
-                                    page -
-                                      1,
-                                  ),
-                              )
-                          }
                         >
-                          {
-                            locale ===
-                            'ar'
-                              ? (
-                                  <ChevronRight
-                                    size={
-                                      18
-                                    }
-                                    aria-hidden="true"
-                                  />
-                                )
-                              : (
-                                  <ChevronLeft
-                                    size={
-                                      18
-                                    }
-                                    aria-hidden="true"
-                                  />
-                                )
-                          }
-                        </button>
+                          {locale ===
+                          'ar' ? (
+                            <ChevronRight
+                              size={18}
+                              aria-hidden="true"
+                            />
+                          ) : (
+                            <ChevronLeft
+                              size={18}
+                              aria-hidden="true"
+                            />
+                          )}
+                        </Link>
+                      ) : (
+                        <span
+                          className="projects-page__pagination-arrow"
+                          aria-disabled="true"
+                        >
+                          {locale ===
+                          'ar' ? (
+                            <ChevronRight
+                              size={18}
+                              aria-hidden="true"
+                            />
+                          ) : (
+                            <ChevronLeft
+                              size={18}
+                              aria-hidden="true"
+                            />
+                          )}
+                        </span>
+                      )}
 
-                        <div className="projects-page__pagination-pages">
+                      <div className="projects-page__pagination-pages">
+                        {Array.from(
                           {
-                            Array.from(
+                            length:
+                              totalPages,
+                          },
+
+                          (
+                            _,
+                            index,
+                          ) =>
+                            index +
+                            1,
+                        ).map(
+                          page => (
+                            <Link
+                              key={
+                                page
+                              }
+                              href={
+                                buildProjectsHref({
+                                  expertise:
+                                    selectedExpertise,
+
+                                  page,
+                                })
+                              }
+                              data-active={
+                                currentPage ===
+                                page
+                              }
+                              aria-current={
+                                currentPage ===
+                                page
+                                  ? 'page'
+                                  : undefined
+                              }
+                              aria-label={`${paginationLabels.page} ${page} ${paginationLabels.of} ${totalPages}`}
+                            >
                               {
-                                length:
-                                  totalPages,
-                              },
-                              (
-                                _,
-                                index,
-                              ) => {
-                                const page =
-                                  index +
-                                  1;
+                                page
+                              }
+                            </Link>
+                          ),
+                        )}
+                      </div>
 
-                                return (
-                                  <button
-                                    key={
-                                      page
-                                    }
-                                    type="button"
-                                    data-active={
-                                      currentPage ===
-                                      page
-                                    }
-                                    aria-current={
-                                      currentPage ===
-                                      page
-                                        ? 'page'
-                                        : undefined
-                                    }
-                                    aria-label={
-                                      `${paginationLabels.page} ${page} ${paginationLabels.of} ${totalPages}`
-                                    }
-                                    onClick={
-                                      () =>
-                                        setCurrentPage(
-                                          page,
-                                        )
-                                    }
-                                  >
-                                    {
-                                      page
-                                    }
-                                  </button>
-                                );
-                              },
-                            )
+                      {currentPage <
+                      totalPages ? (
+                        <Link
+                          href={
+                            buildProjectsHref({
+                              expertise:
+                                selectedExpertise,
+
+                              page:
+                                currentPage +
+                                1,
+                            })
                           }
-                        </div>
-
-                        <button
-                          type="button"
                           className="projects-page__pagination-arrow"
                           aria-label={
                             paginationLabels.next
                           }
-                          disabled={
-                            currentPage ===
-                            totalPages
-                          }
-                          onClick={
-                            () =>
-                              setCurrentPage(
-                                page =>
-                                  Math.min(
-                                    totalPages,
-                                    page +
-                                      1,
-                                  ),
-                              )
-                          }
                         >
-                          {
-                            locale ===
-                            'ar'
-                              ? (
-                                  <ChevronLeft
-                                    size={
-                                      18
-                                    }
-                                    aria-hidden="true"
-                                  />
-                                )
-                              : (
-                                  <ChevronRight
-                                    size={
-                                      18
-                                    }
-                                    aria-hidden="true"
-                                  />
-                                )
-                          }
-                        </button>
-                      </nav>
-                    )
-                  : null
-              }
+                          {locale ===
+                          'ar' ? (
+                            <ChevronLeft
+                              size={18}
+                              aria-hidden="true"
+                            />
+                          ) : (
+                            <ChevronRight
+                              size={18}
+                              aria-hidden="true"
+                            />
+                          )}
+                        </Link>
+                      ) : (
+                        <span
+                          className="projects-page__pagination-arrow"
+                          aria-disabled="true"
+                        >
+                          {locale ===
+                          'ar' ? (
+                            <ChevronLeft
+                              size={18}
+                              aria-hidden="true"
+                            />
+                          ) : (
+                            <ChevronRight
+                              size={18}
+                              aria-hidden="true"
+                            />
+                          )}
+                        </span>
+                      )}
+                    </nav>
+                  ) : null}
+                </>
+              )}
             </div>
           </div>
         </div>
       </section>
 
-      {
-        filtersOpen
-          ? (
-              <div
-                className="projects-page__filter-overlay"
-                role="presentation"
-                onMouseDown={
-                  event => {
-                    if (
-                      event.target ===
-                      event.currentTarget
-                    ) {
-                      setFiltersOpen(
-                        false,
-                      );
-                    }
-                  }
-                }
-              >
-                <aside
-                  id="projects-mobile-filters"
-                  className="projects-page__filter-drawer"
-                  role="dialog"
-                  aria-modal="true"
-                  aria-label={
-                    filters.label
-                  }
-                >
-                  <ProjectsFilters
-                    mobile
-                    selectedExpertise={
-                      selectedExpertise
-                    }
-                    filters={
-                      filters
-                    }
-                    expertiseOptions={
-                      expertiseOptions
-                    }
-                    onSelect={
-                      selectExpertise
-                    }
-                    onClose={
-                      () =>
-                        setFiltersOpen(
-                          false,
-                        )
-                    }
-                  />
-                </aside>
-              </div>
-            )
-          : null
-      }
+      {filtersOpen ? (
+        <div
+          className="projects-page__filter-overlay"
+          role="presentation"
+          onMouseDown={
+            event => {
+              if (
+                event.target ===
+                event.currentTarget
+              ) {
+                setFiltersOpen(
+                  false,
+                );
+              }
+            }
+          }
+        >
+          <aside
+            id="projects-mobile-filters"
+            className="projects-page__filter-drawer"
+            role="dialog"
+            aria-modal="true"
+            aria-label={
+              filters.label
+            }
+          >
+            <ProjectsFilters
+              mobile
+              selectedExpertise={
+                selectedExpertise
+              }
+              filters={
+                filters
+              }
+              expertiseOptions={
+                expertiseOptions
+              }
+              onSelect={
+                selectExpertise
+              }
+              onClose={
+                () =>
+                  setFiltersOpen(
+                    false,
+                  )
+              }
+            />
+          </aside>
+        </div>
+      ) : null}
     </main>
   );
 }

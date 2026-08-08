@@ -36,6 +36,48 @@ export type PublicFaqItem = {
     string;
 };
 
+export type PublicFaqPagination = {
+  page:
+    number;
+
+  limit:
+    number;
+
+  total:
+    number;
+
+  totalPages:
+    number;
+};
+
+export type PublicFaqResponse = {
+  items:
+    PublicFaqItem[];
+
+  availableCategories:
+    PublicFaqCategoryCode[];
+
+  pagination:
+    PublicFaqPagination;
+};
+
+type GetPublicFaqsOptions = {
+  locale:
+    AppLocale;
+
+  page?:
+    number;
+
+  limit?:
+    number;
+
+  categoryCode?:
+    PublicFaqCategoryCode;
+
+  search?:
+    string;
+};
+
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL ??
   'http://localhost:3000/api';
@@ -48,6 +90,19 @@ function asString(
     'string'
     ? value.trim()
     : '';
+}
+
+function asNumber(
+  value:
+    unknown,
+) {
+  return typeof value ===
+      'number' &&
+    Number.isFinite(
+      value,
+    )
+    ? value
+    : 0;
 }
 
 function isCategoryCode(
@@ -104,12 +159,6 @@ function normalizeFaq(
       rawFaq.locale,
     );
 
-  const sortOrder =
-    typeof rawFaq.sortOrder ===
-      'number'
-      ? rawFaq.sortOrder
-      : 0;
-
   if (
     !id ||
     !isCategoryCode(
@@ -123,25 +172,150 @@ function normalizeFaq(
 
   return {
     id,
+
     categoryCode,
-    sortOrder,
+
+    sortOrder:
+      asNumber(
+        rawFaq.sortOrder,
+      ),
+
     locale,
+
     question,
+
     answer,
   };
 }
 
-export async function getPublicFaqs(
-  locale:
-    AppLocale,
-): Promise<
-  PublicFaqItem[]
-> {
+function normalizePagination(
+  value:
+    unknown,
+):
+  PublicFaqPagination
+{
+  if (
+    !value ||
+    typeof value !==
+      'object'
+  ) {
+    return {
+      page:
+        1,
+
+      limit:
+        25,
+
+      total:
+        0,
+
+      totalPages:
+        0,
+    };
+  }
+
+  const pagination =
+    value as Record<
+      string,
+      unknown
+    >;
+
+  return {
+    page:
+      Math.max(
+        1,
+        asNumber(
+          pagination.page,
+        ) ||
+          1,
+      ),
+
+    limit:
+      Math.min(
+        25,
+        Math.max(
+          1,
+          asNumber(
+            pagination.limit,
+          ) ||
+            25,
+        ),
+      ),
+
+    total:
+      Math.max(
+        0,
+        asNumber(
+          pagination.total,
+        ),
+      ),
+
+    totalPages:
+      Math.max(
+        0,
+        asNumber(
+          pagination.totalPages,
+        ),
+      ),
+  };
+}
+
+export async function getPublicFaqs({
+  locale,
+  page = 1,
+  limit = 25,
+  categoryCode,
+  search,
+}: GetPublicFaqsOptions):
+  Promise<
+    PublicFaqResponse
+  >
+{
   try {
     const parameters =
       new URLSearchParams({
         locale,
+
+        page:
+          String(
+            Math.max(
+              1,
+              page,
+            ),
+          ),
+
+        limit:
+          String(
+            Math.min(
+              25,
+              Math.max(
+                1,
+                limit,
+              ),
+            ),
+          ),
       });
+
+    if (
+      categoryCode
+    ) {
+      parameters.set(
+        'categoryCode',
+        categoryCode,
+      );
+    }
+
+    const normalizedSearch =
+      search?.trim();
+
+    if (
+      normalizedSearch
+    ) {
+      parameters.set(
+        'search',
+        normalizedSearch,
+      );
+    }
 
     const response =
       await fetch(
@@ -166,7 +340,27 @@ export async function getPublicFaqs(
         response.statusText,
       );
 
-      return [];
+      return {
+        items:
+          [],
+
+        availableCategories:
+          [],
+
+        pagination: {
+          page:
+            1,
+
+          limit:
+            25,
+
+          total:
+            0,
+
+          totalPages:
+            0,
+        },
+      };
     }
 
     const responseBody =
@@ -174,36 +368,76 @@ export async function getPublicFaqs(
         unknown;
 
     if (
-      !Array.isArray(
-        responseBody,
-      )
+      !responseBody ||
+      typeof responseBody !==
+        'object'
     ) {
-      console.error(
-        '[Public FAQ] Invalid API response.',
-      );
+      return {
+        items:
+          [],
 
-      return [];
+        availableCategories:
+          [],
+
+        pagination: {
+          page:
+            1,
+
+          limit:
+            25,
+
+          total:
+            0,
+
+          totalPages:
+            0,
+        },
+      };
     }
 
-    return responseBody
-      .map(
-        normalizeFaq,
+    const data =
+      responseBody as Record<
+        string,
+        unknown
+      >;
+
+    const items =
+      Array.isArray(
+        data.items,
       )
-      .filter(
-        (
-          faq,
-        ): faq is PublicFaqItem =>
-          faq !==
-          null,
+        ? data.items
+            .map(
+              normalizeFaq,
+            )
+            .filter(
+              (
+                faq,
+              ): faq is PublicFaqItem =>
+                faq !==
+                null,
+            )
+        : [];
+
+    const availableCategories =
+      Array.isArray(
+        data.availableCategories,
       )
-      .sort(
-        (
-          first,
-          second,
-        ) =>
-          first.sortOrder -
-          second.sortOrder,
-      );
+        ? data.availableCategories
+            .filter(
+              isCategoryCode,
+            )
+        : [];
+
+    return {
+      items,
+
+      availableCategories,
+
+      pagination:
+        normalizePagination(
+          data.pagination,
+        ),
+    };
   } catch (
     error
   ) {
@@ -212,6 +446,26 @@ export async function getPublicFaqs(
       error,
     );
 
-    return [];
+    return {
+      items:
+        [],
+
+      availableCategories:
+        [],
+
+      pagination: {
+        page:
+          1,
+
+        limit:
+          25,
+
+        total:
+          0,
+
+        totalPages:
+          0,
+      },
+    };
   }
 }

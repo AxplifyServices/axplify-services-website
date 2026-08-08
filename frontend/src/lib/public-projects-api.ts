@@ -52,23 +52,40 @@ export type PublicProject = {
     string | null;
 };
 
-type PublicProjectsResponse = {
+export type PublicProjectsPagination = {
+  page:
+    number;
+
+  limit:
+    number;
+
+  total:
+    number;
+
+  totalPages:
+    number;
+};
+
+export type PublicProjectsResponse = {
   items:
     PublicProject[];
 
-  pagination: {
-    page:
-      number;
+  pagination:
+    PublicProjectsPagination;
+};
 
-    limit:
-      number;
+type GetPublicProjectsOptions = {
+  locale:
+    AppLocale;
 
-    total:
-      number;
+  page?:
+    number;
 
-    totalPages:
-      number;
-  };
+  limit?:
+    number;
+
+  expertise?:
+    ProjectExpertiseCode;
 };
 
 const API_URL =
@@ -96,6 +113,19 @@ function asString(
     'string'
     ? value.trim()
     : '';
+}
+
+function asNumber(
+  value:
+    unknown,
+) {
+  return typeof value ===
+      'number' &&
+    Number.isFinite(
+      value,
+    )
+    ? value
+    : 0;
 }
 
 function normalizeProject(
@@ -230,21 +260,121 @@ function normalizeProject(
   };
 }
 
-export async function getPublicProjects(
-  locale:
-    AppLocale,
-): Promise<
-  PublicProject[]
-> {
+function normalizePagination(
+  value:
+    unknown,
+):
+  PublicProjectsPagination
+{
+  if (
+    !value ||
+    typeof value !==
+      'object'
+  ) {
+    return {
+      page:
+        1,
+
+      limit:
+        10,
+
+      total:
+        0,
+
+      totalPages:
+        0,
+    };
+  }
+
+  const rawPagination =
+    value as Record<
+      string,
+      unknown
+    >;
+
+  return {
+    page:
+      Math.max(
+        1,
+        asNumber(
+          rawPagination.page,
+        ) ||
+          1,
+      ),
+
+    limit:
+      Math.min(
+        10,
+        Math.max(
+          1,
+          asNumber(
+            rawPagination.limit,
+          ) ||
+            10,
+        ),
+      ),
+
+    total:
+      Math.max(
+        0,
+        asNumber(
+          rawPagination.total,
+        ),
+      ),
+
+    totalPages:
+      Math.max(
+        0,
+        asNumber(
+          rawPagination.totalPages,
+        ),
+      ),
+  };
+}
+
+export async function getPublicProjects({
+  locale,
+  page = 1,
+  limit = 10,
+  expertise,
+}: GetPublicProjectsOptions):
+  Promise<
+    PublicProjectsResponse
+  >
+{
   try {
     const parameters =
       new URLSearchParams({
         locale,
+
         page:
-          '1',
+          String(
+            Math.max(
+              1,
+              page,
+            ),
+          ),
+
         limit:
-          '100',
+          String(
+            Math.min(
+              10,
+              Math.max(
+                1,
+                limit,
+              ),
+            ),
+          ),
       });
+
+    if (
+      expertise
+    ) {
+      parameters.set(
+        'expertise',
+        expertise,
+      );
+    }
 
     const response =
       await fetch(
@@ -269,37 +399,90 @@ export async function getPublicProjects(
         response.statusText,
       );
 
-      return [];
+      return {
+        items:
+          [],
+
+        pagination: {
+          page:
+            1,
+
+          limit:
+            10,
+
+          total:
+            0,
+
+          totalPages:
+            0,
+        },
+      };
     }
 
     const responseBody =
       await response.json() as
-        Partial<PublicProjectsResponse>;
+        unknown;
 
     if (
-      !Array.isArray(
-        responseBody.items,
-      )
+      !responseBody ||
+      typeof responseBody !==
+        'object'
     ) {
       console.error(
         '[Public projects] Invalid API response.',
       );
 
-      return [];
+      return {
+        items:
+          [],
+
+        pagination: {
+          page:
+            1,
+
+          limit:
+            10,
+
+          total:
+            0,
+
+          totalPages:
+            0,
+        },
+      };
     }
 
-    return responseBody
-      .items
-      .map(
-        normalizeProject,
+    const data =
+      responseBody as Record<
+        string,
+        unknown
+      >;
+
+    const items =
+      Array.isArray(
+        data.items,
       )
-      .filter(
-        (
-          project,
-        ): project is PublicProject =>
-          project !==
-          null,
-      );
+        ? data.items
+            .map(
+              normalizeProject,
+            )
+            .filter(
+              (
+                project,
+              ): project is PublicProject =>
+                project !==
+                null,
+            )
+        : [];
+
+    return {
+      items,
+
+      pagination:
+        normalizePagination(
+          data.pagination,
+        ),
+    };
   } catch (
     error
   ) {
@@ -308,6 +491,23 @@ export async function getPublicProjects(
       error,
     );
 
-    return [];
+    return {
+      items:
+        [],
+
+      pagination: {
+        page:
+          1,
+
+        limit:
+          10,
+
+        total:
+          0,
+
+        totalPages:
+          0,
+      },
+    };
   }
 }

@@ -37,6 +37,10 @@ import {
   UpdateFaqDto,
 } from './dto/update-faq.dto';
 
+import type {
+  Prisma,
+} from '../generated/prisma/client';
+
 @Injectable()
 export class FaqsService {
   constructor(
@@ -156,108 +160,163 @@ export class FaqsService {
     };
   }
 
-  async findAllAdmin(
-    query:
-      AdminFaqQueryDto,
-  ) {
-    const search =
-      query.search?.trim();
+async findAllAdmin(
+  query:
+    AdminFaqQueryDto,
+) {
+  const search =
+    query.search?.trim();
 
-    const visibility =
-      query.visibility ??
-      'all';
+  const visibility =
+    query.visibility ??
+    'all';
 
-    const items =
-      await this.prisma
-        .faq_items
-        .findMany({
-          where: {
-            ...(query.categoryCode
-              ? {
-                  category_code:
-                    query.categoryCode,
-                }
-              : {}),
+  const page =
+    query.page ??
+    1;
 
-            ...(visibility ===
-            'visible'
-              ? {
-                  is_visible:
-                    true,
-                }
-              : visibility ===
-                  'hidden'
-                ? {
-                    is_visible:
-                      false,
-                  }
-                : {}),
+  const limit =
+    query.limit ??
+    10;
 
-            ...(search
-              ? {
-                  faq_item_translations: {
-                    some: {
-                      OR: [
-                        {
-                          question: {
-                            contains:
-                              search,
+  const where:
+    Prisma.faq_itemsWhereInput = {
+    ...(query.categoryCode
+      ? {
+          category_code:
+            query.categoryCode,
+        }
+      : {}),
 
-                            mode:
-                              'insensitive',
-                          },
-                        },
+    ...(visibility ===
+    'visible'
+      ? {
+          is_visible:
+            true,
+        }
+      : visibility ===
+          'hidden'
+        ? {
+            is_visible:
+              false,
+          }
+        : {}),
 
-                        {
-                          answer: {
-                            contains:
-                              search,
+    ...(search
+      ? {
+          faq_item_translations: {
+            some: {
+              OR: [
+                {
+                  question: {
+                    contains:
+                      search,
 
-                            mode:
-                              'insensitive',
-                          },
-                        },
-                      ],
-                    },
+                    mode:
+                      'insensitive',
                   },
-                }
-              : {}),
-          },
+                },
 
-          include: {
-            faq_item_translations: {
-              orderBy: {
-                locale:
-                  'asc',
+                {
+                  answer: {
+                    contains:
+                      search,
+
+                    mode:
+                      'insensitive',
+                  },
+                },
+              ],
+            },
+          },
+        }
+      : {}),
+  };
+
+  const [
+    total,
+    items,
+  ] =
+    await this.prisma
+      .$transaction([
+        this.prisma
+          .faq_items
+          .count({
+            where,
+          }),
+
+        this.prisma
+          .faq_items
+          .findMany({
+            where,
+
+            skip:
+              (
+                page -
+                1
+              ) *
+              limit,
+
+            take:
+              limit,
+
+            include: {
+              faq_item_translations: {
+                orderBy: {
+                  locale:
+                    'asc',
+                },
               },
             },
-          },
 
-          orderBy: [
-            {
-              category_code:
-                'asc',
-            },
+            orderBy: [
+              {
+                category_code:
+                  'asc',
+              },
 
-            {
-              sort_order:
-                'asc',
-            },
+              {
+                sort_order:
+                  'asc',
+              },
 
-            {
-              updated_at:
-                'desc',
-            },
-          ],
-        });
+              {
+                updated_at:
+                  'desc',
+              },
+            ],
+          }),
+      ]);
 
-    return items.map(
-      item =>
-        this.mapAdminItem(
-          item,
-        ),
-    );
-  }
+  const totalPages =
+    total ===
+    0
+      ? 0
+      : Math.ceil(
+          total /
+          limit,
+        );
+
+  return {
+    items:
+      items.map(
+        item =>
+          this.mapAdminItem(
+            item,
+          ),
+      ),
+
+    pagination: {
+      page,
+
+      limit,
+
+      total,
+
+      totalPages,
+    },
+  };
+}
 
   async findOneAdmin(
     id:
@@ -666,105 +725,247 @@ export class FaqsService {
     };
   }
 
-  async findAllPublic(
-    query:
-      PublicFaqQueryDto,
-  ) {
-    const locale:
-      FaqLocale =
-      query.locale ??
-      'fr';
+async findAllPublic(
+  query:
+    PublicFaqQueryDto,
+) {
+  const locale:
+    FaqLocale =
+    query.locale ??
+    'fr';
 
-    const items =
-      await this.prisma
-        .faq_items
-        .findMany({
-          where: {
-            is_visible:
-              true,
+  const page =
+    query.page ??
+    1;
 
-            ...(query.categoryCode
-              ? {
-                  category_code:
-                    query.categoryCode,
-                }
-              : {}),
-          },
+  const limit =
+    query.limit ??
+    25;
 
-          include: {
-            faq_item_translations: {
-              where: {
-                locale: {
-                  in:
-                    FAQ_PUBLIC_FALLBACK_LOCALE[
-                      locale
-                    ],
-                },
+  const search =
+    query.search
+      ?.trim();
+
+  const fallbackLocales =
+    FAQ_PUBLIC_FALLBACK_LOCALE[
+      locale
+    ];
+
+  /*
+   * La recherche doit être effectuée avant la pagination.
+   *
+   * On récupère uniquement les champs nécessaires :
+   * ID, catégorie, ordre et traductions utiles.
+   *
+   * Cela garantit également que la recherche respecte
+   * le fallback linguistique réellement affiché.
+   */
+  const candidateItems =
+    await this.prisma
+      .faq_items
+      .findMany({
+        where: {
+          is_visible:
+            true,
+
+          ...(query.categoryCode
+            ? {
+                category_code:
+                  query.categoryCode,
+              }
+            : {}),
+        },
+
+        select: {
+          id:
+            true,
+
+          category_code:
+            true,
+
+          sort_order:
+            true,
+
+          created_at:
+            true,
+
+          faq_item_translations: {
+            where: {
+              locale: {
+                in:
+                  fallbackLocales,
               },
             },
+
+            select: {
+              locale:
+                true,
+
+              question:
+                true,
+
+              answer:
+                true,
+            },
           },
+        },
 
-          orderBy: [
-            {
-              sort_order:
-                'asc',
-            },
-
-            {
-              created_at:
-                'asc',
-            },
-          ],
-        });
-
-    return items.flatMap(
-      item => {
-        const translation =
-          FAQ_PUBLIC_FALLBACK_LOCALE[
-            locale
-          ]
-            .map(
-              fallbackLocale =>
-                item
-                  .faq_item_translations
-                  .find(
-                    candidate =>
-                      candidate.locale ===
-                      fallbackLocale,
-                  ),
-            )
-            .find(
-              Boolean,
-            );
-
-        if (
-          !translation
-        ) {
-          return [];
-        }
-
-        return [
+        orderBy: [
           {
-            id:
-              item.id,
-
-            categoryCode:
-              item.category_code,
-
-            sortOrder:
-              item.sort_order,
-
-            locale:
-              translation.locale,
-
-            question:
-              translation.question,
-
-            answer:
-              translation.answer,
+            sort_order:
+              'asc',
           },
-        ];
-      },
+
+          {
+            created_at:
+              'asc',
+          },
+        ],
+      });
+
+  const normalizedSearch =
+    search
+      ?.toLocaleLowerCase(
+        locale,
+      );
+
+  const resolvedItems =
+    candidateItems
+      .flatMap(
+        item => {
+          const translation =
+            fallbackLocales
+              .map(
+                fallbackLocale =>
+                  item
+                    .faq_item_translations
+                    .find(
+                      candidate =>
+                        candidate.locale ===
+                        fallbackLocale,
+                    ),
+              )
+              .find(
+                Boolean,
+              );
+
+          if (
+            !translation
+          ) {
+            return [];
+          }
+
+          if (
+            normalizedSearch
+          ) {
+            const question =
+              translation.question
+                .toLocaleLowerCase(
+                  locale,
+                );
+
+            const answer =
+              translation.answer
+                .toLocaleLowerCase(
+                  locale,
+                );
+
+            if (
+              !question.includes(
+                normalizedSearch,
+              ) &&
+              !answer.includes(
+                normalizedSearch,
+              )
+            ) {
+              return [];
+            }
+          }
+
+          return [
+            {
+              id:
+                item.id,
+
+              categoryCode:
+                item.category_code,
+
+              sortOrder:
+                item.sort_order,
+
+              locale:
+                translation.locale,
+
+              question:
+                translation.question,
+
+              answer:
+                translation.answer,
+            },
+          ];
+        },
+      );
+
+  const total =
+    resolvedItems.length;
+
+  const totalPages =
+    total ===
+    0
+      ? 0
+      : Math.ceil(
+          total /
+          limit,
+        );
+
+  const safePage =
+    totalPages >
+    0
+      ? Math.min(
+          page,
+          totalPages,
+        )
+      : 1;
+
+  const startIndex =
+    (
+      safePage -
+      1
+    ) *
+    limit;
+
+  const items =
+    resolvedItems.slice(
+      startIndex,
+      startIndex +
+        limit,
     );
-  }
+
+  const availableCategories =
+    Array.from(
+      new Set(
+        candidateItems.map(
+          item =>
+            item.category_code,
+        ),
+      ),
+    );
+
+  return {
+    items,
+
+    availableCategories,
+
+    pagination: {
+      page:
+        safePage,
+
+      limit,
+
+      total,
+
+      totalPages,
+    },
+  };
+}
 }

@@ -2,13 +2,20 @@
 
 import {
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Search,
 } from 'lucide-react';
 
 import {
-  useMemo,
+  FormEvent,
   useState,
 } from 'react';
+
+import {
+  Link,
+  useRouter,
+} from '@/i18n/navigation';
 
 import type {
   PublicFaqCategoryCode,
@@ -24,6 +31,25 @@ type CategoryLabels =
 type FaqPageContentProps = {
   items:
     PublicFaqItem[];
+
+  availableCategories:
+    PublicFaqCategoryCode[];
+
+  selectedCategory:
+    PublicFaqCategoryCode |
+    'ALL';
+
+  search:
+    string;
+
+  currentPage:
+    number;
+
+  totalPages:
+    number;
+
+  totalResults:
+    number;
 
   hero: {
     eyebrow:
@@ -54,18 +80,123 @@ type FaqPageContentProps = {
 
     countPlural:
       string;
+
+    previous:
+      string;
+
+    next:
+      string;
+
+    page:
+      string;
+
+    of:
+      string;
   };
 
   categories:
     CategoryLabels;
 };
 
+type FaqHref = {
+  pathname:
+    '/faq';
+
+  query?: {
+    category?:
+      PublicFaqCategoryCode;
+
+    search?:
+      string;
+
+    page?:
+      string;
+  };
+};
+
+function buildFaqHref({
+  category,
+  search,
+  page,
+}: {
+  category:
+    PublicFaqCategoryCode |
+    'ALL';
+
+  search:
+    string;
+
+  page:
+    number;
+}): FaqHref {
+  const query:
+    NonNullable<
+      FaqHref['query']
+    > = {};
+
+  if (
+    category !==
+    'ALL'
+  ) {
+    query.category =
+      category;
+  }
+
+  const normalizedSearch =
+    search.trim();
+
+  if (
+    normalizedSearch
+  ) {
+    query.search =
+      normalizedSearch;
+  }
+
+  if (
+    page >
+    1
+  ) {
+    query.page =
+      String(
+        page,
+      );
+  }
+
+  if (
+    Object.keys(
+      query,
+    ).length ===
+    0
+  ) {
+    return {
+      pathname:
+        '/faq',
+    };
+  }
+
+  return {
+    pathname:
+      '/faq',
+
+    query,
+  };
+}
+
 export function FaqPageContent({
   items,
+  availableCategories,
+  selectedCategory,
+  search,
+  currentPage,
+  totalPages,
+  totalResults,
   hero,
   labels,
   categories,
 }: FaqPageContentProps) {
+  const router =
+    useRouter();
+
   const [
     openedId,
     setOpenedId,
@@ -77,99 +208,57 @@ export function FaqPageContent({
     );
 
   const [
-    search,
-    setSearch,
+    searchValue,
+    setSearchValue,
   ] =
     useState(
-      '',
+      search,
     );
 
-  const [
-    selectedCategory,
-    setSelectedCategory,
-  ] =
-    useState<
+  function handleSearchSubmit(
+    event:
+      FormEvent<HTMLFormElement>,
+  ) {
+    event.preventDefault();
+
+    setOpenedId(
+      null,
+    );
+
+    router.push(
+      buildFaqHref({
+        category:
+          selectedCategory,
+
+        search:
+          searchValue,
+
+        page:
+          1,
+      }),
+    );
+  }
+
+  function selectCategory(
+    category:
       PublicFaqCategoryCode |
-      'ALL'
-    >(
       'ALL',
+  ) {
+    setOpenedId(
+      null,
     );
 
-  const availableCategories =
-    useMemo(
-      () => {
-        const usedCategories =
-          new Set(
-            items.map(
-              item =>
-                item.categoryCode,
-            ),
-          );
+    router.push(
+      buildFaqHref({
+        category,
 
-        return (
-          Object.keys(
-            categories,
-          ) as
-            PublicFaqCategoryCode[]
-        ).filter(
-          category =>
-            usedCategories.has(
-              category,
-            ),
-        );
-      },
-      [
-        categories,
-        items,
-      ],
-    );
-
-  const filteredItems =
-    useMemo(
-      () => {
-        const normalizedSearch =
-          search
-            .trim()
-            .toLocaleLowerCase();
-
-        return items.filter(
-          item => {
-            if (
-              selectedCategory !==
-                'ALL' &&
-              item.categoryCode !==
-                selectedCategory
-            ) {
-              return false;
-            }
-
-            if (
-              !normalizedSearch
-            ) {
-              return true;
-            }
-
-            return (
-              item.question
-                .toLocaleLowerCase()
-                .includes(
-                  normalizedSearch,
-                ) ||
-              item.answer
-                .toLocaleLowerCase()
-                .includes(
-                  normalizedSearch,
-                )
-            );
-          },
-        );
-      },
-      [
-        items,
         search,
-        selectedCategory,
-      ],
+
+        page:
+          1,
+      }),
     );
+  }
 
   return (
     <div className="faq-page">
@@ -195,7 +284,12 @@ export function FaqPageContent({
       <section className="faq-content">
         <div className="site-container faq-content__container">
           <div className="faq-tools">
-            <label className="faq-search">
+            <form
+              className="faq-search"
+              onSubmit={
+                handleSearchSubmit
+              }
+            >
               <Search
                 size={17}
                 strokeWidth={2}
@@ -205,28 +299,22 @@ export function FaqPageContent({
               <input
                 type="search"
                 value={
-                  search
+                  searchValue
                 }
                 placeholder={
                   labels.searchPlaceholder
                 }
                 onChange={
-                  event => {
-                    setSearch(
-                      event.target
-                        .value,
-                    );
-
-                    setOpenedId(
-                      null,
-                    );
-                  }
+                  event =>
+                    setSearchValue(
+                      event.target.value,
+                    )
                 }
               />
-            </label>
+            </form>
 
             {availableCategories.length >
-              1 && (
+            1 ? (
               <div
                 className="faq-categories"
                 aria-label={
@@ -240,20 +328,13 @@ export function FaqPageContent({
                     'ALL'
                   }
                   onClick={
-                    () => {
-                      setSelectedCategory(
+                    () =>
+                      selectCategory(
                         'ALL',
-                      );
-
-                      setOpenedId(
-                        null,
-                      );
-                    }
+                      )
                   }
                 >
-                  {
-                    labels.allCategories
-                  }
+                  {labels.allCategories}
                 </button>
 
                 {availableCategories.map(
@@ -268,15 +349,10 @@ export function FaqPageContent({
                         category
                       }
                       onClick={
-                        () => {
-                          setSelectedCategory(
+                        () =>
+                          selectCategory(
                             category,
-                          );
-
-                          setOpenedId(
-                            null,
-                          );
-                        }
+                          )
                       }
                     >
                       {
@@ -288,22 +364,20 @@ export function FaqPageContent({
                   ),
                 )}
               </div>
-            )}
+            ) : null}
 
             <p className="faq-result-count">
               <strong>
-                {
-                  filteredItems.length
-                }
+                {totalResults}
               </strong>{' '}
-              {filteredItems.length <=
+              {totalResults ===
               1
                 ? labels.countSingular
                 : labels.countPlural}
             </p>
           </div>
 
-          {filteredItems.length ===
+          {items.length ===
           0 ? (
             <div className="faq-empty">
               <Search
@@ -325,106 +399,245 @@ export function FaqPageContent({
               </p>
             </div>
           ) : (
-            <div className="faq-list">
-              {filteredItems.map(
-                item => {
-                  const isOpen =
-                    openedId ===
-                    item.id;
+            <>
+              <div className="faq-list">
+                {items.map(
+                  item => {
+                    const isOpen =
+                      openedId ===
+                      item.id;
 
-                  const contentId =
-                    `faq-answer-${item.id}`;
+                    const contentId =
+                      `faq-answer-${item.id}`;
 
-                  const buttonId =
-                    `faq-question-${item.id}`;
+                    const buttonId =
+                      `faq-question-${item.id}`;
 
-                  return (
-                    <article
-                      key={
-                        item.id
-                      }
-                      className="faq-item"
-                      data-open={
-                        isOpen
-                      }
-                    >
-                      <button
-                        id={
-                          buttonId
+                    return (
+                      <article
+                        key={
+                          item.id
                         }
-                        type="button"
-                        className="faq-item__trigger"
-                        aria-expanded={
+                        className="faq-item"
+                        data-open={
                           isOpen
                         }
-                        aria-controls={
-                          contentId
-                        }
-                        onClick={
-                          () =>
-                            setOpenedId(
-                              current =>
-                                current ===
-                                item.id
-                                  ? null
-                                  : item.id,
-                            )
-                        }
                       >
-                        <div className="faq-item__heading">
-                          <span className="faq-item__category">
-                            {
-                              categories[
-                                item
-                                  .categoryCode
-                              ]
-                            }
-                          </span>
-
-                          <h2>
-                            {
-                              item.question
-                            }
-                          </h2>
-                        </div>
-
-                        <span
-                          className="faq-item__chevron"
-                          aria-hidden="true"
+                        <button
+                          id={
+                            buttonId
+                          }
+                          type="button"
+                          className="faq-item__trigger"
+                          aria-expanded={
+                            isOpen
+                          }
+                          aria-controls={
+                            contentId
+                          }
+                          onClick={
+                            () =>
+                              setOpenedId(
+                                current =>
+                                  current ===
+                                  item.id
+                                    ? null
+                                    : item.id,
+                              )
+                          }
                         >
-                          <ChevronDown
-                            size={18}
-                            strokeWidth={2}
-                          />
-                        </span>
-                      </button>
+                          <div className="faq-item__heading">
+                            <span className="faq-item__category">
+                              {
+                                categories[
+                                  item.categoryCode
+                                ]
+                              }
+                            </span>
 
-                      <div
-                        id={
-                          contentId
-                        }
-                        className="faq-item__answer"
-                        role="region"
-                        aria-labelledby={
-                          buttonId
-                        }
-                        hidden={
-                          !isOpen
-                        }
-                      >
-                        <div className="faq-item__answer-inner">
-                          <p>
-                            {
-                              item.answer
-                            }
-                          </p>
+                            <h2>
+                              {
+                                item.question
+                              }
+                            </h2>
+                          </div>
+
+                          <span
+                            className="faq-item__chevron"
+                            aria-hidden="true"
+                          >
+                            <ChevronDown
+                              size={18}
+                              strokeWidth={2}
+                            />
+                          </span>
+                        </button>
+
+                        <div
+                          id={
+                            contentId
+                          }
+                          className="faq-item__answer"
+                          role="region"
+                          aria-labelledby={
+                            buttonId
+                          }
+                          hidden={
+                            !isOpen
+                          }
+                        >
+                          <div className="faq-item__answer-inner">
+                            <p>
+                              {
+                                item.answer
+                              }
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    </article>
-                  );
-                },
-              )}
-            </div>
+                      </article>
+                    );
+                  },
+                )}
+              </div>
+
+              {totalPages >
+              1 ? (
+                <nav
+                  className="faq-pagination"
+                  aria-label={`${labels.page} ${currentPage} ${labels.of} ${totalPages}`}
+                >
+                  {currentPage >
+                  1 ? (
+                    <Link
+                      href={
+                        buildFaqHref({
+                          category:
+                            selectedCategory,
+
+                          search,
+
+                          page:
+                            currentPage -
+                            1,
+                        })
+                      }
+                      className="faq-pagination__arrow"
+                    >
+                      <ChevronLeft
+                        size={18}
+                        aria-hidden="true"
+                      />
+
+                      <span>
+                        {labels.previous}
+                      </span>
+                    </Link>
+                  ) : (
+                    <span
+                      className="faq-pagination__arrow is-disabled"
+                      aria-disabled="true"
+                    >
+                      <ChevronLeft
+                        size={18}
+                        aria-hidden="true"
+                      />
+
+                      <span>
+                        {labels.previous}
+                      </span>
+                    </span>
+                  )}
+
+                  <div className="faq-pagination__pages">
+                    {Array.from(
+                      {
+                        length:
+                          totalPages,
+                      },
+
+                      (
+                        _,
+                        index,
+                      ) =>
+                        index +
+                        1,
+                    ).map(
+                      page => (
+                        <Link
+                          key={
+                            page
+                          }
+                          href={
+                            buildFaqHref({
+                              category:
+                                selectedCategory,
+
+                              search,
+
+                              page,
+                            })
+                          }
+                          data-active={
+                            page ===
+                            currentPage
+                          }
+                          aria-current={
+                            page ===
+                            currentPage
+                              ? 'page'
+                              : undefined
+                          }
+                        >
+                          {page}
+                        </Link>
+                      ),
+                    )}
+                  </div>
+
+                  {currentPage <
+                  totalPages ? (
+                    <Link
+                      href={
+                        buildFaqHref({
+                          category:
+                            selectedCategory,
+
+                          search,
+
+                          page:
+                            currentPage +
+                            1,
+                        })
+                      }
+                      className="faq-pagination__arrow"
+                    >
+                      <span>
+                        {labels.next}
+                      </span>
+
+                      <ChevronRight
+                        size={18}
+                        aria-hidden="true"
+                      />
+                    </Link>
+                  ) : (
+                    <span
+                      className="faq-pagination__arrow is-disabled"
+                      aria-disabled="true"
+                    >
+                      <span>
+                        {labels.next}
+                      </span>
+
+                      <ChevronRight
+                        size={18}
+                        aria-hidden="true"
+                      />
+                    </span>
+                  )}
+                </nav>
+              ) : null}
+            </>
           )}
         </div>
       </section>

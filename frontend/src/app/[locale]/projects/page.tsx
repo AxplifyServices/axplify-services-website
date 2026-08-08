@@ -20,6 +20,10 @@ import {
   PROJECT_EXPERTISE_CODES,
 } from '@/lib/public-projects-api';
 
+import type {
+  ProjectExpertiseCode,
+} from '@/lib/public-projects-api';
+
 import {
   createPageMetadata,
 } from '@/lib/seo';
@@ -30,7 +34,62 @@ type PageProps = {
       locale:
         AppLocale;
     }>;
+
+  searchParams:
+    Promise<{
+      page?:
+        string;
+
+      expertise?:
+        string;
+    }>;
 };
+
+function resolvePage(
+  value:
+    string |
+    undefined,
+) {
+  const parsedPage =
+    Number.parseInt(
+      value ??
+        '1',
+      10,
+    );
+
+  if (
+    !Number.isFinite(
+      parsedPage,
+    ) ||
+    parsedPage <
+      1
+  ) {
+    return 1;
+  }
+
+  return parsedPage;
+}
+
+function resolveExpertise(
+  value:
+    string |
+    undefined,
+):
+  ProjectExpertiseCode |
+  undefined
+{
+  if (
+    !value
+  ) {
+    return undefined;
+  }
+
+  return PROJECT_EXPERTISE_CODES.includes(
+    value as ProjectExpertiseCode,
+  )
+    ? value as ProjectExpertiseCode
+    : undefined;
+}
 
 export async function generateMetadata({
   params,
@@ -49,24 +108,53 @@ export async function generateMetadata({
 
 export default async function ProjectsPage({
   params,
+  searchParams,
 }: PageProps) {
+  const [
+    resolvedParams,
+    resolvedSearchParams,
+  ] =
+    await Promise.all([
+      params,
+      searchParams,
+    ]);
+
   const {
     locale,
   } =
-    await params;
+    resolvedParams;
+
+  const requestedPage =
+    resolvePage(
+      resolvedSearchParams.page,
+    );
+
+  const selectedExpertise =
+    resolveExpertise(
+      resolvedSearchParams.expertise,
+    );
 
   setRequestLocale(
     locale,
   );
 
   const [
-    projects,
+    projectsResponse,
     t,
   ] =
     await Promise.all([
-      getPublicProjects(
+      getPublicProjects({
         locale,
-      ),
+
+        page:
+          requestedPage,
+
+        limit:
+          10,
+
+        expertise:
+          selectedExpertise,
+      }),
 
       getTranslations({
         locale,
@@ -109,37 +197,37 @@ export default async function ProjectsPage({
             'hero.description',
           ),
       }}
-filters={{
-  label:
-    t(
-      'filters.label',
-    ),
+      filters={{
+        label:
+          t(
+            'filters.label',
+          ),
 
-  all:
-    t(
-      'filters.all',
-    ),
+        all:
+          t(
+            'filters.all',
+          ),
 
-  results:
-    t(
-      'filters.results',
-    ),
+        results:
+          t(
+            'filters.results',
+          ),
 
-  singleResult:
-    t(
-      'filters.singleResult',
-    ),
+        singleResult:
+          t(
+            'filters.singleResult',
+          ),
 
-  open:
-    t(
-      'filters.open',
-    ),
+        open:
+          t(
+            'filters.open',
+          ),
 
-  close:
-    t(
-      'filters.close',
-    ),
-}}
+        close:
+          t(
+            'filters.close',
+          ),
+      }}
       emptyState={{
         title:
           t(
@@ -152,10 +240,23 @@ filters={{
           ),
       }}
       projects={
-        projects
+        projectsResponse.items
       }
       expertiseOptions={
         expertiseOptions
+      }
+      selectedExpertise={
+        selectedExpertise ??
+        'all'
+      }
+      currentPage={
+        projectsResponse.pagination.page
+      }
+      totalPages={
+        projectsResponse.pagination.totalPages
+      }
+      totalResults={
+        projectsResponse.pagination.total
       }
     />
   );
