@@ -152,7 +152,7 @@ export default async function InsightsPage({
           requestedPage,
 
         limit:
-          9,
+          10,
 
         contentType:
           currentType ??

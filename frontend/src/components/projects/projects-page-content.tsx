@@ -80,7 +80,7 @@ type ProjectsPageContentProps = {
     ExpertiseOption[];
 };
 
-const PROJECTS_PER_PAGE = 6;
+const PROJECTS_PER_PAGE = 10;
 
 type ProjectsFiltersProps = {
   selectedExpertise:

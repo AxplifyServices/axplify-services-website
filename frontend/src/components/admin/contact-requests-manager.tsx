@@ -398,7 +398,7 @@ const STATUS_ICONS = {
 >;
 
 const PAGE_SIZE =
-  20;
+  10;
 
 function formatDateTime(
   value:

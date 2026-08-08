@@ -281,7 +281,7 @@ export class ProjectsService {
 
     const limit =
       query.limit ??
-      20;
+      10;
 
     const skip =
       (

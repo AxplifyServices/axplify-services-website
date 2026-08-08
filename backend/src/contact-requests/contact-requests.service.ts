@@ -227,7 +227,7 @@ export class ContactRequestsService {
 
     const limit =
       query.limit ??
-      20;
+      10;
 
     const skip =
       (

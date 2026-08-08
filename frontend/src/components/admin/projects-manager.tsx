@@ -490,7 +490,7 @@ export function ProjectsManager() {
         1,
 
       limit:
-        20,
+        10,
 
       total:
         0,
