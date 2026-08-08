@@ -3,10 +3,14 @@
 import {
   Check,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   ChevronUp,
   ExternalLink,
   Eye,
   EyeOff,
+  ImagePlus,
+  Images,
   LoaderCircle,
   Package,
   Pencil,
@@ -14,15 +18,19 @@ import {
   RefreshCcw,
   Save,
   Search,
+  Star,
   Trash2,
   X,
 } from 'lucide-react';
 
 import {
+  ChangeEvent,
   FormEvent,
+  RefObject,
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 
@@ -51,6 +59,21 @@ type ProductTranslation = {
   category: string;
 };
 
+type ProductImageTranslation = {
+  locale: ProductLocale;
+  altText: string | null;
+};
+
+type AdminProductImage = {
+  id: string;
+  imageUrl: string;
+  sortOrder: number;
+  width: number | null;
+  height: number | null;
+  translations:
+    ProductImageTranslation[];
+};
+
 type AdminProduct = {
   id: string;
   linkUrl: string;
@@ -64,14 +87,36 @@ type AdminProduct = {
   createdAt: string;
   updatedAt: string;
 
+  images:
+    AdminProductImage[];
+
   translations:
     ProductTranslation[];
+};
+
+type ProductFormImage = {
+  localId: string;
+
+  imageUrl: string;
+
+  width:
+    number | null;
+
+  height:
+    number | null;
+
+  frAltText: string;
+  enAltText: string;
+  arAltText: string;
 };
 
 type ProductFormState = {
   linkUrl: string;
   isActive: boolean;
   sortOrder: string;
+
+  images:
+    ProductFormImage[];
 
   frName: string;
   frTitle: string;
@@ -99,11 +144,38 @@ type HomepageFilter =
   | 'homepage'
   | 'catalogOnly';
 
+type UploadedProductImage = {
+  url: string;
+
+  objectName?:
+    string;
+
+  mimeType?:
+    string;
+
+  extension?:
+    string;
+
+  width:
+    number | null;
+
+  height:
+    number | null;
+
+  size?:
+    number;
+};
+
+const MAX_PRODUCT_IMAGES =
+  5;
+
 const EMPTY_FORM:
   ProductFormState = {
   linkUrl: '',
   isActive: true,
   sortOrder: '0',
+
+  images: [],
 
   frName: '',
   frTitle: '',
@@ -121,8 +193,30 @@ const EMPTY_FORM:
   arCategory: '',
 };
 
+function createLocalId() {
+  if (
+    typeof crypto !==
+      'undefined' &&
+    typeof crypto.randomUUID ===
+      'function'
+  ) {
+    return crypto.randomUUID();
+  }
+
+  return [
+    'product-image',
+    Date.now(),
+    Math.random()
+      .toString(36)
+      .slice(2),
+  ].join(
+    '-',
+  );
+}
+
 function getErrorMessage(
-  error: unknown,
+  error:
+    unknown,
 ) {
   if (
     error instanceof
@@ -155,6 +249,23 @@ function getTranslation(
         locale,
     ) ??
     null
+  );
+}
+
+function getImageAlt(
+  image:
+    AdminProductImage,
+
+  locale:
+    ProductLocale,
+) {
+  return (
+    image.translations.find(
+      translation =>
+        translation.locale ===
+        locale,
+    )?.altText ??
+    ''
   );
 }
 
@@ -193,6 +304,56 @@ function productToForm(
       String(
         product.sortOrder,
       ),
+
+    images:
+      [
+        ...product.images,
+      ]
+        .sort(
+          (
+            left,
+            right,
+          ) =>
+            left.sortOrder -
+            right.sortOrder,
+        )
+        .slice(
+          0,
+          MAX_PRODUCT_IMAGES,
+        )
+        .map(
+          image => ({
+            localId:
+              image.id,
+
+            imageUrl:
+              image.imageUrl,
+
+            width:
+              image.width,
+
+            height:
+              image.height,
+
+            frAltText:
+              getImageAlt(
+                image,
+                'fr',
+              ),
+
+            enAltText:
+              getImageAlt(
+                image,
+                'en',
+              ),
+
+            arAltText:
+              getImageAlt(
+                image,
+                'ar',
+              ),
+          }),
+        ),
 
     frName:
       fr?.name ??
@@ -290,23 +451,81 @@ function isArabicTranslationEmpty(
   );
 }
 
+function buildImageTranslations(
+  image:
+    ProductFormImage,
+) {
+  const translations:
+    Array<{
+      locale:
+        ProductLocale;
+
+      altText:
+        string;
+    }> =
+      [];
+
+  const frAltText =
+    image.frAltText.trim();
+
+  const enAltText =
+    image.enAltText.trim();
+
+  const arAltText =
+    image.arAltText.trim();
+
+  if (
+    frAltText
+  ) {
+    translations.push({
+      locale:
+        'fr',
+
+      altText:
+        frAltText,
+    });
+  }
+
+  if (
+    enAltText
+  ) {
+    translations.push({
+      locale:
+        'en',
+
+      altText:
+        enAltText,
+    });
+  }
+
+  if (
+    arAltText
+  ) {
+    translations.push({
+      locale:
+        'ar',
+
+      altText:
+        arAltText,
+    });
+  }
+
+  return translations;
+}
+
 export function ProductsManager() {
   const {
     authorizedFetch,
   } =
     useAuth();
 
-  /*
-   * items = résultat correspondant
-   * aux filtres actuels.
-   *
-   * allProducts = catalogue complet.
-   *
-   * On sépare volontairement les deux
-   * afin que la sélection Home continue
-   * de fonctionner même lorsqu'un filtre
-   * est appliqué sur la liste.
-   */
+  const imageInputRef =
+    useRef<
+      HTMLInputElement | null
+    >(
+      null,
+    );
+
   const [
     items,
     setItems,
@@ -338,6 +557,14 @@ export function ProductsManager() {
   const [
     isSaving,
     setIsSaving,
+  ] =
+    useState(
+      false,
+    );
+
+  const [
+    isUploadingImages,
+    setIsUploadingImages,
   ] =
     useState(
       false,
@@ -598,11 +825,6 @@ export function ProductsManager() {
       ],
     );
 
-  /*
-   * La catégorie reste du texte libre,
-   * mais on transforme les catégories
-   * déjà utilisées en suggestions.
-   */
   const categorySuggestions =
     useMemo(
       () => {
@@ -675,9 +897,10 @@ export function ProductsManager() {
       null,
     );
 
-    setForm(
-      EMPTY_FORM,
-    );
+    setForm({
+      ...EMPTY_FORM,
+      images: [],
+    });
 
     setShowForm(
       true,
@@ -701,11 +924,29 @@ export function ProductsManager() {
     setShowForm(
       true,
     );
+
+    window.setTimeout(
+      () => {
+        document
+          .querySelector(
+            '.admin-products__form',
+          )
+          ?.scrollIntoView({
+            behavior:
+              'smooth',
+
+            block:
+              'start',
+          });
+      },
+      0,
+    );
   }
 
   function closeForm() {
     if (
-      isSaving
+      isSaving ||
+      isUploadingImages
     ) {
       return;
     }
@@ -714,12 +955,311 @@ export function ProductsManager() {
       null,
     );
 
-    setForm(
-      EMPTY_FORM,
-    );
+    setForm({
+      ...EMPTY_FORM,
+      images: [],
+    });
 
     setShowForm(
       false,
+    );
+  }
+
+  async function uploadSingleImage(
+    file:
+      File,
+  ):
+    Promise<
+      ProductFormImage
+    >
+  {
+    const formData =
+      new FormData();
+
+    formData.append(
+      'file',
+      file,
+    );
+
+    const uploaded =
+      await authorizedFetch<
+        UploadedProductImage
+      >(
+        '/products/upload-image',
+        {
+          method:
+            'POST',
+
+          body:
+            formData,
+        },
+      );
+
+    return {
+      localId:
+        createLocalId(),
+
+      imageUrl:
+        uploaded.url,
+
+      width:
+        uploaded.width,
+
+      height:
+        uploaded.height,
+
+      frAltText:
+        '',
+
+      enAltText:
+        '',
+
+      arAltText:
+        '',
+    };
+  }
+
+  async function handleImageFiles(
+    event:
+      ChangeEvent<HTMLInputElement>,
+  ) {
+    const files =
+      Array.from(
+        event.target.files ??
+        [],
+      );
+
+    event.target.value =
+      '';
+
+    if (
+      files.length ===
+      0
+    ) {
+      return;
+    }
+
+    const remainingPlaces =
+      MAX_PRODUCT_IMAGES -
+      form.images.length;
+
+    if (
+      remainingPlaces <=
+      0
+    ) {
+      toast.error(
+        'Ce produit contient déjà 5 images.',
+      );
+
+      return;
+    }
+
+    if (
+      files.length >
+      remainingPlaces
+    ) {
+      toast.error(
+        `Vous pouvez encore ajouter ${remainingPlaces} image${
+          remainingPlaces >
+          1
+            ? 's'
+            : ''
+        }.`,
+      );
+
+      return;
+    }
+
+    const invalidFile =
+      files.find(
+        file =>
+          !file.type.startsWith(
+            'image/',
+          ),
+      );
+
+    if (
+      invalidFile
+    ) {
+      toast.error(
+        `Le fichier « ${invalidFile.name} » n’est pas une image valide.`,
+      );
+
+      return;
+    }
+
+    setIsUploadingImages(
+      true,
+    );
+
+    try {
+      const uploadedImages:
+        ProductFormImage[] =
+          [];
+
+      for (
+        const file
+        of files
+      ) {
+        uploadedImages.push(
+          await uploadSingleImage(
+            file,
+          ),
+        );
+      }
+
+      setForm(
+        current => ({
+          ...current,
+
+          images: [
+            ...current.images,
+            ...uploadedImages,
+          ].slice(
+            0,
+            MAX_PRODUCT_IMAGES,
+          ),
+        }),
+      );
+
+      toast.success(
+        uploadedImages.length ===
+        1
+          ? 'Image ajoutée au produit.'
+          : `${uploadedImages.length} images ajoutées au produit.`,
+      );
+    } catch (
+      error
+    ) {
+      toast.error(
+        getErrorMessage(
+          error,
+        ),
+      );
+    } finally {
+      setIsUploadingImages(
+        false,
+      );
+    }
+  }
+
+  function removeFormImage(
+    localId:
+      string,
+  ) {
+    setForm(
+      current => ({
+        ...current,
+
+        images:
+          current.images.filter(
+            image =>
+              image.localId !==
+              localId,
+          ),
+      }),
+    );
+  }
+
+  function moveFormImage(
+    index:
+      number,
+
+    direction:
+      -1 | 1,
+  ) {
+    setForm(
+      current => {
+        const targetIndex =
+          index +
+          direction;
+
+        if (
+          targetIndex <
+            0 ||
+          targetIndex >=
+            current.images.length
+        ) {
+          return current;
+        }
+
+        const images =
+          [
+            ...current.images,
+          ];
+
+        const currentImage =
+          images[
+            index
+          ];
+
+        const targetImage =
+          images[
+            targetIndex
+          ];
+
+        if (
+          !currentImage ||
+          !targetImage
+        ) {
+          return current;
+        }
+
+        images[
+          index
+        ] =
+          targetImage;
+
+        images[
+          targetIndex
+        ] =
+          currentImage;
+
+        return {
+          ...current,
+          images,
+        };
+      },
+    );
+  }
+
+  function updateImageAlt(
+    localId:
+      string,
+
+    locale:
+      ProductLocale,
+
+    value:
+      string,
+  ) {
+    const key =
+      locale ===
+      'fr'
+        ? 'frAltText'
+        : locale ===
+            'en'
+          ? 'enAltText'
+          : 'arAltText';
+
+    setForm(
+      current => ({
+        ...current,
+
+        images:
+          current.images.map(
+            image =>
+              image.localId ===
+              localId
+                ? {
+                    ...image,
+
+                    [key]:
+                      value,
+                  }
+                : image,
+          ),
+      }),
     );
   }
 
@@ -876,6 +1416,33 @@ export function ProductsManager() {
 
       sortOrder,
 
+      images:
+        form.images.map(
+          (
+            image,
+            index,
+          ) => ({
+            imageUrl:
+              image.imageUrl,
+
+            sortOrder:
+              index,
+
+            width:
+              image.width ??
+              undefined,
+
+            height:
+              image.height ??
+              undefined,
+
+            translations:
+              buildImageTranslations(
+                image,
+              ),
+          }),
+        ),
+
       translations,
     };
 
@@ -926,9 +1493,10 @@ export function ProductsManager() {
         null,
       );
 
-      setForm(
-        EMPTY_FORM,
-      );
+      setForm({
+        ...EMPTY_FORM,
+        images: [],
+      });
 
       setShowForm(
         false,
@@ -955,10 +1523,6 @@ export function ProductsManager() {
       AdminProduct,
   ) {
     try {
-      /*
-       * Un produit désactivé ne doit
-       * jamais rester sélectionné Home.
-       */
       await authorizedFetch(
         `/products/${product.id}`,
         {
@@ -1214,10 +1778,6 @@ export function ProductsManager() {
     );
 
     try {
-      /*
-       * On échange simplement les
-       * positions des deux produits.
-       */
       await Promise.all([
         authorizedFetch(
           `/products/${product.id}`,
@@ -1277,7 +1837,7 @@ export function ProductsManager() {
           </h1>
 
           <p>
-            Gérez les cartes qui orientent les visiteurs vers vos produits et choisissez celles mises en avant sur la home.
+            Gérez les cartes qui orientent les visiteurs vers vos produits, leurs visuels et les produits mis en avant sur la home.
           </p>
         </div>
 
@@ -1439,6 +1999,11 @@ export function ProductsManager() {
                     'fr',
                   );
 
+                const cover =
+                  product.images[
+                    0
+                  ];
+
                 const isMutating =
                   homepageMutationId ===
                   product.id;
@@ -1454,6 +2019,24 @@ export function ProductsManager() {
                       {index +
                         1}
                     </span>
+
+                    {cover ? (
+                      <img
+                        className="admin-products__homepage-thumbnail"
+                        src={
+                          cover.imageUrl
+                        }
+                        alt=""
+                        loading="lazy"
+                      />
+                    ) : (
+                      <span className="admin-products__homepage-thumbnail admin-products__homepage-thumbnail--empty">
+                        <Images
+                          size={16}
+                          aria-hidden="true"
+                        />
+                      </span>
+                    )}
 
                     <div className="admin-products__homepage-copy">
                       <strong>
@@ -1581,8 +2164,10 @@ export function ProductsManager() {
                 closeForm
               }
               disabled={
-                isSaving
+                isSaving ||
+                isUploadingImages
               }
+              aria-label="Fermer le formulaire"
             >
               <X
                 size={18}
@@ -1671,6 +2256,30 @@ export function ProductsManager() {
               </span>
             </label>
           </div>
+
+          <ProductImagesEditor
+            images={
+              form.images
+            }
+            isUploading={
+              isUploadingImages
+            }
+            inputRef={
+              imageInputRef
+            }
+            onFilesChange={
+              handleImageFiles
+            }
+            onRemove={
+              removeFormImage
+            }
+            onMove={
+              moveFormImage
+            }
+            onAltChange={
+              updateImageAlt
+            }
+          />
 
           <div className="admin-products__languages">
             <ProductLanguageCard
@@ -1830,7 +2439,8 @@ export function ProductsManager() {
                 closeForm
               }
               disabled={
-                isSaving
+                isSaving ||
+                isUploadingImages
               }
             >
               Annuler
@@ -1840,7 +2450,8 @@ export function ProductsManager() {
               type="submit"
               className="admin-products__primary-button"
               disabled={
-                isSaving
+                isSaving ||
+                isUploadingImages
               }
             >
               {isSaving ? (
@@ -1947,6 +2558,7 @@ export function ProductsManager() {
           disabled={
             isLoading
           }
+          aria-label="Actualiser"
         >
           <RefreshCcw
             size={17}
@@ -2007,6 +2619,11 @@ export function ProductsManager() {
                   'ar',
                 );
 
+              const cover =
+                product.images[
+                  0
+                ];
+
               const expanded =
                 expandedId ===
                 product.id;
@@ -2035,6 +2652,24 @@ export function ProductsManager() {
                         )
                     }
                   >
+                    {cover ? (
+                      <img
+                        src={
+                          cover.imageUrl
+                        }
+                        alt=""
+                        className="admin-products__item-cover"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <span className="admin-products__item-cover admin-products__item-cover--empty">
+                        <Images
+                          size={20}
+                          aria-hidden="true"
+                        />
+                      </span>
+                    )}
+
                     <div className="admin-products__item-heading">
                       <div className="admin-products__item-meta">
                         <span className="admin-products__category">
@@ -2057,6 +2692,15 @@ export function ProductsManager() {
                           {product.isActive
                             ? 'Actif'
                             : 'Inactif'}
+                        </span>
+
+                        <span className="admin-products__images-badge">
+                          <Images
+                            size={12}
+                            aria-hidden="true"
+                          />
+
+                          {product.images.length}/5
                         </span>
 
                         {product.showOnHomepage ? (
@@ -2095,6 +2739,45 @@ export function ProductsManager() {
                   {expanded ? (
                     <div className="admin-products__item-body">
                       <div className="admin-products__preview">
+                        {product.images.length >
+                        0 ? (
+                          <div className="admin-products__preview-gallery">
+                            {product.images
+                              .slice(
+                                0,
+                                MAX_PRODUCT_IMAGES,
+                              )
+                              .map(
+                                (
+                                  image,
+                                  index,
+                                ) => (
+                                  <div
+                                    key={
+                                      image.id
+                                    }
+                                    className="admin-products__preview-image"
+                                  >
+                                    <img
+                                      src={
+                                        image.imageUrl
+                                      }
+                                      alt=""
+                                      loading="lazy"
+                                    />
+
+                                    {index ===
+                                    0 ? (
+                                      <span>
+                                        Couverture
+                                      </span>
+                                    ) : null}
+                                  </div>
+                                ),
+                              )}
+                          </div>
+                        ) : null}
+
                         <div>
                           <span>
                             Description française
@@ -2242,6 +2925,366 @@ export function ProductsManager() {
   );
 }
 
+type ProductImagesEditorProps = {
+  images:
+    ProductFormImage[];
+
+  isUploading:
+    boolean;
+
+  inputRef:
+    RefObject<
+      HTMLInputElement | null
+    >;
+
+  onFilesChange: (
+    event:
+      ChangeEvent<HTMLInputElement>,
+  ) =>
+    void |
+    Promise<void>;
+
+  onRemove: (
+    localId:
+      string,
+  ) => void;
+
+  onMove: (
+    index:
+      number,
+
+    direction:
+      -1 | 1,
+  ) => void;
+
+  onAltChange: (
+    localId:
+      string,
+
+    locale:
+      ProductLocale,
+
+    value:
+      string,
+  ) => void;
+};
+
+function ProductImagesEditor({
+  images,
+  isUploading,
+  inputRef,
+  onFilesChange,
+  onRemove,
+  onMove,
+  onAltChange,
+}: ProductImagesEditorProps) {
+  const remaining =
+    MAX_PRODUCT_IMAGES -
+    images.length;
+
+  return (
+    <section className="admin-products__media-editor">
+      <div className="admin-products__media-header">
+        <div>
+          <span>
+            Visuels du produit
+          </span>
+
+          <h3>
+            Images de la Product Card
+          </h3>
+
+          <p>
+            Jusqu’à 5 images. La première image est automatiquement utilisée comme couverture. Sur le site, les autres images seront accessibles depuis le carrousel de la carte.
+          </p>
+        </div>
+
+        <div className="admin-products__media-header-actions">
+          <span
+            className="admin-products__media-count"
+            data-full={
+              remaining ===
+              0
+            }
+          >
+            {images.length}/
+            {MAX_PRODUCT_IMAGES}
+          </span>
+
+          <input
+            ref={
+              inputRef
+            }
+            type="file"
+            accept="image/jpeg,image/png,image/webp,image/avif"
+            multiple
+            hidden
+            onChange={
+              event =>
+                void onFilesChange(
+                  event,
+                )
+            }
+          />
+
+          <button
+            type="button"
+            className="admin-products__secondary-button"
+            disabled={
+              isUploading ||
+              remaining ===
+                0
+            }
+            onClick={
+              () =>
+                inputRef.current?.click()
+            }
+          >
+            {isUploading ? (
+              <LoaderCircle
+                size={16}
+                className="admin-spinner"
+              />
+            ) : (
+              <ImagePlus
+                size={16}
+              />
+            )}
+
+            {isUploading
+              ? 'Import en cours…'
+              : remaining ===
+                  0
+                ? '5 images ajoutées'
+                : 'Importer des images'}
+          </button>
+        </div>
+      </div>
+
+      {images.length ===
+      0 ? (
+        <button
+          type="button"
+          className="admin-products__media-empty"
+          disabled={
+            isUploading
+          }
+          onClick={
+            () =>
+              inputRef.current?.click()
+          }
+        >
+          <ImagePlus
+            size={28}
+            aria-hidden="true"
+          />
+
+          <strong>
+            Ajouter les visuels du produit
+          </strong>
+
+          <span>
+            JPEG, PNG, WebP ou AVIF · jusqu’à 5 images
+          </span>
+        </button>
+      ) : (
+        <div className="admin-products__media-list">
+          {images.map(
+            (
+              image,
+              index,
+            ) => (
+              <article
+                key={
+                  image.localId
+                }
+                className="admin-products__media-item"
+              >
+                <div className="admin-products__media-preview">
+                  <img
+                    src={
+                      image.imageUrl
+                    }
+                    alt=""
+                  />
+
+                  <div className="admin-products__media-position">
+                    {index ===
+                    0 ? (
+                      <span className="admin-products__cover-badge">
+                        <Star
+                          size={12}
+                          fill="currentColor"
+                        />
+
+                        Couverture
+                      </span>
+                    ) : (
+                      <span>
+                        Image{' '}
+                        {index +
+                          1}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <div className="admin-products__media-fields">
+                  <div className="admin-products__media-alt-heading">
+                    <strong>
+                      Textes alternatifs
+                    </strong>
+
+                    <small>
+                      Recommandés pour l’accessibilité et le SEO.
+                    </small>
+                  </div>
+
+                  <label>
+                    <span>
+                      FR
+                    </span>
+
+                    <input
+                      type="text"
+                      value={
+                        image.frAltText
+                      }
+                      maxLength={
+                        255
+                      }
+                      placeholder="Décrire brièvement l’image"
+                      onChange={
+                        event =>
+                          onAltChange(
+                            image.localId,
+                            'fr',
+                            event.target.value,
+                          )
+                      }
+                    />
+                  </label>
+
+                  <label>
+                    <span>
+                      EN
+                    </span>
+
+                    <input
+                      type="text"
+                      value={
+                        image.enAltText
+                      }
+                      maxLength={
+                        255
+                      }
+                      placeholder="Briefly describe the image"
+                      onChange={
+                        event =>
+                          onAltChange(
+                            image.localId,
+                            'en',
+                            event.target.value,
+                          )
+                      }
+                    />
+                  </label>
+
+                  <label
+                    dir="rtl"
+                  >
+                    <span>
+                      AR
+                    </span>
+
+                    <input
+                      type="text"
+                      value={
+                        image.arAltText
+                      }
+                      maxLength={
+                        255
+                      }
+                      placeholder="وصف مختصر للصورة"
+                      onChange={
+                        event =>
+                          onAltChange(
+                            image.localId,
+                            'ar',
+                            event.target.value,
+                          )
+                      }
+                    />
+                  </label>
+                </div>
+
+                <div className="admin-products__media-actions">
+                  <button
+                    type="button"
+                    aria-label="Déplacer l’image vers la gauche"
+                    disabled={
+                      index ===
+                      0
+                    }
+                    onClick={
+                      () =>
+                        onMove(
+                          index,
+                          -1,
+                        )
+                    }
+                  >
+                    <ChevronLeft
+                      size={17}
+                    />
+                  </button>
+
+                  <button
+                    type="button"
+                    aria-label="Déplacer l’image vers la droite"
+                    disabled={
+                      index ===
+                      images.length -
+                        1
+                    }
+                    onClick={
+                      () =>
+                        onMove(
+                          index,
+                          1,
+                        )
+                    }
+                  >
+                    <ChevronRight
+                      size={17}
+                    />
+                  </button>
+
+                  <button
+                    type="button"
+                    className="admin-products__media-delete"
+                    aria-label="Supprimer l’image"
+                    onClick={
+                      () =>
+                        onRemove(
+                          image.localId,
+                        )
+                    }
+                  >
+                    <Trash2
+                      size={17}
+                    />
+                  </button>
+                </div>
+              </article>
+            ),
+          )}
+        </div>
+      )}
+    </section>
+  );
+}
+
 type ProductLanguageCardProps = {
   locale:
     ProductLocale;
@@ -2273,29 +3316,25 @@ type ProductLanguageCardProps = {
   categorySuggestions:
     string[];
 
-  onNameChange:
-    (
-      value:
-        string,
-    ) => void;
+  onNameChange: (
+    value:
+      string,
+  ) => void;
 
-  onTitleChange:
-    (
-      value:
-        string,
-    ) => void;
+  onTitleChange: (
+    value:
+      string,
+  ) => void;
 
-  onDescriptionChange:
-    (
-      value:
-        string,
-    ) => void;
+  onDescriptionChange: (
+    value:
+      string,
+  ) => void;
 
-  onCategoryChange:
-    (
-      value:
-        string,
-    ) => void;
+  onCategoryChange: (
+    value:
+      string,
+  ) => void;
 };
 
 function ProductLanguageCard({
@@ -2358,7 +3397,9 @@ function ProductLanguageCard({
                 event.target.value,
               )
           }
-          maxLength={120}
+          maxLength={
+            120
+          }
           required={
             required
           }
@@ -2390,7 +3431,9 @@ function ProductLanguageCard({
                 event.target.value,
               )
           }
-          maxLength={220}
+          maxLength={
+            220
+          }
           required={
             required
           }
@@ -2425,7 +3468,9 @@ function ProductLanguageCard({
                 event.target.value,
               )
           }
-          maxLength={120}
+          maxLength={
+            120
+          }
           required={
             required
           }
@@ -2479,11 +3524,15 @@ function ProductLanguageCard({
                 event.target.value,
               )
           }
-          maxLength={4000}
+          maxLength={
+            4000
+          }
           required={
             required
           }
-          rows={5}
+          rows={
+            5
+          }
           placeholder={
             locale ===
             'fr'
