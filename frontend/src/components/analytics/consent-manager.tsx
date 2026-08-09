@@ -26,6 +26,11 @@ import {
   type ConsentState,
 } from '@/lib/analytics/consent';
 
+import {
+  setGoogleConsentDefault,
+  updateGoogleConsent,
+} from '@/lib/analytics/google-consent';
+
 type ConsentView =
   | 'hidden'
   | 'banner'
@@ -73,31 +78,46 @@ export function ConsentManager() {
    * =======================================================
    */
 
-  useEffect(
-    () => {
-      const storedConsent =
-        getStoredConsent();
+useEffect(
+  () => {
+    /*
+     * Tous les consentements Google commencent
+     * à DENIED.
+     */
+    setGoogleConsentDefault();
 
-      if (
-        storedConsent
-      ) {
-        setPreferences(
-          storedConsent,
-        );
+    const storedConsent =
+      getStoredConsent();
 
-        setView(
-          'hidden',
-        );
+    if (
+      storedConsent
+    ) {
+      /*
+       * Si l'utilisateur a déjà fait un choix
+       * lors d'une visite précédente,
+       * on restaure immédiatement son état.
+       */
+      updateGoogleConsent(
+        storedConsent,
+      );
 
-        return;
-      }
+      setPreferences(
+        storedConsent,
+      );
 
       setView(
-        'banner',
+        'hidden',
       );
-    },
-    [],
-  );
+
+      return;
+    }
+
+    setView(
+      'banner',
+    );
+  },
+  [],
+);
 
   /*
    * =======================================================
@@ -205,11 +225,10 @@ export function ConsentManager() {
    * =======================================================
    */
 
-  const handleAcceptAll =
-    () => {
-      acceptAllConsent();
-
-      setPreferences({
+const handleAcceptAll =
+  () => {
+    const consent:
+      ConsentState = {
         version:
           CONSENT_VERSION,
 
@@ -218,18 +237,27 @@ export function ConsentManager() {
 
         marketing:
           true,
-      });
+      };
 
-      setView(
-        'hidden',
-      );
-    };
+    acceptAllConsent();
 
-  const handleEssentialOnly =
-    () => {
-      acceptEssentialOnly();
+    updateGoogleConsent(
+      consent,
+    );
 
-      setPreferences({
+    setPreferences(
+      consent,
+    );
+
+    setView(
+      'hidden',
+    );
+  };
+
+const handleEssentialOnly =
+  () => {
+    const consent:
+      ConsentState = {
         version:
           CONSENT_VERSION,
 
@@ -238,16 +266,27 @@ export function ConsentManager() {
 
         marketing:
           false,
-      });
+      };
 
-      setView(
-        'hidden',
-      );
-    };
+    acceptEssentialOnly();
 
-  const handleSavePreferences =
-    () => {
-      saveConsent({
+    updateGoogleConsent(
+      consent,
+    );
+
+    setPreferences(
+      consent,
+    );
+
+    setView(
+      'hidden',
+    );
+  };
+
+const handleSavePreferences =
+  () => {
+    const consent:
+      ConsentState = {
         version:
           CONSENT_VERSION,
 
@@ -256,12 +295,20 @@ export function ConsentManager() {
 
         marketing:
           preferences.marketing,
-      });
+      };
 
-      setView(
-        'hidden',
-      );
-    };
+    saveConsent(
+      consent,
+    );
+
+    updateGoogleConsent(
+      consent,
+    );
+
+    setView(
+      'hidden',
+    );
+  };
 
   const handleCancelPreferences =
     () => {

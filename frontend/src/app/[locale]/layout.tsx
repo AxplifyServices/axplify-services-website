@@ -52,6 +52,10 @@ import {
   ConsentManager,
 } from '@/components/analytics/consent-manager';
 
+import {
+  GoogleTagManager,
+} from '@/components/analytics/google-tag-manager';
+
 import '../globals.css';
 
 export const metadata: Metadata = {
@@ -172,6 +176,8 @@ export default async function LocaleLayout({
   }
 >
 <ConsentManager />
+
+<GoogleTagManager />
 
 <AnalyticsRouteTracker
   locale={

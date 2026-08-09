@@ -57,3 +57,6 @@ MDP PostgreSQL serveur :
 
 NDC : zakariae.zitane@axplify-services.com
 MDP : admin123
+
+** Analytics :
+GTM ID : GTM-5GXSLVJC
