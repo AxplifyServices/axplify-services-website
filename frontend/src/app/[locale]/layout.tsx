@@ -44,6 +44,10 @@ import {
   ScrollRevealController,
 } from '@/components/common/scroll-reveal-controller';
 
+import {
+  AnalyticsRouteTracker,
+} from '@/components/analytics/analytics-route-tracker';
+
 import '../globals.css';
 
 export const metadata: Metadata = {
@@ -163,6 +167,12 @@ export default async function LocaleLayout({
     messages
   }
 >
+  <AnalyticsRouteTracker
+    locale={
+      locale
+    }
+  />
+
   <ScrollRevealController />
 
   <div className="page-shell">
