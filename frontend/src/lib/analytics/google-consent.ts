@@ -116,7 +116,24 @@ export function updateGoogleConsent(
       },
     ];
 
-  dataLayer.push(
-    command,
-  );
+dataLayer.push(
+  command,
+);
+
+/*
+ * Événement métier indépendant de Google.
+ *
+ * GTM peut ainsi déclencher les outils correspondant
+ * aux catégories réellement autorisées.
+ */
+dataLayer.push({
+  event:
+    'axplify_consent_update',
+
+  analytics_consent:
+    consent.analytics,
+
+  marketing_consent:
+    consent.marketing,
+});
 }

@@ -239,15 +239,15 @@ const handleAcceptAll =
           true,
       };
 
-    acceptAllConsent();
+updateGoogleConsent(
+  consent,
+);
 
-    updateGoogleConsent(
-      consent,
-    );
+acceptAllConsent();
 
-    setPreferences(
-      consent,
-    );
+setPreferences(
+  consent,
+);
 
     setView(
       'hidden',
@@ -268,15 +268,15 @@ const handleEssentialOnly =
           false,
       };
 
-    acceptEssentialOnly();
+updateGoogleConsent(
+  consent,
+);
 
-    updateGoogleConsent(
-      consent,
-    );
+acceptEssentialOnly();
 
-    setPreferences(
-      consent,
-    );
+setPreferences(
+  consent,
+);
 
     setView(
       'hidden',
@@ -297,17 +297,17 @@ const handleSavePreferences =
           preferences.marketing,
       };
 
-    saveConsent(
-      consent,
-    );
+updateGoogleConsent(
+  consent,
+);
 
-    updateGoogleConsent(
-      consent,
-    );
+saveConsent(
+  consent,
+);
 
-    setView(
-      'hidden',
-    );
+setView(
+  'hidden',
+);
   };
 
   const handleCancelPreferences =
