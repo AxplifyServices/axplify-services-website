@@ -14,6 +14,7 @@ import {
   LogOut,
   MailQuestion,
   Menu,
+  MessagesSquare,
   Newspaper,
   Package,
   Star,
@@ -511,6 +512,40 @@ const pathname =
 
   <span>
     FAQ
+  </span>
+</Link>
+
+<Link
+  href="/admin/product-requests"
+  className="admin-sidebar__link"
+  data-active={
+    pathname ===
+      '/admin/product-requests' ||
+    pathname.startsWith(
+      '/admin/product-requests/',
+    )
+  }
+  title={
+    isSidebarCollapsed
+      ? 'Demandes produits'
+      : undefined
+  }
+  onClick={
+    () =>
+      setIsMobileMenuOpen(
+        false,
+      )
+  }
+>
+  <MessagesSquare
+    size={
+      20
+    }
+    aria-hidden="true"
+  />
+
+  <span>
+    Demandes produits
   </span>
 </Link>
 

@@ -71,6 +71,10 @@ import {
   ReviewsModule,
 } from './reviews/reviews.module';
 
+import {
+  ProductRequestsModule,
+} from './product-requests/product-requests.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -117,6 +121,8 @@ import {
     ProductsModule,
 
     ReviewsModule,
+
+    ProductRequestsModule,
   ],
 
   controllers: [

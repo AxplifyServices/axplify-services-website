@@ -101,6 +101,9 @@ model users {
   faq_items_faq_items_created_by_user_idTousers                faq_items[]                      @relation("faq_items_created_by_user_idTousers")
   faq_items_faq_items_updated_by_user_idTousers                faq_items[]                      @relation("faq_items_updated_by_user_idTousers")
   homepage_brochures                                           homepage_brochures[]
+  product_request_status_history                               product_request_status_history[]
+  product_requests_product_requests_assigned_to_user_idTousers product_requests[]               @relation("product_requests_assigned_to_user_idTousers")
+  product_requests_product_requests_updated_by_user_idTousers  product_requests[]               @relation("product_requests_updated_by_user_idTousers")
   products_products_created_by_user_idTousers                  products[]                       @relation("products_created_by_user_idTousers")
   products_products_updated_by_user_idTousers                  products[]                       @relation("products_updated_by_user_idTousers")
   projects                                                     projects[]
@@ -566,7 +569,9 @@ model products {
   created_at                               DateTime               @default(now()) @db.Timestamptz(6)
   updated_at                               DateTime               @default(now()) @db.Timestamptz(6)
   deleted_at                               DateTime?              @db.Timestamptz(6)
+  integration_key                          String                 @unique(map: "products_integration_key_unique") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   product_images                           product_images[]
+  product_requests                         product_requests[]
   product_translations                     product_translations[]
   users_products_created_by_user_idTousers users?                 @relation("products_created_by_user_idTousers", fields: [created_by_user_id], references: [id], onUpdate: NoAction, map: "products_created_by_user_foreign_key")
   users_products_updated_by_user_idTousers users?                 @relation("products_updated_by_user_idTousers", fields: [updated_by_user_id], references: [id], onUpdate: NoAction, map: "products_updated_by_user_foreign_key")
@@ -576,6 +581,7 @@ model products {
   @@index([homepage_sort_order, sort_order, created_at], map: "products_homepage_list_index", where: raw("((deleted_at IS NULL) AND (is_active = true) AND (show_on_homepage = true))"))
   @@index([sort_order, created_at], map: "products_public_list_index", where: raw("((deleted_at IS NULL) AND (is_active = true))"))
   @@index([updated_by_user_id], map: "products_updated_by_user_index")
+  @@index([integration_key], map: "products_integration_key_active_index", where: raw("((deleted_at IS NULL) AND (is_active = true))"))
 }
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
@@ -659,4 +665,58 @@ model reviews {
   @@index([project_id, status], map: "reviews_project_index")
   @@index([published_at(sort: Desc), created_at(sort: Desc)], map: "reviews_public_list_index", where: raw("((status)::text = 'PUBLISHED'::text)"))
   @@index([rating], map: "reviews_rating_index", where: raw("((status)::text = 'PUBLISHED'::text)"))
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model product_request_status_history {
+  id                 String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  product_request_id String           @db.Uuid
+  previous_status    String?          @db.VarChar(30)
+  new_status         String           @db.VarChar(30)
+  changed_by_user_id String?          @db.Uuid
+  change_note        String?          @db.VarChar(500)
+  created_at         DateTime         @default(now()) @db.Timestamptz(6)
+  product_requests   product_requests @relation(fields: [product_request_id], references: [id], onDelete: Cascade, map: "product_request_status_history_request_foreign_key")
+  users              users?           @relation(fields: [changed_by_user_id], references: [id], map: "product_request_status_history_user_foreign_key")
+
+  @@index([product_request_id, created_at(sort: Desc)], map: "product_request_status_history_request_index")
+  @@index([changed_by_user_id, created_at(sort: Desc)], map: "product_request_status_history_user_index")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model product_requests {
+  id                                                String                           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  product_id                                        String                           @db.Uuid
+  request_type                                      String                           @db.VarChar(30)
+  locale                                            String                           @default("fr") @db.VarChar(5)
+  first_name                                        String                           @db.VarChar(100)
+  last_name                                         String                           @db.VarChar(100)
+  company_name                                      String?                          @db.VarChar(180)
+  email                                             String                           @db.Citext
+  phone_number                                      String?                          @db.VarChar(40)
+  request_message                                   String
+  source_url                                        String?
+  status                                            String                           @default("RECEIVED") @db.VarChar(30)
+  status_changed_at                                 DateTime                         @default(now()) @db.Timestamptz(6)
+  assigned_to_user_id                               String?                          @db.Uuid
+  updated_by_user_id                                String?                          @db.Uuid
+  internal_note                                     String?
+  privacy_consent                                   Boolean                          @default(false)
+  privacy_consent_at                                DateTime?                        @db.Timestamptz(6)
+  user_agent                                        String?
+  created_at                                        DateTime                         @default(now()) @db.Timestamptz(6)
+  updated_at                                        DateTime                         @default(now()) @db.Timestamptz(6)
+  archived_at                                       DateTime?                        @db.Timestamptz(6)
+  product_request_status_history                    product_request_status_history[]
+  users_product_requests_assigned_to_user_idTousers users?                           @relation("product_requests_assigned_to_user_idTousers", fields: [assigned_to_user_id], references: [id], map: "product_requests_assigned_to_user_foreign_key")
+  products                                          products                         @relation(fields: [product_id], references: [id], map: "product_requests_product_foreign_key")
+  users_product_requests_updated_by_user_idTousers  users?                           @relation("product_requests_updated_by_user_idTousers", fields: [updated_by_user_id], references: [id], map: "product_requests_updated_by_user_foreign_key")
+
+  @@index([status, created_at(sort: Desc)], map: "product_requests_admin_list_index", where: raw("(archived_at IS NULL)"))
+  @@index([assigned_to_user_id, status, created_at(sort: Desc)], map: "product_requests_assigned_user_index", where: raw("(archived_at IS NULL)"))
+  @@index([email], map: "product_requests_email_index")
+  @@index([created_at(sort: Desc)], map: "product_requests_pending_index", where: raw("((archived_at IS NULL) AND ((status)::text = ANY ((ARRAY['RECEIVED'::character varying, 'IN_PROGRESS'::character varying])::text[])))"))
+  @@index([product_id, created_at(sort: Desc)], map: "product_requests_product_index", where: raw("(archived_at IS NULL)"))
+  @@index([request_type, created_at(sort: Desc)], map: "product_requests_type_index", where: raw("(archived_at IS NULL)"))
 }
