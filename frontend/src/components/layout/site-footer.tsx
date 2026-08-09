@@ -19,6 +19,10 @@ import {
   Link,
 } from '@/i18n/navigation';
 
+import {
+  CookiePreferencesButton,
+} from '@/components/analytics/cookie-preferences-button';
+
 const primaryLinks = [
   {
     href: '/',
@@ -304,15 +308,21 @@ export async function SiteFooter() {
 </div>
       </div>
 
-      <div className="site-container site-footer__bottom">
-        <p>
-          © {new Date().getFullYear()}{' '}
-          Axplify Services.{' '}
-          {t(
-            'rights',
-          )}
-        </p>
-      </div>
+<div className="site-container site-footer__bottom">
+  <p>
+    © {new Date().getFullYear()}{' '}
+    Axplify Services.{' '}
+    {t(
+      'rights',
+    )}
+  </p>
+
+  <CookiePreferencesButton
+    label={t(
+      'manageCookies',
+    )}
+  />
+</div>
     </footer>
   );
 }

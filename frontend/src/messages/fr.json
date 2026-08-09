@@ -28,8 +28,55 @@
   "socialTitle": "Retrouvez Axplify Services",
   "whatsappLabel": "Contacter Axplify Services sur WhatsApp",
   "linkedinLabel": "Découvrir Axplify Services sur LinkedIn",
-  "rights": "Tous droits réservés.",
-  "tagline": "Simplifiez vos processus. Valorisez vos données. Libérez votre potentiel !"
+"rights": "Tous droits réservés.",
+"manageCookies": "Gérer mes cookies",
+"tagline": "Simplifiez vos processus. Valorisez vos données. Libérez votre potentiel !"
+},
+"cookieConsent": {
+  "banner": {
+    "title": "Votre vie privée nous tient à cœur",
+    "description": "Nous utilisons des technologies nécessaires au fonctionnement du site et, avec votre accord, des outils de mesure et de marketing pour comprendre les parcours, améliorer l’expérience et mesurer l’efficacité de nos actions."
+  },
+  "preferences": {
+    "eyebrow": "Confidentialité",
+    "title": "Préférences de cookies",
+    "description": "Choisissez les catégories que vous souhaitez autoriser. Les technologies essentielles restent toujours actives car elles sont nécessaires au fonctionnement du site."
+  },
+  "categories": {
+    "essential": {
+      "title": "Cookies essentiels",
+      "shortDescription": "Ils assurent le fonctionnement du site et mémorisent notamment vos choix de confidentialité.",
+      "description": "Ces technologies sont nécessaires au fonctionnement, à la sécurité et à la mémorisation de vos préférences de consentement.",
+      "alwaysActive": "Toujours actif"
+    },
+    "analytics": {
+      "title": "Mesure et performance",
+      "shortDescription": "Ils nous aident à comprendre l’utilisation du site et à améliorer les parcours.",
+      "description": "Ces technologies permettent de mesurer les visites et les interactions afin de comprendre les usages et d’améliorer l’expérience proposée."
+    },
+    "marketing": {
+      "title": "Marketing et publicité",
+      "shortDescription": "Ils permettent de mesurer les campagnes et, lorsque cela est autorisé, d’utiliser des fonctions publicitaires.",
+      "description": "Ces technologies permettent de mesurer l’efficacité des campagnes et peuvent être utilisées pour l’attribution publicitaire ou la création d’audiences."
+    }
+  },
+  "actions": {
+    "acceptAll": "Tout accepter",
+    "essentialOnly": "Essentiels uniquement",
+    "viewDetails": "Voir les détails",
+    "showServices": "Afficher les services",
+    "hideServices": "Masquer les services",
+    "save": "Enregistrer mes choix",
+    "cancel": "Annuler",
+    "close": "Fermer les préférences de cookies"
+  },
+  "providers": {
+    "axplify": {
+      "purpose": "Mémorisation de votre choix de consentement.",
+      "cookie": "axplify_consent"
+    },
+    "noneConfigured": "Aucun service tiers de cette catégorie n’est encore activé sur le site."
+  }
 },
   "pages": {
 "home": {

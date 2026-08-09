@@ -29,7 +29,54 @@
   "whatsappLabel": "Contact Axplify Services on WhatsApp",
   "linkedinLabel": "Discover Axplify Services on LinkedIn",
   "rights": "All rights reserved.",
+  "manageCookies": "Manage cookies",
   "tagline": "Simplify your processes. Unlock the value of your data. Unleash your potential!"
+},
+"cookieConsent": {
+  "banner": {
+    "title": "Your privacy matters to us",
+    "description": "We use technologies required for the website to operate and, with your consent, measurement and marketing tools to understand user journeys, improve the experience and measure the effectiveness of our activities."
+  },
+  "preferences": {
+    "eyebrow": "Privacy",
+    "title": "Cookie preferences",
+    "description": "Choose which categories you want to allow. Essential technologies remain active because they are required for the website to operate."
+  },
+  "categories": {
+    "essential": {
+      "title": "Essential cookies",
+      "shortDescription": "They keep the website working and remember your privacy choices.",
+      "description": "These technologies are required for the operation and security of the website and to remember your consent preferences.",
+      "alwaysActive": "Always active"
+    },
+    "analytics": {
+      "title": "Measurement and performance",
+      "shortDescription": "They help us understand how the website is used and improve user journeys.",
+      "description": "These technologies measure visits and interactions so we can understand usage and improve the experience we provide."
+    },
+    "marketing": {
+      "title": "Marketing and advertising",
+      "shortDescription": "They help measure campaigns and, when authorised, enable advertising features.",
+      "description": "These technologies help measure campaign effectiveness and may be used for advertising attribution or audience creation."
+    }
+  },
+  "actions": {
+    "acceptAll": "Accept all",
+    "essentialOnly": "Essential only",
+    "viewDetails": "View details",
+    "showServices": "Show services",
+    "hideServices": "Hide services",
+    "save": "Save my choices",
+    "cancel": "Cancel",
+    "close": "Close cookie preferences"
+  },
+  "providers": {
+    "axplify": {
+      "purpose": "Stores your consent choice.",
+      "cookie": "axplify_consent"
+    },
+    "noneConfigured": "No third-party service in this category is currently enabled on the website."
+  }
 },
   "pages": {
 "home": {

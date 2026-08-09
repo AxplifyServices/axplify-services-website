@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  useCallback,
   useEffect,
 } from 'react';
 
@@ -11,6 +12,12 @@ import {
 import type {
   AppLocale,
 } from '@/i18n/routing';
+
+import {
+  CONSENT_CHANGED_EVENT,
+  type ConsentState,
+  hasAnalyticsConsent,
+} from '@/lib/analytics/consent';
 
 import {
   trackPageView,
@@ -27,32 +34,68 @@ export function AnalyticsRouteTracker({
   const pathname =
     usePathname();
 
+  const trackCurrentPage =
+    useCallback(
+      () => {
+        if (
+          !hasAnalyticsConsent()
+        ) {
+          return;
+        }
+
+        trackPageView({
+          locale,
+        });
+      },
+      [
+        locale,
+      ],
+    );
+
   useEffect(
     () => {
-      /*
-       * pathname est volontairement utilisé
-       * comme dépendance.
-       *
-       * Next.js peut changer de page sans
-       * recharger entièrement le navigateur.
-       *
-       * Sans ce tracker, une navigation :
-       *
-       * /fr
-       *   ↓
-       * /fr/services
-       *
-       * pourrait ne pas être interprétée
-       * correctement comme une nouvelle vue
-       * par notre couche analytics.
-       */
-      trackPageView({
-        locale,
-      });
+      trackCurrentPage();
     },
     [
-      locale,
       pathname,
+      trackCurrentPage,
+    ],
+  );
+
+  useEffect(
+    () => {
+      const handleConsentChanged =
+        (
+          event:
+            Event,
+        ) => {
+          const customEvent =
+            event as CustomEvent<ConsentState>;
+
+          if (
+            customEvent
+              .detail
+              ?.analytics ===
+            true
+          ) {
+            trackCurrentPage();
+          }
+        };
+
+      window.addEventListener(
+        CONSENT_CHANGED_EVENT,
+        handleConsentChanged,
+      );
+
+      return () => {
+        window.removeEventListener(
+          CONSENT_CHANGED_EVENT,
+          handleConsentChanged,
+        );
+      };
+    },
+    [
+      trackCurrentPage,
     ],
   );
 

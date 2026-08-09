@@ -48,6 +48,10 @@ import {
   AnalyticsRouteTracker,
 } from '@/components/analytics/analytics-route-tracker';
 
+import {
+  ConsentManager,
+} from '@/components/analytics/consent-manager';
+
 import '../globals.css';
 
 export const metadata: Metadata = {
@@ -167,13 +171,15 @@ export default async function LocaleLayout({
     messages
   }
 >
-  <AnalyticsRouteTracker
-    locale={
-      locale
-    }
-  />
+<ConsentManager />
 
-  <ScrollRevealController />
+<AnalyticsRouteTracker
+  locale={
+    locale
+  }
+/>
+
+<ScrollRevealController />
 
   <div className="page-shell">
     <SiteHeader />
