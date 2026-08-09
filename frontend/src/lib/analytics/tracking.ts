@@ -11,16 +11,10 @@ import type {
   AppLocale,
 } from '@/i18n/routing';
 
-type DataLayerEntry =
-  Record<
-    string,
-    unknown
-  >;
-
 declare global {
   interface Window {
     dataLayer?:
-      DataLayerEntry[];
+      unknown[];
 
     __axplifyLastTrackedPageView?:
       string;
