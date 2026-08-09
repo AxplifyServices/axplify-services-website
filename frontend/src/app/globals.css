@@ -26481,7 +26481,8 @@ html[dir='rtl']
 .reviews-page__hero-content {
   position: relative;
   z-index: 1;
-  max-width: 52rem;
+  width: 100%;
+  max-width: 76rem;
 }
 
 .reviews-page__eyebrow {
@@ -26494,7 +26495,8 @@ html[dir='rtl']
 }
 
 .reviews-page__hero h1 {
-  max-width: 50rem;
+  width: 100%;
+  max-width: 74rem;
   margin:
     0.65rem
     0
@@ -26503,7 +26505,7 @@ html[dir='rtl']
   font-size:
     clamp(
       2.1rem,
-      5vw,
+      4.3vw,
       4rem
     );
   line-height: 1.04;
@@ -26511,7 +26513,7 @@ html[dir='rtl']
 }
 
 .reviews-page__hero p {
-  max-width: 47rem;
+  max-width: 58rem;
   margin:
     1rem
     0
@@ -26710,9 +26712,50 @@ html[dir='rtl']
   padding:
     0.7rem
     0.8rem;
+  border:
+    1px solid
+    transparent;
   border-radius: 0.85rem;
   background:
     var(--axplify-violet-soft);
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease;
+}
+
+.review-card__project:hover {
+  transform:
+    translateY(-1px);
+  border-color:
+    rgba(
+      139,
+      92,
+      246,
+      0.24
+    );
+  background:
+    rgba(
+      139,
+      92,
+      246,
+      0.12
+    );
+}
+
+.review-card__project:focus-visible {
+  outline:
+    3px solid
+    rgba(
+      139,
+      92,
+      246,
+      0.2
+    );
+  outline-offset: 2px;
 }
 
 .review-card__project > span {
@@ -26967,15 +27010,15 @@ html[dir='rtl']
 
   padding:
     clamp(
-      4rem,
-      7vw,
-      6.5rem
+      2.6rem,
+      4vw,
+      3.6rem
     )
     0
     clamp(
-      4.5rem,
-      8vw,
-      7rem
+      2.8rem,
+      4vw,
+      3.8rem
     );
 
   background:
@@ -27015,7 +27058,7 @@ html[dir='rtl']
 .home-reviews__eyebrow {
   display: block;
 
-  margin-bottom: 0.7rem;
+  margin-bottom: 0.45rem;
 
   color:
     var(--axplify-violet);
@@ -27038,30 +27081,30 @@ html[dir='rtl']
 
   font-size:
     clamp(
-      1.9rem,
-      2.8vw,
-      3rem
+      1.65rem,
+      2.2vw,
+      2.45rem
     );
 
   font-weight: 430;
 
-  line-height: 1.04;
-  letter-spacing: -0.045em;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
 }
 
 .home-reviews__heading p {
-  max-width: 55rem;
+  max-width: 52rem;
 
   margin:
-    1rem
+    0.65rem
     0
     0;
 
   color:
     var(--axplify-muted);
 
-  font-size: 0.83rem;
-  line-height: 1.65;
+  font-size: 0.78rem;
+  line-height: 1.55;
 }
 
 .home-reviews__view-all {
@@ -27143,19 +27186,54 @@ html[dir='rtl']
 
   align-items: stretch;
 
-  gap: 1rem;
+  gap: 0.85rem;
 
   margin-top:
     clamp(
-      2rem,
-      4vw,
-      3rem
+      1.25rem,
+      2vw,
+      1.7rem
     );
 }
 
 .home-reviews__track
 > .review-card {
   min-width: 0;
+}
+
+@media (min-width: 52.01rem) {
+  .home-reviews__track
+  > .review-card {
+    gap: 0.85rem;
+    padding: 1rem 1.1rem;
+  }
+
+  .home-reviews__track
+  .review-card__comment {
+    font-size: 0.82rem;
+    line-height: 1.55;
+  }
+
+  .home-reviews__track
+  .review-card__footer {
+    gap: 0.7rem;
+    padding-top: 0.75rem;
+  }
+
+  .home-reviews__track
+  .review-card__person strong {
+    font-size: 0.8rem;
+  }
+
+  .home-reviews__track
+  .review-card__person span {
+    font-size: 0.67rem;
+  }
+
+  .home-reviews__track
+  .review-card__project {
+    padding: 0.55rem 0.65rem;
+  }
 }
 
 .home-reviews__mobile-controls {

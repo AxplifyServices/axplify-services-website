@@ -590,12 +590,13 @@ export function ProjectsPageContent({
                   <div className="projects-page__grid">
                     {projects.map(
                       project => (
-                        <article
-                          key={
-                            project.id
-                          }
-                          className="project-card"
-                        >
+<article
+  key={
+    project.id
+  }
+  id={`project-${project.id}`}
+  className="project-card"
+>
                           <header className="project-card__client">
                             <div className="project-card__logo">
                               <img

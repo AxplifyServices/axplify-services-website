@@ -9,6 +9,10 @@ import type {
   AppLocale,
 } from '@/i18n/routing';
 
+import {
+  Link,
+} from '@/i18n/navigation';
+
 import type {
   PublicReview,
   PublicReviewProject,
@@ -169,28 +173,38 @@ export function ReviewCard({
           </span>
         </div>
 
-        {review.project &&
-        projectTitle ? (
-          <div className="review-card__project">
-            <span>
-              {projectLabel}
-            </span>
+{review.project &&
+projectTitle ? (
+<Link
+  href={{
+    pathname:
+      '/projects',
 
-            <strong>
-              {projectTitle}
-            </strong>
+    hash:
+      `project-${review.project.id}`,
+  }}
+  className="review-card__project"
+  aria-label={`${projectLabel} : ${projectTitle}`}
+>
+    <span>
+      {projectLabel}
+    </span>
 
-            {review.project.client
-              ?.name ? (
-              <small>
-                {
-                  review.project
-                    .client.name
-                }
-              </small>
-            ) : null}
-          </div>
-        ) : null}
+    <strong>
+      {projectTitle}
+    </strong>
+
+    {review.project.client
+      ?.name ? (
+      <small>
+        {
+          review.project
+            .client.name
+        }
+      </small>
+    ) : null}
+  </Link>
+) : null}
       </footer>
     </article>
   );

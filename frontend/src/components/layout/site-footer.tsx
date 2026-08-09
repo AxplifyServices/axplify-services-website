@@ -55,6 +55,10 @@ const companyLinks = [
     href: '/faq',
     key: 'faq',
   },
+  {
+    href: '/reviews',
+    key: 'reviews',
+  },
 ] as const;
 
 const linkedInUrl =
