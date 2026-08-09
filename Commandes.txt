@@ -60,3 +60,4 @@ MDP : admin123
 
 ** Analytics :
 GTM ID : GTM-5GXSLVJC
+GA4 : G-H2HPBY3CHH
