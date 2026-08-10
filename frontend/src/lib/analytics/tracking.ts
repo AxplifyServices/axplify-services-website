@@ -11,6 +11,10 @@ import type {
   AppLocale,
 } from '@/i18n/routing';
 
+import {
+  hasAnalyticsConsent,
+} from './consent';
+
 declare global {
   interface Window {
     dataLayer?:
@@ -89,6 +93,20 @@ export function trackEvent(
     AnalyticsParameters =
       {},
 ) {
+  /*
+   * Axplify utilise actuellement une stratégie
+   * Basic Consent :
+   *
+   * aucun événement Analytics métier n'est
+   * enregistré tant que l'utilisateur n'a pas
+   * accepté "Mesure et performance".
+   */
+  if (
+    !hasAnalyticsConsent()
+  ) {
+    return;
+  }
+
   const dataLayer =
     getDataLayer();
 

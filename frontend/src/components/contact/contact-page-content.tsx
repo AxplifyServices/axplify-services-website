@@ -45,6 +45,14 @@ import type {
   ContactRequestSource,
 } from '@/lib/public-contact-requests-api';
 
+import {
+  ANALYTICS_EVENTS,
+} from '@/lib/analytics/events';
+
+import {
+  trackEvent,
+} from '@/lib/analytics/tracking';
+
 type ContactAvailabilityFormValue = {
   id:
     string;
@@ -572,6 +580,11 @@ export function ContactPageContent({
     useState(
       false,
     );   
+
+const hasTrackedContactStart =
+  useRef(
+    false,
+  );    
     
 const privacyButtonRef =
   useRef<HTMLButtonElement>(
@@ -893,6 +906,30 @@ useEffect(
   ],
 );    
 
+function trackContactStart() {
+  if (
+    hasTrackedContactStart.current
+  ) {
+    return;
+  }
+
+  hasTrackedContactStart.current =
+    true;
+
+  trackEvent(
+    ANALYTICS_EVENTS.CONTACT_START,
+    {
+      locale,
+
+      contact_source:
+        source,
+
+      page_path:
+        window.location.pathname,
+    },
+  );
+}
+
   function updateTextField(
     event:
       ChangeEvent<
@@ -1142,19 +1179,40 @@ useEffect(
     const validationError =
       validateForm();
 
-    if (
-      validationError
-    ) {
-      setErrorMessage(
-        validationError,
-      );
+if (
+  validationError
+) {
+  setErrorMessage(
+    validationError,
+  );
 
-      return;
-    }
+  return;
+}
 
-    setIsSubmitting(
-      true,
-    );
+trackEvent(
+  ANALYTICS_EVENTS.CONTACT_SUBMIT,
+  {
+    locale,
+
+    contact_source:
+      source,
+
+    wants_appointment:
+      form.wantsAppointment,
+
+    availability_count:
+      form.wantsAppointment
+        ? availabilities.length
+        : 0,
+
+    page_path:
+      window.location.pathname,
+  },
+);
+
+setIsSubmitting(
+  true,
+);
 
     try {
       const timezone =
@@ -1247,6 +1305,27 @@ useEffect(
           },
         );
 
+trackEvent(
+  ANALYTICS_EVENTS.CONTACT_SUCCESS,
+  {
+    locale,
+
+    contact_source:
+      response.request.source,
+
+    wants_appointment:
+      form.wantsAppointment,
+
+    availability_count:
+      form.wantsAppointment
+        ? availabilities.length
+        : 0,
+
+    page_path:
+      window.location.pathname,
+  },
+);        
+
       setCreatedRequestId(
         response.request.id,
       );
@@ -1288,23 +1367,26 @@ useEffect(
     }
   }
 
-  function resetForm() {
-    setCreatedRequestId(
-      null,
-    );
+function resetForm() {
+  hasTrackedContactStart.current =
+    false;
 
-    setErrorMessage(
-      null,
-    );
+  setCreatedRequestId(
+    null,
+  );
 
-    setForm(
-      INITIAL_FORM_STATE,
-    );
+  setErrorMessage(
+    null,
+  );
 
-    setAvailabilities(
-      [],
-    );
-  }
+  setForm(
+    INITIAL_FORM_STATE,
+  );
+
+  setAvailabilities(
+    [],
+  );
+}
 
   if (
     createdRequestId
@@ -1536,13 +1618,16 @@ useEffect(
             </div>
           </div>
 
-          <form
-            className="contact-form"
-            onSubmit={
-              handleSubmit
-            }
-            noValidate
-          >
+<form
+  className="contact-form"
+  onSubmit={
+    handleSubmit
+  }
+  onFocusCapture={
+    trackContactStart
+  }
+  noValidate
+>
             <p className="contact-form__required">
               {
                 copy.form
@@ -2348,14 +2433,33 @@ useEffect(
               {
                 whatsappUrl
                   ? (
-                      <a
-                        href={
-                          whatsappUrl
-                        }
-                        target="_blank"
-                        rel="noreferrer"
-                        className="contact-direct-card__whatsapp"
-                      >
+<a
+  href={
+    whatsappUrl
+  }
+  target="_blank"
+  rel="noreferrer"
+  className="contact-direct-card__whatsapp"
+  onClick={
+    () => {
+      trackEvent(
+        ANALYTICS_EVENTS.WHATSAPP_CLICK,
+        {
+          locale,
+
+          contact_source:
+            source,
+
+          cta_location:
+            'contact_direct_card',
+
+          page_path:
+            window.location.pathname,
+        },
+      );
+    }
+  }
+>
                         <MessageCircle
                           size={
                             20
@@ -2384,12 +2488,31 @@ useEffect(
               {
                 publicEmail
                   ? (
-                      <a
-                        href={
-                          `mailto:${publicEmail}`
-                        }
-                        className="contact-direct-card__line"
-                      >
+<a
+  href={
+    `mailto:${publicEmail}`
+  }
+  className="contact-direct-card__line"
+  onClick={
+    () => {
+      trackEvent(
+        ANALYTICS_EVENTS.EMAIL_CLICK,
+        {
+          locale,
+
+          contact_source:
+            source,
+
+          cta_location:
+            'contact_direct_card',
+
+          page_path:
+            window.location.pathname,
+        },
+      );
+    }
+  }
+>
                         <Mail
                           size={
                             18
@@ -2419,15 +2542,34 @@ useEffect(
               {
                 publicPhone
                   ? (
-                      <a
-                        href={
-                          `tel:${publicPhone.replace(
-                            /\s/g,
-                            '',
-                          )}`
-                        }
-                        className="contact-direct-card__line"
-                      >
+<a
+  href={
+    `tel:${publicPhone.replace(
+      /\s/g,
+      '',
+    )}`
+  }
+  className="contact-direct-card__line"
+  onClick={
+    () => {
+      trackEvent(
+        ANALYTICS_EVENTS.PHONE_CLICK,
+        {
+          locale,
+
+          contact_source:
+            source,
+
+          cta_location:
+            'contact_direct_card',
+
+          page_path:
+            window.location.pathname,
+        },
+      );
+    }
+  }
+>
                         <Phone
                           size={
                             18
