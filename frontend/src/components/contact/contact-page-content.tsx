@@ -1468,26 +1468,45 @@ function resetForm() {
                 {
                   whatsappUrl
                     ? (
-                        <a
-                          href={
-                            whatsappUrl
-                          }
-                          target="_blank"
-                          rel="noreferrer"
-                          className="button button--secondary"
-                        >
-                          <MessageCircle
-                            size={
-                              18
-                            }
-                            aria-hidden="true"
-                          />
+<a
+  href={
+    whatsappUrl
+  }
+  target="_blank"
+  rel="noreferrer"
+  className="button button--secondary"
+  onClick={
+    () => {
+      trackEvent(
+        ANALYTICS_EVENTS.WHATSAPP_CLICK,
+        {
+          locale,
 
-                          {
-                            copy.success
-                              .whatsapp
-                          }
-                        </a>
+          contact_source:
+            source,
+
+          cta_location:
+            'contact_success',
+
+          page_path:
+            window.location.pathname,
+        },
+      );
+    }
+  }
+>
+  <MessageCircle
+    size={
+      18
+    }
+    aria-hidden="true"
+  />
+
+  {
+    copy.success
+      .whatsapp
+  }
+</a>
                       )
                     : null
                 }
