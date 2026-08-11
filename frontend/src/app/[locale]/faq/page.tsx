@@ -25,7 +25,7 @@ import type {
 } from '@/lib/public-faqs-api';
 
 import {
-  createPageMetadata,
+  createPaginatedPageMetadata,
 } from '@/lib/seo';
 
 type PageProps = {
@@ -105,17 +105,54 @@ function resolveSearch(
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: PageProps): Promise<Metadata> {
+  const [
+    resolvedParams,
+    resolvedSearchParams,
+  ] =
+    await Promise.all([
+      params,
+      searchParams,
+    ]);
+
   const {
     locale,
   } =
-    await params;
+    resolvedParams;
 
-  return createPageMetadata(
+  const page =
+    resolvePage(
+      resolvedSearchParams.page,
+    );
+
+  const category =
+    resolveCategory(
+      resolvedSearchParams.category,
+    );
+
+  const search =
+    resolveSearch(
+      resolvedSearchParams.search,
+    );
+
+  return createPaginatedPageMetadata({
     locale,
-    'faq',
-    '/faq',
-  );
+
+    namespace:
+      'faq',
+
+    href:
+      '/faq',
+
+    page,
+
+    hasFilters:
+      Boolean(
+        category ||
+        search,
+      ),
+  });
 }
 
 export default async function FaqPage({

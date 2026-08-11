@@ -21,7 +21,8 @@ import {
 } from '@/lib/site-config';
 
 function absoluteUrl(
-  pathname: string,
+  pathname:
+    string,
 ) {
   return new URL(
     pathname,
@@ -29,10 +30,54 @@ function absoluteUrl(
   ).toString();
 }
 
+function buildUrl({
+  locale,
+  href,
+  page,
+}: {
+  locale:
+    AppLocale;
+
+  href:
+    PublicPageHref;
+
+  page?:
+    number;
+}) {
+  const url =
+    new URL(
+      getPathname({
+        locale,
+        href,
+      }),
+      SITE_URL,
+    );
+
+  if (
+    page &&
+    page >
+      1
+  ) {
+    url.searchParams.set(
+      'page',
+      String(
+        page,
+      ),
+    );
+  }
+
+  return url.toString();
+}
+
 export async function createPageMetadata(
-  locale: AppLocale,
-  namespace: string,
-  href: PublicPageHref,
+  locale:
+    AppLocale,
+
+  namespace:
+    string,
+
+  href:
+    PublicPageHref,
 ): Promise<Metadata> {
   const t =
     await getTranslations({
@@ -45,9 +90,7 @@ export async function createPageMetadata(
   const languageAlternates =
     Object.fromEntries(
       routing.locales.map(
-        (
-          targetLocale,
-        ) => [
+        targetLocale => [
           targetLocale,
 
           absoluteUrl(
@@ -72,10 +115,14 @@ export async function createPageMetadata(
 
   return {
     title:
-      t('title'),
+      t(
+        'title',
+      ),
 
     description:
-      t('description'),
+      t(
+        'description',
+      ),
 
     alternates: {
       canonical,
@@ -86,10 +133,14 @@ export async function createPageMetadata(
 
     openGraph: {
       title:
-        t('title'),
+        t(
+          'title',
+        ),
 
       description:
-        t('description'),
+        t(
+          'description',
+        ),
 
       url:
         canonical,
@@ -98,9 +149,152 @@ export async function createPageMetadata(
         'Axplify Services',
 
       locale:
-        locale === 'fr'
+        locale ===
+        'fr'
           ? 'fr_MA'
-          : locale === 'ar'
+          : locale ===
+            'ar'
+            ? 'ar_MA'
+            : 'en_US',
+
+      type:
+        'website',
+    },
+  };
+}
+
+export async function createPaginatedPageMetadata({
+  locale,
+  namespace,
+  href,
+  page,
+  hasFilters = false,
+}: {
+  locale:
+    AppLocale;
+
+  namespace:
+    string;
+
+  href:
+    PublicPageHref;
+
+  page:
+    number;
+
+  hasFilters?:
+    boolean;
+}): Promise<Metadata> {
+  const t =
+    await getTranslations({
+      locale,
+
+      namespace:
+        `pages.${namespace}.seo`,
+    });
+
+  /*
+   * Les filtres et recherches sont utiles à l'utilisateur,
+   * mais ne constituent pas des landing pages SEO distinctes.
+   *
+   * On les canonicalise donc vers la collection principale
+   * et on empêche leur indexation.
+   */
+  const canonical =
+    hasFilters
+      ? buildUrl({
+          locale,
+          href,
+        })
+      : buildUrl({
+          locale,
+          href,
+          page,
+        });
+
+  const languageAlternates =
+    Object.fromEntries(
+      routing.locales.map(
+        targetLocale => [
+          targetLocale,
+
+          hasFilters
+            ? buildUrl({
+                locale:
+                  targetLocale,
+
+                href,
+              })
+            : buildUrl({
+                locale:
+                  targetLocale,
+
+                href,
+
+                page,
+              }),
+        ],
+      ),
+    );
+
+  return {
+    title:
+      t(
+        'title',
+      ),
+
+    description:
+      t(
+        'description',
+      ),
+
+    robots:
+      hasFilters
+        ? {
+            index:
+              false,
+
+            follow:
+              true,
+          }
+        : {
+            index:
+              true,
+
+            follow:
+              true,
+          },
+
+    alternates: {
+      canonical,
+
+      languages:
+        languageAlternates,
+    },
+
+    openGraph: {
+      title:
+        t(
+          'title',
+        ),
+
+      description:
+        t(
+          'description',
+        ),
+
+      url:
+        canonical,
+
+      siteName:
+        'Axplify Services',
+
+      locale:
+        locale ===
+        'fr'
+          ? 'fr_MA'
+          : locale ===
+            'ar'
             ? 'ar_MA'
             : 'en_US',
 

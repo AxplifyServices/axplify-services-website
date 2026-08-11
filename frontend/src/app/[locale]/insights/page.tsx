@@ -25,9 +25,8 @@ import type {
 } from '@/lib/public-publications-api';
 
 import {
-  createPageMetadata,
+  createPaginatedPageMetadata,
 } from '@/lib/seo';
-
 type PageProps = {
   params:
     Promise<{
@@ -95,17 +94,48 @@ function resolvePage(
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: PageProps): Promise<Metadata> {
+  const [
+    resolvedParams,
+    resolvedSearchParams,
+  ] =
+    await Promise.all([
+      params,
+      searchParams,
+    ]);
+
   const {
     locale,
   } =
-    await params;
+    resolvedParams;
 
-  return createPageMetadata(
+  const page =
+    resolvePage(
+      resolvedSearchParams.page,
+    );
+
+  const contentType =
+    resolveContentType(
+      resolvedSearchParams.type,
+    );
+
+  return createPaginatedPageMetadata({
     locale,
-    'insights',
-    '/insights',
-  );
+
+    namespace:
+      'insights',
+
+    href:
+      '/insights',
+
+    page,
+
+    hasFilters:
+      Boolean(
+        contentType,
+      ),
+  });
 }
 
 export default async function InsightsPage({

@@ -20,7 +20,7 @@ import {
 } from '@/lib/public-reviews-api';
 
 import {
-  createPageMetadata,
+  createPaginatedPageMetadata,
 } from '@/lib/seo';
 
 type PageProps = {
@@ -64,17 +64,38 @@ function resolvePage(
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: PageProps): Promise<Metadata> {
+  const [
+    resolvedParams,
+    resolvedSearchParams,
+  ] =
+    await Promise.all([
+      params,
+      searchParams,
+    ]);
+
   const {
     locale,
   } =
-    await params;
+    resolvedParams;
 
-  return createPageMetadata(
+  const page =
+    resolvePage(
+      resolvedSearchParams.page,
+    );
+
+  return createPaginatedPageMetadata({
     locale,
-    'reviews',
-    '/reviews',
-  );
+
+    namespace:
+      'reviews',
+
+    href:
+      '/reviews',
+
+    page,
+  });
 }
 
 export default async function ReviewsPage({

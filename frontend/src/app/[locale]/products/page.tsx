@@ -20,7 +20,7 @@ import {
 } from '@/lib/public-products-api';
 
 import {
-  createPageMetadata,
+  createPaginatedPageMetadata,
 } from '@/lib/seo';
 
 type PageProps = {
@@ -80,17 +80,48 @@ function resolveCategory(
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: PageProps): Promise<Metadata> {
+  const [
+    resolvedParams,
+    resolvedSearchParams,
+  ] =
+    await Promise.all([
+      params,
+      searchParams,
+    ]);
+
   const {
     locale,
   } =
-    await params;
+    resolvedParams;
 
-  return createPageMetadata(
+  const page =
+    resolvePage(
+      resolvedSearchParams.page,
+    );
+
+  const category =
+    resolveCategory(
+      resolvedSearchParams.category,
+    );
+
+  return createPaginatedPageMetadata({
     locale,
-    'products',
-    '/products',
-  );
+
+    namespace:
+      'products',
+
+    href:
+      '/products',
+
+    page,
+
+    hasFilters:
+      Boolean(
+        category,
+      ),
+  });
 }
 
 export default async function ProductsPage({
