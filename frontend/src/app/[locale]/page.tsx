@@ -71,6 +71,9 @@ type PageProps = {
     }>;
 };
 
+export const dynamic =
+  'force-dynamic';
+
 const ABOUT_PILLAR_KEYS = [
   'clarity',
   'usefulness',

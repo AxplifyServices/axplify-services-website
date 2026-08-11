@@ -1,4 +1,4 @@
-serv :ssh ubuntu@51.75.252.139
+serv :ssh ubuntu@141.94.237.110
 Code serveur : zitanezac
 
 cd OneDrive\Bureau\Projet Dev\Axplify Service Website
