@@ -407,6 +407,27 @@ alternates: {
             ]
           : undefined,
     },
+
+twitter: {
+  card:
+    'summary_large_image',
+
+  title:
+    publication.seo.title,
+
+  description:
+    publication.seo.description,
+
+  images:
+    publication.coverMedia
+      ?.cardImageUrl
+      ? [
+          publication
+            .coverMedia
+            .cardImageUrl,
+        ]
+      : undefined,
+},    
   };
 }
 

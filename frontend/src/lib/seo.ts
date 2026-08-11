@@ -16,7 +16,9 @@ import {
 } from '@/i18n/routing';
 
 import {
+  ORGANIZATION_NAME,
   SITE_URL,
+  SOCIAL_IMAGE_URL,
   type PublicPageHref,
 } from '@/lib/site-config';
 
@@ -28,6 +30,25 @@ function absoluteUrl(
     pathname,
     SITE_URL,
   ).toString();
+}
+
+function getSocialLocale(
+  locale:
+    AppLocale,
+) {
+  switch (
+    locale
+  ) {
+    case 'fr':
+      return 'fr_FR';
+
+    case 'ar':
+      return 'ar_SA';
+
+    case 'en':
+    default:
+      return 'en_US';
+  }
 }
 
 function buildUrl({
@@ -146,19 +167,50 @@ export async function createPageMetadata(
         canonical,
 
       siteName:
-        'Axplify Services',
+        ORGANIZATION_NAME,
 
       locale:
-        locale ===
-        'fr'
-          ? 'fr_MA'
-          : locale ===
-            'ar'
-            ? 'ar_MA'
-            : 'en_US',
+        getSocialLocale(
+          locale,
+        ),
 
       type:
         'website',
+
+      images: [
+        {
+          url:
+            SOCIAL_IMAGE_URL,
+
+          width:
+            1200,
+
+          height:
+            630,
+
+          alt:
+            ORGANIZATION_NAME,
+        },
+      ],
+    },
+
+    twitter: {
+      card:
+        'summary_large_image',
+
+      title:
+        t(
+          'title',
+        ),
+
+      description:
+        t(
+          'description',
+        ),
+
+      images: [
+        SOCIAL_IMAGE_URL,
+      ],
     },
   };
 }
@@ -287,19 +339,50 @@ export async function createPaginatedPageMetadata({
         canonical,
 
       siteName:
-        'Axplify Services',
+        ORGANIZATION_NAME,
 
       locale:
-        locale ===
-        'fr'
-          ? 'fr_MA'
-          : locale ===
-            'ar'
-            ? 'ar_MA'
-            : 'en_US',
+        getSocialLocale(
+          locale,
+        ),
 
       type:
         'website',
+
+      images: [
+        {
+          url:
+            SOCIAL_IMAGE_URL,
+
+          width:
+            1200,
+
+          height:
+            630,
+
+          alt:
+            ORGANIZATION_NAME,
+        },
+      ],
+    },
+
+    twitter: {
+      card:
+        'summary_large_image',
+
+      title:
+        t(
+          'title',
+        ),
+
+      description:
+        t(
+          'description',
+        ),
+
+      images: [
+        SOCIAL_IMAGE_URL,
+      ],
     },
   };
 }
