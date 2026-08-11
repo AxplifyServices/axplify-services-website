@@ -3132,17 +3132,26 @@ html[dir="rtl"]
 }
 
 @media (prefers-reduced-motion: reduce) {
+  /*
+   * Le site possède une règle globale qui réduit toutes
+   * les animations à 0.01ms et une seule itération.
+   *
+   * Pour le ruban clients, on conserve volontairement
+   * un mouvement très lent afin d'éviter une section
+   * complètement figée, notamment sur iOS.
+   */
   .home-clients__track {
-    animation: none;
-    transform: none;
+    animation-duration: 50s !important;
+    animation-timing-function: linear !important;
+    animation-iteration-count: infinite !important;
   }
 
   .home-clients__row {
-    overflow-x: auto;
-    scrollbar-width: none;
-    touch-action: pan-x pan-y;
+    overflow: hidden;
+    touch-action: pan-y;
     -webkit-overflow-scrolling: touch;
   }
+
 
   .home-clients__row::-webkit-scrollbar {
     display: none;
