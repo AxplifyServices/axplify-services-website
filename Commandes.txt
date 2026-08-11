@@ -51,7 +51,7 @@ git push origin main
 
 git commit --allow-empty -m "trigger deploy"
 
-MDP PostgreSQL serveur :
+MDP PostgreSQL & MinIO serveur :
 
 22072001Zak
 

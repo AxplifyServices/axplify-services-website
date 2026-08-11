@@ -1,0 +1,91 @@
+name: Deploy Axplify Services
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy on VPS via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          password: ${{ secrets.VPS_PASSWORD }}
+
+          script: |
+            set -e
+
+            APP_DIR="/opt/apps/axplify"
+            REPO_DIR="$APP_DIR/repo"
+            REPO_URL="https://github.com/AxplifyServices/axplify-services-website.git"
+
+            echo "=== Preparing Axplify deployment ==="
+
+            mkdir -p "$APP_DIR"
+
+            if [ ! -d "$REPO_DIR/.git" ]; then
+              echo "=== First deployment: cloning repository ==="
+
+              rm -rf "$REPO_DIR"
+
+              git clone \
+                --branch main \
+                --single-branch \
+                "$REPO_URL" \
+                "$REPO_DIR"
+            else
+              echo "=== Updating repository ==="
+
+              cd "$REPO_DIR"
+
+              git fetch origin main
+              git reset --hard origin/main
+              git clean -fd
+            fi
+
+            echo "=== Building application ==="
+
+            cd "$APP_DIR"
+
+            docker compose \
+              --env-file "$APP_DIR/frontend.env" \
+              -f "$REPO_DIR/deploy/docker-compose.prod.yml" \
+              build frontend backend
+
+            echo "=== Ensuring MinIO is running ==="
+
+            docker compose \
+              --env-file "$APP_DIR/frontend.env" \
+              -f "$REPO_DIR/deploy/docker-compose.prod.yml" \
+              up -d minio
+
+            echo "=== Deploying backend and frontend ==="
+
+            docker compose \
+              --env-file "$APP_DIR/frontend.env" \
+              -f "$REPO_DIR/deploy/docker-compose.prod.yml" \
+              up -d \
+              --no-deps \
+              --force-recreate \
+              frontend backend
+
+            echo "=== Removing orphan containers ==="
+
+            docker compose \
+              --env-file "$APP_DIR/frontend.env" \
+              -f "$REPO_DIR/deploy/docker-compose.prod.yml" \
+              up -d \
+              --remove-orphans
+
+            echo "=== Deployment status ==="
+
+            docker ps
+
+            echo "=== Backend logs ==="
+
+            docker logs axplify-backend --tail 100

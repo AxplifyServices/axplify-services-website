@@ -1,0 +1,117 @@
+name: axplify
+
+services:
+  frontend:
+    container_name: axplify-frontend
+
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL}
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+        NEXT_PUBLIC_GTM_ID: ${NEXT_PUBLIC_GTM_ID}
+        NEXT_PUBLIC_WHATSAPP_NUMBER: ${NEXT_PUBLIC_WHATSAPP_NUMBER}
+        NEXT_PUBLIC_CONTACT_EMAIL: ${NEXT_PUBLIC_CONTACT_EMAIL}
+        NEXT_PUBLIC_CONTACT_PHONE: ${NEXT_PUBLIC_CONTACT_PHONE}
+
+    restart: unless-stopped
+
+    env_file:
+      - /opt/apps/axplify/frontend.env
+
+    networks:
+      - traefik-public
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+
+      - "traefik.http.routers.axplify-frontend.rule=Host(`axplify-services.com`)"
+      - "traefik.http.routers.axplify-frontend.entrypoints=websecure"
+      - "traefik.http.routers.axplify-frontend.tls=true"
+      - "traefik.http.routers.axplify-frontend.tls.certresolver=letsencrypt"
+
+      - "traefik.http.services.axplify-frontend.loadbalancer.server.port=3001"
+
+
+  backend:
+    container_name: axplify-backend
+
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+
+    restart: unless-stopped
+
+    env_file:
+      - /opt/apps/axplify/backend.env
+
+    extra_hosts:
+      - "host.docker.internal:172.19.0.1"
+
+    networks:
+      - axplify-internal
+      - traefik-public
+
+    depends_on:
+      - minio
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+
+      - "traefik.http.routers.axplify-backend.rule=Host(`api.axplify-services.com`)"
+      - "traefik.http.routers.axplify-backend.entrypoints=websecure"
+      - "traefik.http.routers.axplify-backend.tls=true"
+      - "traefik.http.routers.axplify-backend.tls.certresolver=letsencrypt"
+
+      - "traefik.http.services.axplify-backend.loadbalancer.server.port=3000"
+
+
+  minio:
+    image: quay.io/minio/minio:latest
+
+    container_name: axplify-minio
+
+    restart: unless-stopped
+
+    env_file:
+      - /opt/apps/axplify/minio.env
+
+    command:
+      - server
+      - /data
+      - --console-address
+      - ":9001"
+
+    volumes:
+      - axplify_minio_data:/data
+
+    networks:
+      - axplify-internal
+      - traefik-public
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+
+      - "traefik.http.routers.axplify-media.rule=Host(`media.axplify-services.com`)"
+      - "traefik.http.routers.axplify-media.entrypoints=websecure"
+      - "traefik.http.routers.axplify-media.tls=true"
+      - "traefik.http.routers.axplify-media.tls.certresolver=letsencrypt"
+
+      - "traefik.http.services.axplify-media.loadbalancer.server.port=9000"
+
+
+volumes:
+  axplify_minio_data:
+    name: axplify_axplify_minio_data
+
+
+networks:
+  axplify-internal:
+    external: true
+
+  traefik-public:
+    external: true

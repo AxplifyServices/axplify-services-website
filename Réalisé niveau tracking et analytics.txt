@@ -6,3 +6,4 @@
 6. phone_click
 7. contact_success comme événement clé
 8. Heatmap Microsoft et sauvegarde sessions
+9. LinkedIn Insight Tag
