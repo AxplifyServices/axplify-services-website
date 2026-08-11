@@ -258,7 +258,39 @@
             "Fewer manual entries and operational errors",
             "A solution able to evolve with your business"
           ],
-          "example": "Design of a vehicle rental platform covering B2C and B2B journeys, vehicle search, quotations, bookings, company quotas and approval workflows."
+          "example": "Design of a vehicle rental platform covering B2C and B2B journeys, vehicle search, quotations, bookings, company quotas and approval workflows.",
+          "seo": {
+            "title": "Custom web & mobile application development",
+            "description": "Design websites, applications and business platforms that simplify operations and customer journeys, from early idea through deployment."
+          },
+          "detail": {
+            "forWhomTitle": "When is this service a good fit?",
+            "forWhom": "This service is relevant when teams still rely on scattered files or tools, customers face friction in key journeys, or the business needs software built around its own rules rather than a generic workflow.",
+            "useCasesTitle": "Common use cases",
+            "useCases": [
+              "Internal business applications",
+              "Customer or partner portals",
+              "B2B or B2C SaaS platforms",
+              "Business-heavy websites",
+              "Mobile applications",
+              "Booking, ordering and approval workflows"
+            ],
+            "faqTitle": "Frequently asked questions",
+            "faq": [
+              {
+                "question": "Do we need a complete specification before starting?",
+                "answer": "No. We can start from a partially defined need and clarify users, journeys, business rules and priorities before locking the solution down."
+              },
+              {
+                "question": "Can you take over an existing application?",
+                "answer": "Yes. We can audit the current system, identify the main constraints and decide whether to evolve it, modernise selected components or rebuild progressively."
+              },
+              {
+                "question": "How do you avoid building software that becomes too complex?",
+                "answer": "We work in stages, keep journeys simple, validate regularly and use a demo, POC or MVP when it helps test the direction before industrialising."
+              }
+            ]
+          }
         },
         "automation": {
           "id": "operations-automation",
@@ -281,7 +313,39 @@
             "More consistent and better-controlled processes",
             "More time for higher-value activities"
           ],
-          "example": "Development of an algorithm connected to business datamarts to automatically consolidate monthly indicators, calculate KPIs and generate presentations used to manage the commercial network."
+          "example": "Development of an algorithm connected to business datamarts to automatically consolidate monthly indicators, calculate KPIs and generate presentations used to manage the commercial network.",
+          "seo": {
+            "title": "Business process automation & workflow development",
+            "description": "Reduce repetitive work, copy-paste and missed follow-ups with reliable, traceable automations designed around your business rules."
+          },
+          "detail": {
+            "forWhomTitle": "When is this service a good fit?",
+            "forWhom": "This service is useful when teams spend too much time preparing files, copying information, sending reminders or performing recurring steps that can be orchestrated automatically.",
+            "useCasesTitle": "Common use cases",
+            "useCases": [
+              "Automated reports and presentations",
+              "System-to-system synchronisation",
+              "Automated reminders and notifications",
+              "Approval workflows",
+              "Recurring file processing",
+              "Commercial and administrative task automation"
+            ],
+            "faqTitle": "Frequently asked questions",
+            "faq": [
+              {
+                "question": "Do we need to replace our current tools?",
+                "answer": "Not necessarily. Automation can often connect existing tools, remove duplicate entry and add business logic without rebuilding the whole system."
+              },
+              {
+                "question": "How do you prioritise what to automate first?",
+                "answer": "We consider time spent, frequency, error risk, business value and process stability. The goal is to automate where the impact is easiest to prove."
+              },
+              {
+                "question": "What happens if an automation fails?",
+                "answer": "We favour traceable workflows with controls, logs, alerts and recovery mechanisms so issues can be identified and handled quickly."
+              }
+            ]
+          }
         },
         "data": {
           "id": "data-decision-support",
@@ -304,7 +368,39 @@
             "Decisions based on facts",
             "Better detection of gaps and opportunities"
           ],
-          "example": "Management of Marketing, CRM and Commercial Performance datamarts, from collecting requirements through to validating KPIs, aggregation rules and data quality."
+          "example": "Management of Marketing, CRM and Commercial Performance datamarts, from collecting requirements through to validating KPIs, aggregation rules and data quality.",
+          "seo": {
+            "title": "Data analytics & Business Intelligence consulting",
+            "description": "Turn scattered data into reliable KPIs, dashboards and analysis your teams can use to manage performance and make faster decisions."
+          },
+          "detail": {
+            "forWhomTitle": "When is this service a good fit?",
+            "forWhom": "This service is relevant when data already exists but remains scattered, difficult to trust or too time-consuming to turn into useful reporting for teams and management.",
+            "useCasesTitle": "Common use cases",
+            "useCases": [
+              "Management dashboards",
+              "Multi-source consolidation",
+              "Business datamarts",
+              "KPI definition and validation",
+              "Automated reporting",
+              "Segmentation and performance analysis"
+            ],
+            "faqTitle": "Frequently asked questions",
+            "faq": [
+              {
+                "question": "Can you work with the data we already have?",
+                "answer": "Yes. We usually begin by mapping sources, data quality, KPI definitions and user needs before designing the reporting layer."
+              },
+              {
+                "question": "Do we need a data warehouse already in place?",
+                "answer": "No. The architecture depends on volume, usage, refresh frequency and the existing ecosystem. We avoid adding complexity that is not justified."
+              },
+              {
+                "question": "How do you make sure KPIs are trustworthy?",
+                "answer": "We document calculation rules, validate aggregation logic, reconcile results with business sources and introduce appropriate quality controls."
+              }
+            ]
+          }
         },
         "ai": {
           "id": "artificial-intelligence",
@@ -327,7 +423,40 @@
             "Faster identification of opportunities",
             "Practical use of large volumes of information"
           ],
-          "example": "Design of an AI voice agent connected to commercial documents for property developments, able to answer questions, qualify prospects and send opportunities to the CRM."
+          "example": "Design of an AI voice agent connected to commercial documents for property developments, able to answer questions, qualify prospects and send opportunities to the CRM.",
+          "seo": {
+            "title": "AI consulting, proof of concept & integration",
+            "description": "Identify a valuable AI use case, validate it quickly with a POC and integrate artificial intelligence into your tools and business processes."
+          },
+          "detail": {
+            "forWhomTitle": "When is this service a good fit?",
+            "forWhom": "This service is relevant when you have repetitive work, large document volumes, decisions that could be assisted or an AI use case you want to validate before committing more investment.",
+            "useCasesTitle": "Common use cases",
+            "useCases": [
+              "Business assistants and copilots",
+              "Document analysis and extraction",
+              "Voice and conversational agents",
+              "Scoring and prediction",
+              "Action recommendations",
+              "Lead qualification",
+              "Computer vision"
+            ],
+            "faqTitle": "Frequently asked questions",
+            "faq": [
+              {
+                "question": "Should we always start with a POC?",
+                "answer": "Not always. We first clarify the use case and expected value. A POC is useful when feasibility, output quality or integration needs to be validated quickly."
+              },
+              {
+                "question": "Can AI be connected to our internal data?",
+                "answer": "Yes, subject to access rights and security constraints. We can design architectures where AI uses internal documents, databases or APIs with appropriate controls."
+              },
+              {
+                "question": "How do you manage AI reliability?",
+                "answer": "We define acceptable uses, trusted sources, controls, confidence thresholds and the situations where human validation remains necessary."
+              }
+            ]
+          }
         },
         "crm": {
           "id": "crm-commercial-performance",
@@ -350,7 +479,39 @@
             "Better-targeted commercial actions",
             "Progressive improvement in conversion rates"
           ],
-          "example": "Design of an internal commercial opportunity management system, followed by its industrialisation to orchestrate campaigns and prioritise team actions."
+          "example": "Design of an internal commercial opportunity management system, followed by its industrialisation to orchestrate campaigns and prioritise team actions.",
+          "seo": {
+            "title": "Custom CRM development & sales performance",
+            "description": "Centralise prospects, customers, opportunities and follow-ups in a CRM aligned with your sales process and conversion priorities."
+          },
+          "detail": {
+            "forWhomTitle": "When is this service a good fit?",
+            "forWhom": "This service is relevant when sales teams work across multiple files, lose visibility on opportunities, miss follow-ups or use a CRM that does not reflect the way they actually sell.",
+            "useCasesTitle": "Common use cases",
+            "useCases": [
+              "Custom sales pipelines",
+              "Prospect and customer centralisation",
+              "Opportunity prioritisation",
+              "Automated tasks and follow-ups",
+              "Campaigns and segmentation",
+              "Sales dashboards"
+            ],
+            "faqTitle": "Frequently asked questions",
+            "faq": [
+              {
+                "question": "Do we have to build a CRM from scratch?",
+                "answer": "Not always. We can integrate and configure an existing CRM, build specific extensions or create a custom solution when the business rules justify it."
+              },
+              {
+                "question": "Can the CRM connect to our other tools?",
+                "answer": "Yes. It can connect to forms, marketing platforms, telephony, ERP systems, internal databases and APIs to reduce duplicate entry."
+              },
+              {
+                "question": "How do you encourage sales teams to adopt the CRM?",
+                "answer": "We favour simple journeys, genuinely useful fields and automation of low-value tasks. A CRM should help the team rather than create more administration."
+              }
+            ]
+          }
         },
         "architecture": {
           "id": "architecture-deployment",
@@ -373,7 +534,39 @@
             "More reliable deployments",
             "A technical foundation ready to evolve"
           ],
-          "example": "Deployment of Next.js and NestJS platforms using PostgreSQL, JWT authentication, role management, Docker, Traefik and automated GitHub Actions workflows."
+          "example": "Deployment of Next.js and NestJS platforms using PostgreSQL, JWT authentication, role management, Docker, Traefik and automated GitHub Actions workflows.",
+          "seo": {
+            "title": "SaaS architecture, security & cloud deployment",
+            "description": "Design secure, maintainable software architecture ready to scale, with roles, APIs, databases, containers, CI/CD and reliable deployment."
+          },
+          "detail": {
+            "forWhomTitle": "When is this service a good fit?",
+            "forWhom": "This service is relevant when an application must support multiple user profiles, protect sensitive data, scale over time, evolve into a SaaS product or deploy reliably and repeatedly.",
+            "useCasesTitle": "Common use cases",
+            "useCases": [
+              "SaaS and multi-tenant architecture",
+              "Roles and permission management",
+              "API security",
+              "Docker and reverse proxy",
+              "CI/CD and automated deployments",
+              "Observability, backups and recovery"
+            ],
+            "faqTitle": "Frequently asked questions",
+            "faq": [
+              {
+                "question": "Can you audit an existing architecture?",
+                "answer": "Yes. We can review the application, flows, dependencies, security, database and deployment setup to identify risks and priorities."
+              },
+              {
+                "question": "Do we need to migrate immediately to a complex architecture?",
+                "answer": "No. Architecture should follow the real need. We aim for the required level of robustness without introducing expensive complexity too early."
+              },
+              {
+                "question": "Is security handled as a separate topic?",
+                "answer": "We integrate it into the design from the start: authentication, authorisation, roles, secrets, network exposure, input validation and deployment practices."
+              }
+            ]
+          }
         },
         "analytics": {
           "id": "analytics-tracking",
@@ -399,7 +592,40 @@
             "A dashboard updated automatically",
             "Marketing decisions based on real indicators"
           ],
-          "example": "Automation of the collection and transformation of digital marketing data to supply decision-making dashboards used to manage commercial performance."
+          "example": "Automation of the collection and transformation of digital marketing data to supply decision-making dashboards used to manage commercial performance.",
+          "seo": {
+            "title": "GA4, GTM & conversion tracking implementation",
+            "description": "Understand what truly attracts, engages and converts visitors with clean GA4/GTM tracking, consent management and business-focused measurement."
+          },
+          "detail": {
+            "forWhomTitle": "When is this service a good fit?",
+            "forWhom": "This service is relevant when you invest in a website or campaigns but cannot clearly tell which sources, pages and actions generate leads, sales or business value.",
+            "useCasesTitle": "Common use cases",
+            "useCases": [
+              "Google Analytics 4",
+              "Google Tag Manager",
+              "Consent Mode and cookie management",
+              "Form and CTA tracking",
+              "Funnels and business events",
+              "Campaign attribution",
+              "Marketing dashboards"
+            ],
+            "faqTitle": "Frequently asked questions",
+            "faq": [
+              {
+                "question": "Can you work with tracking that is already installed?",
+                "answer": "Yes. We can audit events, duplicates, consent, conversions and data quality before correcting or restructuring the measurement plan."
+              },
+              {
+                "question": "Can we track clicks on important buttons?",
+                "answer": "Yes. We can track CTAs, forms, downloads, calls, product interactions and other events that genuinely matter in your conversion journey."
+              },
+              {
+                "question": "How do you handle visitor consent?",
+                "answer": "Tracking must respect consent choices. We configure tags and events so they fire in line with the cookie policy and applicable requirements."
+              }
+            ]
+          }
         },
         "leadGeneration": {
           "id": "lead-generation-closing",
@@ -425,7 +651,40 @@
             "Fewer lost opportunities",
             "Progressive improvement in conversion rates"
           ],
-          "example": "Implementation of a complete qualified-lead generation process: identifying prospects through social media and artificial intelligence, qualification by our commercial teams, then delivery to the company of genuinely interested contacts ready to be converted."
+          "example": "Implementation of a complete qualified-lead generation process: identifying prospects through social media and artificial intelligence, qualification by our commercial teams, then delivery to the company of genuinely interested contacts ready to be converted.",
+          "seo": {
+            "title": "B2B lead generation & sales automation",
+            "description": "Build a funnel that attracts, qualifies and converts more prospects through content, automation, CRM and structured sales follow-up."
+          },
+          "detail": {
+            "forWhomTitle": "When is this service a good fit?",
+            "forWhom": "This service is relevant when your company receives too few qualified enquiries, loses prospects after first contact or wants a more consistent and measurable B2B prospecting process.",
+            "useCasesTitle": "Common use cases",
+            "useCases": [
+              "B2B prospect identification",
+              "Data enrichment and qualification",
+              "Landing pages and forms",
+              "Lead scoring",
+              "Follow-up sequences",
+              "CRM synchronisation",
+              "Funnel tracking through closing"
+            ],
+            "faqTitle": "Frequently asked questions",
+            "faq": [
+              {
+                "question": "Can you generate leads for any industry?",
+                "answer": "The approach depends heavily on the market, sales cycle and target audience. We first validate the offer, ideal customer profile and channels that genuinely fit."
+              },
+              {
+                "question": "How do you measure lead quality?",
+                "answer": "We define concrete criteria such as need, profile, interest, timing, decision-making ability and available data. Volume alone is not the objective."
+              },
+              {
+                "question": "Do you also support the process after lead generation?",
+                "answer": "Yes. Depending on the need, we can structure qualification, follow-ups, CRM, scoring and the steps that move opportunities closer to closing."
+              }
+            ]
+          }
         },
         "marketingStrategy": {
           "id": "marketing-strategy-online-visibility",
@@ -451,7 +710,40 @@
             "A better understanding of the market",
             "Visibility built around measurable objectives"
           ],
-          "example": "Customer knowledge, segmentation, geomarketing and performance analyses used to guide commercial and marketing decisions."
+          "example": "Customer knowledge, segmentation, geomarketing and performance analyses used to guide commercial and marketing decisions.",
+          "seo": {
+            "title": "Digital marketing strategy & B2B positioning",
+            "description": "Clarify positioning, messaging and marketing priorities through market, competitor, customer journey and performance analysis."
+          },
+          "detail": {
+            "forWhomTitle": "When is this service a good fit?",
+            "forWhom": "This service is relevant when your offer is difficult to understand, marketing actions are fragmented, visibility is not improving or the message needs to be repositioned before more budget is invested.",
+            "useCasesTitle": "Common use cases",
+            "useCases": [
+              "Competitor benchmarking",
+              "Positioning and value proposition",
+              "Segmentation and personas",
+              "Content strategy",
+              "Acquisition journeys",
+              "Performance analysis",
+              "Prioritised marketing roadmap"
+            ],
+            "faqTitle": "Frequently asked questions",
+            "faq": [
+              {
+                "question": "Do you start with channels or with strategy?",
+                "answer": "We start with the market, target audience, offer and value proposition. Channels come afterwards, based on where relevant prospects actually are."
+              },
+              {
+                "question": "Can you work alongside an existing marketing team?",
+                "answer": "Yes. We can complement internal teams with analysis, measurement, roadmap design or specialised execution without replacing them."
+              },
+              {
+                "question": "How do you avoid producing a strategy that stays theoretical?",
+                "answer": "Each recommendation should translate into priorities, actions, ownership and measurable indicators. The goal is an executable strategy, not a presentation that sits unused."
+              }
+            ]
+          }
         }
       },
       "method": {

@@ -162,12 +162,12 @@ export async function generateMetadata({
 
   const title =
     t(
-      `items.${service.key}.title`,
+      `items.${service.key}.seo.title`,
     );
 
   const description =
     t(
-      `items.${service.key}.description`,
+      `items.${service.key}.seo.description`,
     );
 
   const canonical =
@@ -351,6 +351,42 @@ export default async function ServiceDetailPage({
       `items.${service.key}.example`,
     );
 
+  const forWhomTitle =
+    t(
+      `items.${service.key}.detail.forWhomTitle`,
+    );
+
+  const forWhom =
+    t(
+      `items.${service.key}.detail.forWhom`,
+    );
+
+  const useCasesTitle =
+    t(
+      `items.${service.key}.detail.useCasesTitle`,
+    );
+
+  const useCases =
+    t.raw(
+      `items.${service.key}.detail.useCases`,
+    ) as string[];
+
+  const faqTitle =
+    t(
+      `items.${service.key}.detail.faqTitle`,
+    );
+
+  const faq =
+    t.raw(
+      `items.${service.key}.detail.faq`,
+    ) as Array<{
+      question:
+        string;
+
+      answer:
+        string;
+    }>;
+
   const canonical =
     getServiceUrl(
       locale,
@@ -431,6 +467,33 @@ export default async function ServiceDetailPage({
     },
   };
 
+  const faqStructuredData = {
+    '@context':
+      'https://schema.org',
+
+    '@type':
+      'FAQPage',
+
+    mainEntity:
+      faq.map(
+        item => ({
+          '@type':
+            'Question',
+
+          name:
+            item.question,
+
+          acceptedAnswer: {
+            '@type':
+              'Answer',
+
+            text:
+              item.answer,
+          },
+        }),
+      ),
+  };
+
   const methodItems = [
     {
       number:
@@ -499,6 +562,19 @@ export default async function ServiceDetailPage({
           __html:
             JSON.stringify(
               serviceStructuredData,
+            ).replace(
+              /</g,
+              '\\u003c',
+            ),
+        }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html:
+            JSON.stringify(
+              faqStructuredData,
             ).replace(
               /</g,
               '\\u003c',
@@ -769,6 +845,145 @@ export default async function ServiceDetailPage({
             </main>
           </div>
         </div>
+
+        {/*
+         * CONTENU SPÉCIFIQUE À CHAQUE SERVICE
+         *
+         * Ce bloc différencie réellement les landing pages :
+         * pertinence → cas d'usage → FAQ.
+         */}
+        <div className="services-content">
+          <div className="services-content__container">
+            <section
+              className="service-detail"
+              aria-labelledby="service-fit-title"
+            >
+              <article className="service-detail__layout">
+                <div
+                  className="service-detail__heading"
+                  data-reveal="up"
+                >
+                  <p className="service-detail__block-label">
+                    {shortTitle}
+                  </p>
+
+                  <h2 id="service-fit-title">
+                    {forWhomTitle}
+                  </h2>
+
+                  <p className="service-detail__description">
+                    {forWhom}
+                  </p>
+                </div>
+
+                <div className="service-detail__content">
+                  <div
+                    className="service-detail__list-card"
+                    data-reveal="up"
+                  >
+                    <h3>
+                      {useCasesTitle}
+                    </h3>
+
+                    <ul>
+                      {
+                        useCases.map(
+                          useCase => (
+                            <li
+                              key={
+                                useCase
+                              }
+                            >
+                              <Check
+                                size={17}
+                                strokeWidth={2.3}
+                                aria-hidden="true"
+                              />
+
+                              <span>
+                                {useCase}
+                              </span>
+                            </li>
+                          ),
+                        )
+                      }
+                    </ul>
+                  </div>
+                </div>
+              </article>
+            </section>
+          </div>
+        </div>
+
+        {/*
+         * FAQ SPÉCIFIQUE
+         *
+         * Les mêmes questions sont visibles dans la page et
+         * utilisées dans le JSON-LD FAQPage.
+         */}
+        <section className="services-method">
+          <div className="site-container">
+            <div
+              className="services-method__intro"
+              data-reveal="up"
+            >
+              <p className="eyebrow">
+                {shortTitle}
+              </p>
+
+              <h2>
+                {faqTitle}
+              </h2>
+            </div>
+
+            <div className="services-method__grid">
+              {
+                faq.map(
+                  (
+                    item,
+                    index,
+                  ) => (
+                    <article
+                      key={
+                        item.question
+                      }
+                      className="services-method__item"
+                      data-reveal="up"
+                      data-reveal-delay={
+                        String(
+                          index + 1,
+                        )
+                      }
+                    >
+                      <span className="services-method__number">
+                        {
+                          String(
+                            index + 1,
+                          ).padStart(
+                            2,
+                            '0',
+                          )
+                        }
+                      </span>
+
+                      <h3>
+                        {
+                          item.question
+                        }
+                      </h3>
+
+                      <p>
+                        {
+                          item.answer
+                        }
+                      </p>
+                    </article>
+                  ),
+                )
+              }
+            </div>
+          </div>
+        </section>
 
         {/*
          * MÉTHODE

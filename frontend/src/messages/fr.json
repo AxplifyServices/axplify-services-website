@@ -258,7 +258,39 @@
             "Moins de ressaisies et d’erreurs opérationnelles",
             "Une solution capable d’évoluer avec votre activité"
           ],
-          "example": "Conception d’une plateforme de location automobile couvrant les parcours B2C et B2B, la recherche de véhicules, les devis, les réservations, les quotas d’entreprise et les workflows de validation."
+          "example": "Conception d’une plateforme de location automobile couvrant les parcours B2C et B2B, la recherche de véhicules, les devis, les réservations, les quotas d’entreprise et les workflows de validation.",
+          "seo": {
+            "title": "Développement web & mobile sur mesure pour entreprises",
+            "description": "Concevez un site, une application ou une plateforme métier qui simplifie réellement vos opérations et vos parcours clients, de l’idée au déploiement."
+          },
+          "detail": {
+            "forWhomTitle": "Quand ce service est-il pertinent ?",
+            "forWhom": "Ce service est adapté si vos équipes travaillent encore avec des fichiers ou outils dispersés, si vos clients rencontrent des frictions dans leur parcours, ou si votre activité a besoin d’un outil métier conçu autour de vos propres règles.",
+            "useCasesTitle": "Cas d’usage fréquents",
+            "useCases": [
+              "Application métier interne",
+              "Portail client ou partenaire",
+              "Plateforme SaaS B2B ou B2C",
+              "Site web à forte logique métier",
+              "Application mobile",
+              "Workflow de réservation, commande ou validation"
+            ],
+            "faqTitle": "Questions fréquentes",
+            "faq": [
+              {
+                "question": "Faut-il partir d’un cahier des charges complet ?",
+                "answer": "Non. Nous pouvons partir d’un besoin encore imparfaitement défini. Nous clarifions les utilisateurs, les parcours, les règles métier et les priorités avant de figer la solution."
+              },
+              {
+                "question": "Pouvez-vous reprendre une application existante ?",
+                "answer": "Oui. Nous pouvons auditer l’existant, identifier les points bloquants et décider s’il est plus pertinent de faire évoluer l’application, de moderniser certaines briques ou de reconstruire progressivement."
+              },
+              {
+                "question": "Comment éviter de construire un outil trop complexe ?",
+                "answer": "Nous avançons par étapes, avec des parcours simples, des validations régulières et, lorsque c’est utile, une démo, un POC ou un MVP avant d’industrialiser."
+              }
+            ]
+          }
         },
         "automation": {
           "id": "automatisation-operations",
@@ -281,7 +313,39 @@
             "Des processus plus réguliers et mieux contrôlés",
             "Davantage de temps disponible pour les activités à valeur ajoutée"
           ],
-          "example": "Développement d’un algorithme connecté aux datamarts métiers pour consolider automatiquement les indicateurs mensuels, calculer les KPI et générer les présentations utilisées pour le pilotage du réseau commercial."
+          "example": "Développement d’un algorithme connecté aux datamarts métiers pour consolider automatiquement les indicateurs mensuels, calculer les KPI et générer les présentations utilisées pour le pilotage du réseau commercial.",
+          "seo": {
+            "title": "Automatisation des processus métier & opérations",
+            "description": "Réduisez les tâches répétitives, les copier-coller et les oublis grâce à des automatisations fiables, traçables et adaptées à vos règles métier."
+          },
+          "detail": {
+            "forWhomTitle": "Quand ce service est-il pertinent ?",
+            "forWhom": "Ce service est pertinent lorsque vos équipes consacrent trop de temps à préparer des fichiers, recopier des informations, envoyer des relances ou exécuter des étapes répétitives qui pourraient être orchestrées automatiquement.",
+            "useCasesTitle": "Cas d’usage fréquents",
+            "useCases": [
+              "Génération automatique de rapports et présentations",
+              "Synchronisation entre plusieurs outils",
+              "Relances et notifications automatiques",
+              "Workflows d’approbation",
+              "Traitement de fichiers récurrents",
+              "Automatisation de tâches commerciales ou administratives"
+            ],
+            "faqTitle": "Questions fréquentes",
+            "faq": [
+              {
+                "question": "Faut-il remplacer nos outils actuels ?",
+                "answer": "Pas forcément. Une automatisation peut souvent relier les outils existants, supprimer les doubles saisies et ajouter de la logique métier sans reconstruire tout votre système."
+              },
+              {
+                "question": "Comment choisissez-vous les tâches à automatiser en priorité ?",
+                "answer": "Nous regardons le temps consommé, la fréquence, le risque d’erreur, la valeur métier et la stabilité du processus. L’objectif est d’automatiser là où le retour est le plus tangible."
+              },
+              {
+                "question": "Que se passe-t-il si une automatisation échoue ?",
+                "answer": "Nous privilégions des traitements traçables avec contrôles, journaux, alertes et mécanismes de reprise afin qu’une anomalie puisse être identifiée et traitée rapidement."
+              }
+            ]
+          }
         },
         "data": {
           "id": "data-pilotage-decisionnel",
@@ -304,7 +368,39 @@
             "Des décisions fondées sur des faits",
             "Une meilleure détection des écarts et des opportunités"
           ],
-          "example": "Pilotage de datamarts Marketing, CRM et Performance commerciale, depuis le recueil des besoins jusqu’à la validation des KPI, des agrégations et de la qualité des données."
+          "example": "Pilotage de datamarts Marketing, CRM et Performance commerciale, depuis le recueil des besoins jusqu’à la validation des KPI, des agrégations et de la qualité des données.",
+          "seo": {
+            "title": "Data analytics & Business Intelligence pour entreprises",
+            "description": "Transformez des données dispersées en indicateurs fiables, dashboards et analyses utiles pour piloter votre activité et décider plus vite."
+          },
+          "detail": {
+            "forWhomTitle": "Quand ce service est-il pertinent ?",
+            "forWhom": "Ce service est adapté lorsque vos données existent déjà mais restent dispersées, difficiles à fiabiliser ou trop longues à transformer en rapports utiles pour les équipes et la direction.",
+            "useCasesTitle": "Cas d’usage fréquents",
+            "useCases": [
+              "Dashboards de pilotage",
+              "Consolidation multi-sources",
+              "Datamarts métier",
+              "Définition et fiabilisation des KPI",
+              "Automatisation du reporting",
+              "Segmentation et analyses de performance"
+            ],
+            "faqTitle": "Questions fréquentes",
+            "faq": [
+              {
+                "question": "Pouvez-vous travailler avec nos données existantes ?",
+                "answer": "Oui. Nous commençons généralement par cartographier les sources, la qualité, les définitions des indicateurs et les besoins des utilisateurs avant de construire la couche de pilotage."
+              },
+              {
+                "question": "Faut-il déjà disposer d’un data warehouse ?",
+                "answer": "Non. L’architecture dépend du volume, des usages, de la fréquence de mise à jour et de l’écosystème existant. Nous évitons de complexifier inutilement la stack."
+              },
+              {
+                "question": "Comment garantir que les KPI sont fiables ?",
+                "answer": "Nous documentons les règles de calcul, vérifions les agrégations, confrontons les résultats aux sources métier et mettons en place des contrôles de qualité adaptés."
+              }
+            ]
+          }
         },
         "ai": {
           "id": "intelligence-artificielle",
@@ -327,7 +423,40 @@
             "Une détection plus rapide des opportunités",
             "Une exploitation concrète de volumes importants d’information"
           ],
-          "example": "Conception d’un agent vocal IA connecté aux documents commerciaux de programmes immobiliers, capable de répondre aux questions, qualifier les prospects et transmettre les opportunités au CRM."
+          "example": "Conception d’un agent vocal IA connecté aux documents commerciaux de programmes immobiliers, capable de répondre aux questions, qualifier les prospects et transmettre les opportunités au CRM.",
+          "seo": {
+            "title": "Conseil IA, POC & intégration d’intelligence artificielle",
+            "description": "Identifiez un cas d’usage IA rentable, validez-le rapidement avec un POC puis intégrez l’intelligence artificielle à vos outils et processus métier."
+          },
+          "detail": {
+            "forWhomTitle": "Quand ce service est-il pertinent ?",
+            "forWhom": "Ce service est pertinent si vous avez identifié des tâches répétitives, de grands volumes de documents, des décisions à assister ou un cas d’usage IA à valider avant d’investir davantage.",
+            "useCasesTitle": "Cas d’usage fréquents",
+            "useCases": [
+              "Assistants et copilotes métier",
+              "Analyse et extraction documentaire",
+              "Agents vocaux ou conversationnels",
+              "Scoring et prédiction",
+              "Recommandation d’actions",
+              "Qualification de prospects",
+              "Computer vision"
+            ],
+            "faqTitle": "Questions fréquentes",
+            "faq": [
+              {
+                "question": "Faut-il commencer par un POC ?",
+                "answer": "Pas systématiquement. Nous clarifions d’abord le cas d’usage et la valeur attendue. Un POC est pertinent lorsqu’il faut valider rapidement la faisabilité, la qualité des résultats ou l’intégration."
+              },
+              {
+                "question": "Peut-on connecter l’IA à nos données internes ?",
+                "answer": "Oui, selon les droits d’accès et les contraintes de sécurité. Nous pouvons concevoir des architectures où l’IA exploite des documents, bases ou API internes avec des contrôles adaptés."
+              },
+              {
+                "question": "Comment gérez-vous la fiabilité des réponses IA ?",
+                "answer": "Nous définissons les usages acceptables, les sources, les contrôles, les seuils de confiance et les cas où une validation humaine reste nécessaire."
+              }
+            ]
+          }
         },
         "crm": {
           "id": "crm-performance-commerciale",
@@ -350,7 +479,39 @@
             "Des actions commerciales mieux ciblées",
             "Une amélioration progressive du taux de transformation"
           ],
-          "example": "Conception d’un système interne de gestion des opportunités commerciales, puis industrialisation du dispositif afin d’orchestrer les campagnes et de prioriser les actions des équipes."
+          "example": "Conception d’un système interne de gestion des opportunités commerciales, puis industrialisation du dispositif afin d’orchestrer les campagnes et de prioriser les actions des équipes.",
+          "seo": {
+            "title": "Développement CRM sur mesure & performance commerciale",
+            "description": "Centralisez prospects, clients, opportunités et relances dans un CRM adapté à vos processus commerciaux et à vos priorités de conversion."
+          },
+          "detail": {
+            "forWhomTitle": "Quand ce service est-il pertinent ?",
+            "forWhom": "Ce service est adapté si vos équipes commerciales travaillent dans plusieurs fichiers, perdent le fil des opportunités, manquent de visibilité sur les relances ou utilisent un CRM trop générique pour leurs processus.",
+            "useCasesTitle": "Cas d’usage fréquents",
+            "useCases": [
+              "Pipeline commercial sur mesure",
+              "Centralisation prospects et clients",
+              "Priorisation des opportunités",
+              "Relances et tâches automatiques",
+              "Campagnes et segmentation",
+              "Tableaux de bord commerciaux"
+            ],
+            "faqTitle": "Questions fréquentes",
+            "faq": [
+              {
+                "question": "Faut-il développer un CRM de zéro ?",
+                "answer": "Pas toujours. Nous pouvons intégrer et configurer un CRM existant, développer des briques spécifiques ou construire une solution sur mesure lorsque les règles métier le justifient."
+              },
+              {
+                "question": "Peut-on connecter le CRM à nos autres outils ?",
+                "answer": "Oui. Le CRM peut être relié à des formulaires, plateformes marketing, outils de téléphonie, ERP, bases internes ou APIs afin d’éviter les doubles saisies."
+              },
+              {
+                "question": "Comment favoriser l’adoption par les commerciaux ?",
+                "answer": "Nous privilégions des parcours simples, des champs réellement utiles et une automatisation des tâches à faible valeur. Un CRM doit aider les équipes plutôt que leur ajouter de la saisie."
+              }
+            ]
+          }
         },
         "architecture": {
           "id": "architecture-mise-en-production",
@@ -373,7 +534,39 @@
             "Des déploiements plus fiables",
             "Une base technique prête à évoluer"
           ],
-          "example": "Mise en production de plateformes Next.js et NestJS avec PostgreSQL, authentification JWT, gestion de rôles, Docker, Traefik et déploiements automatisés par GitHub Actions."
+          "example": "Mise en production de plateformes Next.js et NestJS avec PostgreSQL, authentification JWT, gestion de rôles, Docker, Traefik et déploiements automatisés par GitHub Actions.",
+          "seo": {
+            "title": "Architecture SaaS, sécurité & déploiement cloud",
+            "description": "Concevez une architecture sécurisée, maintenable et prête à évoluer : rôles, accès, APIs, base de données, conteneurs, CI/CD et mise en production."
+          },
+          "detail": {
+            "forWhomTitle": "Quand ce service est-il pertinent ?",
+            "forWhom": "Ce service est pertinent si votre application doit accueillir plusieurs profils, protéger des données sensibles, monter en charge, évoluer vers un SaaS ou disposer de déploiements fiables et reproductibles.",
+            "useCasesTitle": "Cas d’usage fréquents",
+            "useCases": [
+              "Architecture SaaS et multi-tenant",
+              "Gestion des rôles et permissions",
+              "Sécurisation des APIs",
+              "Docker et reverse proxy",
+              "CI/CD et déploiements automatisés",
+              "Observabilité, sauvegardes et reprise"
+            ],
+            "faqTitle": "Questions fréquentes",
+            "faq": [
+              {
+                "question": "Pouvez-vous auditer une architecture existante ?",
+                "answer": "Oui. Nous pouvons analyser l’application, les flux, les dépendances, la sécurité, la base de données et le déploiement afin d’identifier les risques et les priorités."
+              },
+              {
+                "question": "Faut-il migrer immédiatement vers une architecture complexe ?",
+                "answer": "Non. L’architecture doit suivre le besoin réel. Nous cherchons le niveau de robustesse nécessaire sans introduire prématurément une complexité coûteuse."
+              },
+              {
+                "question": "La sécurité est-elle traitée séparément ?",
+                "answer": "Nous l’intégrons dès la conception : authentification, autorisations, séparation des rôles, secrets, exposition réseau, validation des entrées et pratiques de déploiement."
+              }
+            ]
+          }
         },
         "analytics": {
           "id": "analytics-tracking",
@@ -399,7 +592,40 @@
             "Un tableau de bord mis à jour automatiquement",
             "Des décisions marketing fondées sur des indicateurs réels"
           ],
-          "example": "Automatisation de la collecte et de la transformation des données marketing digitales afin d’alimenter des tableaux de bord décisionnels pour le pilotage de la performance commerciale."
+          "example": "Automatisation de la collecte et de la transformation des données marketing digitales afin d’alimenter des tableaux de bord décisionnels pour le pilotage de la performance commerciale.",
+          "seo": {
+            "title": "GA4, GTM & tracking de conversion pour entreprises",
+            "description": "Mesurez ce qui attire, engage et convertit réellement vos visiteurs grâce à un tracking GA4/GTM propre, consenti et orienté décisions business."
+          },
+          "detail": {
+            "forWhomTitle": "Quand ce service est-il pertinent ?",
+            "forWhom": "Ce service est adapté si vous investissez dans votre site ou vos campagnes mais ne savez pas précisément quelles sources, pages et actions génèrent des prospects, des ventes ou de la valeur.",
+            "useCasesTitle": "Cas d’usage fréquents",
+            "useCases": [
+              "Google Analytics 4",
+              "Google Tag Manager",
+              "Consent Mode et gestion des cookies",
+              "Tracking formulaires et CTA",
+              "Funnels et événements métier",
+              "Attribution des campagnes",
+              "Dashboards marketing"
+            ],
+            "faqTitle": "Questions fréquentes",
+            "faq": [
+              {
+                "question": "Pouvez-vous intervenir sur un tracking déjà installé ?",
+                "answer": "Oui. Nous pouvons auditer les événements, les doublons, le consentement, les conversions et la qualité des données avant de corriger ou restructurer le plan de mesure."
+              },
+              {
+                "question": "Peut-on suivre les clics sur les boutons importants ?",
+                "answer": "Oui. Nous pouvons suivre les CTA, formulaires, téléchargements, appels, interactions produit et autres événements qui correspondent réellement à votre parcours de conversion."
+              },
+              {
+                "question": "Comment gérez-vous le consentement des visiteurs ?",
+                "answer": "Le tracking doit respecter les choix de consentement. Nous configurons les tags et événements afin qu’ils se déclenchent conformément à la politique de cookies et aux règles applicables."
+              }
+            ]
+          }
         },
         "leadGeneration": {
           "id": "generation-leads-closing",
@@ -425,7 +651,40 @@
             "Moins d’opportunités perdues",
             "Une augmentation progressive du taux de conversion"
           ],
-          "example": "Mise en place d’un dispositif complet de génération de leads qualifiés : identification de prospects grâce aux réseaux sociaux et à l’intelligence artificielle, qualification par nos équipes commerciales, puis transmission à l’entreprise de contacts réellement intéressés et prêts à être travaillés."
+          "example": "Mise en place d’un dispositif complet de génération de leads qualifiés : identification de prospects grâce aux réseaux sociaux et à l’intelligence artificielle, qualification par nos équipes commerciales, puis transmission à l’entreprise de contacts réellement intéressés et prêts à être travaillés.",
+          "seo": {
+            "title": "Génération de leads B2B & automatisation commerciale",
+            "description": "Construisez un tunnel qui attire, qualifie et transforme davantage de prospects grâce au contenu, à l’automatisation, au CRM et aux relances commerciales."
+          },
+          "detail": {
+            "forWhomTitle": "Quand ce service est-il pertinent ?",
+            "forWhom": "Ce service est pertinent si votre entreprise manque de demandes qualifiées, perd des prospects après le premier contact ou veut structurer une prospection B2B plus régulière et mesurable.",
+            "useCasesTitle": "Cas d’usage fréquents",
+            "useCases": [
+              "Identification de prospects B2B",
+              "Enrichissement et qualification",
+              "Landing pages et formulaires",
+              "Scoring des leads",
+              "Séquences de relance",
+              "Synchronisation avec le CRM",
+              "Suivi du tunnel jusqu’au closing"
+            ],
+            "faqTitle": "Questions fréquentes",
+            "faq": [
+              {
+                "question": "Pouvez-vous générer des leads pour n’importe quel secteur ?",
+                "answer": "La méthode dépend fortement du marché, du cycle de vente et de la cible. Nous commençons par vérifier l’offre, le profil de client recherché et les canaux réellement pertinents."
+              },
+              {
+                "question": "Comment mesurez-vous la qualité d’un lead ?",
+                "answer": "Nous définissons des critères concrets : besoin, profil, niveau d’intérêt, timing, capacité de décision et données disponibles. Le volume seul n’est pas notre objectif."
+              },
+              {
+                "question": "Intervenez-vous aussi après la génération du lead ?",
+                "answer": "Oui. Selon le besoin, nous pouvons structurer la qualification, les relances, le CRM, le scoring et les étapes permettant de rapprocher les opportunités du closing."
+              }
+            ]
+          }
         },
         "marketingStrategy": {
           "id": "strategie-marketing-visibilite",
@@ -451,7 +710,40 @@
             "Une meilleure compréhension du marché",
             "Une visibilité construite autour d’objectifs mesurables"
           ],
-          "example": "Réalisation d’analyses de connaissance client, de segmentation, de géomarketing et de performance afin d’orienter les décisions commerciales et marketing."
+          "example": "Réalisation d’analyses de connaissance client, de segmentation, de géomarketing et de performance afin d’orienter les décisions commerciales et marketing.",
+          "seo": {
+            "title": "Stratégie marketing digitale & positionnement B2B",
+            "description": "Clarifiez votre positionnement, vos messages et vos priorités marketing grâce à l’analyse du marché, des concurrents, des parcours et de la performance."
+          },
+          "detail": {
+            "forWhomTitle": "Quand ce service est-il pertinent ?",
+            "forWhom": "Ce service est adapté si votre offre manque de lisibilité, si vos actions marketing sont dispersées, si votre visibilité progresse peu ou si vous devez repositionner votre message avant d’investir davantage.",
+            "useCasesTitle": "Cas d’usage fréquents",
+            "useCases": [
+              "Benchmark concurrentiel",
+              "Positionnement et proposition de valeur",
+              "Segmentation et personas",
+              "Stratégie de contenu",
+              "Parcours d’acquisition",
+              "Analyse de performance",
+              "Roadmap marketing priorisée"
+            ],
+            "faqTitle": "Questions fréquentes",
+            "faq": [
+              {
+                "question": "Commencez-vous par les canaux ou par la stratégie ?",
+                "answer": "Nous commençons par le marché, la cible, l’offre et la proposition de valeur. Les canaux viennent ensuite, en fonction de l’endroit où se trouvent réellement les prospects."
+              },
+              {
+                "question": "Pouvez-vous travailler avec une équipe marketing existante ?",
+                "answer": "Oui. Nous pouvons intervenir en complément pour structurer l’analyse, la mesure, la roadmap ou certains sujets spécialisés sans remplacer l’équipe interne."
+              },
+              {
+                "question": "Comment éviter une stratégie trop théorique ?",
+                "answer": "Chaque recommandation doit déboucher sur des priorités, des actions, des responsables et des indicateurs. L’objectif est de rendre la stratégie exécutable et mesurable."
+              }
+            ]
+          }
         }
       },
       "method": {
