@@ -3132,6 +3132,8 @@ html[dir="rtl"]
   .home-clients__row {
     overflow-x: auto;
     scrollbar-width: thin;
+    touch-action: pan-x pan-y;
+    -webkit-overflow-scrolling: touch;
   }
 }
 
