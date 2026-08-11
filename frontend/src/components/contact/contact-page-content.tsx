@@ -17,6 +17,10 @@ import {
 } from 'lucide-react';
 
 import {
+  FaWhatsapp,
+} from 'react-icons/fa';
+
+import {
   useEffect,
   useMemo,
   useRef,
@@ -2479,12 +2483,12 @@ function resetForm() {
     }
   }
 >
-                        <MessageCircle
-                          size={
-                            20
-                          }
-                          aria-hidden="true"
-                        />
+<FaWhatsapp
+  size={
+    22
+  }
+  aria-hidden="true"
+/>
 
                         <span>
                           {

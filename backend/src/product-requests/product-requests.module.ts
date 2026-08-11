@@ -3,6 +3,10 @@ import {
 } from '@nestjs/common';
 
 import {
+  NotificationsModule,
+} from '../notifications/notifications.module';
+
+import {
   ProductRequestsController,
 } from './product-requests.controller';
 
@@ -11,6 +15,10 @@ import {
 } from './product-requests.service';
 
 @Module({
+  imports: [
+    NotificationsModule,
+  ],
+
   controllers: [
     ProductRequestsController,
   ],

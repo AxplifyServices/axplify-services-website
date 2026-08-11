@@ -15486,15 +15486,15 @@ html[dir="rtl"]
   align-items: center;
   gap: 0.7rem;
   border-radius: 1rem;
-  background: var(--axplify-violet);
+  background: #25d366;
   color: var(--axplify-white);
   box-shadow:
     0 1rem 2.2rem
     rgba(
-      139,
-      92,
-      246,
-      0.25
+      37,
+      211,
+      102,
+      0.22
     );
   font-size: 0.8rem;
   font-weight: 900;
@@ -15506,14 +15506,14 @@ html[dir="rtl"]
 }
 
 .contact-direct-card__whatsapp:hover {
-  background: var(--axplify-violet-hover);
+  background: #1fbd5a;
   box-shadow:
     0 1.2rem 2.6rem
     rgba(
-      124,
-      58,
-      237,
-      0.32
+      37,
+      211,
+      102,
+      0.3
     );
   transform: translateY(-2px);
 }

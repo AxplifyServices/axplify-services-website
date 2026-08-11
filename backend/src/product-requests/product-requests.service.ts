@@ -42,11 +42,18 @@ import {
   UpdateProductRequestStatusDto,
 } from './dto/update-product-request-status.dto';
 
+import {
+  TelegramNotificationService,
+} from '../notifications/telegram-notification.service';
+
 @Injectable()
 export class ProductRequestsService {
   constructor(
     private readonly prisma:
       PrismaService,
+
+    private readonly telegramNotificationService:
+      TelegramNotificationService,
   ) {}
 
   /*
@@ -76,26 +83,46 @@ export class ProductRequestsService {
      * sourceUrl n'est jamais utilisée pour identifier
      * le produit.
      */
-    const product =
-      await this.prisma
-        .products
-        .findFirst({
+const product =
+  await this.prisma
+    .products
+    .findFirst({
+      where: {
+        integration_key:
+          dto.productKey,
+
+        deleted_at:
+          null,
+
+        is_active:
+          true,
+      },
+
+      select: {
+        id:
+          true,
+
+        product_translations: {
           where: {
-            integration_key:
-              dto.productKey,
-
-            deleted_at:
-              null,
-
-            is_active:
-              true,
+            locale: {
+              in: [
+                dto.locale,
+                'fr',
+                'en',
+              ],
+            },
           },
 
           select: {
-            id:
+            locale:
+              true,
+
+            name:
               true,
           },
-        });
+        },
+      },
+    });
 
     if (
       !product
@@ -104,6 +131,36 @@ export class ProductRequestsService {
         'Le produit demandé est introuvable ou indisponible.',
       );
     }
+
+const productName =
+  product.product_translations
+    .find(
+      (
+        translation,
+      ) =>
+        translation.locale ===
+        dto.locale,
+    )
+    ?.name ??
+  product.product_translations
+    .find(
+      (
+        translation,
+      ) =>
+        translation.locale ===
+        'fr',
+    )
+    ?.name ??
+  product.product_translations
+    .find(
+      (
+        translation,
+      ) =>
+        translation.locale ===
+        'en',
+    )
+    ?.name ??
+  'Produit Axplify';    
 
     const createdRequest =
       await this.prisma
@@ -200,6 +257,20 @@ export class ProductRequestsService {
             return request;
           },
         );
+
+await this.telegramNotificationService
+  .notifyNewProductRequest({
+    id:
+      createdRequest.id,
+
+    createdAt:
+      createdRequest.created_at,
+
+    productName,
+
+    request:
+      dto,
+  });        
 
     return {
       message:

@@ -47,11 +47,18 @@ import {
   UpdateContactRequestStatusDto,
 } from './dto/update-contact-request-status.dto';
 
+import {
+  TelegramNotificationService,
+} from '../notifications/telegram-notification.service';
+
 @Injectable()
 export class ContactRequestsService {
   constructor(
     private readonly prisma:
       PrismaService,
+
+    private readonly telegramNotificationService:
+      TelegramNotificationService,
   ) {}
 
   /**
@@ -192,6 +199,17 @@ export class ContactRequestsService {
               });
           },
         );
+    await this.telegramNotificationService
+      .notifyNewContactRequest({
+        id:
+          createdRequest.id,
+
+        createdAt:
+          createdRequest.created_at,
+
+        contact:
+          dto,
+      });        
 
     return {
       message:
