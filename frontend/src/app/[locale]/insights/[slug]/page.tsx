@@ -38,6 +38,10 @@ import {
   SITE_URL,
 } from '@/lib/site-config';
 
+import {
+  createBreadcrumbStructuredData,
+} from '@/lib/breadcrumb-structured-data';
+
 type PageProps = {
   params:
     Promise<{
@@ -419,23 +423,31 @@ export default async function PublicationPage({
     locale,
   );
 
-  const [
-    publication,
-    translations,
-  ] =
-    await Promise.all([
-      getPublicPublicationBySlug(
-        locale,
-        slug,
-      ),
+const [
+  publication,
+  translations,
+  navigationTranslations,
+] =
+  await Promise.all([
+    getPublicPublicationBySlug(
+      locale,
+      slug,
+    ),
 
-      getTranslations({
-        locale,
+    getTranslations({
+      locale,
 
-        namespace:
-          'pages.insights',
-      }),
-    ]);
+      namespace:
+        'pages.insights',
+    }),
+
+    getTranslations({
+      locale,
+
+      namespace:
+        'navigation',
+    }),
+  ]);
 
   if (
     !publication
@@ -470,6 +482,47 @@ export default async function PublicationPage({
       locale,
     );
 
+   const publicationUrl =
+  getPublicationUrl(
+    locale,
+    publication.slug,
+  );
+
+const breadcrumbStructuredData =
+  createBreadcrumbStructuredData({
+    locale,
+
+    items: [
+      {
+        name:
+          navigationTranslations(
+            'home',
+          ),
+
+        href:
+          '/',
+      },
+
+      {
+        name:
+          navigationTranslations(
+            'insights',
+          ),
+
+        href:
+          '/insights',
+      },
+
+      {
+        name:
+          publication.title,
+
+        url:
+          publicationUrl,
+      },
+    ],
+  });
+
   return (
     <>
       <script
@@ -484,6 +537,19 @@ export default async function PublicationPage({
             ),
         }}
       />
+
+<script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html:
+      JSON.stringify(
+        breadcrumbStructuredData,
+      ).replace(
+        /</g,
+        '\\u003c',
+      ),
+  }}
+/>      
 
       <article className="publication-page">
         <header className="publication-page__hero">

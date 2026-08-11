@@ -16,6 +16,10 @@ import type {
 } from '@/i18n/routing';
 
 import {
+  createBreadcrumbStructuredData,
+} from '@/lib/breadcrumb-structured-data';
+
+import {
   createPageMetadata,
 } from '@/lib/seo';
 
@@ -33,13 +37,13 @@ const getPoints = (
       typeof getTranslations
     >
   >,
-  namespace: string,
-  keys: string[],
+  namespace:
+    string,
+  keys:
+    string[],
 ) =>
   keys.map(
-    (
-      key,
-    ) =>
+    key =>
       t(
         `${namespace}.points.${key}`,
       ),
@@ -72,18 +76,33 @@ export default async function WorkProcessPage({
     locale,
   );
 
-  const t =
-    await getTranslations({
-      locale,
+  const [
+    t,
+    navigationTranslations,
+  ] =
+    await Promise.all([
+      getTranslations({
+        locale,
 
-      namespace:
-        'pages.workProcess',
-    });
+        namespace:
+          'pages.workProcess',
+      }),
+
+      getTranslations({
+        locale,
+
+        namespace:
+          'navigation',
+      }),
+    ]);
 
   const createStep = (
-    key: string,
-    number: string,
-    pointKeys: string[],
+    key:
+      string,
+    number:
+      string,
+    pointKeys:
+      string[],
   ) => ({
     number,
 
@@ -110,329 +129,389 @@ export default async function WorkProcessPage({
       ),
   });
 
+  const breadcrumbStructuredData =
+    createBreadcrumbStructuredData({
+      locale,
+
+      items: [
+        {
+          name:
+            navigationTranslations(
+              'home',
+            ),
+
+          href:
+            '/',
+        },
+
+        {
+          name:
+            navigationTranslations(
+              'about',
+            ),
+
+          href:
+            '/about',
+        },
+
+        {
+          name:
+            navigationTranslations(
+              'workProcess',
+            ),
+
+          href:
+            '/about/work-process',
+        },
+      ],
+    });
+
   return (
-    <WorkProcessPageContent
-      hero={{
-        eyebrow:
-          t(
-            'hero.eyebrow',
-          ),
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html:
+            JSON.stringify(
+              breadcrumbStructuredData,
+            ).replace(
+              /</g,
+              '\\u003c',
+            ),
+        }}
+      />
 
-        title:
-          t(
-            'hero.title',
-          ),
-
-        description:
-          t(
-            'hero.description',
-          ),
-
-        reassurance:
-          t(
-            'hero.reassurance',
-          ),
-      }}
-      steps={{
-        understand:
-          createStep(
-            'understand',
-            '01',
-            [
-              'challenge',
-              'users',
-              'objectives',
-            ],
-          ),
-
-        observe:
-          createStep(
-            'observe',
-            '02',
-            [
-              'process',
-              'tools',
-              'friction',
-            ],
-          ),
-
-        reframe:
-          createStep(
-            'reframe',
-            '03',
-            [
-              'summary',
-              'examples',
-              'priorities',
-            ],
-          ),
-
-        validate:
-          createStep(
-            'validate',
-            '04',
-            [
-              'approval',
-              'adjustments',
-              'decision',
-            ],
-          ),
-      }}
-      validationLoop={{
-        label:
-          t(
-            'validationLoop.label',
-          ),
-
-        title:
-          t(
-            'validationLoop.title',
-          ),
-
-        description:
-          t(
-            'validationLoop.description',
-          ),
-
-        returnLabel:
-          t(
-            'validationLoop.returnLabel',
-          ),
-      }}
-      decision={{
-        eyebrow:
-          t(
-            'decision.eyebrow',
-          ),
-
-        title:
-          t(
-            'decision.title',
-          ),
-
-        description:
-          t(
-            'decision.description',
-          ),
-
-        product: {
-          label:
+      <WorkProcessPageContent
+        hero={{
+          eyebrow:
             t(
-              'decision.product.label',
+              'hero.eyebrow',
             ),
 
           title:
             t(
-              'decision.product.title',
+              'hero.title',
             ),
 
           description:
             t(
-              'decision.product.description',
+              'hero.description',
             ),
 
-          points:
-            getPoints(
-              t,
-              'decision.product',
+          reassurance:
+            t(
+              'hero.reassurance',
+            ),
+        }}
+
+        steps={{
+          understand:
+            createStep(
+              'understand',
+              '01',
               [
-                'configuration',
-                'integration',
-                'deployment',
+                'challenge',
+                'users',
+                'objectives',
               ],
             ),
-        },
 
-        custom: {
-          label:
-            t(
-              'decision.custom.label',
-            ),
-
-          title:
-            t(
-              'decision.custom.title',
-            ),
-
-          description:
-            t(
-              'decision.custom.description',
-            ),
-
-          points:
-            getPoints(
-              t,
-              'decision.custom',
+          observe:
+            createStep(
+              'observe',
+              '02',
               [
-                'design',
-                'experience',
-                'architecture',
+                'process',
+                'tools',
+                'friction',
               ],
             ),
-        },
 
-        convergence:
-          t(
-            'decision.convergence',
-          ),
-      }}
-      prototype={{
-        number:
-          '05',
+          reframe:
+            createStep(
+              'reframe',
+              '03',
+              [
+                'summary',
+                'examples',
+                'priorities',
+              ],
+            ),
 
-        eyebrow:
-          t(
-            'prototype.eyebrow',
-          ),
+          validate:
+            createStep(
+              'validate',
+              '04',
+              [
+                'approval',
+                'adjustments',
+                'decision',
+              ],
+            ),
+        }}
 
-        title:
-          t(
-            'prototype.title',
-          ),
+        validationLoop={{
+          label:
+            t(
+              'validationLoop.label',
+            ),
 
-        description:
-          t(
-            'prototype.description',
-          ),
-
-        demo: {
           title:
             t(
-              'prototype.demo.title',
+              'validationLoop.title',
             ),
 
           description:
             t(
-              'prototype.demo.description',
+              'validationLoop.description',
             ),
-        },
 
-        poc: {
+          returnLabel:
+            t(
+              'validationLoop.returnLabel',
+            ),
+        }}
+
+        decision={{
+          eyebrow:
+            t(
+              'decision.eyebrow',
+            ),
+
           title:
             t(
-              'prototype.poc.title',
+              'decision.title',
             ),
 
           description:
             t(
-              'prototype.poc.description',
+              'decision.description',
             ),
-        },
 
-        mvp: {
+          product: {
+            label:
+              t(
+                'decision.product.label',
+              ),
+
+            title:
+              t(
+                'decision.product.title',
+              ),
+
+            description:
+              t(
+                'decision.product.description',
+              ),
+
+            points:
+              getPoints(
+                t,
+                'decision.product',
+                [
+                  'configuration',
+                  'integration',
+                  'deployment',
+                ],
+              ),
+          },
+
+          custom: {
+            label:
+              t(
+                'decision.custom.label',
+              ),
+
+            title:
+              t(
+                'decision.custom.title',
+              ),
+
+            description:
+              t(
+                'decision.custom.description',
+              ),
+
+            points:
+              getPoints(
+                t,
+                'decision.custom',
+                [
+                  'design',
+                  'experience',
+                  'architecture',
+                ],
+              ),
+          },
+
+          convergence:
+            t(
+              'decision.convergence',
+            ),
+        }}
+
+        prototype={{
+          number:
+            '05',
+
+          eyebrow:
+            t(
+              'prototype.eyebrow',
+            ),
+
           title:
             t(
-              'prototype.mvp.title',
+              'prototype.title',
             ),
 
           description:
             t(
-              'prototype.mvp.description',
+              'prototype.description',
             ),
-        },
 
-        conclusion:
-          t(
-            'prototype.conclusion',
-          ),
-      }}
-      delivery={
-        createStep(
-          'delivery',
-          '06',
-          [
-            'increments',
-            'reviews',
-            'quality',
+          demo: {
+            title:
+              t(
+                'prototype.demo.title',
+              ),
+
+            description:
+              t(
+                'prototype.demo.description',
+              ),
+          },
+
+          poc: {
+            title:
+              t(
+                'prototype.poc.title',
+              ),
+
+            description:
+              t(
+                'prototype.poc.description',
+              ),
+          },
+
+          mvp: {
+            title:
+              t(
+                'prototype.mvp.title',
+              ),
+
+            description:
+              t(
+                'prototype.mvp.description',
+              ),
+          },
+
+          conclusion:
+            t(
+              'prototype.conclusion',
+            ),
+        }}
+
+        delivery={
+          createStep(
+            'delivery',
+            '06',
+            [
+              'increments',
+              'reviews',
+              'quality',
+            ],
+          )
+        }
+
+        testing={{
+          eyebrow:
+            t(
+              'testing.eyebrow',
+            ),
+
+          title:
+            t(
+              'testing.title',
+            ),
+
+          description:
+            t(
+              'testing.description',
+            ),
+
+          items: [
+            {
+              title:
+                t(
+                  'testing.items.environment.title',
+                ),
+
+              description:
+                t(
+                  'testing.items.environment.description',
+                ),
+            },
+
+            {
+              title:
+                t(
+                  'testing.items.access.title',
+                ),
+
+              description:
+                t(
+                  'testing.items.access.description',
+                ),
+            },
+
+            {
+              title:
+                t(
+                  'testing.items.followUp.title',
+                ),
+
+              description:
+                t(
+                  'testing.items.followUp.description',
+                ),
+            },
           ],
-        )
-      }
-      testing={{
-        eyebrow:
-          t(
-            'testing.eyebrow',
-          ),
+        }}
 
-        title:
-          t(
-            'testing.title',
-          ),
+        launch={
+          createStep(
+            'launch',
+            '07',
+            [
+              'deployment',
+              'support',
+              'evolution',
+            ],
+          )
+        }
 
-        description:
-          t(
-            'testing.description',
-          ),
+        finalCta={{
+          eyebrow:
+            t(
+              'finalCta.eyebrow',
+            ),
 
-        items: [
-          {
-            title:
-              t(
-                'testing.items.environment.title',
-              ),
+          title:
+            t(
+              'finalCta.title',
+            ),
 
-            description:
-              t(
-                'testing.items.environment.description',
-              ),
-          },
+          description:
+            t(
+              'finalCta.description',
+            ),
 
-          {
-            title:
-              t(
-                'testing.items.access.title',
-              ),
-
-            description:
-              t(
-                'testing.items.access.description',
-              ),
-          },
-
-          {
-            title:
-              t(
-                'testing.items.followUp.title',
-              ),
-
-            description:
-              t(
-                'testing.items.followUp.description',
-              ),
-          },
-        ],
-      }}
-      launch={
-        createStep(
-          'launch',
-          '07',
-          [
-            'deployment',
-            'support',
-            'evolution',
-          ],
-        )
-      }
-      finalCta={{
-        eyebrow:
-          t(
-            'finalCta.eyebrow',
-          ),
-
-        title:
-          t(
-            'finalCta.title',
-          ),
-
-        description:
-          t(
-            'finalCta.description',
-          ),
-
-        button:
-          t(
-            'finalCta.button',
-          ),
-      }}
-    />
+          button:
+            t(
+              'finalCta.button',
+            ),
+        }}
+      />
+    </>
   );
 }

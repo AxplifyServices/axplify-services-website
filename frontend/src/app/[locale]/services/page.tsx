@@ -20,6 +20,10 @@ import {
   createPageMetadata,
 } from '@/lib/seo';
 
+import {
+  createServicesStructuredData,
+} from '@/lib/service-structured-data';
+
 type PageProps = {
   params:
     Promise<{
@@ -188,98 +192,139 @@ export default async function ServicesPage({
       }),
     );
 
+  const servicesStructuredData =
+    createServicesStructuredData({
+      locale,
+
+      services:
+        services.map(
+          service => ({
+            id:
+              service.id,
+
+            shortTitle:
+              service.shortTitle,
+
+            title:
+              service.title,
+
+            description:
+              service.description,
+          }),
+        ),
+    });
+
   return (
-    <ServicesPageContent
-      hero={{
-        eyebrow:
-          t(
-            'hero.eyebrow',
-          ),
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html:
+            JSON.stringify(
+              servicesStructuredData,
+            ).replace(
+              /</g,
+              '\\u003c',
+            ),
+        }}
+      />
 
-        title:
-          t(
-            'hero.title',
-          ),
+      <ServicesPageContent
+        hero={{
+          eyebrow:
+            t(
+              'hero.eyebrow',
+            ),
 
-        introduction:
-          t(
-            'hero.introduction',
-          ),
+          title:
+            t(
+              'hero.title',
+            ),
 
-        description:
-          t(
-            'hero.description',
-          ),
+          introduction:
+            t(
+              'hero.introduction',
+            ),
 
-        navigationCta:
-          t(
-            'hero.navigationCta',
-          ),
-      }}
-      navigation={{
-        label:
-          t(
-            'navigation.label',
-          ),
+          description:
+            t(
+              'hero.description',
+            ),
 
-        title:
-          t(
-            'navigation.title',
-          ),
+          navigationCta:
+            t(
+              'hero.navigationCta',
+            ),
+        }}
 
-        openLabel:
-          t(
-            'navigation.openLabel',
-          ),
+        navigation={{
+          label:
+            t(
+              'navigation.label',
+            ),
 
-        closeLabel:
-          t(
-            'navigation.closeLabel',
-          ),
-      }}
-      services={
-        services
-      }
-      method={{
-        eyebrow:
-          t(
-            'method.eyebrow',
-          ),
+          title:
+            t(
+              'navigation.title',
+            ),
 
-        title:
-          t(
-            'method.title',
-          ),
+          openLabel:
+            t(
+              'navigation.openLabel',
+            ),
 
-        description:
-          t(
-            'method.description',
-          ),
+          closeLabel:
+            t(
+              'navigation.closeLabel',
+            ),
+        }}
 
-        items:
-          methodItems,
-      }}
-      finalCta={{
-        eyebrow:
-          t(
-            'finalCta.eyebrow',
-          ),
+        services={
+          services
+        }
 
-        title:
-          t(
-            'finalCta.title',
-          ),
+        method={{
+          eyebrow:
+            t(
+              'method.eyebrow',
+            ),
 
-        description:
-          t(
-            'finalCta.description',
-          ),
+          title:
+            t(
+              'method.title',
+            ),
 
-        secondaryCta:
-          t(
-            'finalCta.secondaryCta',
-          ),
-      }}
-    />
+          description:
+            t(
+              'method.description',
+            ),
+
+          items:
+            methodItems,
+        }}
+
+        finalCta={{
+          eyebrow:
+            t(
+              'finalCta.eyebrow',
+            ),
+
+          title:
+            t(
+              'finalCta.title',
+            ),
+
+          description:
+            t(
+              'finalCta.description',
+            ),
+
+          secondaryCta:
+            t(
+              'finalCta.secondaryCta',
+            ),
+        }}
+      />
+    </>
   );
 }
