@@ -180,8 +180,8 @@
       "title": "Accueil",
       "description": "Axplify Services transforme les besoins métier en solutions digitales concrètes, utiles et durables.",
       "seo": {
-        "title": "Transformation digitale, IA et Data",
-        "description": "Axplify Services accompagne les entreprises dans la simplification de leurs processus, la valorisation de leurs données et le développement de solutions digitales adaptées."
+        "title": "Transformation digitale, IA, Data et automatisation",
+        "description": "Transformez vos processus, vos données et vos idées en solutions concrètes avec Axplify Services : développement, IA, Data, automatisation et produits digitaux."
       },
       "brochures": {
         "previous": "Brochure précédente",
@@ -482,7 +482,7 @@
       },
       "seo": {
         "title": "Services digitaux, Data, IA et Marketing",
-        "description": "Découvrez les services Axplify Services : développement web et mobile, automatisation, data, IA, CRM, analytics, génération de leads et stratégie marketing."
+        "description": "De l’idée au déploiement, Axplify Services accompagne vos projets avec du développement web et mobile, de l’IA, de la Data, de l’automatisation, du CRM et du marketing."
       }
     },
     "products": {
@@ -516,8 +516,8 @@
         "description": "Notre catalogue est en cours d’évolution. Revenez prochainement pour découvrir les nouvelles solutions Axplify."
       },
       "seo": {
-        "title": "Produits digitaux pour les entreprises",
-        "description": "Découvrez les produits Axplify Services conçus pour structurer les opérations, améliorer le pilotage et accompagner la croissance des entreprises."
+        "title": "Produits digitaux pour simplifier et faire grandir votre entreprise",
+        "description": "Découvrez les produits Axplify Services conçus pour automatiser vos opérations, mieux piloter votre activité et transformer des besoins métier en solutions immédiatement exploitables."
       }
     },
     "about": {
@@ -525,8 +525,8 @@
       "title": "À propos d’Axplify Services",
       "description": "Découvrez l’histoire, la mission, la vision et le modèle d’Axplify Services.",
       "seo": {
-        "title": "À propos | Transformation digitale et innovation",
-        "description": "Découvrez comment Axplify Services transforme les besoins métier en solutions digitales utiles, évolutives et conçues pour soutenir durablement les entreprises."
+        "title": "À propos | Une autre façon de construire le digital",
+        "description": "Découvrez Axplify Services : une approche qui part de vos vrais besoins pour construire des solutions digitales, Data et IA utiles, évolutives et pensées pour votre croissance."
       },
       "hero": {
         "eyebrow": "À propos d’Axplify Services",
@@ -757,8 +757,8 @@
         "button": "Présenter mon besoin"
       },
       "seo": {
-        "title": "Notre méthodologie de travail",
-        "description": "Découvrez la méthodologie Axplify Services : compréhension et validation du besoin, démonstration, POC ou MVP, produit existant ou développement sur mesure, environnement de test et suivi régulier."
+        "title": "Notre méthodologie | De votre besoin à une solution concrète",
+        "description": "Nous avançons étape par étape : comprendre votre besoin, valider la direction, tester rapidement avec une démo, un POC ou un MVP, puis construire et améliorer la solution avec vous."
       }
     },
     "insights": {
@@ -767,7 +767,7 @@
       "description": "Découvrez les analyses, actualités, études de cas et ressources qui permettent de mieux comprendre les usages du digital, de la Data et de l’intelligence artificielle.",
       "seo": {
         "title": "Articles et actualités sur le digital, l’IA et la Data",
-        "description": "Retrouvez les articles, conseils, études de cas et actualités d’Axplify Services sur la digitalisation, l’automatisation, l’IA et la Data."
+        "description": "Conseils, retours d’expérience, études de cas et actualités : découvrez comment le digital, l’IA, la Data et l’automatisation peuvent résoudre des problèmes métier concrets."
       },
       "types": {
         "ARTICLE": "Article",
@@ -799,7 +799,7 @@
     "projects": {
       "seo": {
         "title": "Nos réalisations | Projets digitaux, Data et IA",
-        "description": "Découvrez les projets réalisés par Axplify Services : plateformes digitales, automatisation, data, intelligence artificielle, CRM, analytics et stratégie marketing."
+        "description": "Découvrez comment Axplify Services transforme des besoins métier en plateformes digitales, automatisations, solutions Data, IA, CRM et outils de pilotage concrets."
       },
       "hero": {
         "eyebrow": "Des projets pensés pour être utiles",
@@ -912,8 +912,8 @@
     },
     "reviews": {
       "seo": {
-        "title": "Avis clients | Expériences et résultats",
-        "description": "Découvrez les témoignages de clients ayant collaboré avec Axplify Services sur leurs projets digitaux, Data, IA, automatisation et transformation métier."
+        "title": "Avis clients | Ce que nos collaborations ont changé",
+        "description": "Découvrez les retours de clients accompagnés par Axplify Services et ce qu’ils retiennent de nos projets digitaux, Data, IA et automatisation."
       },
       "hero": {
         "eyebrow": "Ils racontent leur expérience",
@@ -966,13 +966,13 @@
       },
       "seo": {
         "title": "Questions fréquentes",
-        "description": "Retrouvez les réponses aux questions fréquentes sur les solutions Axplify, les projets sur mesure, les démos, POC et MVP, les délais, les intégrations et l’accompagnement."
+        "description": "Vous avez une idée, un besoin ou un projet ? Retrouvez les réponses sur nos solutions, les développements sur mesure, les démos, POC, MVP, délais, intégrations et modalités d’accompagnement."
       }
     },
     "contact": {
       "seo": {
         "title": "Nous contacter",
-        "description": "Présentez votre besoin à Axplify Services, proposez vos disponibilités pour un rendez-vous ou contactez-nous directement sur WhatsApp."
+        "description": "Parlez-nous de votre besoin, même s’il n’est pas encore totalement défini. Axplify Services vous aide à clarifier votre projet et à identifier la solution la plus adaptée."
       },
       "content": {
         "hero": {

@@ -180,8 +180,8 @@
       "title": "Home",
       "description": "Axplify Services turns business needs into practical, valuable and sustainable digital solutions.",
       "seo": {
-        "title": "Digital transformation, AI and Data",
-        "description": "Axplify Services helps companies simplify their processes, unlock the value of their data and build digital solutions adapted to their objectives."
+        "title": "Digital transformation, AI, Data and automation",
+        "description": "Turn your processes, data and ideas into practical solutions with Axplify Services through development, AI, Data, automation and digital products."
       },
       "brochures": {
         "previous": "Previous brochure",
@@ -482,7 +482,7 @@
       },
       "seo": {
         "title": "Digital, Data, AI and Marketing Services",
-        "description": "Discover Axplify Services solutions for web and mobile development, automation, data, artificial intelligence, CRM, analytics, lead generation and marketing strategy."
+        "description": "From idea to deployment, Axplify Services supports your projects with web and mobile development, AI, Data, automation, CRM and marketing."
       }
     },
     "products": {
@@ -516,8 +516,8 @@
         "description": "Our catalogue is evolving. Come back soon to discover new Axplify solutions."
       },
       "seo": {
-        "title": "Digital products for businesses",
-        "description": "Discover Axplify Services products designed to structure operations, improve management and support sustainable business growth."
+        "title": "Digital products to simplify and grow your business",
+        "description": "Discover Axplify Services products built to automate operations, improve business management and turn real business needs into ready-to-use digital solutions."
       }
     },
     "about": {
@@ -525,8 +525,8 @@
       "title": "About Axplify Services",
       "description": "Discover the story, mission, vision and business model of Axplify Services.",
       "seo": {
-        "title": "About us | Digital transformation and innovation",
-        "description": "Discover how Axplify Services turns business needs into practical, scalable digital solutions designed to support sustainable growth."
+        "title": "About us | A different way to build digital solutions",
+        "description": "Discover Axplify Services and an approach that starts with real business needs to build useful, scalable digital, Data and AI solutions designed for growth."
       },
       "hero": {
         "eyebrow": "About Axplify Services",
@@ -757,8 +757,8 @@
         "button": "Present my need"
       },
       "seo": {
-        "title": "Our work process",
-        "description": "Discover the Axplify Services methodology: understanding and approving the need, demo, POC or MVP, existing product or custom development, testing environment and regular follow-up."
+        "title": "Our methodology | From business need to practical solution",
+        "description": "We move step by step: understand your needs, validate the direction, test quickly with a demo, POC or MVP, then build and improve the solution with you."
       }
     },
     "insights": {
@@ -767,7 +767,7 @@
       "description": "Explore analyses, news, case studies and resources that clarify how digital technology, Data and artificial intelligence can support business transformation.",
       "seo": {
         "title": "Digital, AI and Data articles and news",
-        "description": "Explore Axplify Services articles, advice, case studies and news about digital transformation, automation, artificial intelligence and Data."
+        "description": "Explore advice, experience, case studies and news showing how digital technology, AI, Data and automation can solve real business challenges."
       },
       "imageViewer": {
         "open": "Enlarge image",
@@ -799,7 +799,7 @@
     "projects": {
       "seo": {
         "title": "Our work | Digital, Data and AI projects",
-        "description": "Discover projects delivered by Axplify Services across digital platforms, automation, data, artificial intelligence, CRM, analytics and marketing strategy."
+        "description": "See how Axplify Services turns business needs into digital platforms, automation, Data and AI solutions, CRM systems and practical management tools."
       },
       "hero": {
         "eyebrow": "Projects designed to deliver real value",
@@ -912,8 +912,8 @@
     },
     "reviews": {
       "seo": {
-        "title": "Client reviews | Experiences and results",
-        "description": "Discover what clients say about working with Axplify Services on digital, Data, AI, automation and business transformation projects."
+        "title": "Client reviews | What our collaborations changed",
+        "description": "Discover feedback from clients supported by Axplify Services and what they experienced through our digital, Data, AI and automation projects."
       },
       "hero": {
         "eyebrow": "Their experience, in their own words",
@@ -966,13 +966,13 @@
       },
       "seo": {
         "title": "Frequently asked questions",
-        "description": "Find answers about Axplify solutions, custom projects, demos, POCs and MVPs, timelines, integrations and ongoing support."
+        "description": "Have an idea, need or project? Find answers about our solutions, custom development, demos, POCs, MVPs, timelines, integrations and support."
       }
     },
     "contact": {
       "seo": {
         "title": "Contact us",
-        "description": "Tell Axplify Services about your needs, suggest times for a meeting or contact us directly on WhatsApp."
+        "description": "Tell us about your need, even if it is not fully defined yet. Axplify Services can help clarify your project and identify the right solution."
       },
       "content": {
         "hero": {
