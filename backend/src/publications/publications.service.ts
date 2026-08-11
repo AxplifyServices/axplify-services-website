@@ -1708,22 +1708,71 @@ export class PublicationsService {
       return null;
     }
 
-    const translation =
-      publication
-        .publication_translations
-        .find(
-          item =>
-            item.locale ===
-            resolvedLocale,
-        );
+const translation =
+  publication
+    .publication_translations
+    .find(
+      item =>
+        item.locale ===
+        resolvedLocale,
+    );
 
-    if (
-      !translation
-    ) {
-      return null;
-    }
+if (
+  !translation
+) {
+  return null;
+}
 
-    const resolvedMedia =
+/*
+ * On expose uniquement les traductions réellement stockées.
+ *
+ * L'arabe n'est volontairement pas ajouté ici :
+ * les publications AR utilisent actuellement le fallback EN puis FR.
+ *
+ * Cela permet au frontend de construire des canonical/hreflang
+ * fiables sans annoncer une traduction qui n'existe pas.
+ */
+const localizedVersions =
+  Object.fromEntries(
+    PUBLICATION_LOCALES.map(
+      locale => {
+        const localizedTranslation =
+          publication
+            .publication_translations
+            .find(
+              item =>
+                item.locale ===
+                locale,
+            );
+
+        return [
+          locale,
+
+          localizedTranslation
+            ? {
+                slug:
+                  localizedTranslation.slug,
+
+                canonicalUrl:
+                  localizedTranslation
+                    .canonical_url,
+              }
+            : null,
+        ];
+      },
+    ),
+  ) as Record<
+    PublicationLocale,
+    {
+      slug:
+        string;
+
+      canonicalUrl:
+        string | null;
+    } | null
+  >;
+
+const resolvedMedia =
       this.resolvePublicMedia(
         publication
           .publication_media,
@@ -1895,24 +1944,26 @@ const clientName =
           ? translation.body
           : undefined,
 
-      seo: {
-        title:
-          translation.seo_title ??
-          translation.title,
+seo: {
+  title:
+    translation.seo_title ??
+    translation.title,
 
-        description:
-          translation.seo_description ??
-          translation.excerpt,
+  description:
+    translation.seo_description ??
+    translation.excerpt,
 
-        canonicalUrl:
-          translation.canonical_url,
+  canonicalUrl:
+    translation.canonical_url,
 
-        allowIndexing:
-          publication.allow_indexing,
-      },
+  allowIndexing:
+    publication.allow_indexing,
+},
 
-      coverMedia:
-        mappedCoverMedia,
+localizedVersions,
+
+coverMedia:
+  mappedCoverMedia,
 
       media:
         mappedMedia,

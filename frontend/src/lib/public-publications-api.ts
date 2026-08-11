@@ -90,22 +90,40 @@ export type PublicPublication = {
   body?:
     string;
 
-  seo: {
-    title:
-      string;
+seo: {
+  title:
+    string;
 
-    description:
+  description:
+    string;
+
+  canonicalUrl:
+    string | null;
+
+  allowIndexing:
+    boolean;
+};
+
+localizedVersions: {
+  fr: {
+    slug:
       string;
 
     canonicalUrl:
       string | null;
+  } | null;
 
-    allowIndexing:
-      boolean;
-  };
+  en: {
+    slug:
+      string;
 
-  coverMedia:
-    PublicPublicationMedia | null;
+    canonicalUrl:
+      string | null;
+  } | null;
+};
+
+coverMedia:
+  PublicPublicationMedia | null;
 
   media?:
     PublicPublicationMedia[];
@@ -377,6 +395,53 @@ function normalizeMedia(
   };
 }
 
+function normalizeLocalizedVersion(
+  value:
+    unknown,
+):
+  {
+    slug:
+      string;
+
+    canonicalUrl:
+      string | null;
+  } |
+  null {
+  if (
+    !value ||
+    typeof value !==
+      'object'
+  ) {
+    return null;
+  }
+
+  const version =
+    value as Record<
+      string,
+      unknown
+    >;
+
+  const slug =
+    asString(
+      version.slug,
+    );
+
+  if (
+    !slug
+  ) {
+    return null;
+  }
+
+  return {
+    slug,
+
+    canonicalUrl:
+      asNullableString(
+        version.canonicalUrl,
+      ),
+  };
+}
+
 function normalizePublication(
   value:
     unknown,
@@ -442,6 +507,16 @@ function normalizePublication(
           unknown
         >
       : {};
+
+const rawLocalizedVersions =
+  publication.localizedVersions &&
+  typeof publication.localizedVersions ===
+    'object'
+    ? publication.localizedVersions as Record<
+        string,
+        unknown
+      >
+    : {};      
 
   const rawTags =
     Array.isArray(
@@ -579,30 +654,42 @@ function normalizePublication(
         ? publication.body
         : undefined,
 
-    seo: {
-      title:
-        asString(
-          seo.title,
-        ) ||
-        title,
+seo: {
+  title:
+    asString(
+      seo.title,
+    ) ||
+    title,
 
-      description:
-        asString(
-          seo.description,
-        ) ||
-        excerpt,
+  description:
+    asString(
+      seo.description,
+    ) ||
+    excerpt,
 
-      canonicalUrl:
-        asNullableString(
-          seo.canonicalUrl,
-        ),
+  canonicalUrl:
+    asNullableString(
+      seo.canonicalUrl,
+    ),
 
-      allowIndexing:
-        seo.allowIndexing !==
-        false,
-    },
+  allowIndexing:
+    seo.allowIndexing !==
+    false,
+},
 
-    coverMedia,
+localizedVersions: {
+  fr:
+    normalizeLocalizedVersion(
+      rawLocalizedVersions.fr,
+    ),
+
+  en:
+    normalizeLocalizedVersion(
+      rawLocalizedVersions.en,
+    ),
+},
+
+coverMedia,
 
     media,
 
