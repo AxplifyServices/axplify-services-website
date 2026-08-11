@@ -559,7 +559,7 @@ export function ProjectsManager() {
 
         parameters.set(
           'limit',
-          '20',
+          '10',
         );
 
         if (
