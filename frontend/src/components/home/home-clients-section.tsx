@@ -83,31 +83,46 @@ function LogoRow({
       ],
     );
 
-  function pauseAnimation(
-    event:
-      ReactPointerEvent<HTMLButtonElement>,
+function pauseAnimation(
+  event:
+    ReactPointerEvent<HTMLButtonElement>,
+) {
+  /*
+   * Sur mobile, un contact tactile fait partie
+   * du scroll naturel de la page.
+   *
+   * Il ne doit donc jamais être interprété
+   * comme une demande de mise en pause
+   * du carrousel.
+   */
+  if (
+    event.pointerType ===
+    'touch'
   ) {
-    /*
-     * Pour une souris, seul le bouton principal
-     * doit déclencher la mise en pause.
-     */
-    if (
-      event.pointerType ===
-        'mouse' &&
-      event.button !==
-        0
-    ) {
-      return;
-    }
-
-    event.currentTarget.setPointerCapture(
-      event.pointerId,
-    );
-
-    setIsPressed(
-      true,
-    );
+    return;
   }
+
+  /*
+   * Avec une souris, seul le bouton principal
+   * peut mettre l'animation en pause.
+   */
+  if (
+    event.pointerType ===
+      'mouse' &&
+    event.button !==
+      0
+  ) {
+    return;
+  }
+
+  event.currentTarget.setPointerCapture(
+    event.pointerId,
+  );
+
+  setIsPressed(
+    true,
+  );
+}
 
   function resumeAnimation(
     event:

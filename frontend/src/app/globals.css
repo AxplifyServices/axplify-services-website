@@ -2942,7 +2942,7 @@ html[dir="rtl"]
   width: 100%;
   display: block;
   overflow: hidden;
-  cursor: pointer;
+  cursor: default;
   border: 0;
   padding:
     0.35rem
@@ -2954,6 +2954,12 @@ html[dir="rtl"]
   user-select: none;
   touch-action: pan-y;
   -webkit-tap-highlight-color: transparent;  
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .home-clients__row {
+    cursor: pointer;
+  }
 }
 
 .home-clients__row:focus-visible {
@@ -3100,10 +3106,12 @@ html[dir="rtl"]
     margin-top: 2rem;
   }
 
-  .home-clients__track {
-    gap: 0.7rem;
-    animation-duration: 27s;
-  }
+.home-clients__track {
+  gap: 0.7rem;
+  animation-duration: 32s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
 
   .home-clients__logo-card {
     width: 12rem;
@@ -3131,9 +3139,13 @@ html[dir="rtl"]
 
   .home-clients__row {
     overflow-x: auto;
-    scrollbar-width: thin;
+    scrollbar-width: none;
     touch-action: pan-x pan-y;
     -webkit-overflow-scrolling: touch;
+  }
+
+  .home-clients__row::-webkit-scrollbar {
+    display: none;
   }
 }
 
