@@ -3403,7 +3403,7 @@ html[dir="rtl"]
   max-width: 44rem;
 }
 
-.home-about__content h2 {
+.home-about__content h1 {
   margin:
     0
     0
@@ -5821,7 +5821,7 @@ p {
       4.5rem;
   }
 
-.home-about__content h2 {
+.home-about__content h1 {
   max-width: 18ch;
   font-size:
     clamp(

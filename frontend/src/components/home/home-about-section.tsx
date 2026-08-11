@@ -56,13 +56,13 @@ export function HomeAboutSection({
   className="home-about__content"
   data-reveal="right"
 >
-<h2
+<h1
   id="home-about-title"
   data-reveal="up"
   data-reveal-delay="1"
 >
-            {title}
-          </h2>
+  {title}
+</h1>
 
 <p
   className="home-about__lead"
