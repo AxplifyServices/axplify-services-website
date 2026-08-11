@@ -711,11 +711,21 @@ setView(
                     )
                 }
               >
-                <p className="cookie-consent__empty-provider">
-                  {t(
-                    'providers.noneConfigured',
-                  )}
-                </p>
+<div className="cookie-consent__provider">
+  <div>
+    <strong>
+      {t(
+        'providers.linkedinInsight.name',
+      )}
+    </strong>
+
+    <p>
+      {t(
+        'providers.linkedinInsight.purpose',
+      )}
+    </p>
+  </div>
+</div>
               </ConsentCategory>
             </div>
 

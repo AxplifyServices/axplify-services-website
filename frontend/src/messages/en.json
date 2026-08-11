@@ -72,19 +72,20 @@
   },
 "providers": {
   "axplify": {
-    "purpose": "Stores your consent choice.",
-    "cookie": "axplify_consent"
+    "purpose": "Stores your consent choice."
   },
   "googleAnalytics": {
     "name": "Google Analytics",
-    "purpose": "Measures audience, page views, engagement and conversions.",
-    "cookies": "_ga, _ga_*"
+    "purpose": "Measures audience, page views, engagement and conversions."
   },
   "microsoftClarity": {
     "name": "Microsoft Clarity",
-    "purpose": "Provides behavioural analytics, session recordings and heatmaps to help us understand how the website is used.",
-    "cookies": "_clck, _clsk"
+    "purpose": "Provides behavioural analytics, session recordings and heatmaps to help us understand how the website is used."
   },
+  "linkedinInsight": {
+  "name": "LinkedIn Insight Tag",
+  "purpose": "Measures LinkedIn advertising performance, tracks conversions, builds retargeting audiences and provides aggregated professional audience insights."
+},
   "noneConfigured": "No third-party service in this category is currently enabled on the website."
 }
 },
