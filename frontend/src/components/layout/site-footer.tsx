@@ -23,6 +23,11 @@ import {
   CookiePreferencesButton,
 } from '@/components/analytics/cookie-preferences-button';
 
+import {
+  ORGANIZATION_LINKEDIN_URL,
+  ORGANIZATION_WHATSAPP_NUMBER,
+} from '@/lib/site-config';
+
 const primaryLinks = [
   {
     href: '/',
@@ -65,11 +70,6 @@ const companyLinks = [
   },
 ] as const;
 
-const linkedInUrl =
-  'https://www.linkedin.com/company/axplify-services/home';
-
-const whatsappUrl =
-  'https://wa.me/212688194555';
 
 export async function SiteFooter() {
   const locale =
@@ -140,9 +140,9 @@ export async function SiteFooter() {
             )}
           >
             <a
-              href={
-                linkedInUrl
-              }
+href={
+  ORGANIZATION_LINKEDIN_URL
+}
               target="_blank"
               rel="noopener noreferrer"
               className="site-footer__social-link"
@@ -158,9 +158,9 @@ export async function SiteFooter() {
             </a>
 
             <a
-              href={
-                whatsappUrl
-              }
+href={
+  `https://wa.me/${ORGANIZATION_WHATSAPP_NUMBER}`
+}
               target="_blank"
               rel="noopener noreferrer"
               className="site-footer__social-link"

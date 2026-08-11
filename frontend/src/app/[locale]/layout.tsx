@@ -29,6 +29,11 @@ import {
 } from '@/i18n/routing';
 
 import {
+  ORGANIZATION_ID,
+  ORGANIZATION_LINKEDIN_URL,
+  ORGANIZATION_LOGO_URL,
+  ORGANIZATION_NAME,
+  ORGANIZATION_PHONE,
   SITE_URL,
 } from '@/lib/site-config';
 
@@ -159,6 +164,57 @@ export default async function LocaleLayout({
       ? 'rtl'
       : 'ltr';
 
+const organizationDescription =
+  locale === 'fr'
+    ? 'Axplify Services accompagne les entreprises dans leur transformation digitale en combinant développement web et mobile, automatisation, data, intelligence artificielle, CRM, analytics et stratégie marketing.'
+    : locale === 'ar'
+      ? 'تساعد Axplify Services الشركات على تطوير أعمالها رقمياً من خلال تطوير تطبيقات الويب والهاتف والأتمتة والبيانات والذكاء الاصطناعي وإدارة علاقات العملاء والتحليلات والاستراتيجية التسويقية.'
+      : 'Axplify Services helps businesses transform their operations through web and mobile development, automation, data, artificial intelligence, CRM, analytics and marketing strategy.';
+
+const organizationStructuredData = {
+  '@context':
+    'https://schema.org',
+
+  '@type':
+    'Organization',
+
+  '@id':
+    ORGANIZATION_ID,
+
+  name:
+    ORGANIZATION_NAME,
+
+  url:
+    SITE_URL,
+
+  logo:
+    ORGANIZATION_LOGO_URL,
+
+  description:
+    organizationDescription,
+
+  sameAs: [
+    ORGANIZATION_LINKEDIN_URL,
+  ],
+
+  contactPoint: {
+    '@type':
+      'ContactPoint',
+
+    telephone:
+      ORGANIZATION_PHONE,
+
+    contactType:
+      'sales',
+
+    availableLanguage: [
+      'French',
+      'English',
+      'Arabic',
+    ],
+  },
+};      
+
   return (
     <html
       lang={
@@ -169,7 +225,20 @@ export default async function LocaleLayout({
       }
       suppressHydrationWarning
     >
-      <body>
+<body>
+  <script
+    type="application/ld+json"
+    dangerouslySetInnerHTML={{
+      __html:
+        JSON.stringify(
+          organizationStructuredData,
+        ).replace(
+          /</g,
+          '\\u003c',
+        ),
+    }}
+  />
+
 <NextIntlClientProvider
   messages={
     messages
