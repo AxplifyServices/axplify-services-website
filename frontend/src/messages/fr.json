@@ -70,13 +70,23 @@
     "cancel": "Annuler",
     "close": "Fermer les préférences de cookies"
   },
-  "providers": {
-    "axplify": {
-      "purpose": "Mémorisation de votre choix de consentement.",
-      "cookie": "axplify_consent"
-    },
-    "noneConfigured": "Aucun service tiers de cette catégorie n’est encore activé sur le site."
-  }
+"providers": {
+  "axplify": {
+    "purpose": "Mémorisation de votre choix de consentement.",
+    "cookie": "axplify_consent"
+  },
+  "googleAnalytics": {
+    "name": "Google Analytics",
+    "purpose": "Mesure de l’audience, des pages consultées, de l’engagement et des conversions.",
+    "cookies": "_ga, _ga_*"
+  },
+  "microsoftClarity": {
+    "name": "Microsoft Clarity",
+    "purpose": "Analyse comportementale, enregistrements de sessions et cartes de chaleur afin de mieux comprendre l’utilisation du site.",
+    "cookies": "_clck, _clsk"
+  },
+  "noneConfigured": "Aucun service tiers de cette catégorie n’est encore activé sur le site."
+}
 },
   "pages": {
 "home": {

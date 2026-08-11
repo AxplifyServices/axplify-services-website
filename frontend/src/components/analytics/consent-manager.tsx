@@ -584,67 +584,88 @@ setView(
                       )}
                     </p>
                   </div>
-
-                  <code>
-                    {t(
-                      'providers.axplify.cookie',
-                    )}
-                  </code>
                 </div>
               </ConsentCategory>
 
-              <ConsentCategory
-                title={t(
-                  'categories.analytics.title',
-                )}
-                description={t(
-                  'categories.analytics.description',
-                )}
-                expanded={
-                  expandedCategory ===
-                  'analytics'
-                }
-                onToggleDetails={
-                  () =>
-                    toggleExpandedCategory(
-                      'analytics',
-                    )
-                }
-                detailsLabel={
-                  expandedCategory ===
-                  'analytics'
-                    ? t(
-                        'actions.hideServices',
-                      )
-                    : t(
-                        'actions.showServices',
-                      )
-                }
-                checked={
-                  preferences.analytics
-                }
-                onCheckedChange={
-                  (
-                    checked,
-                  ) =>
-                    setPreferences(
-                      (
-                        current,
-                      ) => ({
-                        ...current,
-                        analytics:
-                          checked,
-                      }),
-                    )
-                }
-              >
-                <p className="cookie-consent__empty-provider">
-                  {t(
-                    'providers.noneConfigured',
-                  )}
-                </p>
-              </ConsentCategory>
+<ConsentCategory
+  title={t(
+    'categories.analytics.title',
+  )}
+  description={t(
+    'categories.analytics.description',
+  )}
+  expanded={
+    expandedCategory ===
+    'analytics'
+  }
+  onToggleDetails={
+    () =>
+      toggleExpandedCategory(
+        'analytics',
+      )
+  }
+  detailsLabel={
+    expandedCategory ===
+    'analytics'
+      ? t(
+          'actions.hideServices',
+        )
+      : t(
+          'actions.showServices',
+        )
+  }
+  checked={
+    preferences.analytics
+  }
+  onCheckedChange={
+    (
+      checked,
+    ) =>
+      setPreferences(
+        (
+          current,
+        ) => ({
+          ...current,
+          analytics:
+            checked,
+        }),
+      )
+  }
+>
+  <div className="cookie-consent__provider">
+    <div>
+      <strong>
+        {t(
+          'providers.googleAnalytics.name',
+        )}
+      </strong>
 
+      <p>
+        {t(
+          'providers.googleAnalytics.purpose',
+        )}
+      </p>
+    </div>
+  </div>
+
+  <div className="cookie-consent__provider">
+    <div>
+      <strong>
+        {t(
+          'providers.microsoftClarity.name',
+        )}
+      </strong>
+
+      <p>
+        {t(
+          'providers.microsoftClarity.purpose',
+        )}
+      </p>
+    </div>
+
+
+  </div>
+</ConsentCategory>
               <ConsentCategory
                 title={t(
                   'categories.marketing.title',

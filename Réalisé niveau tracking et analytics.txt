@@ -5,3 +5,4 @@
 5. email_click
 6. phone_click
 7. contact_success comme événement clé
+8. Heatmap Microsoft et sauvegarde sessions

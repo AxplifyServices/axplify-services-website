@@ -70,13 +70,23 @@
     "cancel": "إلغاء",
     "close": "إغلاق تفضيلات ملفات تعريف الارتباط"
   },
-  "providers": {
-    "axplify": {
-      "purpose": "حفظ اختياركم المتعلق بالموافقة.",
-      "cookie": "axplify_consent"
-    },
-    "noneConfigured": "لا توجد حالياً خدمة خارجية مفعلة ضمن هذه الفئة على الموقع."
-  }
+"providers": {
+  "axplify": {
+    "purpose": "حفظ اختياركم المتعلق بالموافقة.",
+    "cookie": "axplify_consent"
+  },
+  "googleAnalytics": {
+    "name": "Google Analytics",
+    "purpose": "قياس الزيارات والصفحات المشاهدة والتفاعل والتحويلات.",
+    "cookies": "_ga, _ga_*"
+  },
+  "microsoftClarity": {
+    "name": "Microsoft Clarity",
+    "purpose": "تحليل سلوك المستخدمين وتسجيل الجلسات وإنشاء الخرائط الحرارية لفهم كيفية استخدام الموقع وتحسين التجربة.",
+    "cookies": "_clck, _clsk"
+  },
+  "noneConfigured": "لا توجد حالياً خدمة خارجية مفعلة ضمن هذه الفئة على الموقع."
+}
 },
   "pages": {
 "home": {
