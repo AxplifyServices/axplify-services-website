@@ -16,9 +16,9 @@ export const ORGANIZATION_LOGO_URL =
 
 export const SOCIAL_IMAGE_URL =
   new URL(
-    '/brand/logo_axplify_-_V12_icone-removebg-preview.png',
+    '/social-card',
     SITE_URL,
-  ).toString();  
+  ).toString(); 
 
 export const ORGANIZATION_LINKEDIN_URL =
   'https://www.linkedin.com/company/axplify-services/home';

@@ -2,156 +2,168 @@ import {
   defineRouting,
 } from 'next-intl/routing';
 
-export const routing = defineRouting({
-  locales: [
-    'fr',
-    'en',
-    'ar',
-  ],
+export const routing =
+  defineRouting({
+    locales: [
+      'fr',
+      'en',
+      'ar',
+    ],
 
-  defaultLocale:
-    'fr',
+    defaultLocale:
+      'fr',
 
-  localePrefix:
-    'always',
+    localePrefix:
+      'always',
 
-  pathnames: {
-    '/':
-      '/',
+    pathnames: {
+      '/':
+        '/',
 
-    '/services': {
-      fr:
-        '/services',
+      '/services': {
+        fr:
+          '/services',
 
-      en:
-        '/services',
+        en:
+          '/services',
 
-      ar:
-        '/الخدمات',
+        ar:
+          '/الخدمات',
+      },
+
+      '/services/[serviceSlug]': {
+        fr:
+          '/services/[serviceSlug]',
+
+        en:
+          '/services/[serviceSlug]',
+
+        ar:
+          '/الخدمات/[serviceSlug]',
+      },
+
+      '/projects': {
+        fr:
+          '/nos-realisations',
+
+        en:
+          '/our-work',
+
+        ar:
+          '/أعمالنا',
+      },
+
+      '/products': {
+        fr:
+          '/produits',
+
+        en:
+          '/products',
+
+        ar:
+          '/المنتجات',
+      },
+
+      '/about': {
+        fr:
+          '/a-propos',
+
+        en:
+          '/about-us',
+
+        ar:
+          '/من-نحن',
+      },
+
+      '/about/work-process': {
+        fr:
+          '/a-propos/processus-de-travail',
+
+        en:
+          '/about-us/work-process',
+
+        ar:
+          '/من-نحن/منهجية-العمل',
+      },
+
+      '/insights': {
+        fr:
+          '/articles-actualites',
+
+        en:
+          '/articles-news',
+
+        ar:
+          '/المقالات-والأخبار',
+      },
+
+      '/insights/[slug]': {
+        fr:
+          '/articles-actualites/[slug]',
+
+        en:
+          '/articles-news/[slug]',
+
+        ar:
+          '/المقالات-والأخبار/[slug]',
+      },
+
+      '/faq': {
+        fr:
+          '/faq',
+
+        en:
+          '/faq',
+
+        ar:
+          '/الأسئلة-الشائعة',
+      },
+
+      '/reviews': {
+        fr:
+          '/reviews',
+
+        en:
+          '/reviews',
+
+        ar:
+          '/آراء-العملاء',
+      },
+
+      '/reviews/submit/[token]': {
+        fr:
+          '/reviews/donner-mon-avis/[token]',
+
+        en:
+          '/reviews/share-your-review/[token]',
+
+        ar:
+          '/reviews/شارك-تجربتك/[token]',
+      },
+
+      '/contact': {
+        fr:
+          '/nous-contacter',
+
+        en:
+          '/contact-us',
+
+        ar:
+          '/اتصل-بنا',
+      },
+
+      '/assist': {
+        fr:
+          '/comment-pouvons-nous-vous-aider',
+
+        en:
+          '/how-can-we-assist-you',
+
+        ar:
+          '/كيف-يمكننا-مساعدتك',
+      },
     },
-
-    '/projects': {
-      fr:
-        '/nos-realisations',
-
-      en:
-        '/our-work',
-
-      ar:
-        '/أعمالنا',
-    },
-
-    '/products': {
-      fr:
-        '/produits',
-
-      en:
-        '/products',
-
-      ar:
-        '/المنتجات',
-    },
-
-    '/about': {
-      fr:
-        '/a-propos',
-
-      en:
-        '/about-us',
-
-      ar:
-        '/من-نحن',
-    },
-
-    '/about/work-process': {
-      fr:
-        '/a-propos/processus-de-travail',
-
-      en:
-        '/about-us/work-process',
-
-      ar:
-        '/من-نحن/منهجية-العمل',
-    },
-
-    '/insights': {
-      fr:
-        '/articles-actualites',
-
-      en:
-        '/articles-news',
-
-      ar:
-        '/المقالات-والأخبار',
-    },
-
-    '/insights/[slug]': {
-      fr:
-        '/articles-actualites/[slug]',
-
-      en:
-        '/articles-news/[slug]',
-
-      ar:
-        '/المقالات-والأخبار/[slug]',
-    },
-
-    '/faq': {
-      fr:
-        '/faq',
-
-      en:
-        '/faq',
-
-      ar:
-        '/الأسئلة-الشائعة',
-    },
-
-'/reviews': {
-  fr:
-    '/reviews',
-
-  en:
-    '/reviews',
-
-  ar:
-    '/آراء-العملاء',
-},    
-
-'/reviews/submit/[token]': {
-  fr:
-    '/reviews/donner-mon-avis/[token]',
-
-  en:
-    '/reviews/share-your-review/[token]',
-
-  ar:
-    '/reviews/شارك-تجربتك/[token]',
-},    
-
-    '/contact': {
-      fr:
-        '/nous-contacter',
-
-      en:
-        '/contact-us',
-
-      ar:
-        '/اتصل-بنا',
-    },
-
-    '/assist': {
-      fr:
-        '/comment-pouvons-nous-vous-aider',
-
-      en:
-        '/how-can-we-assist-you',
-
-      ar:
-        '/كيف-يمكننا-مساعدتك',
-    },
-  },
-});
+  });
 
 export type AppLocale =
   (typeof routing.locales)[number];
