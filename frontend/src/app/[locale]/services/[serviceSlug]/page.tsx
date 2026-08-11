@@ -44,6 +44,8 @@ import {
   SOCIAL_IMAGE_URL,
 } from '@/lib/site-config';
 
+
+
 type PageProps = {
   params:
     Promise<{

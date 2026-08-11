@@ -27,6 +27,10 @@ import {
   SITE_URL,
 } from '@/lib/site-config';
 
+import {
+  SERVICE_CATALOG,
+} from '@/lib/service-catalog';
+
 function absoluteUrl(
   pathname:
     string,
@@ -101,6 +105,59 @@ MetadataRoute.Sitemap {
             '/'
               ? 1
               : 0.7,
+
+          alternates: {
+            languages,
+          },
+        }),
+      );
+    },
+  );
+}
+
+function buildServicePages():
+MetadataRoute.Sitemap {
+  return SERVICE_CATALOG.flatMap(
+    service => {
+      const languages =
+        Object.fromEntries(
+          routing.locales.map(
+            locale => [
+              locale,
+
+              absoluteUrl(
+                getPathname({
+                  locale,
+
+                  href: {
+                    pathname:
+                      '/services/[serviceSlug]',
+
+                    params: {
+                      serviceSlug:
+                        service.slugs[
+                          locale
+                        ],
+                    },
+                  },
+                }),
+              ),
+            ],
+          ),
+        );
+
+      return routing.locales.map(
+        locale => ({
+          url:
+            languages[
+              locale
+            ],
+
+          changeFrequency:
+            'monthly' as const,
+
+          priority:
+            0.85,
 
           alternates: {
             languages,
@@ -284,20 +341,26 @@ export default async function sitemap():
 Promise<
   MetadataRoute.Sitemap
 > {
-  const [
-    staticPages,
-    publicationPages,
-  ] =
-    await Promise.all([
-      Promise.resolve(
-        buildStaticPages(),
-      ),
+const [
+  staticPages,
+  servicePages,
+  publicationPages,
+] =
+  await Promise.all([
+  Promise.resolve(
+    buildStaticPages(),
+  ),
 
-      buildPublicationPages(),
-    ]);
+  Promise.resolve(
+    buildServicePages(),
+  ),
 
-  return [
-    ...staticPages,
-    ...publicationPages,
-  ];
+  buildPublicationPages(),
+]);
+
+return [
+  ...staticPages,
+  ...servicePages,
+  ...publicationPages,
+];
 }

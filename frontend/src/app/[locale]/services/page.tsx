@@ -24,6 +24,10 @@ import {
   createServicesStructuredData,
 } from '@/lib/service-structured-data';
 
+import {
+  getServiceSlug,
+} from '@/lib/service-catalog';
+
 type PageProps = {
   params:
     Promise<{
@@ -159,10 +163,28 @@ export default async function ServicesPage({
             'common.exampleLabel',
           ),
 
-        example:
-          t(
-            `items.${key}.example`,
-          ),
+example:
+  t(
+    `items.${key}.example`,
+  ),
+
+serviceHref: {
+  pathname:
+    '/services/[serviceSlug]',
+
+  params: {
+    serviceSlug:
+      getServiceSlug(
+        key,
+        locale,
+      )!,
+  },
+},
+
+discoverLabel:
+  t(
+    'common.discoverService',
+  ),
       }),
     );
 

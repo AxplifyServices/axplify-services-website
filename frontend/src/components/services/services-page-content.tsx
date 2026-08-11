@@ -51,6 +51,18 @@ export type ServicePageItem = {
   benefits: string[];
   exampleLabel: string;
   example: string;
+serviceHref: {
+  pathname:
+    '/services/[serviceSlug]';
+
+  params: {
+    serviceSlug:
+      string;
+  };
+};
+
+discoverLabel:
+  string;  
 };
 
 type ServicesPageContentProps = {
@@ -593,6 +605,33 @@ useEffect(
                             </p>
                           </div>
                         </aside>
+<div
+  data-reveal="up"
+  data-reveal-delay="5"
+  style={{
+    marginTop:
+      '1.25rem',
+  }}
+>
+  <Link
+    href={
+      service.serviceHref
+    }
+    className="services-button services-button--primary"
+  >
+    <span>
+      {
+        service.discoverLabel
+      }
+    </span>
+
+    <Target
+      size={18}
+      strokeWidth={2}
+      aria-hidden="true"
+    />
+  </Link>
+</div>                        
                       </div>
                     </article>
                   </section>
