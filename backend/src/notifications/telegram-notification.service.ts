@@ -99,122 +99,176 @@ export class TelegramNotificationService {
    * SEND
    * =========================================================
    */
+private async sendMessage(
+  message:
+    string,
 
-  private async sendMessage(
-    message:
-      string,
-
-    context:
-      string,
-  ): Promise<void> {
-    if (
-      !this.isEnabled()
-    ) {
-      return;
-    }
-
-    const botToken =
-      this.configService.get<string>(
-        'TELEGRAM_BOT_TOKEN',
-      );
-
-    const chatId =
-      this.configService.get<string>(
-        'TELEGRAM_CHAT_ID',
-      );
-
-    if (
-      !botToken ||
-      !chatId
-    ) {
-      this.logger.warn(
-        'Les notifications Telegram sont activées mais TELEGRAM_BOT_TOKEN ou TELEGRAM_CHAT_ID est manquant.',
-      );
-
-      return;
-    }
-
-    const endpoint =
-      `https://api.telegram.org/bot${botToken}/sendMessage`;
-
-    try {
-      const response =
-        await fetch(
-          endpoint,
-          {
-            method:
-              'POST',
-
-            headers: {
-              'Content-Type':
-                'application/json',
-            },
-
-            body:
-              JSON.stringify({
-                chat_id:
-                  chatId,
-
-                text:
-                  message,
-
-                parse_mode:
-                  'HTML',
-
-                disable_web_page_preview:
-                  true,
-              }),
-
-            signal:
-              AbortSignal.timeout(
-                5000,
-              ),
-          },
-        );
-
-      if (
-        !response.ok
-      ) {
-        const responseBody =
-          await response
-            .text()
-            .catch(
-              () =>
-                '',
-            );
-
-        this.logger.error(
-          `Telegram a refusé la notification pour ${context}. HTTP ${response.status}. ${responseBody}`,
-        );
-
-        return;
-      }
-
-      this.logger.log(
-        `Notification Telegram envoyée pour ${context}.`,
-      );
-    } catch (
-      error
-    ) {
-      const errorMessage =
-        error instanceof
-        Error
-          ? error.message
-          : String(
-              error,
-            );
-
-      this.logger.error(
-        `Impossible d'envoyer la notification Telegram pour ${context}: ${errorMessage}`,
-      );
-    }
+  context:
+    string,
+): Promise<void> {
+  if (
+    !this.isEnabled()
+  ) {
+    return;
   }
+
+  const botToken =
+    this.configService.get<string>(
+      'TELEGRAM_BOT_TOKEN',
+    );
+
+  const chatIds =
+    this.getChatIds();
+
+  if (
+    !botToken
+  ) {
+    this.logger.warn(
+      'Les notifications Telegram sont activées mais TELEGRAM_BOT_TOKEN est manquant.',
+    );
+
+    return;
+  }
+
+  if (
+    chatIds.length ===
+    0
+  ) {
+    this.logger.warn(
+      'Les notifications Telegram sont activées mais aucun destinataire n’est configuré dans TELEGRAM_CHAT_IDS.',
+    );
+
+    return;
+  }
+
+  const endpoint =
+    `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+  const results =
+    await Promise.allSettled(
+      chatIds.map(
+        (
+          chatId,
+        ) =>
+          this.sendMessageToChat(
+            endpoint,
+            chatId,
+            message,
+            context,
+          ),
+      ),
+    );
+
+  const successfulDeliveries =
+    results.filter(
+      (
+        result,
+      ) =>
+        result.status ===
+        'fulfilled',
+    ).length;
+
+  if (
+    successfulDeliveries >
+    0
+  ) {
+    this.logger.log(
+      `Notification Telegram envoyée pour ${context} à ${successfulDeliveries}/${chatIds.length} destinataire(s).`,
+    );
+  }
+}
 
   /*
    * =========================================================
    * CONTACT MESSAGE
    * =========================================================
    */
+
+private async sendMessageToChat(
+  endpoint:
+    string,
+
+  chatId:
+    string,
+
+  message:
+    string,
+
+  context:
+    string,
+): Promise<void> {
+  try {
+    const response =
+      await fetch(
+        endpoint,
+        {
+          method:
+            'POST',
+
+          headers: {
+            'Content-Type':
+              'application/json',
+          },
+
+          body:
+            JSON.stringify({
+              chat_id:
+                chatId,
+
+              text:
+                message,
+
+              parse_mode:
+                'HTML',
+
+              disable_web_page_preview:
+                true,
+            }),
+
+          signal:
+            AbortSignal.timeout(
+              5000,
+            ),
+        },
+      );
+
+    if (
+      !response.ok
+    ) {
+      const responseBody =
+        await response
+          .text()
+          .catch(
+            () =>
+              '',
+          );
+
+      this.logger.error(
+        `Telegram a refusé la notification pour ${context} vers le chat ${chatId}. HTTP ${response.status}. ${responseBody}`,
+      );
+
+      throw new Error(
+        `Telegram HTTP ${response.status}`,
+      );
+    }
+  } catch (
+    error
+  ) {
+    const errorMessage =
+      error instanceof
+      Error
+        ? error.message
+        : String(
+            error,
+          );
+
+    this.logger.error(
+      `Impossible d'envoyer la notification Telegram pour ${context} vers le chat ${chatId}: ${errorMessage}`,
+    );
+
+    throw error;
+  }
+}  
 
   private buildNewContactRequestMessage(
     notification:
@@ -380,6 +434,36 @@ export class TelegramNotificationService {
    * HELPERS
    * =========================================================
    */
+  
+private getChatIds():
+  string[] {
+  const value =
+    this.configService.get<string>(
+      'TELEGRAM_CHAT_IDS',
+    );
+
+  if (
+    !value
+  ) {
+    return [];
+  }
+
+  return [
+    ...new Set(
+      value
+        .split(',')
+        .map(
+          (
+            chatId,
+          ) =>
+            chatId.trim(),
+        )
+        .filter(
+          Boolean,
+        ),
+    ),
+  ];
+}
 
   private isEnabled():
     boolean {
