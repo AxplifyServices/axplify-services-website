@@ -76,16 +76,6 @@ export default async function ContactPage({
       .NEXT_PUBLIC_WHATSAPP_NUMBER ??
     '';
 
-  const publicEmail =
-    process.env
-      .NEXT_PUBLIC_CONTACT_EMAIL ??
-    '';
-
-  const publicPhone =
-    process.env
-      .NEXT_PUBLIC_CONTACT_PHONE ??
-    '';
-
   return (
     <ContactPageContent
       locale={
@@ -97,12 +87,6 @@ export default async function ContactPage({
       }
       whatsappNumber={
         whatsappNumber
-      }
-      publicEmail={
-        publicEmail
-      }
-      publicPhone={
-        publicPhone
       }
     />
   );

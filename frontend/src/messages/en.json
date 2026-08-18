@@ -1276,7 +1276,7 @@
         "directContact": {
           "title": "Need to talk quickly",
           "description": "You can also contact us immediately on WhatsApp.",
-          "whatsappLabel": "Contact us now on WhatsApp",
+          "whatsappLabel": "For a faster conversation",
           "whatsappMessage": "Hello Axplify Services, I would like to discuss a business need with your team.",
           "emailLabel": "Email address",
           "phoneLabel": "Phone"

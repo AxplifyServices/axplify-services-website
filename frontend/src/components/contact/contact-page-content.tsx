@@ -6,9 +6,7 @@ import {
   Check,
   CheckCircle2,
   Clock3,
-  Mail,
   MessageCircle,
-  Phone,
   Plus,
   Send,
   Trash2,
@@ -409,11 +407,6 @@ type ContactPageContentProps = {
   whatsappNumber:
     string;
 
-  publicEmail:
-    string;
-
-  publicPhone:
-    string;
 };
 
 const INITIAL_FORM_STATE:
@@ -528,8 +521,6 @@ export function ContactPageContent({
   source,
   copy,
   whatsappNumber,
-  publicEmail,
-  publicPhone,
 }: ContactPageContentProps) {
   const [
     form,
@@ -1092,15 +1083,7 @@ function trackContactStart() {
         .requiredFields;
     }
 
-    if (
-      form.needDescription
-        .trim()
-        .length <
-      20
-    ) {
-      return copy.errors
-        .descriptionLength;
-    }
+
 
     if (
       !form.privacyConsent
@@ -1524,51 +1507,6 @@ function resetForm() {
 
   return (
     <main className="contact-page">
-      <section className="contact-page__hero">
-        <div className="contact-page__hero-glow contact-page__hero-glow--one" />
-
-        <div className="contact-page__hero-glow contact-page__hero-glow--two" />
-
-        <div className="site-container contact-page__hero-content">
-          <div className="contact-page__hero-copy">
-            <p className="eyebrow">
-              {
-                copy.hero
-                  .eyebrow
-              }
-            </p>
-
-            <h1>
-              {
-                copy.hero
-                  .title
-              }
-            </h1>
-
-            <p className="contact-page__hero-description">
-              {
-                copy.hero
-                  .description
-              }
-            </p>
-
-            <p className="contact-page__hero-reassurance">
-              <Check
-                size={
-                  18
-                }
-                aria-hidden="true"
-              />
-
-              {
-                copy.hero
-                  .reassurance
-              }
-            </p>
-          </div>
-        </div>
-      </section>
-
       <section className="contact-form-section">
         <div className="site-container contact-form-section__layout">
           <div className="contact-form-section__introduction">
@@ -1902,31 +1840,28 @@ function resetForm() {
                   }
                 </span>
 
-                <textarea
-                  name="needDescription"
-                  value={
-                    form.needDescription
-                  }
-                  onChange={
-                    updateTextField
-                  }
-                  placeholder={
-                    copy.form
-                      .fields
-                      .needDescription
-                      .placeholder
-                  }
-                  minLength={
-                    20
-                  }
-                  maxLength={
-                    5000
-                  }
-                  rows={
-                    7
-                  }
-                  required
-                />
+<textarea
+  name="needDescription"
+  value={
+    form.needDescription
+  }
+  onChange={
+    updateTextField
+  }
+  placeholder={
+    copy.form
+      .fields
+      .needDescription
+      .placeholder
+  }
+  maxLength={
+    5000
+  }
+  rows={
+    7
+  }
+  required
+/>
 
                 <small>
                   {
@@ -2424,206 +2359,65 @@ function resetForm() {
             </button>
           </form>
 
-          <aside className="contact-direct-card contact-direct-card--embedded">
-            <div className="contact-direct-card__heading">
-              <span className="contact-direct-card__icon">
-                <MessageCircle
-                  size={
-                    22
-                  }
-                  aria-hidden="true"
-                />
-              </span>
-
-              <div>
-                <h2>
-                  {
-                    copy.directContact
-                      .title
-                  }
-                </h2>
-
-                <p>
-                  {
-                    copy.directContact
-                      .description
-                  }
-                </p>
-              </div>
-            </div>
-
-            <div className="contact-direct-card__actions">
-              {
-                whatsappUrl
-                  ? (
-<a
-  href={
-    whatsappUrl
-  }
-  target="_blank"
-  rel="noreferrer"
-  className="contact-direct-card__whatsapp"
-  onClick={
-    () => {
-      trackEvent(
-        ANALYTICS_EVENTS.WHATSAPP_CLICK,
-        {
-          locale,
-
-          contact_source:
-            source,
-
-          cta_location:
-            'contact_direct_card',
-
-          page_path:
-            window.location.pathname,
-        },
-      );
-    }
-  }
->
-<FaWhatsapp
-  size={
-    22
-  }
-  aria-hidden="true"
-/>
-
-                        <span>
-                          {
-                            copy.directContact
-                              .whatsappLabel
-                          }
-                        </span>
-
-                        <ArrowRight
-                          size={
-                            18
-                          }
-                          aria-hidden="true"
-                        />
-                      </a>
-                    )
-                  : null
-              }
-
-              {
-                publicEmail
-                  ? (
-<a
-  href={
-    `mailto:${publicEmail}`
-  }
-  className="contact-direct-card__line"
-  onClick={
-    () => {
-      trackEvent(
-        ANALYTICS_EVENTS.EMAIL_CLICK,
-        {
-          locale,
-
-          contact_source:
-            source,
-
-          cta_location:
-            'contact_direct_card',
-
-          page_path:
-            window.location.pathname,
-        },
-      );
-    }
-  }
->
-                        <Mail
-                          size={
-                            18
-                          }
-                          aria-hidden="true"
-                        />
-
-                        <span>
-                          <small>
-                            {
-                              copy.directContact
-                                .emailLabel
-                            }
-                          </small>
-
-                          <strong>
-                            {
-                              publicEmail
-                            }
-                          </strong>
-                        </span>
-                      </a>
-                    )
-                  : null
-              }
-
-              {
-                publicPhone
-                  ? (
-<a
-  href={
-    `tel:${publicPhone.replace(
-      /\s/g,
-      '',
-    )}`
-  }
-  className="contact-direct-card__line"
-  onClick={
-    () => {
-      trackEvent(
-        ANALYTICS_EVENTS.PHONE_CLICK,
-        {
-          locale,
-
-          contact_source:
-            source,
-
-          cta_location:
-            'contact_direct_card',
-
-          page_path:
-            window.location.pathname,
-        },
-      );
-    }
-  }
->
-                        <Phone
-                          size={
-                            18
-                          }
-                          aria-hidden="true"
-                        />
-
-                        <span>
-                          <small>
-                            {
-                              copy.directContact
-                                .phoneLabel
-                            }
-                          </small>
-
-                          <strong>
-                            {
-                              publicPhone
-                            }
-                          </strong>
-                        </span>
-                      </a>
-                    )
-                  : null
-              }
-            </div>
-          </aside>
         </div>
       </section>
 
+      {
+        whatsappUrl &&
+        typeof document !==
+          'undefined'
+          ? createPortal(
+              <a
+                href={
+                  whatsappUrl
+                }
+                target="_blank"
+                rel="noreferrer"
+                className="contact-whatsapp-floating-button"
+                aria-label={
+                  copy.directContact
+                    .whatsappLabel
+                }
+                onClick={
+                  () => {
+                    trackEvent(
+                      ANALYTICS_EVENTS.WHATSAPP_CLICK,
+                      {
+                        locale,
 
+                        contact_source:
+                          source,
+
+                        cta_location:
+                          'contact_floating_whatsapp',
+
+                        page_path:
+                          window.location.pathname,
+                      },
+                    );
+                  }
+                }
+              >
+                <span className="contact-whatsapp-floating-button__icon">
+                  <FaWhatsapp
+                    size={
+                      24
+                    }
+                    aria-hidden="true"
+                  />
+                </span>
+
+                <span className="contact-whatsapp-floating-button__label">
+                  {
+                    copy.directContact
+                      .whatsappLabel
+                  }
+                </span>
+              </a>,
+              document.body,
+            )
+          : null
+      }
 
       {
         isPrivacyModalOpen &&
