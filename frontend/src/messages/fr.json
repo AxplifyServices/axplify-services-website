@@ -135,7 +135,7 @@
       "servicesPreview": {
         "eyebrow": "Notre savoir-faire",
         "title": "Ne laissez plus les mêmes obstacles ralentir votre croissance.",
-        "introduction": "Derrière chaque projet, il y a un problème concret à résoudre : une activité qui manque de visibilité, des tâches qui prennent trop de temps, des prospects difficiles à convertir ou des données encore sous-exploitées. Nous transformons ces obstacles en solutions simples, utiles et adaptées à votre entreprise.",
+        "introduction": "Nous transformons les blocages concrets — tâches répétitives, manque de visibilité, données dispersées ou prospection difficile — en solutions digitales utiles.",
         "cta": "Découvrir tous nos services",
         "items": {
           "digital": {
@@ -1292,11 +1292,11 @@
           },
           "fields": {
             "firstName": {
-              "label": "Prénom *",
+              "label": "Prénom ",
               "placeholder": "Votre prénom"
             },
             "lastName": {
-              "label": "Nom *",
+              "label": "Nom ",
               "placeholder": "Votre nom"
             },
             "companyName": {
@@ -1304,7 +1304,7 @@
               "placeholder": "Nom de votre entreprise"
             },
             "jobTitle": {
-              "label": "Votre rôle dans l’entreprise *",
+              "label": "Votre rôle dans l’entreprise ",
               "placeholder": "Ex. Directeur général, responsable commercial…"
             },
             "email": {
@@ -1316,7 +1316,7 @@
               "placeholder": "+212 6 00 00 00 00"
             },
             "needDescription": {
-              "label": "Décrivez votre besoin *",
+              "label": "Décrivez votre besoin ",
               "placeholder": "Décrivez votre situation actuelle, vos objectifs, les difficultés rencontrées et le résultat que vous souhaitez obtenir.",
               "hint": "Plus votre description est précise, plus notre premier retour pourra être pertinent."
             }

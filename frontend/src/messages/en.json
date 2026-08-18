@@ -135,7 +135,7 @@
       "servicesPreview": {
         "eyebrow": "Our expertise",
         "title": "Stop letting the same obstacles slow down your growth.",
-        "introduction": "Behind every project lies a practical problem to solve: limited visibility, time-consuming tasks, prospects that are difficult to convert or data that remains underused. We turn these obstacles into simple and valuable solutions adapted to your company.",
+        "introduction": "We turn practical bottlenecks — repetitive tasks, limited visibility, scattered data or difficult prospecting — into useful digital solutions.",
         "cta": "Discover all our services",
         "items": {
           "digital": {
@@ -1292,11 +1292,11 @@
           },
           "fields": {
             "firstName": {
-              "label": "First name *",
+              "label": "First name ",
               "placeholder": "Your first name"
             },
             "lastName": {
-              "label": "Last name *",
+              "label": "Last name ",
               "placeholder": "Your last name"
             },
             "companyName": {
@@ -1304,7 +1304,7 @@
               "placeholder": "Your company name"
             },
             "jobTitle": {
-              "label": "Your role within the company *",
+              "label": "Your role within the company ",
               "placeholder": "E.g. CEO, sales manager…"
             },
             "email": {
@@ -1316,7 +1316,7 @@
               "placeholder": "+212 6 00 00 00 00"
             },
             "needDescription": {
-              "label": "Describe your requirements *",
+              "label": "Describe your requirements ",
               "placeholder": "Describe your current situation, your objectives, the challenges you face and the outcome you would like to achieve.",
               "hint": "The more precise your description is, the more relevant our initial response can be."
             }

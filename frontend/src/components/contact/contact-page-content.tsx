@@ -1062,15 +1062,11 @@ function trackContactStart() {
   }
 
   function validateForm() {
-    const requiredValues = [
-      form.firstName,
-      form.lastName,
-      form.companyName,
-      form.jobTitle,
-      form.email,
-      form.phoneNumber,
-      form.needDescription,
-    ];
+const requiredValues = [
+  form.companyName,
+  form.email,
+  form.phoneNumber,
+];
 
     if (
       requiredValues.some(
@@ -1638,7 +1634,7 @@ function resetForm() {
                     maxLength={
                       100
                     }
-                    required
+
                   />
                 </label>
 
@@ -1674,7 +1670,7 @@ function resetForm() {
                     maxLength={
                       100
                     }
-                    required
+            
                   />
                 </label>
 
@@ -1746,7 +1742,7 @@ function resetForm() {
                     maxLength={
                       180
                     }
-                    required
+               
                   />
                 </label>
 
@@ -1860,7 +1856,7 @@ function resetForm() {
   rows={
     7
   }
-  required
+
 />
 
                 <small>

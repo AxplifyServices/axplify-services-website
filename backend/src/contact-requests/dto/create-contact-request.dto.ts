@@ -106,23 +106,18 @@ export class CreateContactRequestDto {
   locale:
     ContactRequestLocale;
 
-  @IsString()
-  @MinLength(
-    2,
-  )
-  @MaxLength(
-    100,
-  )
-  @Transform(
-    trimmedString,
-  )
-  firstName:
-    string;
+@IsString()
+@MaxLength(
+  100,
+)
+@Transform(
+  trimmedString,
+)
+firstName:
+  string;
 
   @IsString()
-  @MinLength(
-    2,
-  )
+
   @MaxLength(
     100,
   )
@@ -146,9 +141,7 @@ export class CreateContactRequestDto {
     string;
 
   @IsString()
-  @MinLength(
-    2,
-  )
+
   @MaxLength(
     180,
   )
@@ -159,9 +152,7 @@ export class CreateContactRequestDto {
     string;
 
   @IsString()
-  @MinLength(
-    20,
-  )
+
   @MaxLength(
     5000,
   )

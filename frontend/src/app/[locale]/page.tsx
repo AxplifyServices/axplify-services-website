@@ -8,10 +8,6 @@ import {
 } from 'next-intl/server';
 
 import {
-  HomeAboutSection,
-} from '@/components/home/home-about-section';
-
-import {
   HomeBrochureCarousel,
 } from '@/components/home/home-brochure-carousel';
 
@@ -74,12 +70,6 @@ type PageProps = {
 export const dynamic =
   'force-dynamic';
 
-const ABOUT_PILLAR_KEYS = [
-  'clarity',
-  'usefulness',
-  'evolution',
-] as const;
-
 const SERVICE_KEYS = [
   'digital',
   'automation',
@@ -127,7 +117,6 @@ const [
   featuredProducts,
   homepageReviews,
   brochureTranslations,
-  aboutTranslations,
   servicesTranslations,
   clientsTranslations,
   insightsTranslations,
@@ -165,13 +154,6 @@ getTranslations({
       locale,
 
       namespace:
-        'pages.home.aboutPreview',
-    }),
-
-    getTranslations({
-      locale,
-
-      namespace:
         'pages.home.servicesPreview',
     }),
 
@@ -204,32 +186,12 @@ getTranslations({
 }),
   ]);
 
-  const pillars =
-    ABOUT_PILLAR_KEYS.map(
-      key => ({
-        title:
-          aboutTranslations(
-            `pillars.${key}.title`,
-          ),
-
-        description:
-          aboutTranslations(
-            `pillars.${key}.description`,
-          ),
-      }),
-    );
-
   const services =
     SERVICE_KEYS.map(
       key => ({
         title:
           servicesTranslations(
             `items.${key}.title`,
-          ),
-
-        description:
-          servicesTranslations(
-            `items.${key}.description`,
           ),
       }),
     );
@@ -295,42 +257,6 @@ getTranslations({
         goToSlideLabel={
           brochureTranslations(
             'goToSlide',
-          )
-        }
-      />
-
-      <HomeAboutSection
-        title={
-          aboutTranslations(
-            'title',
-          )
-        }
-        introduction={
-          aboutTranslations(
-            'introduction',
-          )
-        }
-        description={
-          aboutTranslations(
-            'description',
-          )
-        }
-        promiseLabel={
-          aboutTranslations(
-            'promiseLabel',
-          )
-        }
-        promise={
-          aboutTranslations(
-            'promise',
-          )
-        }
-        pillars={
-          pillars
-        }
-        primaryCta={
-          aboutTranslations(
-            'primaryCta',
           )
         }
       />

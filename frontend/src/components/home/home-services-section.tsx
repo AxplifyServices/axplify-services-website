@@ -17,7 +17,6 @@ import {
 
 type HomeService = {
   title: string;
-  description: string;
 };
 
 type HomeServicesSectionProps = {
@@ -62,9 +61,9 @@ export function HomeServicesSection({
               {eyebrow}
             </p>
 
-            <h2 id="home-services-title">
+            <h1 id="home-services-title">
               {title}
-            </h2>
+            </h1>
           </div>
 
           <p className="home-services__introduction">
@@ -113,13 +112,6 @@ export function HomeServicesSection({
   </h3>
 </div>
 
-<div className="home-services__card-content">
-  <p>
-    {
-      service.description
-    }
-  </p>
-</div>
                 </article>
               );
             },
