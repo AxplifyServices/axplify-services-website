@@ -1,6 +1,41 @@
-import type { AppLocale } from '@/i18n/routing';
-export type ProductRequestType='CONTACT'|'DEMO'|'ORDER';
-export type CreateProductRequestPayload={productKey:string;requestType:ProductRequestType;locale:AppLocale;firstName:string;lastName:string;companyName?:string;email:string;phoneNumber?:string;message:string;sourceUrl?:string;privacyConsent:boolean;website?:string};
-const API_URL=process.env.NEXT_PUBLIC_API_URL??'http://localhost:3000/api';
-export class PublicProductRequestApiError extends Error{constructor(message:string,public readonly status:number){super(message);this.name='PublicProductRequestApiError';}}
-export async function createPublicProductRequest(payload:CreateProductRequestPayload){let response:Response;try{response=await fetch(`${API_URL}/product-requests/public`,{method:'POST',headers:{Accept:'application/json','Content-Type':'application/json'},body:JSON.stringify(payload)});}catch{throw new PublicProductRequestApiError('Le serveur est momentanément inaccessible.',0);}let body:unknown=null;try{body=await response.json();}catch{}if(!response.ok){const message=body&&typeof body==='object'&&'message' in body?(body as {message?:unknown}).message:null;throw new PublicProductRequestApiError(Array.isArray(message)?message.join(' '):typeof message==='string'?message:'La demande n’a pas pu être envoyée.',response.status);}return body;}
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000/api';
+
+export type ProductRequestType = 'CONTACT' | 'DEMO' | 'ORDER';
+
+export type PublicProductRequestPayload = {
+  productKey: string;
+  requestType: ProductRequestType;
+  locale: string;
+  firstName: string;
+  lastName: string;
+  companyName: string;
+  email: string;
+  phoneNumber: string;
+  message?: string;
+  sourceUrl?: string;
+  privacyConsent: boolean;
+  website?: string;
+};
+
+export async function createPublicProductRequest(
+  payload: PublicProductRequestPayload,
+) {
+  const response = await fetch(`${API_URL}/product-requests/public`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const body = await response.json().catch(() => null);
+
+  if (!response.ok) {
+    throw new Error(
+      body?.message || 'Impossible d\'envoyer la demande produit.',
+    );
+  }
+
+  return body;
+}
