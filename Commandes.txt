@@ -17,7 +17,7 @@ psql -U postgres
 
 psql -U postgres -d axplify_db -f "database\migrations\017_make_contact_secondary_fields_optional.sql
 
-cd /opt/apps/hire/repo
+cd /opt/apps/axplify/repo
 
 sudo -u postgres psql -d axplify_db  -f database/migrations/017_make_contact_secondary_fields_optional.sql
 
