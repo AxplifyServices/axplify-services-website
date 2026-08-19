@@ -16,11 +16,11 @@ export async function SiteFooter() {
     <div className="site-container ms-footer__grid">
       <div className="ms-footer__brand">
         <Image src="/brand/marketsoft-logo-wordmark.png" alt="MarketSoft" width={280} height={86}/>
-        <p>The Operating System for your Commerce</p>
+        <p>{copy.slogan}</p>
       </div>
       <div className="ms-footer__links">{nav.map(([href,label])=><Link key={href} href={href}>{label}</Link>)}</div>
       <div className="ms-footer__cta"><Link href="/order" className="ms-button ms-button--primary">{copy.nav.order}</Link>
-      <Link href={{ pathname: '/order', query: { intent: 'demo' } }} className="ms-button ms-button--ghost">{copy.nav.demo}</Link>
+      <Link href="/contact" className="ms-button ms-button--ghost">{copy.nav.demo}</Link>
       </div>
     </div>
     <div className="site-container ms-footer__bottom">

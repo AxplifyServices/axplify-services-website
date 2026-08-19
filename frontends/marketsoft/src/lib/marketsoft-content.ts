@@ -15,6 +15,7 @@ export type MarketSoftPackage = {
 };
 
 type Copy = {
+  slogan: string;
   nav: { platform: string; packages: string; benefits: string; compare: string; faq: string; contact: string; order: string; demo: string };
   hero: { eyebrow: string; title: string; description: string; primary: string; secondary: string };
   homeBenefits: { title: string; description: string; items: { title: string; text: string }[] };
@@ -32,8 +33,9 @@ type Copy = {
 };
 
 const fr: Copy = {
-  nav: { platform:'La plateforme', packages:'Packages', benefits:'Avantages', compare:'Comparer', faq:'FAQ', contact:'Contact', order:'Commander', demo:'Booker une démo' },
-  hero: { eyebrow:'Commerce. Centralisé. Évolutif.', title:'Votre commerce grandit. Votre plateforme doit suivre.', description:'MarketSoft réunit boutique en ligne, commandes, stocks, paiements et opérations dans une plateforme conçue autour de votre activité.', primary:'Voir les packages', secondary:'Commander' },
+  slogan:'Le système d’exploitation de votre commerce',
+  nav: { platform:'La plateforme', packages:'Packages', benefits:'Avantages', compare:'Comparer', faq:'FAQ', contact:'Contact', order:'Commander', demo:'Demander une démonstration' },
+  hero: { eyebrow:'Commerce. Centralisé. Évolutif.', title:'Votre commerce grandit. Votre plateforme doit suivre.', description:'MarketSoft réunit boutique en ligne, commandes, stocks, paiements et opérations dans une plateforme conçue autour de votre activité.', primary:'Voir les packages', secondary:'Demander une démonstration' },
   homeBenefits: { title:'Un seul système pour vendre et piloter', description:'Commencez avec l’essentiel, puis faites évoluer votre commerce sans repartir de zéro.', items:[
     {title:'Vendez en ligne',text:'Catalogue, panier, paiement et commandes dans un parcours fluide.'},
     {title:'Centralisez vos opérations',text:'Produits, stocks, commandes et points de vente au même endroit.'},
@@ -96,8 +98,9 @@ const fr: Copy = {
 
 const en: Copy = {
   ...fr,
-  nav:{platform:'Platform',packages:'Packages',benefits:'Benefits',compare:'Compare',faq:'FAQ',contact:'Contact',order:'Order',demo:'Book a demo'},
-  hero:{eyebrow:'Commerce. Centralized. Scalable.',title:'Your commerce grows. Your platform should keep up.',description:'MarketSoft brings storefront, orders, inventory, payments and operations into one platform built around your business.',primary:'View packages',secondary:'Order now'},
+  slogan:'The Operating System for your Commerce',
+  nav:{platform:'Platform',packages:'Packages',benefits:'Benefits',compare:'Compare',faq:'FAQ',contact:'Contact',order:'Order',demo:'Request a demo'},
+  hero:{eyebrow:'Commerce. Centralized. Scalable.',title:'Your commerce grows. Your platform should keep up.',description:'MarketSoft brings storefront, orders, inventory, payments and operations into one platform built around your business.',primary:'View packages',secondary:'Request a demo'},
   homeBenefits:{title:'One system to sell and operate',description:'Start with the essentials, then expand your commerce without starting over.',items:[{title:'Sell online',text:'Catalog, cart, payments and orders in a smooth buying journey.'},{title:'Centralize operations',text:'Products, inventory, orders and stores in one place.'},{title:'Automate repetitive work',text:'Notifications, promotions and routine actions can be automated.'},{title:'Store or marketplace',text:'Move from a single-seller store to a multi-vendor platform when your model requires it.'},{title:'Scale the platform',text:'Add languages, currencies, sellers, stores and integrations over time.'}]},
   packagesTitle:'Choose the right level for your commerce',packagesDescription:'Four clear offers, from a professional store to a fully customized platform.',packageActions:{details:'View offer',order:'Order',demo:'Book a demo'},
   why:{title:'Why MarketSoft?',items:[{title:'Built around your business',text:'The platform adapts to your selling rules, not the other way around.'},{title:'Stay in control',text:'Keep control over your data, identity and evolution.'},{title:'Beyond templates',text:'Journeys and modules can evolve far beyond a standard theme.'},{title:'Scalable architecture',text:'Start simple and add capabilities as the business grows.'}]},
@@ -111,8 +114,9 @@ const en: Copy = {
 
 const ar: Copy = {
   ...en,
-  nav:{platform:'المنصة',packages:'الباقات',benefits:'المزايا',compare:'مقارنة',faq:'الأسئلة',contact:'تواصل معنا',order:'اطلب الآن',demo:'احجز عرضاً'},
-  hero:{eyebrow:'تجارة. موحدة. قابلة للتوسع.',title:'تجارتك تنمو. ومنصتك يجب أن تنمو معها.',description:'يجمع MarketSoft المتجر والطلبات والمخزون والمدفوعات والعمليات في منصة واحدة مبنية حول نشاطك.',primary:'شاهد الباقات',secondary:'اطلب الآن'},
+  slogan:'نظام التشغيل لتجارتك',
+  nav:{platform:'المنصة',packages:'الباقات',benefits:'المزايا',compare:'مقارنة',faq:'الأسئلة',contact:'تواصل معنا',order:'اطلب الآن',demo:'طلب عرض توضيحي'},
+  hero:{eyebrow:'تجارة. موحدة. قابلة للتوسع.',title:'تجارتك تنمو. ومنصتك يجب أن تنمو معها.',description:'يجمع MarketSoft المتجر والطلبات والمخزون والمدفوعات والعمليات في منصة واحدة مبنية حول نشاطك.',primary:'شاهد الباقات',secondary:'طلب عرض توضيحي'},
   homeBenefits:{title:'نظام واحد للبيع والإدارة',description:'ابدأ بالأساسيات ثم وسّع تجارتك دون إعادة البناء من الصفر.',items:[{title:'بع عبر الإنترنت',text:'كتالوج وسلة ودفع وطلبات ضمن تجربة شراء بسيطة.'},{title:'وحّد العمليات',text:'المنتجات والمخزون والطلبات ونقاط البيع في مكان واحد.'},{title:'أتمت المهام',text:'يمكن أتمتة الإشعارات والعروض والمهام المتكررة.'},{title:'متجر أو سوق متعدد البائعين',text:'انتقل من متجر واحد إلى Marketplace عندما يتطلب نموذجك ذلك.'},{title:'طوّر المنصة',text:'أضف اللغات والعملات والبائعين والمتاجر والتكاملات تدريجياً.'}]},
   packagesTitle:'اختر المستوى المناسب لتجارتك',packagesDescription:'أربع باقات واضحة من متجر احترافي إلى منصة مخصصة بالكامل.',packageActions:{details:'تفاصيل الباقة',order:'اطلب',demo:'احجز عرضاً'},
   why:{title:'لماذا MarketSoft؟',items:[{title:'متوافق مع نشاطك',text:'تتكيف المنصة مع قواعد عملك وليس العكس.'},{title:'احتفظ بالتحكم',text:'تحكم أكبر في بياناتك وهويتك وتطور منصتك.'},{title:'أبعد من القوالب',text:'يمكن تطوير المسارات والوحدات بما يتجاوز القوالب الجاهزة.'},{title:'معمارية قابلة للتوسع',text:'ابدأ ببساطة وأضف القدرات مع نمو النشاط.'}]},

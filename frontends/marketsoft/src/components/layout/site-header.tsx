@@ -109,10 +109,10 @@ export function SiteHeader() {
           </div>
 
           <Link
-            href="/order"
+            href="/contact"
             className="ms-button ms-button--primary ms-header__cta"
           >
-            {copy.nav.order}
+            {copy.nav.demo}
           </Link>
 
           <button
@@ -140,11 +140,11 @@ export function SiteHeader() {
             ))}
 
             <Link
-              href="/order"
+              href="/contact"
               className="ms-button ms-button--primary"
               onClick={() => setOpen(false)}
             >
-              {copy.nav.order}
+              {copy.nav.demo}
             </Link>
           </div>
         </div>
