@@ -20,7 +20,7 @@ export async function SiteFooter() {
       </div>
       <div className="ms-footer__links">{nav.map(([href,label])=><Link key={href} href={href}>{label}</Link>)}</div>
       <div className="ms-footer__cta"><Link href="/order" className="ms-button ms-button--primary">{copy.nav.order}</Link>
-      <Link href="/order?intent=demo" className="ms-button ms-button--ghost">{copy.nav.demo}</Link>
+      <Link href={{ pathname: '/order', query: { intent: 'demo' } }} className="ms-button ms-button--ghost">{copy.nav.demo}</Link>
       </div>
     </div>
     <div className="site-container ms-footer__bottom">
