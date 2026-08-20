@@ -30912,3 +30912,87 @@ html[dir="rtl"] .ms-pricing-exclusions {
   margin-top: 0.22rem !important;
   margin-bottom: 0 !important;
 }
+
+
+/* =========================================================
+   MARKETSOFT — TRUE VIEWPORT FULLSCREEN LIGHTBOX
+   The modal is portaled to document.body, so these dimensions
+   are always relative to the whole browser viewport.
+   ========================================================= */
+
+body:has(.ms-gallery__modal) {
+  overflow: hidden;
+}
+
+.ms-gallery__modal {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9999 !important;
+  display: grid !important;
+  width: 100vw !important;
+  height: 100dvh !important;
+  place-items: center !important;
+  padding: clamp(0.75rem, 2vw, 1.5rem) !important;
+  background: rgba(1, 7, 14, 0.96) !important;
+  overflow: hidden !important;
+}
+
+.ms-gallery__modal > .ms-gallery__viewer {
+  position: relative !important;
+  display: grid !important;
+  width: min(94vw, 110rem) !important;
+  height: min(90dvh, 64rem) !important;
+  max-width: 94vw !important;
+  max-height: 90dvh !important;
+  place-items: center !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  border-radius: 1rem;
+  background: #050c16;
+}
+
+.ms-gallery__modal > .ms-gallery__viewer > img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+}
+
+.ms-gallery__modal .ms-gallery__nav {
+  position: fixed !important;
+  top: 50% !important;
+  z-index: 10001 !important;
+  transform: translateY(-50%) !important;
+}
+
+.ms-gallery__modal .ms-gallery__nav--left {
+  left: max(1rem, env(safe-area-inset-left)) !important;
+}
+
+.ms-gallery__modal .ms-gallery__nav--right {
+  right: max(1rem, env(safe-area-inset-right)) !important;
+}
+
+.ms-gallery__modal .ms-gallery__close {
+  position: fixed !important;
+  top: max(1rem, env(safe-area-inset-top)) !important;
+  right: max(1rem, env(safe-area-inset-right)) !important;
+  z-index: 10002 !important;
+}
+
+@media (max-width: 719px) {
+  .ms-gallery__modal {
+    padding: 0.5rem !important;
+  }
+
+  .ms-gallery__modal > .ms-gallery__viewer {
+    width: calc(100vw - 1rem) !important;
+    height: calc(100dvh - 1rem) !important;
+    max-width: calc(100vw - 1rem) !important;
+    max-height: calc(100dvh - 1rem) !important;
+    border-radius: 0.75rem;
+  }
+}

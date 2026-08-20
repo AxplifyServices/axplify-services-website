@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight, Maximize2, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import type { AppLocale } from '@/i18n/routing';
 import { getMarketSoftCopy } from '@/lib/marketsoft-content';
 
@@ -16,8 +17,13 @@ export function ScreenshotGallery({ locale = 'fr' }: { locale?: AppLocale }) {
   const copy = getMarketSoftCopy(locale);
   const [index, setIndex] = useState(0);
   const [full, setFull] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const previous = () => setIndex((value) => (value - 1 + slides.length) % slides.length);
   const next = () => setIndex((value) => (value + 1) % slides.length);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!full) return;
@@ -63,7 +69,18 @@ export function ScreenshotGallery({ locale = 'fr' }: { locale?: AppLocale }) {
           />
         ))}
       </div>
-      {full && <div className="ms-gallery__modal" role="dialog" aria-modal="true">{content}</div>}
+      {mounted && full
+        ? createPortal(
+            <div
+              className="ms-gallery__modal"
+              role="dialog"
+              aria-modal="true"
+            >
+              {content}
+            </div>,
+            document.body,
+          )
+        : null}
     </div>
   );
 }
