@@ -1,4 +1,5 @@
 import type { AppLocale } from '@/i18n/routing';
+import type { ContactPageCopy } from '@/components/contact/contact-page-content';
 import frContent from '@/messages/fr.json';
 import enContent from '@/messages/en.json';
 import arContent from '@/messages/ar.json';
@@ -11,6 +12,10 @@ export type MarketSoftPackage = {
   name: string;
   target: string;
   price: string;
+  basePrice: string;
+  firstYearSupportPrice: string;
+  firstYearPrice: string;
+  annualSupportPrice: string;
   delay: string;
   shortFeatures: string[];
   audiences: string[];
@@ -29,6 +34,26 @@ type Copy = {
   packagesDescription: string;
   packageActions: { details: string; order: string; demo: string };
   packageDetail: { eyebrow: string; audienceTitle: string; outcomesTitle: string; includedTitle: string; optionsTitle: string };
+  pricing: {
+    firstYearShort: string;
+    thenShort: string;
+    perYearShort: string;
+    title: string;
+    intro: string;
+    firstYearLabel: string;
+    firstYearDescription: string;
+    basePriceLabel: string;
+    firstYearSupportLabel: string;
+    annualLabel: string;
+    annualDescription: string;
+    maintenanceTitle: string;
+    maintenanceIntro: string;
+    maintenanceItems: { title: string; text: string }[];
+    supportTitle: string;
+    supportIntro: string;
+    supportItems: { title: string; text: string }[];
+    exclusions: string;
+  };
   why: { title: string; items: { title: string; text: string }[] };
   finalCta: { title: string; text: string; order: string; expert: string };
   galleryControls: { previous: string; next: string; close: string; fullscreen: string; slide: string };
@@ -36,6 +61,7 @@ type Copy = {
   benefits: { eyebrow: string; title: string; intro: string; items: { title: string; text: string }[] };
   compare: { eyebrow: string; title: string; intro: string; feature: string; rows: { label: string; values: string[] }[] };
   faq: { eyebrow: string; title: string; intro: string; items: { q: string; a: string }[] };
+  contact: ContactPageCopy;
   order: { eyebrow: string; orderTitle: string; demoTitle: string; intro: string; fields: { firstName:string; lastName:string; company:string; email:string; phone:string; message:string; package:string; privacy:string }; submitOrder:string; submitDemo:string; success:string; missingKey:string; genericError:string };
   packages: MarketSoftPackage[];
 };

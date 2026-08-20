@@ -30089,3 +30089,698 @@ html[dir="rtl"] .ms-package-card__price {
 html[dir="rtl"] .ms-package-card__price strong[dir="ltr"] {
   text-align: left;
 }
+
+
+/* MarketSoft social links */
+.ms-footer__socials {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 1rem;
+}
+
+.ms-footer__socials a {
+  display: inline-grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 0.7rem;
+  background: rgba(255, 255, 255, 0.06);
+  color: #f1f6fa;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease,
+    color 160ms ease;
+}
+
+.ms-footer__socials a:hover {
+  transform: translateY(-2px);
+  border-color: rgba(105, 231, 101, 0.55);
+  background: rgba(105, 231, 101, 0.10);
+  color: var(--ms-green);
+}
+
+.ms-footer__socials svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Global floating button to the MarketSoft contact page */
+.ms-floating-contact {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 3rem;
+  padding: 0.72rem 1rem;
+  border: 1px solid rgba(105, 231, 101, 0.30);
+  border-radius: 999px;
+  background: linear-gradient(135deg, #59e66b, #35d4bc);
+  color: #03110d;
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1;
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.30),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.ms-floating-contact:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 22px 50px rgba(0, 0, 0, 0.36),
+    0 0 24px rgba(105, 231, 101, 0.16);
+}
+
+.ms-floating-contact svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  flex: 0 0 auto;
+}
+
+@media (max-width: 719px) {
+  .ms-floating-contact {
+    width: 3rem;
+    height: 3rem;
+    min-height: 3rem;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .ms-floating-contact span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+
+
+/* MarketSoft contact field label contrast */
+.contact-page .contact-form__field > span {
+  color: #f3f7fb !important;
+}
+
+
+
+/* =========================================================
+   MARKETSOFT — PACKAGE PRICING / ANNUAL SUPPORT
+   ========================================================= */
+
+.ms-package-card__price--annual {
+  display: grid;
+  gap: 0.18rem;
+}
+
+.ms-package-card__price--annual > span {
+  color: #89a2ba;
+  font-size: 0.68rem;
+  font-weight: 750;
+}
+
+.ms-package-card__price--annual > strong {
+  width: fit-content;
+}
+
+.ms-package-card__price--annual .ms-package-card__renewal {
+  color: #d9e6f1;
+  font-size: 0.92rem;
+}
+
+.ms-package-hero__pricing {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.15rem;
+}
+
+.ms-package-hero__pricing > div {
+  display: grid;
+  min-width: 10.5rem;
+  gap: 0.22rem;
+  border: 1px solid #223952;
+  border-radius: 0.85rem;
+  background: rgba(12, 29, 49, 0.75);
+  padding: 0.85rem 1rem;
+}
+
+.ms-package-hero__pricing span {
+  color: #8fa5ba;
+  font-size: 0.7rem;
+  font-weight: 750;
+}
+
+.ms-package-hero__pricing strong {
+  color: var(--ms-green);
+  font-size: 1.15rem;
+}
+
+.ms-package-pricing-section {
+  background:
+    linear-gradient(
+      180deg,
+      #081426 0%,
+      #09182b 100%
+    );
+}
+
+.ms-pricing-breakdown {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.8rem;
+}
+
+.ms-pricing-breakdown__card {
+  display: grid;
+  align-content: start;
+  gap: 0.8rem;
+  border: 1px solid #253c55;
+  border-radius: 1rem;
+  background: #0c1d31;
+  padding: 1.25rem;
+}
+
+.ms-pricing-breakdown__card--renewal {
+  border-color: rgba(105, 231, 101, 0.38);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(105, 231, 101, 0.08),
+      #0c1d31 58%
+    );
+}
+
+.ms-pricing-breakdown__eyebrow {
+  color: #90a7bc;
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ms-pricing-breakdown__total {
+  width: fit-content;
+  color: var(--ms-green);
+  font-size:
+    clamp(
+      1.55rem,
+      3vw,
+      2.25rem
+    );
+  line-height: 1;
+}
+
+.ms-pricing-breakdown__card > p {
+  max-width: 46rem;
+  margin: 0;
+  color: #a9bbcb;
+  font-size: 0.84rem;
+  line-height: 1.65;
+}
+
+.ms-pricing-breakdown__line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid #20364d;
+  padding-top: 0.7rem;
+  color: #b8c7d5;
+  font-size: 0.78rem;
+}
+
+.ms-pricing-breakdown__line strong {
+  flex: 0 0 auto;
+  color: #eff5f9;
+}
+
+.ms-maintenance-grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.ms-maintenance-grid > article {
+  border: 1px solid #223952;
+  border-radius: 1rem;
+  background: rgba(9, 24, 42, 0.82);
+  padding: 1.2rem;
+}
+
+.ms-maintenance-grid__heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.ms-maintenance-grid__heading > svg {
+  width: 1.3rem;
+  height: 1.3rem;
+  flex: 0 0 auto;
+  color: var(--ms-green);
+}
+
+.ms-maintenance-grid__heading h3 {
+  margin: 0;
+  color: #f2f7fb;
+  font-size: 1rem;
+}
+
+.ms-maintenance-grid__heading p {
+  margin: 0.35rem 0 0;
+  color: #91a8bd;
+  font-size: 0.76rem;
+  line-height: 1.6;
+}
+
+.ms-maintenance-list {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1.15rem;
+}
+
+.ms-maintenance-list > div {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+}
+
+.ms-maintenance-list svg {
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 auto;
+  margin-top: 0.15rem;
+  color: var(--ms-green);
+}
+
+.ms-maintenance-list strong {
+  display: block;
+  color: #eaf2f8;
+  font-size: 0.8rem;
+}
+
+.ms-maintenance-list p {
+  margin: 0.22rem 0 0;
+  color: #93a9bc;
+  font-size: 0.73rem;
+  line-height: 1.55;
+}
+
+.ms-pricing-exclusions {
+  margin: 1rem 0 0;
+  border-left: 3px solid rgba(105, 231, 101, 0.55);
+  padding: 0.7rem 0.85rem;
+  background: rgba(105, 231, 101, 0.05);
+  color: #9fb2c3;
+  font-size: 0.73rem;
+  line-height: 1.6;
+}
+
+html[dir="rtl"] .ms-pricing-exclusions {
+  border-right: 3px solid rgba(105, 231, 101, 0.55);
+  border-left: 0;
+}
+
+.ms-compare th .ms-compare__package-name {
+  display: block;
+  margin-top: 0.25rem;
+  color: #88a0b7;
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
+.ms-compare__pricing-row td {
+  min-width: 9.5rem;
+}
+
+.ms-compare__pricing-row td > span,
+.ms-compare__pricing-row td > strong {
+  display: block;
+}
+
+.ms-compare__pricing-row td > span {
+  margin-top: 0.28rem;
+  color: #8299ae;
+  font-size: 0.66rem;
+}
+
+.ms-compare__pricing-row td > span:first-child {
+  margin-top: 0;
+}
+
+.ms-compare__pricing-row td > strong {
+  width: fit-content;
+  margin-top: 0.14rem;
+  color: var(--ms-green);
+}
+
+@media (min-width: 760px) {
+  .ms-pricing-breakdown {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .ms-maintenance-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+
+/* =========================================================
+   MARKETSOFT — PACKAGE CARDS / PACKAGE DETAIL COMPACT REWORK
+   ========================================================= */
+
+.ms-package-card__price--annual {
+  display: grid;
+  gap: 0.55rem;
+  align-items: stretch;
+}
+
+.ms-package-card__price-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.ms-package-card__price-row > span {
+  color: #8da3b8;
+  font-size: 0.69rem;
+  font-weight: 750;
+  text-align: start;
+}
+
+.ms-package-card__price-row > strong {
+  width: auto;
+  margin-inline-start: auto;
+  text-align: end;
+  white-space: nowrap;
+}
+
+.ms-package-card__price-row--single {
+  justify-content: flex-start;
+}
+
+.ms-package-card__price-row--single > strong {
+  margin-inline-start: 0;
+  color: var(--ms-green);
+}
+
+/* Package detail hero: concise introduction only. */
+.ms-package-detail-hero {
+  padding: 2rem 0 1.7rem;
+}
+
+.ms-package-detail-hero .site-container {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.ms-package-detail-hero__title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.ms-package-detail-hero__title-row h1 {
+  max-width: none;
+  margin: 0;
+  font-size:
+    clamp(
+      1.75rem,
+      3.5vw,
+      2.85rem
+    );
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.ms-package-detail-hero__description {
+  max-width: 70rem !important;
+  margin-top: 0 !important;
+  color: #a6bacd !important;
+  font-size: 0.88rem !important;
+  line-height: 1.65 !important;
+}
+
+/* Audience + outcomes + modules in one compact block. */
+.ms-package-overview {
+  border-block:
+    1px solid
+    rgba(255, 255, 255, 0.06);
+  background: #07111f;
+  padding: 2rem 0;
+}
+
+.ms-package-overview__top {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.ms-package-overview__top article,
+.ms-package-overview__modules {
+  min-width: 0;
+}
+
+.ms-package-overview h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.05rem;
+}
+
+.ms-check-list--compact {
+  gap: 0.4rem;
+}
+
+.ms-check-list--compact li {
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
+
+.ms-package-overview__modules {
+  margin-top: 1.5rem;
+  border-top:
+    1px solid
+    rgba(255, 255, 255, 0.07);
+  padding-top: 1.4rem;
+}
+
+.ms-module-grid--compact article {
+  padding: 0.9rem;
+}
+
+.ms-module-grid--compact article h3 {
+  margin: 0 0 0.55rem;
+  font-size: 0.88rem;
+}
+
+.ms-module-grid--compact article ul {
+  margin: 0;
+  padding-inline-start: 1rem;
+}
+
+.ms-module-grid--compact article li {
+  color: #9fb2c4;
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+
+/* Pricing already contains the detailed recurring-cost explanation. */
+.ms-package-detail-page .ms-package-pricing-section {
+  padding-top: 2.8rem;
+  padding-bottom: 3rem;
+}
+
+/* /packages: the offers should be visible immediately. */
+.ms-packages-list-hero {
+  padding: 1.6rem 0 1.35rem;
+}
+
+.ms-packages-list-hero .site-container {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.ms-packages-list-hero h1 {
+  max-width: none;
+  margin: 0;
+  font-size:
+    clamp(
+      1.65rem,
+      3vw,
+      2.55rem
+    );
+  line-height: 1.02;
+}
+
+.ms-packages-list-hero p {
+  max-width: 56rem;
+  margin-top: 0.2rem;
+  font-size: 0.82rem;
+}
+
+.ms-packages-list-hero + .ms-section {
+  padding-top: 2rem;
+}
+
+@media (min-width: 760px) {
+  .ms-package-overview__top {
+    grid-template-columns:
+      0.82fr
+      1.18fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ms-module-grid--compact {
+    grid-template-columns:
+      repeat(
+        3,
+        minmax(0, 1fr)
+      );
+  }
+}
+
+@media (max-width: 719px) {
+  .ms-package-detail-hero__title-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .ms-package-detail-hero__title-row .ms-button {
+    width: 100%;
+  }
+
+  .ms-package-overview {
+    padding: 1.5rem 0;
+  }
+}
+
+
+/* =========================================================
+   MARKETSOFT — CONTACT AVAILABILITIES + ORDER FORM
+   ========================================================= */
+
+/* Contact appointment availability: fully adapted to MarketSoft dark theme. */
+.contact-page .contact-availabilities {
+  border-color: #29425e !important;
+  background:
+    linear-gradient(
+      145deg,
+      #132940 0%,
+      #102238 100%
+    ) !important;
+}
+
+.contact-page .contact-availabilities__heading h3,
+.contact-page .contact-availability__header strong {
+  color: #f2f7fb !important;
+}
+
+.contact-page .contact-availabilities__heading p,
+.contact-page .contact-availabilities__actions > span {
+  color: #a7bbce !important;
+}
+
+.contact-page .contact-availabilities__heading > span {
+  border:
+    1px solid
+    rgba(105, 231, 101, 0.22) !important;
+  background:
+    rgba(105, 231, 101, 0.10) !important;
+  color: var(--ms-green) !important;
+}
+
+.contact-page .contact-availability {
+  border-color: #2b435e !important;
+  background: #0b1a2d !important;
+}
+
+.contact-page .contact-availability .contact-form__field > span,
+.contact-page .contact-availability label > span {
+  color: #dfe9f2 !important;
+}
+
+.contact-page .contact-availability input,
+.contact-page .contact-availability textarea {
+  border-color: #324b68 !important;
+  background: #071523 !important;
+  color: #f6f9fc !important;
+}
+
+.contact-page .contact-availability input::placeholder,
+.contact-page .contact-availability textarea::placeholder {
+  color: #758ca3 !important;
+}
+
+.contact-page .contact-availability input:focus,
+.contact-page .contact-availability textarea:focus {
+  border-color: var(--ms-green) !important;
+  background: #071523 !important;
+  box-shadow:
+    0 0 0 3px
+    rgba(105, 231, 101, 0.10) !important;
+}
+
+.contact-page .contact-availability__header button {
+  border-color: rgba(255, 112, 112, 0.22) !important;
+  background: rgba(255, 112, 112, 0.08) !important;
+  color: #ff8f8f !important;
+}
+
+/* Order form: package name remains readable; pricing is shown below the select. */
+.ms-request-form__package-field {
+  min-width: 0;
+}
+
+.ms-request-form__package-field select {
+  min-width: 0;
+  width: 100%;
+  text-overflow: ellipsis;
+}
+
+.ms-request-form__package-field option {
+  background: #0b1a2d;
+  color: #f5f8fb;
+}
+
+.ms-request-form__package-summary {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap:
+    0.25rem
+    0.45rem;
+  color: #91a8bd;
+  font-size: 0.69rem;
+  line-height: 1.4;
+}
+
+.ms-request-form__package-summary strong {
+  color: var(--ms-green);
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+.ms-request-form__package-separator {
+  color: #4c6279;
+}
+
+@media (min-width: 720px) {
+  .ms-request-form__package-field {
+    grid-column: 1 / -1;
+  }
+}

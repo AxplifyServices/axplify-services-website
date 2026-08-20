@@ -8,3 +8,12 @@ export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '21268
 export const SOCIAL_IMAGE_URL = new URL('/brand/marketsoft-logo-wordmark.png', SITE_URL).toString();
 export const publicPageHrefs = ['/', '/platform', '/packages', '/benefits', '/compare', '/faq', '/contact'] as const;
 export type PublicPageHref = (typeof publicPageHrefs)[number];
+
+export const MARKETSOFT_FACEBOOK_URL =
+  'https://web.facebook.com/profile.php?id=61593143567348';
+
+export const MARKETSOFT_INSTAGRAM_URL =
+  'https://www.instagram.com/marketsoft_axplify/';
+
+export const MARKETSOFT_LINKEDIN_URL =
+  'https://www.linkedin.com/showcase/marketsoftaxplify/about/';

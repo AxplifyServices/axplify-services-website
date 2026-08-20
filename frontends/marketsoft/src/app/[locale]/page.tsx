@@ -103,6 +103,7 @@ export default async function Home({ params }: Props) {
                 key={pkg.slug}
                 pkg={pkg}
                 actions={c.packageActions}
+                pricing={c.pricing}
               />
             ))}
           </div>

@@ -395,7 +395,10 @@ useEffect(
   <LanguageSwitcher />
 </div>
 
-        <button
+        <div className="site-header__mobile-actions">
+          <LanguageSwitcher />
+
+          <button
           type="button"
           className="site-header__menu-button"
           aria-label={
@@ -434,7 +437,8 @@ useEffect(
               }
             />
           )}
-        </button>
+          </button>
+        </div>
       </div>
 
       {isMenuOpen ? (
@@ -457,8 +461,6 @@ useEffect(
             className="site-header__mobile-panel"
           >
             <div className="site-container site-header__mobile-content">
-              <LanguageSwitcher />
-
               <nav
                 className="site-header__mobile-nav"
                 aria-label={

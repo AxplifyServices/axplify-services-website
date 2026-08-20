@@ -102,41 +102,45 @@ export class CreateProductRequestDto {
   locale:
     ProductRequestLocale;
 
-  @IsString()
-  @MinLength(
-    2,
-  )
-  @MaxLength(
-    100,
-  )
-  @Transform(
-    trimmedString,
-  )
-  firstName:
-    string;
-
-  @IsString()
-  @MinLength(
-    2,
-  )
-  @MaxLength(
-    100,
-  )
-  @Transform(
-    trimmedString,
-  )
-  lastName:
-    string;
-
   @IsOptional()
   @IsString()
+  @MinLength(
+    2,
+  )
   @MaxLength(
-    180,
+    100,
   )
   @Transform(
     optionalTrimmedString,
   )
-  companyName?:
+  firstName?:
+    string;
+
+  @IsOptional()
+  @IsString()
+  @MinLength(
+    2,
+  )
+  @MaxLength(
+    100,
+  )
+  @Transform(
+    optionalTrimmedString,
+  )
+  lastName?:
+    string;
+
+  @IsString()
+  @MinLength(
+    2,
+  )
+  @MaxLength(
+    180,
+  )
+  @Transform(
+    trimmedString,
+  )
+  companyName:
     string;
 
   @IsEmail(
@@ -155,7 +159,6 @@ export class CreateProductRequestDto {
   email:
     string;
 
-  @IsOptional()
   @IsString()
   @MinLength(
     6,
@@ -164,9 +167,9 @@ export class CreateProductRequestDto {
     40,
   )
   @Transform(
-    optionalTrimmedString,
+    trimmedString,
   )
-  phoneNumber?:
+  phoneNumber:
     string;
 
   @IsString()

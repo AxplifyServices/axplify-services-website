@@ -51,11 +51,11 @@ async function bootstrap() {
       3000,
     );
 
-  const corsOrigins =
+  const configuredCorsOrigins =
     configService
       .get<string>(
         'CORS_ORIGINS',
-        'http://localhost:3001',
+        '',
       )
       .split(
         ',',
@@ -69,6 +69,33 @@ async function bootstrap() {
       .filter(
         Boolean,
       );
+
+  /*
+   * En développement local, les deux frontends Axplify
+   * doivent fonctionner sans dépendre d'un CORS_ORIGINS
+   * parfaitement renseigné dans le .env.
+   *
+   * Ces origines ne sont jamais ajoutées automatiquement
+   * en production.
+   */
+  const localDevelopmentOrigins =
+    process.env.NODE_ENV ===
+    'production'
+      ? []
+      : [
+          'http://localhost:3001',
+          'http://localhost:3002',
+          'http://127.0.0.1:3001',
+          'http://127.0.0.1:3002',
+        ];
+
+  const corsOrigins =
+    Array.from(
+      new Set([
+        ...configuredCorsOrigins,
+        ...localDevelopmentOrigins,
+      ]),
+    );
 
   app.setGlobalPrefix(
     apiPrefix,

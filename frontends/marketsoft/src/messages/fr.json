@@ -289,15 +289,6 @@
           "Forte",
           "Sur mesure"
         ]
-      },
-      {
-        "label": "Prix",
-        "values": [
-          "10–15K DH",
-          "25–35K DH",
-          "65–75K DH",
-          "Sur devis"
-        ]
       }
     ]
   },
@@ -365,8 +356,8 @@
     {
       "slug": "store",
       "name": "Boutique en ligne",
-      "target": "Pour lancer une boutique professionnelle simple à administrer.",
-      "price": "12 500 DH",
+      "target": "Une boutique e-commerce professionnelle prête à vendre, pensée pour une entreprise qui souhaite commercialiser ses propres produits avec un parcours d’achat simple, une administration claire et toutes les fonctions essentielles pour gérer catalogue, commandes et paiements.",
+      "price": "20 000 DH",
       "delay": "Environ 1 semaine",
       "shortFeatures": [
         "Catalogue produits",
@@ -409,21 +400,24 @@
         }
       ],
       "outcomes": [
-        "Lancer rapidement un canal de vente propriétaire",
-        "Administrer produits et commandes sans complexité",
-        "Offrir un parcours d’achat professionnel"
+        "Lancer rapidement une boutique professionnelle adaptée au mobile.",
+        "Présenter un catalogue structuré avec fiches produits et plusieurs images.",
+        "Recevoir, consulter et traiter les commandes depuis une administration simple.",
+        "Proposer les moyens de paiement et de livraison prévus pour votre activité.",
+        "Gérer vous-même les produits et les principales opérations quotidiennes."
       ],
-      "options": [
-        "UX/UI plus personnalisé : +3 500 DH",
-        "Support & maintenance : 10 000 – 15 000 DH/an"
-      ],
-      "level": "Starter"
+      "options": [],
+      "level": "Starter",
+      "basePrice": "12 500 DH",
+      "firstYearSupportPrice": "7 500 DH",
+      "firstYearPrice": "20 000 DH",
+      "annualSupportPrice": "12 500 DH / an"
     },
     {
       "slug": "advanced",
       "name": "Boutique avancée",
-      "target": "Pour faire du e-commerce un véritable canal de vente récurrent.",
-      "price": "30 000 DH",
+      "target": "Une boutique e-commerce avancée pour les entreprises qui vendent régulièrement en ligne et ont besoin de mieux gérer leurs clients, leurs variantes et stocks, leurs promotions, leurs livraisons, leurs contenus et leurs performances depuis une seule plateforme.",
+      "price": "45 000 DH",
       "delay": "Environ 10 jours",
       "shortFeatures": [
         "Compte client",
@@ -466,21 +460,24 @@
         }
       ],
       "outcomes": [
-        "Augmenter la récurrence d’achat",
-        "Mieux piloter stocks et promotions",
-        "Réduire les tâches répétitives"
+        "Gérer un catalogue riche avec tailles, couleurs, variantes et stocks détaillés.",
+        "Donner aux clients un espace personnel avec historique, factures et favoris.",
+        "Créer des promotions, codes de réduction et règles commerciales avancées.",
+        "Organiser plusieurs modes et zones de livraison avec suivi des expéditions.",
+        "Piloter les ventes avec des statistiques et tableaux de bord exploitables."
       ],
-      "options": [
-        "UX/UI plus personnalisé : +6 000 DH",
-        "Support & maintenance : 15 000 – 20 000 DH/an"
-      ],
-      "level": "Medium"
+      "options": [],
+      "level": "Medium",
+      "basePrice": "30 000 DH",
+      "firstYearSupportPrice": "15 000 DH",
+      "firstYearPrice": "45 000 DH",
+      "annualSupportPrice": "30 000 DH / an"
     },
     {
       "slug": "marketplace",
       "name": "Marketplace multi-vendeur",
-      "target": "Pour réunir plusieurs vendeurs, marques ou partenaires sur une seule plateforme.",
-      "price": "75 000 DH",
+      "target": "Une marketplace complète destinée à réunir plusieurs vendeurs, marques, fournisseurs ou partenaires sur une même plateforme. Chaque vendeur dispose de son propre espace tandis que l’entreprise propriétaire conserve le contrôle des produits, commandes, règles et performances globales.",
+      "price": "100 000 DH",
       "delay": "Environ 2 à 4 semaines",
       "shortFeatures": [
         "Espaces vendeurs",
@@ -523,20 +520,23 @@
         }
       ],
       "outcomes": [
-        "Créer un modèle de vente multi-partenaire",
-        "Conserver le contrôle global de la marketplace",
-        "Donner de l’autonomie aux vendeurs sans exposer les autres données"
+        "Permettre à plusieurs vendeurs de gérer leurs produits, stocks et commandes séparément.",
+        "Contrôler l’inscription des vendeurs et valider les produits avant publication.",
+        "Répartir automatiquement une commande entre les vendeurs concernés.",
+        "Gérer les retours, litiges, avis, commissions et performances par vendeur.",
+        "Faire évoluer la marketplace vers davantage de vendeurs, catégories et volumes."
       ],
-      "options": [
-        "UX/UI plus personnalisé : +12 000 DH",
-        "Support & maintenance : 40 000 – 50 000 DH/an"
-      ],
-      "level": "Avancé"
+      "options": [],
+      "level": "Avancé",
+      "basePrice": "75 000 DH",
+      "firstYearSupportPrice": "25 000 DH",
+      "firstYearPrice": "100 000 DH",
+      "annualSupportPrice": "50 000 DH / an"
     },
     {
       "slug": "custom",
       "name": "Plateforme Custom",
-      "target": "Pour partir d’un package existant et ajouter des besoins sur mesure.",
+      "target": "Une plateforme sur mesure construite à partir d’une base MarketSoft lorsque votre modèle commercial nécessite des fonctionnalités métier spécifiques, des intégrations externes, des workflows particuliers ou une expérience qui dépasse le cadre des trois offres standard.",
       "price": "Sur devis",
       "delay": "Selon le besoin",
       "shortFeatures": [
@@ -580,15 +580,18 @@
         }
       ],
       "outcomes": [
-        "Éviter de reconstruire ce qui existe déjà",
-        "Concentrer le budget sur les besoins réellement spécifiques",
-        "Faire évoluer MarketSoft autour du SI existant"
+        "Partir d’une base MarketSoft éprouvée plutôt que développer entièrement depuis zéro.",
+        "Adapter les workflows et règles de gestion à votre organisation.",
+        "Ajouter des modules ou fonctions qui ne sont pas inclus dans les packages standard.",
+        "Connecter MarketSoft à vos outils externes via API lorsque nécessaire.",
+        "Faire évoluer progressivement la solution selon vos priorités métier."
       ],
-      "options": [
-        "UX/UI : selon besoin",
-        "Support & maintenance : base du package + suppléments"
-      ],
-      "level": "Personnalisé"
+      "options": [],
+      "level": "Personnalisé",
+      "basePrice": "Sur devis",
+      "firstYearSupportPrice": "Sur devis",
+      "firstYearPrice": "Sur devis",
+      "annualSupportPrice": "Sur devis"
     }
   ],
   "packagesEyebrow": "MarketSoft",
@@ -605,5 +608,183 @@
     "close": "Fermer",
     "fullscreen": "Agrandir",
     "slide": "Écran"
+  },
+  "contact": {
+    "hero": {
+      "eyebrow": "Votre demande",
+      "title": "Parlons de votre projet commerce.",
+      "description": "Quelques informations suffisent pour comprendre votre besoin et préparer un échange pertinent.",
+      "reassurance": "Une demande simple, sans engagement."
+    },
+    "directContact": {
+      "title": "Besoin d'un échange rapide ?",
+      "description": "Contactez-nous directement sur WhatsApp, par e-mail ou par téléphone.",
+      "whatsappLabel": "Écrire sur WhatsApp",
+      "whatsappMessage": "Bonjour MarketSoft, je souhaite échanger au sujet de mon projet e-commerce.",
+      "emailLabel": "Envoyer un e-mail",
+      "phoneLabel": "Nous appeler"
+    },
+    "form": {
+      "eyebrow": "Votre demande",
+      "title": "Vos coordonnées professionnelles",
+      "description": "Les champs suivis d'un astérisque sont obligatoires.",
+      "sections": {
+        "identity": "Vos coordonnées professionnelles",
+        "need": "Votre besoin",
+        "appointment": "Organiser un rendez-vous"
+      },
+      "fields": {
+        "firstName": {
+          "label": "Prénom",
+          "placeholder": "Votre prénom"
+        },
+        "lastName": {
+          "label": "Nom",
+          "placeholder": "Votre nom"
+        },
+        "companyName": {
+          "label": "Entreprise *",
+          "placeholder": "Nom de votre entreprise"
+        },
+        "jobTitle": {
+          "label": "Votre rôle dans l'entreprise",
+          "placeholder": "Ex. Directeur général, responsable commercial..."
+        },
+        "email": {
+          "label": "Adresse e-mail professionnelle *",
+          "placeholder": "nom@entreprise.com"
+        },
+        "phoneNumber": {
+          "label": "Numéro de téléphone *",
+          "placeholder": "+212 6 00 00 00 00"
+        },
+        "needDescription": {
+          "label": "Décrivez votre besoin",
+          "placeholder": "Décrivez votre situation actuelle, vos objectifs et le résultat souhaité.",
+          "hint": "Plus votre demande est précise, plus notre premier retour pourra être pertinent."
+        }
+      },
+      "appointment": {
+        "title": "Souhaitez-vous organiser un rendez-vous ?",
+        "description": "Indiquez-nous vos disponibilités et nous préparerons un échange adapté à votre besoin.",
+        "yes": "Oui, proposer mes disponibilités",
+        "no": "Pas pour le moment",
+        "availabilityTitle": "Disponibilité",
+        "availabilityDescription": "Vous pouvez proposer jusqu'à trois créneaux.",
+        "date": "Date",
+        "startTime": "Heure de début",
+        "endTime": "Heure de fin",
+        "note": "Note",
+        "notePlaceholder": "Information utile pour ce créneau",
+        "add": "Ajouter un créneau",
+        "remove": "Retirer",
+        "maximum": "Vous avez atteint le maximum de trois créneaux."
+      },
+      "privacy": {
+        "prefix": "J'accepte que mes informations soient utilisées afin de traiter ma demande conformément à la",
+        "linkLabel": "politique de confidentialité",
+        "suffix": ".",
+        "modal": {
+          "eyebrow": "Confidentialité",
+          "title": "Utilisation de vos données",
+          "introduction": "Les informations transmises servent uniquement à traiter votre demande et à organiser les échanges nécessaires.",
+          "collectedDataTitle": "Données collectées",
+          "collectedData": [
+            "Coordonnées professionnelles",
+            "Informations liées à votre besoin",
+            "Disponibilités de rendez-vous si vous les renseignez"
+          ],
+          "purposesTitle": "Finalités",
+          "purposes": [
+            "Répondre à votre demande",
+            "Préparer un échange adapté",
+            "Assurer le suivi de votre demande"
+          ],
+          "accessTitle": "Accès",
+          "accessDescription": "L'accès est limité aux personnes habilitées à traiter votre demande.",
+          "retentionTitle": "Conservation",
+          "retentionDescription": "Les données sont conservées pendant la durée nécessaire au traitement et au suivi de votre demande.",
+          "rightsTitle": "Vos droits",
+          "rightsDescription": "Vous pouvez demander l'accès, la rectification ou la suppression de vos données selon les règles applicables.",
+          "securityTitle": "Sécurité",
+          "securityDescription": "Des mesures techniques et organisationnelles sont appliquées pour protéger les informations transmises.",
+          "close": "Fermer"
+        }
+      },
+      "submit": "Envoyer ma demande",
+      "submitting": "Envoi en cours...",
+      "required": "Champ obligatoire"
+    },
+    "success": {
+      "eyebrow": "Demande envoyée",
+      "title": "Merci, votre demande a bien été transmise.",
+      "description": "Notre équipe pourra maintenant examiner votre besoin et revenir vers vous.",
+      "reference": "Référence",
+      "newRequest": "Envoyer une nouvelle demande",
+      "whatsapp": "Continuer sur WhatsApp"
+    },
+    "errors": {
+      "generic": "Une erreur est survenue. Réessayez dans quelques instants.",
+      "requiredFields": "Veuillez renseigner l'entreprise, l'adresse e-mail et le numéro de téléphone.",
+      "privacy": "Veuillez accepter la politique de confidentialité pour continuer.",
+      "descriptionLength": "La description est trop longue.",
+      "appointmentAvailability": "Ajoutez au moins une disponibilité pour organiser un rendez-vous.",
+      "invalidAvailability": "Vérifiez les dates et horaires renseignés.",
+      "pastAvailability": "Les disponibilités doivent être situées dans le futur."
+    }
+  },
+  "pricing": {
+    "firstYearShort": "1re année",
+    "thenShort": "Puis",
+    "perYearShort": "par an",
+    "title": "Structure du coût",
+    "intro": "Le coût est séparé entre la mise en place de votre plateforme et l’accompagnement nécessaire pour la maintenir fiable, sécurisée et exploitable dans la durée.",
+    "firstYearLabel": "Première année",
+    "firstYearDescription": "La première année comprend le prix de base du package et un forfait initial de maintenance & support.",
+    "basePriceLabel": "Mise en place du package",
+    "firstYearSupportLabel": "Maintenance & support — 1re année",
+    "annualLabel": "À partir de la 2e année",
+    "annualDescription": "À partir de la deuxième année, vous ne repayez pas le développement initial. Le montant annuel correspond uniquement à la maintenance et au support du package.",
+    "maintenanceTitle": "Maintenance incluse",
+    "maintenanceIntro": "La maintenance vise à conserver une plateforme stable, sécurisée et compatible avec son environnement technique.",
+    "maintenanceItems": [
+      {
+        "title": "Maintenance corrective",
+        "text": "Correction des anomalies et dysfonctionnements couverts par le périmètre du package."
+      },
+      {
+        "title": "Maintenance préventive",
+        "text": "Contrôles réguliers, surveillance des points sensibles et actions destinées à réduire les risques d’incident."
+      },
+      {
+        "title": "Mises à jour techniques",
+        "text": "Mise à jour des dépendances, correctifs de sécurité et adaptations nécessaires au maintien de la compatibilité technique."
+      },
+      {
+        "title": "Suivi technique",
+        "text": "Vérification du bon fonctionnement, des performances principales et accompagnement lors des opérations de maintenance."
+      }
+    ],
+    "supportTitle": "Support & accompagnement inclus",
+    "supportIntro": "Le support aide vos équipes à utiliser correctement MarketSoft et à résoudre les difficultés liées aux fonctionnalités du package.",
+    "supportItems": [
+      {
+        "title": "Assistance utilisateurs",
+        "text": "Aide sur l’utilisation des fonctionnalités incluses et traitement des questions fonctionnelles courantes."
+      },
+      {
+        "title": "Formation utilisateurs",
+        "text": "Accompagnement des utilisateurs clés lors du lancement et rappels ciblés lorsque cela est nécessaire."
+      },
+      {
+        "title": "Guides d’utilisation",
+        "text": "Mise à disposition de guides et consignes pour les principales opérations de la plateforme."
+      },
+      {
+        "title": "Support administrateur",
+        "text": "Assistance sur l’administration, les réglages courants et l’exploitation quotidienne du package."
+      }
+    ],
+    "exclusions": "Les nouvelles fonctionnalités, intégrations externes, refontes UX/UI importantes ou évolutions hors périmètre du package ne sont pas incluses dans la maintenance annuelle et font l’objet d’un chiffrage séparé."
   }
 }

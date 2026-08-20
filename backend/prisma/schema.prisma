@@ -690,8 +690,8 @@ model product_requests {
   product_id                                        String                           @db.Uuid
   request_type                                      String                           @db.VarChar(30)
   locale                                            String                           @default("fr") @db.VarChar(5)
-  first_name                                        String                           @db.VarChar(100)
-  last_name                                         String                           @db.VarChar(100)
+  first_name                                        String?                          @db.VarChar(100)
+  last_name                                         String?                          @db.VarChar(100)
   company_name                                      String?                          @db.VarChar(180)
   email                                             String                           @db.Citext
   phone_number                                      String?                          @db.VarChar(40)

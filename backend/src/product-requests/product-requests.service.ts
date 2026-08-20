@@ -183,21 +183,21 @@ const productName =
                       dto.locale,
 
                     first_name:
-                      dto.firstName,
+                      dto.firstName ??
+                      null,
 
                     last_name:
-                      dto.lastName,
+                      dto.lastName ??
+                      null,
 
                     company_name:
-                      dto.companyName ??
-                      null,
+                      dto.companyName,
 
                     email:
                       dto.email,
 
                     phone_number:
-                      dto.phoneNumber ??
-                      null,
+                      dto.phoneNumber,
 
                     request_message:
                       dto.message,

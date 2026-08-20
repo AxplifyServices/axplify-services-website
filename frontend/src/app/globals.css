@@ -29778,3 +29778,203 @@ html[dir="rtl"]
     margin-top: 1.25rem;
   }
 }
+
+
+/* =========================================================
+   Axplify — compact language dropdown
+   Same interaction pattern as MarketSoft on desktop/mobile.
+   ========================================================= */
+
+.site-header__mobile-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+/*
+ * The old segmented switcher styles remain above for history,
+ * but these rules intentionally override them.
+ */
+.language-switcher {
+  position: relative;
+  display: inline-flex;
+  width: auto;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
+}
+
+.language-switcher::before {
+  display: none;
+}
+
+.language-switcher__trigger {
+  display: inline-flex;
+  min-width: 3.45rem;
+  min-height: 2.75rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  border:
+    1px solid
+    var(--axplify-border);
+  border-radius: 0.8rem;
+  background:
+    var(--axplify-surface);
+  padding:
+    0.55rem
+    0.7rem;
+  color:
+    var(--axplify-navy);
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.04em;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.language-switcher__trigger:hover,
+.language-switcher[data-open="true"]
+.language-switcher__trigger {
+  border-color:
+    rgba(28, 182, 220, 0.38);
+  background:
+    rgba(28, 182, 220, 0.07);
+  box-shadow:
+    0 8px 20px
+    rgba(5, 38, 79, 0.07);
+}
+
+.language-switcher__chevron {
+  flex: 0 0 auto;
+  transition:
+    transform 180ms ease;
+}
+
+.language-switcher[data-open="true"]
+.language-switcher__chevron {
+  transform:
+    rotate(
+      180deg
+    );
+}
+
+.language-switcher__menu {
+  position: absolute;
+  z-index: 80;
+  top:
+    calc(
+      100% +
+      0.45rem
+    );
+  inset-inline-end: 0;
+  display: grid;
+  width: 4.5rem;
+  gap: 0.2rem;
+  border:
+    1px solid
+    var(--axplify-border);
+  border-radius: 0.85rem;
+  background:
+    var(--axplify-white);
+  padding: 0.3rem;
+  box-shadow:
+    0 16px 36px
+    rgba(5, 38, 79, 0.16);
+}
+
+.language-switcher__option {
+  position: relative;
+  display: flex;
+  min-height: 2.35rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.62rem;
+  padding:
+    0.45rem
+    0.55rem;
+  color:
+    var(--axplify-muted);
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.04em;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.language-switcher__option:hover {
+  background:
+    rgba(28, 182, 220, 0.08);
+  color:
+    var(--axplify-navy);
+}
+
+.language-switcher__option[data-active="true"] {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(28, 182, 220, 0.15),
+      rgba(139, 92, 246, 0.10)
+    );
+  color:
+    var(--axplify-navy);
+}
+
+.language-switcher__option[data-pending="true"] {
+  padding-inline-end:
+    1.35rem;
+}
+
+.language-switcher__option
+.language-switcher__loader {
+  inset-inline-end:
+    0.38rem;
+}
+
+@media (min-width: 1280px) {
+  .site-header__mobile-actions {
+    display: none;
+  }
+
+  .site-header__desktop-actions {
+    display: flex;
+  }
+}
+
+@media (max-width: 1279px) {
+  .site-header__desktop-actions {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-header__inner {
+    gap: 0.5rem;
+  }
+
+  .site-header__brand {
+    min-width: 0;
+  }
+
+  .site-header__mobile-actions {
+    gap: 0.4rem;
+  }
+
+  .language-switcher__trigger {
+    min-width: 3.15rem;
+    min-height: 2.65rem;
+    padding-inline: 0.58rem;
+  }
+
+  .site-header__menu-button {
+    width: 2.65rem;
+    height: 2.65rem;
+  }
+}

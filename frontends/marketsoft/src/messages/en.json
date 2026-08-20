@@ -289,15 +289,6 @@
           "High",
           "Tailored"
         ]
-      },
-      {
-        "label": "Price",
-        "values": [
-          "12,500 DH",
-          "30,000 DH",
-          "75,000 DH",
-          "Quote"
-        ]
       }
     ]
   },
@@ -366,8 +357,8 @@
       "slug": "store",
       "level": "Starter",
       "name": "Online store",
-      "target": "For launching a professional store that is simple to manage.",
-      "price": "12,500 DH",
+      "target": "A professional e-commerce store ready to sell, designed for a business that wants to sell its own products through a simple buying journey, clear administration and all essential features for catalog, order and payment management.",
+      "price": "20,000 DH",
       "delay": "About 1 week",
       "shortFeatures": [
         "Product catalog",
@@ -410,21 +401,24 @@
         }
       ],
       "outcomes": [
-        "Launch an owned sales channel quickly",
-        "Manage products and orders without complexity",
-        "Provide a professional purchasing journey"
+        "Launch a professional mobile-ready online store quickly.",
+        "Present a structured catalog with product pages and multiple images.",
+        "Receive, review and process orders from a simple administration area.",
+        "Offer the payment and delivery methods defined for your business.",
+        "Manage products and core day-to-day operations yourself."
       ],
-      "options": [
-        "More customized UX/UI: +3,500 DH",
-        "Support & maintenance: 10,000–15,000 DH/year"
-      ]
+      "options": [],
+      "basePrice": "12,500 DH",
+      "firstYearSupportPrice": "7,500 DH",
+      "firstYearPrice": "20,000 DH",
+      "annualSupportPrice": "12,500 DH / year"
     },
     {
       "slug": "advanced",
       "level": "Medium",
       "name": "Advanced store",
-      "target": "For turning e-commerce into a recurring sales channel.",
-      "price": "30,000 DH",
+      "target": "An advanced e-commerce store for businesses that sell online regularly and need stronger management of customers, variants and inventory, promotions, delivery, content and sales performance from a single platform.",
+      "price": "45,000 DH",
       "delay": "About 10 days",
       "shortFeatures": [
         "Customer account",
@@ -467,21 +461,24 @@
         }
       ],
       "outcomes": [
-        "Increase repeat purchases",
-        "Manage inventory and promotions more effectively",
-        "Reduce repetitive operational work"
+        "Manage a rich catalog with sizes, colors, variants and detailed stock.",
+        "Give customers their own space with history, invoices and favorites.",
+        "Create promotions, discount codes and advanced commercial rules.",
+        "Organize multiple delivery methods and zones with shipment tracking.",
+        "Monitor sales through actionable statistics and dashboards."
       ],
-      "options": [
-        "More customized UX/UI: +6,000 DH",
-        "Support & maintenance: 15,000–20,000 DH/year"
-      ]
+      "options": [],
+      "basePrice": "30,000 DH",
+      "firstYearSupportPrice": "15,000 DH",
+      "firstYearPrice": "45,000 DH",
+      "annualSupportPrice": "30,000 DH / year"
     },
     {
       "slug": "marketplace",
       "level": "Advanced",
       "name": "Multi-vendor marketplace",
-      "target": "For bringing several sellers, brands or partners together on one platform.",
-      "price": "75,000 DH",
+      "target": "A complete marketplace designed to bring multiple sellers, brands, suppliers or partners together on one platform. Each seller gets a dedicated space while the marketplace owner keeps central control over products, orders, rules and overall performance.",
+      "price": "100,000 DH",
       "delay": "About 2–4 weeks",
       "shortFeatures": [
         "Seller spaces",
@@ -524,20 +521,23 @@
         }
       ],
       "outcomes": [
-        "Build a multi-partner sales model",
-        "Keep overall control of the marketplace",
-        "Give sellers autonomy without exposing other data"
+        "Let multiple sellers manage their products, stock and orders separately.",
+        "Control seller onboarding and approve products before publication.",
+        "Automatically split an order between the relevant sellers.",
+        "Manage returns, disputes, reviews, commissions and seller performance.",
+        "Scale the marketplace to more sellers, categories and sales volume."
       ],
-      "options": [
-        "More customized UX/UI: +12,000 DH",
-        "Support & maintenance: 40,000–50,000 DH/year"
-      ]
+      "options": [],
+      "basePrice": "75,000 DH",
+      "firstYearSupportPrice": "25,000 DH",
+      "firstYearPrice": "100,000 DH",
+      "annualSupportPrice": "50,000 DH / year"
     },
     {
       "slug": "custom",
       "level": "Custom",
       "name": "Custom platform",
-      "target": "For starting from an existing package and adding tailored requirements.",
+      "target": "A tailored platform built from the MarketSoft foundation when your business model requires specific business features, external integrations, custom workflows or an experience beyond the three standard offers.",
       "price": "Quote",
       "delay": "According to scope",
       "shortFeatures": [
@@ -581,14 +581,17 @@
         }
       ],
       "outcomes": [
-        "Avoid rebuilding capabilities that already exist",
-        "Focus the budget on truly specific needs",
-        "Evolve MarketSoft around the existing information system"
+        "Start from a proven MarketSoft foundation instead of building everything from scratch.",
+        "Adapt workflows and business rules to your organization.",
+        "Add modules or features not included in the standard packages.",
+        "Connect MarketSoft to external tools through APIs when needed.",
+        "Expand the solution progressively according to business priorities."
       ],
-      "options": [
-        "UX/UI: according to scope",
-        "Support & maintenance: package baseline + extras"
-      ]
+      "options": [],
+      "basePrice": "Quote",
+      "firstYearSupportPrice": "Quote",
+      "firstYearPrice": "Quote",
+      "annualSupportPrice": "Quote"
     }
   ],
   "packagesEyebrow": "MarketSoft",
@@ -605,5 +608,183 @@
     "close": "Close",
     "fullscreen": "Fullscreen",
     "slide": "Screen"
+  },
+  "contact": {
+    "hero": {
+      "eyebrow": "Your request",
+      "title": "Let's talk about your commerce project.",
+      "description": "A few details are enough for us to understand your needs and prepare a relevant conversation.",
+      "reassurance": "A simple, no-obligation request."
+    },
+    "directContact": {
+      "title": "Need a quick conversation?",
+      "description": "Reach us directly on WhatsApp, by email or by phone.",
+      "whatsappLabel": "Message us on WhatsApp",
+      "whatsappMessage": "Hello MarketSoft, I would like to discuss my e-commerce project.",
+      "emailLabel": "Send an email",
+      "phoneLabel": "Call us"
+    },
+    "form": {
+      "eyebrow": "Your request",
+      "title": "Your professional details",
+      "description": "Fields marked with an asterisk are required.",
+      "sections": {
+        "identity": "Your professional details",
+        "need": "Your need",
+        "appointment": "Schedule a meeting"
+      },
+      "fields": {
+        "firstName": {
+          "label": "First name",
+          "placeholder": "Your first name"
+        },
+        "lastName": {
+          "label": "Last name",
+          "placeholder": "Your last name"
+        },
+        "companyName": {
+          "label": "Company *",
+          "placeholder": "Your company name"
+        },
+        "jobTitle": {
+          "label": "Your role in the company",
+          "placeholder": "e.g. CEO, sales manager..."
+        },
+        "email": {
+          "label": "Professional email *",
+          "placeholder": "name@company.com"
+        },
+        "phoneNumber": {
+          "label": "Phone number *",
+          "placeholder": "+212 6 00 00 00 00"
+        },
+        "needDescription": {
+          "label": "Describe your need",
+          "placeholder": "Describe your current situation, objectives and expected outcome.",
+          "hint": "The more precise your request, the more relevant our first response can be."
+        }
+      },
+      "appointment": {
+        "title": "Would you like to schedule a meeting?",
+        "description": "Share your availability and we will prepare a conversation tailored to your needs.",
+        "yes": "Yes, suggest my availability",
+        "no": "Not for now",
+        "availabilityTitle": "Availability",
+        "availabilityDescription": "You can suggest up to three time slots.",
+        "date": "Date",
+        "startTime": "Start time",
+        "endTime": "End time",
+        "note": "Note",
+        "notePlaceholder": "Useful information for this slot",
+        "add": "Add a time slot",
+        "remove": "Remove",
+        "maximum": "You have reached the maximum of three time slots."
+      },
+      "privacy": {
+        "prefix": "I agree that my information may be used to process my request in accordance with the",
+        "linkLabel": "privacy policy",
+        "suffix": ".",
+        "modal": {
+          "eyebrow": "Privacy",
+          "title": "How your data is used",
+          "introduction": "The information you provide is used only to process your request and organize the necessary exchanges.",
+          "collectedDataTitle": "Data collected",
+          "collectedData": [
+            "Professional contact details",
+            "Information about your need",
+            "Meeting availability if provided"
+          ],
+          "purposesTitle": "Purposes",
+          "purposes": [
+            "Respond to your request",
+            "Prepare a relevant conversation",
+            "Follow up on your request"
+          ],
+          "accessTitle": "Access",
+          "accessDescription": "Access is limited to authorized people handling your request.",
+          "retentionTitle": "Retention",
+          "retentionDescription": "Data is kept for the time needed to process and follow up on your request.",
+          "rightsTitle": "Your rights",
+          "rightsDescription": "You may request access, correction or deletion of your data under applicable rules.",
+          "securityTitle": "Security",
+          "securityDescription": "Technical and organizational measures are used to protect submitted information.",
+          "close": "Close"
+        }
+      },
+      "submit": "Send my request",
+      "submitting": "Sending...",
+      "required": "Required field"
+    },
+    "success": {
+      "eyebrow": "Request sent",
+      "title": "Thank you, your request has been sent.",
+      "description": "Our team can now review your needs and get back to you.",
+      "reference": "Reference",
+      "newRequest": "Send another request",
+      "whatsapp": "Continue on WhatsApp"
+    },
+    "errors": {
+      "generic": "An error occurred. Please try again shortly.",
+      "requiredFields": "Please provide your company, email address and phone number.",
+      "privacy": "Please accept the privacy policy to continue.",
+      "descriptionLength": "The description is too long.",
+      "appointmentAvailability": "Add at least one availability to schedule a meeting.",
+      "invalidAvailability": "Please check the dates and times entered.",
+      "pastAvailability": "Availability must be in the future."
+    }
+  },
+  "pricing": {
+    "firstYearShort": "1st year",
+    "thenShort": "Then",
+    "perYearShort": "per year",
+    "title": "Cost structure",
+    "intro": "The cost is split between setting up your platform and the ongoing services required to keep it reliable, secure and usable over time.",
+    "firstYearLabel": "First year",
+    "firstYearDescription": "The first year includes the package implementation price plus an initial maintenance & support fee.",
+    "basePriceLabel": "Package implementation",
+    "firstYearSupportLabel": "Maintenance & support — 1st year",
+    "annualLabel": "From year 2",
+    "annualDescription": "From the second year onward, the initial development is not charged again. The annual amount covers only maintenance and support for the package.",
+    "maintenanceTitle": "Included maintenance",
+    "maintenanceIntro": "Maintenance is intended to keep the platform stable, secure and compatible with its technical environment.",
+    "maintenanceItems": [
+      {
+        "title": "Corrective maintenance",
+        "text": "Fixes for defects and malfunctions covered by the scope of the selected package."
+      },
+      {
+        "title": "Preventive maintenance",
+        "text": "Regular checks, monitoring of sensitive areas and actions intended to reduce the risk of incidents."
+      },
+      {
+        "title": "Technical updates",
+        "text": "Dependency updates, security patches and adaptations required to maintain technical compatibility."
+      },
+      {
+        "title": "Technical monitoring",
+        "text": "Checks of core operation and performance, plus support during maintenance operations."
+      }
+    ],
+    "supportTitle": "Included support & guidance",
+    "supportIntro": "Support helps your teams use MarketSoft correctly and resolve difficulties related to the features included in the package.",
+    "supportItems": [
+      {
+        "title": "User assistance",
+        "text": "Help using included features and handling common functional questions."
+      },
+      {
+        "title": "User training",
+        "text": "Onboarding for key users at launch and targeted refresher sessions when needed."
+      },
+      {
+        "title": "User guides",
+        "text": "Guides and instructions for the platform’s main day-to-day operations."
+      },
+      {
+        "title": "Administrator support",
+        "text": "Assistance with administration, routine settings and day-to-day operation of the package."
+      }
+    ],
+    "exclusions": "New features, external integrations, major UX/UI redesigns or changes outside the package scope are not included in annual maintenance and are quoted separately."
   }
 }

@@ -1,6 +1,10 @@
 'use client';
 
 import {
+  ChevronDown,
+} from 'lucide-react';
+
+import {
   useLocale,
 } from 'next-intl';
 
@@ -10,6 +14,7 @@ import {
 
 import {
   useEffect,
+  useRef,
   useState,
 } from 'react';
 
@@ -29,14 +34,9 @@ import {
 
 const languageLabels:
 Record<AppLocale, string> = {
-  fr:
-    'FR',
-
-  en:
-    'EN',
-
-  ar:
-    'AR',
+  fr: 'FR',
+  en: 'EN',
+  ar: 'AR',
 };
 
 export function LanguageSwitcher() {
@@ -61,6 +61,19 @@ export function LanguageSwitcher() {
         string[];
     }>();
 
+  const rootRef =
+    useRef<HTMLDivElement>(
+      null,
+    );
+
+  const [
+    isOpen,
+    setIsOpen,
+  ] =
+    useState(
+      false,
+    );
+
   const [
     pendingLocale,
     setPendingLocale,
@@ -71,6 +84,10 @@ export function LanguageSwitcher() {
 
   useEffect(
     () => {
+      setIsOpen(
+        false,
+      );
+
       setPendingLocale(
         null,
       );
@@ -85,26 +102,85 @@ export function LanguageSwitcher() {
     ],
   );
 
-  function handleLocaleChange(
-    targetLocale:
-      AppLocale,
-  ) {
-    if (
-      targetLocale ===
-      locale
-    ) {
-      return;
-    }
+  useEffect(
+    () => {
+      if (
+        !isOpen
+      ) {
+        return;
+      }
 
-    setPendingLocale(
-      targetLocale,
-    );
+      const closeOnOutsidePointer =
+        (
+          event:
+            PointerEvent,
+        ) => {
+          const target =
+            event.target;
 
-    document.documentElement.setAttribute(
-      'data-locale-switching',
-      'true',
-    );
-  }
+          if (
+            !(
+              target instanceof
+              Node
+            )
+          ) {
+            return;
+          }
+
+          if (
+            rootRef.current?.contains(
+              target,
+            )
+          ) {
+            return;
+          }
+
+          setIsOpen(
+            false,
+          );
+        };
+
+      const closeOnEscape =
+        (
+          event:
+            KeyboardEvent,
+        ) => {
+          if (
+            event.key ===
+            'Escape'
+          ) {
+            setIsOpen(
+              false,
+            );
+          }
+        };
+
+      document.addEventListener(
+        'pointerdown',
+        closeOnOutsidePointer,
+      );
+
+      document.addEventListener(
+        'keydown',
+        closeOnEscape,
+      );
+
+      return () => {
+        document.removeEventListener(
+          'pointerdown',
+          closeOnOutsidePointer,
+        );
+
+        document.removeEventListener(
+          'keydown',
+          closeOnEscape,
+        );
+      };
+    },
+    [
+      isOpen,
+    ],
+  );
 
   const rawSlug =
     params.slug;
@@ -136,14 +212,6 @@ export function LanguageSwitcher() {
       ? rawServiceSlug[0]
       : rawServiceSlug;
 
-  /*
-   * Si nous sommes sur une page service individuelle,
-   * on retrouve d'abord le service à partir du slug
-   * de la langue actuellement affichée.
-   *
-   * On pourra ensuite construire l'URL correcte
-   * dans chacune des langues disponibles.
-   */
   const currentService =
     pathname ===
       '/services/[serviceSlug]' &&
@@ -158,13 +226,6 @@ export function LanguageSwitcher() {
     targetLocale:
       AppLocale,
   ) {
-    /*
-     * Publications dynamiques.
-     *
-     * On conserve ici le comportement existant.
-     * Le traitement avancé des slugs localisés
-     * des publications reste indépendant.
-     */
     if (
       pathname ===
       '/insights/[slug]'
@@ -185,9 +246,6 @@ export function LanguageSwitcher() {
       };
     }
 
-    /*
-     * Pages privées de dépôt d'avis.
-     */
     if (
       pathname ===
       '/reviews/submit/[token]'
@@ -208,16 +266,6 @@ export function LanguageSwitcher() {
       };
     }
 
-    /*
-     * Pages individuelles de services.
-     *
-     * Le slug est traduit selon la langue cible.
-     *
-     * Exemple :
-     * intelligence-artificielle
-     * → artificial-intelligence
-     * → الذكاء-الاصطناعي
-     */
     if (
       pathname ===
       '/services/[serviceSlug]'
@@ -244,87 +292,162 @@ export function LanguageSwitcher() {
     return pathname;
   }
 
+  function handleLocaleChange(
+    targetLocale:
+      AppLocale,
+  ) {
+    if (
+      targetLocale ===
+      locale
+    ) {
+      setIsOpen(
+        false,
+      );
+
+      return;
+    }
+
+    setPendingLocale(
+      targetLocale,
+    );
+
+    document.documentElement.setAttribute(
+      'data-locale-switching',
+      'true',
+    );
+
+    setIsOpen(
+      false,
+    );
+  }
+
   return (
     <div
+      ref={
+        rootRef
+      }
       className="language-switcher"
-      role="group"
-      aria-label="Language selector"
+      data-open={
+        isOpen
+      }
       aria-busy={
         pendingLocale !==
         null
       }
     >
+      <button
+        type="button"
+        className="language-switcher__trigger"
+        aria-haspopup="menu"
+        aria-expanded={
+          isOpen
+        }
+        onClick={
+          () =>
+            setIsOpen(
+              current =>
+                !current,
+            )
+        }
+      >
+        <span>
+          {
+            languageLabels[
+              locale
+            ]
+          }
+        </span>
+
+        <ChevronDown
+          size={
+            14
+          }
+          aria-hidden="true"
+          className="language-switcher__chevron"
+        />
+      </button>
+
       {
-        routing.locales.map(
-          targetLocale => {
-            const isActive =
-              locale ===
-              targetLocale;
-
-            const isPending =
-              pendingLocale ===
-              targetLocale;
-
-            const languageSwitcherHref =
-              getLanguageSwitcherHref(
-                targetLocale,
-              );
-
-            return (
-              <Link
-                key={
-                  targetLocale
-                }
-                href={
-                  languageSwitcherHref
-                }
-                locale={
-                  targetLocale
-                }
-                hrefLang={
-                  targetLocale
-                }
-                className="language-switcher__item"
-                data-active={
-                  isActive
-                }
-                data-pending={
-                  isPending
-                }
-                aria-current={
-                  isActive
-                    ? 'page'
-                    : undefined
-                }
-                onClick={
-                  () =>
-                    handleLocaleChange(
-                      targetLocale,
-                    )
-                }
+        isOpen
+          ? (
+              <div
+                className="language-switcher__menu"
+                role="menu"
+                aria-label="Language selector"
               >
-                <span className="language-switcher__label">
-                  {
-                    languageLabels[
-                      targetLocale
-                    ]
-                  }
-                </span>
-
                 {
-                  isPending
-                    ? (
-                        <span
-                          className="language-switcher__loader"
-                          aria-hidden="true"
-                        />
-                      )
-                    : null
+                  routing.locales.map(
+                    targetLocale => {
+                      const isActive =
+                        locale ===
+                        targetLocale;
+
+                      const isPending =
+                        pendingLocale ===
+                        targetLocale;
+
+                      return (
+                        <Link
+                          key={
+                            targetLocale
+                          }
+                          href={
+                            getLanguageSwitcherHref(
+                              targetLocale,
+                            )
+                          }
+                          locale={
+                            targetLocale
+                          }
+                          hrefLang={
+                            targetLocale
+                          }
+                          role="menuitem"
+                          className="language-switcher__option"
+                          data-active={
+                            isActive
+                          }
+                          data-pending={
+                            isPending
+                          }
+                          aria-current={
+                            isActive
+                              ? 'page'
+                              : undefined
+                          }
+                          onClick={
+                            () =>
+                              handleLocaleChange(
+                                targetLocale,
+                              )
+                          }
+                        >
+                          <span>
+                            {
+                              languageLabels[
+                                targetLocale
+                              ]
+                            }
+                          </span>
+
+                          {
+                            isPending
+                              ? (
+                                  <span
+                                    className="language-switcher__loader"
+                                    aria-hidden="true"
+                                  />
+                                )
+                              : null
+                          }
+                        </Link>
+                      );
+                    },
+                  )
                 }
-              </Link>
-            );
-          },
-        )
+              </div>
+            )
+          : null
       }
     </div>
   );
