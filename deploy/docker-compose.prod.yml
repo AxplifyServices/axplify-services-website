@@ -50,6 +50,9 @@ services:
 
     restart: unless-stopped
 
+    env_file:
+      - /opt/apps/axplify/frontend.env
+
     networks:
       - traefik-public
 

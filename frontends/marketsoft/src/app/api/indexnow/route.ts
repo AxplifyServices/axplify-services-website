@@ -9,14 +9,19 @@ export const dynamic = 'force-dynamic';
  * du sitemap.xml courant.
  *
  * Protégé par un secret : appeler avec
- *   POST /api/indexnow?secret=<INDEXNOW_ADMIN_SECRET>
+ *   POST /api/indexnow?secret=<MARKETSOFT_INDEXNOW_ADMIN_SECRET>
+ *
+ * Nom de variable préfixé "MARKETSOFT_" car MarketSoft et Axplify
+ * partagent le même fichier .env sur le serveur (frontend.env) — un
+ * préfixe distinct évite toute confusion ou collision avec le secret
+ * d'Axplify (INDEXNOW_ADMIN_SECRET, sans préfixe).
  *
  * Pensé pour être appelé manuellement après une mise en production, ou
  * automatiquement via un cron / webhook de déploiement.
  */
 export async function POST(request: NextRequest) {
   const secret = request.nextUrl.searchParams.get('secret');
-  const expected = process.env.INDEXNOW_ADMIN_SECRET;
+  const expected = process.env.MARKETSOFT_INDEXNOW_ADMIN_SECRET;
 
   if (!expected || secret !== expected) {
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
