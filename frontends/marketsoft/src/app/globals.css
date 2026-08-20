@@ -31817,3 +31817,157 @@ html[dir="rtl"] .cookie-consent__switch[data-checked="true"] .cookie-consent__sw
     transition: none !important;
   }
 }
+
+/* ---------------------------------------------------------------------- */
+/* MarketSoft — simple package description, stat chips & "chiffres" grid */
+/* Added: package card description reuse, per-package mini stats on the  */
+/* card and on the package detail hero, and the concrete-numbers grids   */
+/* used on the home page and the benefits page.                         */
+/* ---------------------------------------------------------------------- */
+
+.ms-package-card__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ms-package-card__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  flex: 1 1 auto;
+  min-width: 6rem;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--ms-line);
+  border-radius: 0.65rem;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.ms-package-card__stat strong {
+  font-size: 0.86rem;
+  color: var(--ms-green);
+  letter-spacing: -0.01em;
+}
+
+.ms-package-card__stat span {
+  font-size: 0.65rem;
+  color: var(--ms-muted);
+  line-height: 1.3;
+}
+
+.ms-package-detail-hero__lead {
+  max-width: 60rem !important;
+  margin-top: 0.35rem !important;
+  color: var(--ms-text) !important;
+  font-size: 1.02rem !important;
+  font-weight: 600;
+  line-height: 1.5 !important;
+}
+
+.ms-package-detail-stats__title {
+  display: inline-block;
+  margin-top: 0.9rem;
+  color: var(--ms-green);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.ms-package-detail-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 0.7rem;
+  margin-top: 0.5rem;
+}
+
+.ms-package-detail-stats__item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--ms-line);
+  border-radius: 0.85rem;
+  background: linear-gradient(145deg, rgba(17, 31, 52, 0.9), rgba(8, 20, 36, 0.9));
+}
+
+.ms-package-detail-stats__item svg {
+  color: var(--ms-green);
+  width: 1.15rem;
+  height: 1.15rem;
+  flex: none;
+}
+
+.ms-package-detail-stats__item strong {
+  display: block;
+  font-size: 1rem;
+  color: var(--ms-text);
+  letter-spacing: -0.01em;
+}
+
+.ms-package-detail-stats__item span {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--ms-muted);
+  line-height: 1.3;
+}
+
+/* Concrete-numbers grids (home page + benefits page). */
+.ms-stats-section {
+  background: #07111f;
+  border-block: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ms-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.8rem;
+}
+
+.ms-stats-grid--hero {
+  margin-top: 1.8rem;
+  max-width: 62rem;
+}
+
+.ms-stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1.15rem 1.1rem;
+  border: 1px solid var(--ms-line);
+  border-radius: 1rem;
+  background: linear-gradient(145deg, rgba(17, 31, 52, 0.9), rgba(8, 20, 36, 0.9));
+}
+
+.ms-stat-card strong {
+  font-size: clamp(1.4rem, 3.5vw, 1.9rem);
+  color: var(--ms-green);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.ms-stat-card span {
+  color: var(--ms-muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+@media (min-width: 720px) {
+  .ms-stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .ms-stats-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .ms-stats-grid--hero {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+html[dir="rtl"] .ms-package-detail-stats__item {
+  text-align: right;
+}

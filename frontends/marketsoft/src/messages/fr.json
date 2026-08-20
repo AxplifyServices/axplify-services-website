@@ -36,6 +36,10 @@
       {
         "title": "Faites évoluer la plateforme",
         "text": "Ajoutez langues, devises, équipes, points de vente, prestataires ou intégrations progressivement."
+      },
+      {
+        "title": "Soyez trouvés sur Google",
+        "text": "Architecture technique pensée pour le SEO (Next.js, temps de chargement, structure des pages) pour que vos clients vous trouvent avant vos concurrents."
       }
     ]
   },
@@ -242,8 +246,31 @@
       {
         "title": "Connectez votre écosystème",
         "text": "Intégrez paiement, livraison, marketing, CRM ou outils métier par API lorsque votre organisation a besoin d’aller plus loin."
+      },
+      {
+        "title": "Un référencement pensé dès la conception",
+        "text": "Chaque page est construite pour être bien indexée par Google : structure technique optimisée, temps de chargement rapides, contenu structuré et compatible mobile. Un site rapide et bien structuré se positionne mieux, sans dépendre uniquement de la publicité payante."
       }
-    ]
+    ],
+    "stats": [
+      {
+        "value": "1 semaine",
+        "label": "Pour lancer une boutique professionnelle"
+      },
+      {
+        "value": "3 langues",
+        "label": "FR / EN / AR intégrées nativement"
+      },
+      {
+        "value": "2 à 4x",
+        "label": "Plus accessible qu'une plateforme enterprise internationale"
+      },
+      {
+        "value": "100%",
+        "label": "Maîtrise de vos données et de votre hébergement"
+      }
+    ],
+    "statsTitle": "Ce que ça change concrètement"
   },
   "compare": {
     "eyebrow": "Comparer les offres",
@@ -498,14 +525,14 @@
       "slug": "store",
       "name": "Commerce Essentiel",
       "target": "Une plateforme commerce professionnelle prête à vendre, pensée pour une entreprise qui commercialise ses propres produits, services ou prestations avec un parcours simple, une administration claire et les fonctions essentielles de vente et de paiement.",
-      "price": "20 000 DH",
+      "price": "20 000 MAD",
       "delay": "Environ 1 semaine",
       "shortFeatures": [
-        "Catalogue produits & services",
-        "Vente, commande ou réservation",
-        "Paiement",
-        "Administration des offres",
-        "Responsive mobile"
+        "Boutique en ligne prête à vendre",
+        "Fiches produits qui donnent envie d'acheter",
+        "Paiement et livraison sécurisés",
+        "Visible sur Google dès le lancement (SEO)",
+        "100% adapté au mobile"
       ],
       "audiences": [
         "Commerces",
@@ -549,23 +576,38 @@
       ],
       "options": [],
       "level": "Starter",
-      "basePrice": "12 500 DH",
-      "firstYearSupportPrice": "7 500 DH",
-      "firstYearPrice": "20 000 DH",
-      "annualSupportPrice": "12 500 DH / an"
+      "basePrice": "12 500 MAD",
+      "firstYearSupportPrice": "7 500 MAD",
+      "firstYearPrice": "20 000 MAD",
+      "annualSupportPrice": "12 500 MAD / an",
+      "description": "Votre activité en ligne, prête à vendre en une semaine : un catalogue clair, un tunnel de commande simple et une administration que vous maîtrisez dès le premier jour.",
+      "stats": [
+        {
+          "value": "1 semaine",
+          "label": "Mise en ligne"
+        },
+        {
+          "value": "0 MAD",
+          "label": "Abonnement mensuel obligatoire"
+        },
+        {
+          "value": "3 langues",
+          "label": "FR / EN / AR disponibles"
+        }
+      ]
     },
     {
       "slug": "advanced",
       "name": "Commerce Avancé",
       "target": "Une plateforme commerce avancée pour les entreprises qui vendent régulièrement des produits ou services et ont besoin de mieux gérer clients, offres, disponibilités, promotions, exécution et performances depuis un seul système.",
-      "price": "45 000 DH",
+      "price": "45 000 MAD",
       "delay": "Environ 10 jours",
       "shortFeatures": [
-        "Compte client",
-        "Stocks ou disponibilités",
-        "Promotions",
-        "Livraison ou réservation",
-        "Analytics"
+        "Vos clients reviennent (comptes, favoris, fidélité)",
+        "Stocks et variantes gérés sans erreurs",
+        "Promotions qui boostent vos ventes",
+        "Livraison et zones sur mesure",
+        "SEO avancé et tableaux de bord de pilotage"
       ],
       "audiences": [
         "Commerces avec offre étendue",
@@ -609,23 +651,38 @@
       ],
       "options": [],
       "level": "Medium",
-      "basePrice": "30 000 DH",
-      "firstYearSupportPrice": "15 000 DH",
-      "firstYearPrice": "45 000 DH",
-      "annualSupportPrice": "30 000 DH / an"
+      "basePrice": "30 000 MAD",
+      "firstYearSupportPrice": "15 000 MAD",
+      "firstYearPrice": "45 000 MAD",
+      "annualSupportPrice": "30 000 MAD / an",
+      "description": "Pour transformer votre site en véritable moteur de vente : vos clients reviennent, vos promotions convertissent et vous pilotez votre activité avec des chiffres clairs.",
+      "stats": [
+        {
+          "value": "10 jours",
+          "label": "Mise en ligne"
+        },
+        {
+          "value": "0 MAD",
+          "label": "Abonnement mensuel obligatoire"
+        },
+        {
+          "value": "3 langues",
+          "label": "FR / EN / AR disponibles"
+        }
+      ]
     },
     {
       "slug": "marketplace",
       "name": "Marketplace multi-partenaire",
       "target": "Une marketplace complète destinée à réunir plusieurs vendeurs, prestataires, marques, fournisseurs ou partenaires sur une même plateforme. Chaque partenaire dispose de son propre espace tandis que l’entreprise propriétaire conserve le contrôle des offres, ventes, règles et performances globales.",
-      "price": "100 000 DH",
+      "price": "100 000 MAD",
       "delay": "Environ 2 à 4 semaines",
       "shortFeatures": [
-        "Espaces partenaires",
-        "Catalogue multi-partenaire",
-        "Ventes réparties",
-        "Retours & litiges",
-        "Statistiques partenaires"
+        "Plusieurs vendeurs, une seule plateforme",
+        "Commandes réparties et facturées automatiquement",
+        "Vendeurs validés avant publication",
+        "Commissions et paiements suivis pour chaque partenaire",
+        "SEO multi-vendeur pour attirer du trafic qualifié"
       ],
       "audiences": [
         "Marketplaces sectorielles",
@@ -669,10 +726,25 @@
       ],
       "options": [],
       "level": "Avancé",
-      "basePrice": "75 000 DH",
-      "firstYearSupportPrice": "25 000 DH",
-      "firstYearPrice": "100 000 DH",
-      "annualSupportPrice": "50 000 DH / an"
+      "basePrice": "75 000 MAD",
+      "firstYearSupportPrice": "25 000 MAD",
+      "firstYearPrice": "100 000 MAD",
+      "annualSupportPrice": "50 000 MAD / an",
+      "description": "Réunissez plusieurs vendeurs ou partenaires sur une seule plateforme et touchez une commission sur chaque vente, tout en gardant le contrôle total de votre marketplace.",
+      "stats": [
+        {
+          "value": "2 à 4 sem.",
+          "label": "Mise en ligne"
+        },
+        {
+          "value": "0 MAD",
+          "label": "Abonnement mensuel obligatoire"
+        },
+        {
+          "value": "3 langues",
+          "label": "FR / EN / AR disponibles"
+        }
+      ]
     },
     {
       "slug": "custom",
@@ -681,11 +753,11 @@
       "price": "Sur devis",
       "delay": "Selon le besoin",
       "shortFeatures": [
-        "Base MarketSoft",
-        "Fonctions sur mesure",
-        "API externes",
-        "UX/UI spécifique",
-        "Architecture adaptée"
+        "Base MarketSoft solide et éprouvée",
+        "Fonctionnalités construites pour votre métier",
+        "Connexions à vos outils existants (API)",
+        "Expérience et design 100% sur mesure",
+        "Architecture pensée pour votre croissance"
       ],
       "audiences": [
         "Process métier spécifiques",
@@ -732,7 +804,22 @@
       "basePrice": "Sur devis",
       "firstYearSupportPrice": "Sur devis",
       "firstYearPrice": "Sur devis",
-      "annualSupportPrice": "Sur devis"
+      "annualSupportPrice": "Sur devis",
+      "description": "Votre activité a des règles bien à elle ? Nous partons d'une base MarketSoft éprouvée et construisons exactement ce dont vous avez besoin, sans compromis.",
+      "stats": [
+        {
+          "value": "Sur devis",
+          "label": "Mise en ligne"
+        },
+        {
+          "value": "100%",
+          "label": "Sur mesure"
+        },
+        {
+          "value": "3 langues",
+          "label": "FR / EN / AR disponibles"
+        }
+      ]
     }
   ],
   "packagesEyebrow": "MarketSoft",
@@ -741,7 +828,8 @@
     "audienceTitle": "Pour qui ?",
     "outcomesTitle": "Ce que vous pouvez faire",
     "includedTitle": "Ce qui est inclus",
-    "optionsTitle": "Options & accompagnement"
+    "optionsTitle": "Options & accompagnement",
+    "statsTitle": "En chiffres"
   },
   "galleryControls": {
     "previous": "Écran précédent",
@@ -984,5 +1072,36 @@
       },
       "noneConfigured": "Aucun service tiers de cette catégorie n’est actuellement activé."
     }
+  },
+  "homeStats": {
+    "eyebrow": "MarketSoft en chiffres",
+    "title": "Une solution concrète, pas seulement des promesses",
+    "description": "Des chiffres qui montrent la valeur réelle de la plateforme, pas juste des arguments marketing.",
+    "items": [
+      {
+        "value": "4",
+        "label": "Formules, du commerce simple à la marketplace"
+      },
+      {
+        "value": "1 à 4 semaines",
+        "label": "Pour être en ligne selon le niveau choisi"
+      },
+      {
+        "value": "3 langues",
+        "label": "Français, anglais et arabe natifs"
+      },
+      {
+        "value": "2 à 4x",
+        "label": "Plus accessible que les plateformes enterprise internationales, à niveau équivalent"
+      },
+      {
+        "value": "100%",
+        "label": "De vos données et de votre code vous appartiennent"
+      },
+      {
+        "value": "0 MAD",
+        "label": "D'abonnement mensuel obligatoire, contrairement au SaaS"
+      }
+    ]
   }
 }

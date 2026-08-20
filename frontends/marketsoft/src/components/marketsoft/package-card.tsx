@@ -45,7 +45,7 @@ export function PackageCard({
         </h3>
 
         <p>
-          {pkg.target}
+          {pkg.description}
         </p>
       </div>
 
@@ -59,6 +59,15 @@ export function PackageCard({
           ),
         )}
       </ul>
+
+      <div className="ms-package-card__stats">
+        {pkg.stats.map(stat => (
+          <div className="ms-package-card__stat" key={stat.label}>
+            <strong>{stat.value}</strong>
+            <span>{stat.label}</span>
+          </div>
+        ))}
+      </div>
 
       <div className="ms-package-card__price ms-package-card__price--annual">
         {pkg.slug === 'custom' ? (

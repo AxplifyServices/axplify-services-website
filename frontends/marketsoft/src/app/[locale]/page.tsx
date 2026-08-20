@@ -4,6 +4,7 @@ import {
   Boxes,
   Layers3,
   LayoutTemplate,
+  Search,
   ShieldCheck,
   ShoppingCart,
   SlidersHorizontal,
@@ -21,7 +22,7 @@ type Props = {
   params: Promise<{ locale: AppLocale }>;
 };
 
-const BENEFIT_ICONS = [ShoppingCart, Boxes, Store, TrendingUp] as const;
+const BENEFIT_ICONS = [ShoppingCart, Boxes, Store, TrendingUp, Search] as const;
 const WHY_ICONS = [SlidersHorizontal, ShieldCheck, LayoutTemplate, Layers3] as const;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -130,6 +131,25 @@ export default async function Home({ params }: Props) {
                 </article>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      <section className="ms-section ms-stats-section">
+        <div className="site-container">
+          <div className="ms-section-head ms-section-head--wide" data-reveal="up">
+            <span className="ms-eyebrow">{c.homeStats.eyebrow}</span>
+            <h2>{c.homeStats.title}</h2>
+            <p>{c.homeStats.description}</p>
+          </div>
+
+          <div className="ms-stats-grid">
+            {c.homeStats.items.map((stat, index) => (
+              <article className="ms-stat-card" key={stat.label} data-reveal="up" data-reveal-delay={String((index % 3) + 1)}>
+                <strong>{stat.value}</strong>
+                <span>{stat.label}</span>
+              </article>
+            ))}
           </div>
         </div>
       </section>

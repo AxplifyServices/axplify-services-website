@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 
 import {
   ArrowRight,
+  BarChart3,
   Check,
   LifeBuoy,
   ShieldCheck,
@@ -43,7 +44,7 @@ export async function generateMetadata({
       params: { packageSlug },
     },
     `${pkg.name} | MarketSoft`,
-    pkg.target,
+    pkg.description,
   );
 }
 
@@ -89,9 +90,29 @@ export default async function PackageDetail({
             </Link>
           </div>
 
+          <p className="ms-package-detail-hero__lead">
+            {pkg.description}
+          </p>
+
           <p className="ms-package-detail-hero__description">
             {pkg.target}
           </p>
+
+          <span className="ms-package-detail-stats__title">
+            {c.packageDetail.statsTitle}
+          </span>
+
+          <div className="ms-package-detail-stats" data-reveal="up">
+            {pkg.stats.map(stat => (
+              <div className="ms-package-detail-stats__item" key={stat.label}>
+                <BarChart3 aria-hidden="true" />
+                <div>
+                  <strong>{stat.value}</strong>
+                  <span>{stat.label}</span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

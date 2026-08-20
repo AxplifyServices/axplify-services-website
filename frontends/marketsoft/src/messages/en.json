@@ -36,6 +36,10 @@
       {
         "title": "Scale the platform",
         "text": "Add languages, currencies, teams, locations, providers and integrations over time."
+      },
+      {
+        "title": "Get found on Google",
+        "text": "Technical architecture built for SEO (Next.js, load times, page structure) so your customers find you before your competitors."
       }
     ]
   },
@@ -242,8 +246,31 @@
       {
         "title": "Connect your ecosystem",
         "text": "Integrate payments, delivery, marketing, CRM or business tools through APIs when your organization needs more."
+      },
+      {
+        "title": "Search visibility built in from day one",
+        "text": "Every page is built to be well indexed by Google: optimized technical structure, fast load times, structured content and mobile compatibility. A fast, well-structured site ranks better, without relying solely on paid advertising."
       }
-    ]
+    ],
+    "stats": [
+      {
+        "value": "1 week",
+        "label": "To launch a professional store"
+      },
+      {
+        "value": "3 languages",
+        "label": "FR / EN / AR built in natively"
+      },
+      {
+        "value": "2 to 4x",
+        "label": "More affordable than an international enterprise platform"
+      },
+      {
+        "value": "100%",
+        "label": "Control over your data and hosting"
+      }
+    ],
+    "statsTitle": "What this changes in practice"
   },
   "compare": {
     "eyebrow": "Compare offers",
@@ -499,14 +526,14 @@
       "level": "Starter",
       "name": "Commerce Essential",
       "target": "A professional commerce platform ready to sell, designed for a business offering its own products, services or appointments through a simple journey, clear administration and the essential selling and payment capabilities.",
-      "price": "20,000 DH",
+      "price": "20,000 MAD",
       "delay": "About 1 week",
       "shortFeatures": [
-        "Product & service catalog",
-        "Sale, order or booking",
-        "Payment",
-        "Offer administration",
-        "Mobile responsive"
+        "Online store ready to sell",
+        "Product pages that convert visitors into buyers",
+        "Secure payment and delivery",
+        "Visible on Google from day one (SEO)",
+        "100% mobile-ready"
       ],
       "audiences": [
         "Retailers",
@@ -549,24 +576,39 @@
         "Manage products and core day-to-day operations yourself."
       ],
       "options": [],
-      "basePrice": "12,500 DH",
-      "firstYearSupportPrice": "7,500 DH",
-      "firstYearPrice": "20,000 DH",
-      "annualSupportPrice": "12,500 DH / year"
+      "basePrice": "12,500 MAD",
+      "firstYearSupportPrice": "7,500 MAD",
+      "firstYearPrice": "20,000 MAD",
+      "annualSupportPrice": "12,500 MAD / year",
+      "description": "Your online business, ready to sell within a week: a clear catalog, a simple checkout flow, and an admin area you can master from day one.",
+      "stats": [
+        {
+          "value": "1 week",
+          "label": "Time to launch"
+        },
+        {
+          "value": "0 MAD",
+          "label": "Mandatory monthly fee"
+        },
+        {
+          "value": "3 languages",
+          "label": "FR / EN / AR available"
+        }
+      ]
     },
     {
       "slug": "advanced",
       "level": "Medium",
       "name": "Commerce Advanced",
       "target": "An advanced commerce platform for businesses that regularly sell products or services and need stronger management of customers, offers, availability, promotions, fulfillment and performance from one system.",
-      "price": "45,000 DH",
+      "price": "45,000 MAD",
       "delay": "About 10 days",
       "shortFeatures": [
-        "Customer account",
-        "Inventory or availability",
-        "Promotions",
-        "Delivery or booking",
-        "Analytics"
+        "Customers who come back (accounts, favorites, loyalty)",
+        "Stock and variants managed without errors",
+        "Promotions that boost your sales",
+        "Delivery zones tailored to your business",
+        "Advanced SEO and reporting dashboards"
       ],
       "audiences": [
         "Businesses with broad offers",
@@ -609,24 +651,39 @@
         "Monitor sales through actionable statistics and dashboards."
       ],
       "options": [],
-      "basePrice": "30,000 DH",
-      "firstYearSupportPrice": "15,000 DH",
-      "firstYearPrice": "45,000 DH",
-      "annualSupportPrice": "30,000 DH / year"
+      "basePrice": "30,000 MAD",
+      "firstYearSupportPrice": "15,000 MAD",
+      "firstYearPrice": "45,000 MAD",
+      "annualSupportPrice": "30,000 MAD / year",
+      "description": "Turn your site into a real sales engine: customers come back, promotions convert, and you steer your business with clear numbers.",
+      "stats": [
+        {
+          "value": "10 days",
+          "label": "Time to launch"
+        },
+        {
+          "value": "0 MAD",
+          "label": "Mandatory monthly fee"
+        },
+        {
+          "value": "3 languages",
+          "label": "FR / EN / AR available"
+        }
+      ]
     },
     {
       "slug": "marketplace",
       "level": "Advanced",
       "name": "Multi-partner marketplace",
       "target": "A complete marketplace designed to bring multiple sellers, service providers, brands, suppliers or partners together on one platform. Each partner gets a dedicated space while the platform owner keeps central control over offers, sales, rules and overall performance.",
-      "price": "100,000 DH",
+      "price": "100,000 MAD",
       "delay": "About 2–4 weeks",
       "shortFeatures": [
-        "Partner spaces",
-        "Multi-partner catalog",
-        "Distributed sales",
-        "Returns & disputes",
-        "Partner analytics"
+        "Multiple sellers, one single platform",
+        "Orders automatically split and invoiced",
+        "Sellers approved before going live",
+        "Commissions and payouts tracked per partner",
+        "Multi-seller SEO to attract qualified traffic"
       ],
       "audiences": [
         "Industry marketplaces",
@@ -669,10 +726,25 @@
         "Scale the marketplace to more sellers, categories and sales volume."
       ],
       "options": [],
-      "basePrice": "75,000 DH",
-      "firstYearSupportPrice": "25,000 DH",
-      "firstYearPrice": "100,000 DH",
-      "annualSupportPrice": "50,000 DH / year"
+      "basePrice": "75,000 MAD",
+      "firstYearSupportPrice": "25,000 MAD",
+      "firstYearPrice": "100,000 MAD",
+      "annualSupportPrice": "50,000 MAD / year",
+      "description": "Bring several sellers or partners together on one platform and earn a commission on every sale, while keeping full control of your marketplace.",
+      "stats": [
+        {
+          "value": "2 to 4 wks",
+          "label": "Time to launch"
+        },
+        {
+          "value": "0 MAD",
+          "label": "Mandatory monthly fee"
+        },
+        {
+          "value": "3 languages",
+          "label": "FR / EN / AR available"
+        }
+      ]
     },
     {
       "slug": "custom",
@@ -682,11 +754,11 @@
       "price": "Quote",
       "delay": "According to scope",
       "shortFeatures": [
-        "MarketSoft foundation",
-        "Tailored features",
-        "External APIs",
-        "Specific UX/UI",
-        "Adapted architecture"
+        "Solid, proven MarketSoft foundation",
+        "Features built for your specific business",
+        "Connections to your existing tools (API)",
+        "Fully tailored experience and design",
+        "Architecture designed for your growth"
       ],
       "audiences": [
         "Specific business processes",
@@ -732,7 +804,22 @@
       "basePrice": "Quote",
       "firstYearSupportPrice": "Quote",
       "firstYearPrice": "Quote",
-      "annualSupportPrice": "Quote"
+      "annualSupportPrice": "Quote",
+      "description": "Your business has its own rules? We start from a proven MarketSoft foundation and build exactly what you need, without compromise.",
+      "stats": [
+        {
+          "value": "Quote",
+          "label": "Time to launch"
+        },
+        {
+          "value": "100%",
+          "label": "Tailored"
+        },
+        {
+          "value": "3 languages",
+          "label": "FR / EN / AR available"
+        }
+      ]
     }
   ],
   "packagesEyebrow": "MarketSoft",
@@ -741,7 +828,8 @@
     "audienceTitle": "Who is it for?",
     "outcomesTitle": "What you can do",
     "includedTitle": "What is included",
-    "optionsTitle": "Options & support"
+    "optionsTitle": "Options & support",
+    "statsTitle": "In numbers"
   },
   "galleryControls": {
     "previous": "Previous screen",
@@ -984,5 +1072,36 @@
       },
       "noneConfigured": "No third-party service in this category is currently enabled."
     }
+  },
+  "homeStats": {
+    "eyebrow": "MarketSoft in numbers",
+    "title": "A concrete solution, not just promises",
+    "description": "Numbers that show the platform's real value, not just marketing claims.",
+    "items": [
+      {
+        "value": "4",
+        "label": "Packages, from simple commerce to marketplace"
+      },
+      {
+        "value": "1 to 4 weeks",
+        "label": "To go live depending on the level chosen"
+      },
+      {
+        "value": "3 languages",
+        "label": "Native French, English and Arabic"
+      },
+      {
+        "value": "2 to 4x",
+        "label": "More affordable than international enterprise platforms, at an equivalent level"
+      },
+      {
+        "value": "100%",
+        "label": "Of your data and code belong to you"
+      },
+      {
+        "value": "0 MAD",
+        "label": "Mandatory monthly fee, unlike SaaS"
+      }
+    ]
   }
 }

@@ -6,6 +6,7 @@ import {
   Database,
   Link2,
   PackageSearch,
+  Search,
   ShieldCheck,
   ShoppingBag,
   Sparkles,
@@ -35,6 +36,7 @@ const benefitIcons = [
   ShieldCheck,
   PackageSearch,
   Link2,
+  Search,
 ];
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -60,6 +62,15 @@ export default async function Benefits({ params }: Props) {
           <span className="ms-eyebrow">{c.benefits.eyebrow}</span>
           <h1>{c.benefits.title}</h1>
           <p>{c.benefits.intro}</p>
+
+          <div className="ms-stats-grid ms-stats-grid--hero" data-reveal="up">
+            {c.benefits.stats.map(stat => (
+              <article className="ms-stat-card" key={stat.label}>
+                <strong>{stat.value}</strong>
+                <span>{stat.label}</span>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 

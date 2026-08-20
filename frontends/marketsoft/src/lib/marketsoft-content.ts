@@ -10,6 +10,7 @@ export type MarketSoftPackage = {
   slug: PackageSlug;
   level: string;
   name: string;
+  description: string;
   target: string;
   price: string;
   basePrice: string;
@@ -18,22 +19,26 @@ export type MarketSoftPackage = {
   annualSupportPrice: string;
   delay: string;
   shortFeatures: string[];
+  stats: { value: string; label: string }[];
   audiences: string[];
   modules: { title: string; items: string[] }[];
   outcomes: string[];
   options: string[];
 };
 
+export type StatItem = { value: string; label: string };
+
 type Copy = {
   slogan: string;
   nav: { platform: string; packages: string; benefits: string; compare: string; faq: string; contact: string; order: string; demo: string };
   hero: { eyebrow: string; title: string; description: string; primary: string; secondary: string };
   homeBenefits: { title: string; description: string; items: { title: string; text: string }[] };
+  homeStats: { eyebrow: string; title: string; description: string; items: StatItem[] };
   packagesEyebrow: string;
   packagesTitle: string;
   packagesDescription: string;
   packageActions: { details: string; order: string; demo: string };
-  packageDetail: { eyebrow: string; audienceTitle: string; outcomesTitle: string; includedTitle: string; optionsTitle: string };
+  packageDetail: { eyebrow: string; audienceTitle: string; outcomesTitle: string; includedTitle: string; optionsTitle: string; statsTitle: string };
   pricing: {
     firstYearShort: string;
     thenShort: string;
@@ -58,7 +63,7 @@ type Copy = {
   finalCta: { title: string; text: string; order: string; expert: string };
   galleryControls: { previous: string; next: string; close: string; fullscreen: string; slide: string };
   platform: { eyebrow: string; title: string; intro: string; sections: { title: string; text: string; bullets: string[] }[]; galleryTitle: string; galleryText: string };
-  benefits: { eyebrow: string; title: string; intro: string; items: { title: string; text: string }[] };
+  benefits: { eyebrow: string; title: string; intro: string; items: { title: string; text: string }[]; statsTitle: string; stats: StatItem[] };
   compare: { eyebrow: string; title: string; intro: string; feature: string; rows: { label: string; values: string[] }[] };
   faq: { eyebrow: string; title: string; intro: string; items: { q: string; a: string }[] };
   contact: ContactPageCopy;
