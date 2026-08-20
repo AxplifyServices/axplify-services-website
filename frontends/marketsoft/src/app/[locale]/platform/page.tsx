@@ -57,8 +57,8 @@ export default async function Platform({ params }: Props) {
 
   return (
     <div className="ms-page">
-      <section className="ms-inner-hero">
-        <div className="site-container">
+      <section className="ms-inner-hero ms-platform-hero">
+        <div className="site-container" data-reveal="up">
           <span className="ms-eyebrow">{c.platform.eyebrow}</span>
           <h1>{c.platform.title}</h1>
           <p>{c.platform.intro}</p>
@@ -67,11 +67,13 @@ export default async function Platform({ params }: Props) {
 
       <section className="ms-section ms-section--gallery">
         <div className="site-container">
-          <div className="ms-section-head">
+          <div className="ms-section-head" data-reveal="up">
             <h2>{c.platform.galleryTitle}</h2>
             <p>{c.platform.galleryText}</p>
           </div>
-          <ScreenshotGallery locale={locale} />
+          <div data-reveal="scale">
+            <ScreenshotGallery locale={locale} />
+          </div>
         </div>
       </section>
 
@@ -81,7 +83,7 @@ export default async function Platform({ params }: Props) {
             const Icon = platformIcons[index] ?? Boxes;
 
             return (
-              <article key={section.title} className="ms-platform-card" data-reveal="up">
+              <article key={section.title} className="ms-platform-card" data-reveal="up" data-reveal-delay={String((index % 3) + 1)}>
                 <div className="ms-platform-card__icon" aria-hidden="true">
                   <Icon />
                 </div>

@@ -66,7 +66,7 @@ export default async function PackageDetail({
   return (
     <div className="ms-page ms-package-detail-page">
       <section className="ms-inner-hero ms-package-detail-hero">
-        <div className="site-container">
+        <div className="site-container" data-reveal="up">
           <span className="ms-eyebrow">
             {c.packageDetail.eyebrow}
           </span>
@@ -97,7 +97,7 @@ export default async function PackageDetail({
 
       <section className="ms-package-overview">
         <div className="site-container">
-          <div className="ms-package-overview__top">
+          <div className="ms-package-overview__top" data-reveal="up">
             <article>
               <h2>{c.packageDetail.audienceTitle}</h2>
 
@@ -125,7 +125,7 @@ export default async function PackageDetail({
             </article>
           </div>
 
-          <div className="ms-package-overview__modules">
+          <div className="ms-package-overview__modules" data-reveal="up">
             <h2>{c.packageDetail.includedTitle}</h2>
 
             <div className="ms-module-grid ms-module-grid--compact">
@@ -149,12 +149,12 @@ export default async function PackageDetail({
 
       <section className="ms-section ms-package-pricing-section">
         <div className="site-container">
-          <div className="ms-section-head ms-section-head--wide">
+          <div className="ms-section-head ms-section-head--wide" data-reveal="up">
             <h2>{c.pricing.title}</h2>
             <p>{c.pricing.intro}</p>
           </div>
 
-          <div className="ms-pricing-breakdown">
+          <div className="ms-pricing-breakdown" data-reveal="up">
             <article className="ms-pricing-breakdown__card">
               <span className="ms-pricing-breakdown__eyebrow">
                 {c.pricing.firstYearLabel}
@@ -202,7 +202,7 @@ export default async function PackageDetail({
             </article>
           </div>
 
-          <div className="ms-maintenance-grid">
+          <div className="ms-maintenance-grid" data-reveal="up">
             <article>
               <div className="ms-maintenance-grid__heading">
                 <Wrench aria-hidden="true" />

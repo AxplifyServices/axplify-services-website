@@ -31597,3 +31597,223 @@ html[dir="rtl"] .cookie-consent__switch[data-checked="true"] .cookie-consent__sw
     min-width: 9rem;
   }
 }
+
+/* =========================================================
+   MARKETSOFT — motion polish
+   Lightweight motion inspired by Axplify Services.
+   Scroll reveals reuse the existing IntersectionObserver.
+   ========================================================= */
+
+/* Platform hero: use the available desktop width instead of constraining the title. */
+.ms-platform-hero h1 {
+  width: 100%;
+  max-width: none;
+}
+
+/* The platform gallery is a preview: keep it compact, fullscreen remains available. */
+.ms-section--gallery .ms-gallery {
+  width: min(100%, 62rem);
+  margin-inline: auto;
+}
+
+.ms-section--gallery .ms-section-head {
+  width: min(100%, 62rem);
+  margin-inline: auto;
+  margin-bottom: 1.35rem;
+}
+
+/* Give interactive surfaces more life without changing their structure. */
+.ms-benefit-card,
+.ms-package-card,
+.ms-platform-card,
+.ms-result-card,
+.ms-why-grid article,
+.ms-module-grid article,
+.ms-pricing-breakdown__card,
+.ms-maintenance-grid > article,
+.ms-faq-list details {
+  transition:
+    transform 240ms cubic-bezier(.22,.61,.36,1),
+    border-color 240ms ease,
+    box-shadow 240ms ease,
+    background-color 240ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ms-benefit-card:hover,
+  .ms-package-card:hover,
+  .ms-platform-card:hover,
+  .ms-result-card:hover,
+  .ms-why-grid article:hover,
+  .ms-module-grid article:hover,
+  .ms-pricing-breakdown__card:hover,
+  .ms-maintenance-grid > article:hover {
+    transform: translateY(-5px);
+    border-color: rgba(105, 231, 101, .32);
+    box-shadow: 0 18px 44px rgba(0, 0, 0, .24);
+  }
+
+  .ms-gallery__viewer {
+    transition:
+      transform 300ms cubic-bezier(.22,.61,.36,1),
+      border-color 240ms ease,
+      box-shadow 300ms ease;
+  }
+
+  .ms-section--gallery .ms-gallery__viewer:hover,
+  .ms-hero__visual .ms-gallery__viewer:hover {
+    transform: translateY(-3px);
+    border-color: rgba(105, 231, 101, .3);
+    box-shadow: 0 28px 72px rgba(0, 0, 0, .4);
+  }
+
+  .ms-button {
+    transition:
+      transform 180ms ease,
+      box-shadow 180ms ease,
+      border-color 180ms ease,
+      filter 180ms ease;
+  }
+
+  .ms-button:hover {
+    transform: translateY(-2px);
+  }
+
+  .ms-button--primary:hover {
+    filter: brightness(1.04);
+    box-shadow: 0 14px 34px rgba(105, 231, 101, .22);
+  }
+
+  .ms-faq-list details:hover {
+    border-color: rgba(105, 231, 101, .25);
+    transform: translateX(3px);
+  }
+
+  html[dir="rtl"] .ms-faq-list details:hover {
+    transform: translateX(-3px);
+  }
+}
+
+/* Small living accent in the hero, without continuous large animations. */
+.ms-hero,
+.ms-inner-hero,
+.ms-final-cta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.ms-hero::after,
+.ms-inner-hero::after,
+.ms-final-cta::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 16rem;
+  aspect-ratio: 1;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(105, 231, 101, .09), rgba(46, 211, 183, .025) 46%, transparent 70%);
+  filter: blur(4px);
+  pointer-events: none;
+  animation: ms-ambient-float 10s ease-in-out infinite alternate;
+}
+
+.ms-hero::after {
+  inset-inline-end: 5%;
+  top: 8%;
+}
+
+.ms-inner-hero::after {
+  inset-inline-end: 10%;
+  top: -7rem;
+}
+
+.ms-final-cta::after {
+  inset-inline-start: 12%;
+  top: -8rem;
+}
+
+@keyframes ms-ambient-float {
+  from { transform: translate3d(0, 0, 0) scale(.96); opacity: .55; }
+  to { transform: translate3d(1.25rem, .7rem, 0) scale(1.06); opacity: .9; }
+}
+
+/* Gallery controls feel responsive but remain quiet. */
+.ms-gallery__nav,
+.ms-gallery__expand,
+.ms-gallery__close,
+.ms-gallery__dots button {
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    opacity 180ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ms-gallery__nav:hover,
+  .ms-gallery__expand:hover,
+  .ms-gallery__close:hover {
+    border-color: rgba(105, 231, 101, .45);
+    background: rgba(8, 25, 37, .94);
+  }
+
+  .ms-gallery__expand:hover,
+  .ms-gallery__close:hover {
+    transform: scale(1.06);
+  }
+
+  .ms-gallery__dots button:hover {
+    transform: scale(1.35);
+  }
+}
+
+/* Mobile: same personality, much smaller movement and no layout impact. */
+@media (max-width: 699px) {
+  .ms-platform-hero h1 {
+    max-width: none;
+  }
+
+  .ms-section--gallery .ms-gallery,
+  .ms-section--gallery .ms-section-head {
+    width: 100%;
+  }
+
+  [data-reveal] {
+    --reveal-distance: .8rem;
+    --reveal-duration: 500ms;
+  }
+
+  .ms-hero::after,
+  .ms-inner-hero::after,
+  .ms-final-cta::after {
+    width: 10rem;
+    animation-duration: 14s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ms-hero::after,
+  .ms-inner-hero::after,
+  .ms-final-cta::after {
+    animation: none;
+  }
+
+  .ms-benefit-card,
+  .ms-package-card,
+  .ms-platform-card,
+  .ms-result-card,
+  .ms-why-grid article,
+  .ms-module-grid article,
+  .ms-pricing-breakdown__card,
+  .ms-maintenance-grid > article,
+  .ms-faq-list details,
+  .ms-gallery__viewer,
+  .ms-button,
+  .ms-gallery__nav,
+  .ms-gallery__expand,
+  .ms-gallery__close,
+  .ms-gallery__dots button {
+    transition: none !important;
+  }
+}

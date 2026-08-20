@@ -59,7 +59,7 @@ export default async function Compare({
   return (
     <div className="ms-page">
       <section className="ms-inner-hero">
-        <div className="site-container">
+        <div className="site-container" data-reveal="up">
           <span className="ms-eyebrow">
             {c.compare.eyebrow}
           </span>
@@ -76,7 +76,7 @@ export default async function Compare({
 
       <section className="ms-section">
         <div className="site-container">
-          <div className="ms-compare-wrap">
+          <div className="ms-compare-wrap" data-reveal="up">
             <table className="ms-compare">
               <thead>
                 <tr>

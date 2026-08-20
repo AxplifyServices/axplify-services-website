@@ -69,7 +69,7 @@ export default async function Home({ params }: Props) {
 
       <section className="ms-section ms-home-benefits">
         <div className="site-container">
-          <div className="ms-section-head ms-section-head--wide">
+          <div className="ms-section-head ms-section-head--wide" data-reveal="up">
             <h2>{c.homeBenefits.title}</h2>
             <p>{c.homeBenefits.description}</p>
           </div>
@@ -79,7 +79,7 @@ export default async function Home({ params }: Props) {
               const Icon = BENEFIT_ICONS[index] ?? TrendingUp;
 
               return (
-                <article className="ms-benefit-card" key={item.title}>
+                <article className="ms-benefit-card" key={item.title} data-reveal="up" data-reveal-delay={String(index + 1)}>
                   <Icon aria-hidden="true" />
                   <h3>{item.title}</h3>
                   <p>{item.text}</p>
@@ -92,7 +92,7 @@ export default async function Home({ params }: Props) {
 
       <section id="packages" className="ms-section ms-section--dark">
         <div className="site-container">
-          <div className="ms-section-head ms-section-head--wide">
+          <div className="ms-section-head ms-section-head--wide" data-reveal="up">
             <h2>{c.packagesTitle}</h2>
             <p>{c.packagesDescription}</p>
           </div>
@@ -112,7 +112,7 @@ export default async function Home({ params }: Props) {
 
       <section className="ms-section">
         <div className="site-container">
-          <div className="ms-section-head">
+          <div className="ms-section-head" data-reveal="up">
             <h2>{c.why.title}</h2>
           </div>
 
@@ -121,7 +121,7 @@ export default async function Home({ params }: Props) {
               const Icon = WHY_ICONS[index] ?? Layers3;
 
               return (
-                <article key={item.title}>
+                <article key={item.title} data-reveal="up" data-reveal-delay={String(index + 1)}>
                   <span className="ms-why-grid__icon">
                     <Icon aria-hidden="true" />
                   </span>
@@ -135,7 +135,7 @@ export default async function Home({ params }: Props) {
       </section>
 
       <section className="ms-final-cta">
-        <div className="site-container">
+        <div className="site-container" data-reveal="up">
           <h2>{c.finalCta.title}</h2>
           <p>{c.finalCta.text}</p>
 

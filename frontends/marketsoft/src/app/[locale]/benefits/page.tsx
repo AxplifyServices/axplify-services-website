@@ -56,7 +56,7 @@ export default async function Benefits({ params }: Props) {
   return (
     <div className="ms-page">
       <section className="ms-inner-hero">
-        <div className="site-container">
+        <div className="site-container" data-reveal="up">
           <span className="ms-eyebrow">{c.benefits.eyebrow}</span>
           <h1>{c.benefits.title}</h1>
           <p>{c.benefits.intro}</p>
@@ -69,7 +69,7 @@ export default async function Benefits({ params }: Props) {
             const Icon = benefitIcons[index] ?? Sparkles;
 
             return (
-              <article key={item.title} className="ms-result-card" data-reveal="up">
+              <article key={item.title} className="ms-result-card" data-reveal="up" data-reveal-delay={String((index % 3) + 1)}>
                 <div className="ms-result-card__top">
                   <div className="ms-result-card__icon" aria-hidden="true">
                     <Icon />

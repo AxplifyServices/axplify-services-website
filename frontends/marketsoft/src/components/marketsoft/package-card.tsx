@@ -33,6 +33,7 @@ export function PackageCard({
     <article
       className="ms-package-card"
       data-package={pkg.slug}
+      data-reveal="up"
     >
       <div>
         <span className="ms-package-card__kicker">
