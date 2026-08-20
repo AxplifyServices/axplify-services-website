@@ -1,1413 +1,609 @@
 {
-  "navigation": {
-    "primaryNav": "Primary navigation",
-    "mobileNav": "Mobile navigation",
-    "home": "Home",
-    "services": "Our services",
-    "products": "Our products",
-    "about": "About us",
-    "aboutOverview": "Discover Axplify",
-    "workProcess": "Our work process",
-    "insights": "Articles & news",
-    "projects": "Our work",
+  "slogan": "The Operating System for your Commerce",
+  "nav": {
+    "platform": "Platform",
+    "packages": "Packages",
+    "benefits": "Benefits",
+    "compare": "Compare",
     "faq": "FAQ",
-    "reviews": "Client reviews",
-    "contact": "Contact us",
-    "assist": "Discuss your needs",
-    "openMenu": "Open menu",
-    "closeMenu": "Close menu"
+    "contact": "Contact",
+    "order": "Order",
+    "demo": "Request a demo"
   },
-  "footer": {
-    "description": "Axplify Services turns business needs into practical, valuable and sustainable digital solutions. Move closer to your ambition.",
-    "cta": "Define your needs",
-    "explore": "Explore",
-    "company": "Axplify Services",
-    "contactTitle": "Have a project in mind?",
-    "contactCopy": "Tell us about your situation. We will guide you towards the approach that best matches your objectives.",
-    "contactLink": "Contact us",
-    "socialTitle": "Connect with Axplify Services",
-    "whatsappLabel": "Contact Axplify Services on WhatsApp",
-    "linkedinLabel": "Discover Axplify Services on LinkedIn",
-    "rights": "All rights reserved.",
-    "manageCookies": "Manage cookies",
-    "tagline": "Simplify your processes. Unlock the value of your data. Unleash your potential!"
+  "hero": {
+    "eyebrow": "Commerce. Centralized. Scalable.",
+    "title": "Your commerce grows. Your platform should keep up.",
+    "description": "MarketSoft brings storefront, orders, inventory, payments and operations into one platform built around your business.",
+    "primary": "View packages",
+    "secondary": "Request a demo"
   },
-  "cookieConsent": {
-    "banner": {
-      "title": "Your privacy matters to us",
-      "description": "We use technologies required for the website to operate and, with your consent, measurement and marketing tools to understand user journeys, improve the experience and measure the effectiveness of our activities."
-    },
-    "preferences": {
-      "eyebrow": "Privacy",
-      "title": "Cookie preferences",
-      "description": "Choose which categories you want to allow. Essential technologies remain active because they are required for the website to operate."
-    },
-    "categories": {
-      "essential": {
-        "title": "Essential cookies",
-        "shortDescription": "They keep the website working and remember your privacy choices.",
-        "description": "These technologies are required for the operation and security of the website and to remember your consent preferences.",
-        "alwaysActive": "Always active"
+  "homeBenefits": {
+    "title": "One system to sell and operate",
+    "description": "Start with the essentials, then expand your commerce without starting over.",
+    "items": [
+      {
+        "title": "Sell online",
+        "text": "Catalog, cart, payments and orders in a smooth buying journey."
       },
-      "analytics": {
-        "title": "Measurement and performance",
-        "shortDescription": "They help us understand how the website is used and improve user journeys.",
-        "description": "These technologies measure visits and interactions so we can understand usage and improve the experience we provide."
+      {
+        "title": "Centralize operations",
+        "text": "Products, inventory, orders and points of sale in one place."
       },
-      "marketing": {
-        "title": "Marketing and advertising",
-        "shortDescription": "They help measure campaigns and, when authorised, enable advertising features.",
-        "description": "These technologies help measure campaign effectiveness and may be used for advertising attribution or audience creation."
+      {
+        "title": "Store or marketplace",
+        "text": "Move from a single-seller store to a multi-vendor platform when your model requires it."
+      },
+      {
+        "title": "Scale the platform",
+        "text": "Add languages, currencies, sellers, stores and integrations over time."
       }
+    ]
+  },
+  "packagesTitle": "Choose the right level for your commerce",
+  "packagesDescription": "Four clear offers, from a professional store to a fully customized platform.",
+  "packageActions": {
+    "details": "View offer",
+    "order": "Order",
+    "demo": "Book a demo"
+  },
+  "why": {
+    "title": "Why MarketSoft?",
+    "items": [
+      {
+        "title": "Built around your business",
+        "text": "The platform adapts to your selling rules, not the other way around."
+      },
+      {
+        "title": "Stay in control",
+        "text": "Keep control over your data, identity and evolution."
+      },
+      {
+        "title": "Beyond templates",
+        "text": "Journeys and modules can evolve far beyond a standard theme."
+      },
+      {
+        "title": "Scalable architecture",
+        "text": "Start simple and add capabilities as the business grows."
+      }
+    ]
+  },
+  "finalCta": {
+    "title": "Ready to launch your commerce?",
+    "text": "Choose a package or talk to an expert before you start.",
+    "order": "Order MarketSoft",
+    "expert": "Talk to an expert"
+  },
+  "platform": {
+    "eyebrow": "The platform",
+    "title": "Everything that runs your commerce, in one system.",
+    "intro": "MarketSoft covers core selling capabilities and can grow into advanced, B2B or multi-vendor operations.",
+    "galleryTitle": "Explore the MarketSoft experience",
+    "galleryText": "Final screenshots will be added here. Fullscreen viewing and navigation between multiple screens are already ready.",
+    "sections": [
+      {
+        "title": "Products & catalog",
+        "text": "Present, organize and grow your offer.",
+        "bullets": [
+          "Products, categories and variants",
+          "Images, prices and promotions",
+          "Search, filters and availability"
+        ]
+      },
+      {
+        "title": "Orders & payments",
+        "text": "Turn purchasing into a simple, controlled journey.",
+        "bullets": [
+          "Guest or account checkout",
+          "Online payment, cash on delivery or bank transfer",
+          "Statuses and invoice tracking"
+        ]
+      },
+      {
+        "title": "Inventory & delivery",
+        "text": "Keep an operational view of what can be sold and delivered.",
+        "bullets": [
+          "Inventory by product or variant",
+          "Low-stock alerts and out-of-stock handling",
+          "Delivery zones, fees and methods"
+        ]
+      },
+      {
+        "title": "Promotions & loyalty",
+        "text": "Activate commercial levers without multiplying tools.",
+        "bullets": [
+          "Promo codes",
+          "Time-limited offers",
+          "Reviews and abandoned-cart follow-up"
+        ]
+      },
+      {
+        "title": "Customers",
+        "text": "Make purchasing and after-sales easier without turning MarketSoft into a CRM.",
+        "bullets": [
+          "Customer account and addresses",
+          "Order history and tracking",
+          "Invoices, returns and favorites"
+        ]
+      },
+      {
+        "title": "Marketplace & sellers",
+        "text": "Move to multi-vendor when your model requires it.",
+        "bullets": [
+          "Separate seller space",
+          "Product approval",
+          "Orders, sales and performance by seller"
+        ]
+      },
+      {
+        "title": "Points of sale",
+        "text": "Connect online sales, pickup and physical stores.",
+        "bullets": [
+          "Inventory by location",
+          "Store pickup",
+          "Sales tracking by location"
+        ]
+      },
+      {
+        "title": "Analytics",
+        "text": "Run commerce with useful indicators.",
+        "bullets": [
+          "Revenue and orders",
+          "Average order value and best sellers",
+          "Low stock, promotions and satisfaction"
+        ]
+      },
+      {
+        "title": "Content & marketing",
+        "text": "Keep your commercial storefront alive from the same platform.",
+        "bullets": [
+          "Banners and featured content",
+          "News and guides",
+          "Tracking and marketing connections"
+        ]
+      },
+      {
+        "title": "Security & roles",
+        "text": "Each team sees only what it needs.",
+        "bullets": [
+          "Roles and permissions",
+          "Access scopes",
+          "Sensitive action history"
+        ]
+      },
+      {
+        "title": "Integrations",
+        "text": "Connect MarketSoft to your existing environment.",
+        "bullets": [
+          "Payments and delivery",
+          "CRM or marketing tools",
+          "APIs and business software"
+        ]
+      },
+      {
+        "title": "Multilingual & multi-currency",
+        "text": "Prepare your commerce for multiple markets.",
+        "bullets": [
+          "French, English and Arabic",
+          "Currencies and delivery zones",
+          "Local payment-method support"
+        ]
+      }
+    ]
+  },
+  "benefits": {
+    "eyebrow": "Benefits & results",
+    "title": "A platform that follows your growth instead of slowing it down.",
+    "intro": "The goal is not just to put products online. MarketSoft reduces tool fragmentation and gives your commerce a solid operating base.",
+    "items": [
+      {
+        "title": "Sell from one system",
+        "text": "Website, orders, inventory and payments together to reduce gaps between tools."
+      },
+      {
+        "title": "Reduce manual work",
+        "text": "Automate confirmations, alerts, promotions, follow-ups and notifications."
+      },
+      {
+        "title": "Grow without changing platforms",
+        "text": "Add sellers, stores, countries or capabilities progressively."
+      },
+      {
+        "title": "Keep control of your data",
+        "text": "Choose your infrastructure and retain control over your data and evolution."
+      },
+      {
+        "title": "Adapt the tool to your organization",
+        "text": "Roles, pricing rules, approvals and journeys can follow how your business actually works."
+      },
+      {
+        "title": "Connect online and physical sales",
+        "text": "Combine online sales, pickup, stores and location-based inventory when needed."
+      }
+    ]
+  },
+  "compare": {
+    "eyebrow": "Compare offers",
+    "title": "Choose in under a minute.",
+    "intro": "The essential differences between the four MarketSoft levels.",
+    "feature": "Feature",
+    "rows": [
+      {
+        "label": "Products",
+        "values": [
+          "✓",
+          "✓",
+          "✓",
+          "✓"
+        ]
+      },
+      {
+        "label": "Customer account",
+        "values": [
+          "—",
+          "✓",
+          "✓",
+          "As needed"
+        ]
+      },
+      {
+        "label": "Advanced inventory",
+        "values": [
+          "—",
+          "✓",
+          "✓",
+          "✓"
+        ]
+      },
+      {
+        "label": "Promotions",
+        "values": [
+          "Basic",
+          "✓",
+          "✓",
+          "✓"
+        ]
+      },
+      {
+        "label": "Multi-vendor",
+        "values": [
+          "—",
+          "—",
+          "✓",
+          "Option"
+        ]
+      },
+      {
+        "label": "B2B",
+        "values": [
+          "—",
+          "Option",
+          "✓",
+          "✓"
+        ]
+      },
+      {
+        "label": "Customization",
+        "values": [
+          "Limited",
+          "Medium",
+          "High",
+          "Tailored"
+        ]
+      },
+      {
+        "label": "Price",
+        "values": [
+          "12,500 DH",
+          "30,000 DH",
+          "75,000 DH",
+          "Quote"
+        ]
+      }
+    ]
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Answers before you start.",
+    "intro": "The most common questions before launching a MarketSoft project.",
+    "items": [
+      {
+        "q": "How long does it take to launch the platform?",
+        "a": "The standard store is planned around one week, the advanced offer around ten days, and the marketplace between two and four weeks. Custom timing depends on the scope."
+      },
+      {
+        "q": "Is online payment included?",
+        "a": "Yes. A payment method can be integrated depending on the package, country and selected provider."
+      },
+      {
+        "q": "Can I use my own domain?",
+        "a": "Yes. MarketSoft is designed to be deployed under your company identity and domain."
+      },
+      {
+        "q": "Can I add features later?",
+        "a": "Yes. The architecture is designed to add capabilities, integrations, sellers, languages or points of sale progressively."
+      },
+      {
+        "q": "Is hosting included?",
+        "a": "The platform can be hosted in the environment defined with you. The exact terms are specified in the offer and maintenance agreement."
+      },
+      {
+        "q": "What does maintenance include?",
+        "a": "The maintenance scope is defined according to the selected package and can cover monitoring, updates, backups, security and support."
+      },
+      {
+        "q": "Can I migrate my existing products?",
+        "a": "Yes. Product migration can be planned depending on the format and quality of the source data."
+      },
+      {
+        "q": "Do I own the platform?",
+        "a": "Ownership, hosting and usage terms are defined contractually according to the selected project and support model."
+      }
+    ]
+  },
+  "order": {
+    "eyebrow": "Get started",
+    "orderTitle": "Order your MarketSoft package",
+    "demoTitle": "Request a MarketSoft demo",
+    "intro": "Select your package and send your request. It will arrive directly in Axplify product requests.",
+    "fields": {
+      "firstName": "First name",
+      "lastName": "Last name",
+      "company": "Company",
+      "email": "Email",
+      "phone": "Phone",
+      "message": "Your need",
+      "package": "Package",
+      "privacy": "I agree that my information may be used to process my request."
     },
-    "actions": {
-      "acceptAll": "Accept all",
-      "essentialOnly": "Essential only",
-      "viewDetails": "View details",
-      "showServices": "Show services",
-      "hideServices": "Hide services",
-      "save": "Save my choices",
-      "cancel": "Cancel",
-      "close": "Close cookie preferences"
+    "submitOrder": "Send my order",
+    "submitDemo": "Request a demo",
+    "success": "Your request was sent successfully.",
+    "missingKey": "The MarketSoft product integration key is not configured.",
+    "genericError": "An error occurred."
+  },
+  "packages": [
+    {
+      "slug": "store",
+      "level": "Starter",
+      "name": "Online store",
+      "target": "For launching a professional store that is simple to manage.",
+      "price": "12,500 DH",
+      "delay": "About 1 week",
+      "shortFeatures": [
+        "Product catalog",
+        "Cart & orders",
+        "Payment",
+        "Product administration",
+        "Mobile responsive"
+      ],
+      "audiences": [
+        "Retailers",
+        "Brands",
+        "Craft businesses",
+        "Distributors",
+        "Small or medium catalog"
+      ],
+      "modules": [
+        {
+          "title": "Public website",
+          "items": [
+            "Home, company presentation, catalog and product pages",
+            "Contact, social links and essential legal pages",
+            "Responsive mobile, tablet and desktop"
+          ]
+        },
+        {
+          "title": "Sales",
+          "items": [
+            "Cart and guest checkout",
+            "Customer details and order summary",
+            "Online payment, cash on delivery or bank transfer as needed"
+          ]
+        },
+        {
+          "title": "Administration",
+          "items": [
+            "Product management",
+            "Order management",
+            "Contact-message consultation"
+          ]
+        }
+      ],
+      "outcomes": [
+        "Launch an owned sales channel quickly",
+        "Manage products and orders without complexity",
+        "Provide a professional purchasing journey"
+      ],
+      "options": [
+        "More customized UX/UI: +3,500 DH",
+        "Support & maintenance: 10,000–15,000 DH/year"
+      ]
     },
-    "providers": {
-      "axplify": {
-        "purpose": "Stores your consent choice."
-      },
-      "googleAnalytics": {
-        "name": "Google Analytics",
-        "purpose": "Measures audience, page views, engagement and conversions."
-      },
-      "microsoftClarity": {
-        "name": "Microsoft Clarity",
-        "purpose": "Provides behavioural analytics, session recordings and heatmaps to help us understand how the website is used."
-      },
-      "linkedinInsight": {
-        "name": "LinkedIn Insight Tag",
-        "purpose": "Measures LinkedIn advertising performance, tracks conversions, builds retargeting audiences and provides aggregated professional audience insights."
-      },
-      "noneConfigured": "No third-party service in this category is currently enabled on the website."
+    {
+      "slug": "advanced",
+      "level": "Medium",
+      "name": "Advanced store",
+      "target": "For turning e-commerce into a recurring sales channel.",
+      "price": "30,000 DH",
+      "delay": "About 10 days",
+      "shortFeatures": [
+        "Customer account",
+        "Advanced inventory",
+        "Promotions",
+        "Advanced delivery",
+        "Analytics"
+      ],
+      "audiences": [
+        "Brands with large catalogs",
+        "Products with variants",
+        "Regular online sales",
+        "Businesses running promotions",
+        "Teams managing content and inventory"
+      ],
+      "modules": [
+        {
+          "title": "Customers & conversion",
+          "items": [
+            "Customer accounts, addresses, favorites and invoices",
+            "Saved carts and follow-ups",
+            "Reviews and automated customer communication"
+          ]
+        },
+        {
+          "title": "Inventory & delivery",
+          "items": [
+            "Inventory by variant and movement history",
+            "Low-stock alerts",
+            "Delivery zones, pricing and methods"
+          ]
+        },
+        {
+          "title": "Marketing & management",
+          "items": [
+            "Promotions and codes",
+            "Banners and content",
+            "Dashboard and core exports"
+          ]
+        }
+      ],
+      "outcomes": [
+        "Increase repeat purchases",
+        "Manage inventory and promotions more effectively",
+        "Reduce repetitive operational work"
+      ],
+      "options": [
+        "More customized UX/UI: +6,000 DH",
+        "Support & maintenance: 15,000–20,000 DH/year"
+      ]
+    },
+    {
+      "slug": "marketplace",
+      "level": "Advanced",
+      "name": "Multi-vendor marketplace",
+      "target": "For bringing several sellers, brands or partners together on one platform.",
+      "price": "75,000 DH",
+      "delay": "About 2–4 weeks",
+      "shortFeatures": [
+        "Seller spaces",
+        "Multi-vendor catalog",
+        "Split orders",
+        "Returns & disputes",
+        "Seller analytics"
+      ],
+      "audiences": [
+        "Industry marketplaces",
+        "Multi-supplier distributors",
+        "Merchant groups",
+        "Networks and federations",
+        "Commission-based platforms"
+      ],
+      "modules": [
+        {
+          "title": "Sellers",
+          "items": [
+            "Registration, approval and suspension",
+            "Seller space and public profile",
+            "Products, prices, inventory and orders limited to each seller"
+          ]
+        },
+        {
+          "title": "Marketplace",
+          "items": [
+            "Multi-vendor catalog and cart",
+            "Order splitting",
+            "Separate deliveries and statuses"
+          ]
+        },
+        {
+          "title": "Control",
+          "items": [
+            "Product approval",
+            "Returns, disputes and seller reviews",
+            "Internal roles and detailed analytics"
+          ]
+        }
+      ],
+      "outcomes": [
+        "Build a multi-partner sales model",
+        "Keep overall control of the marketplace",
+        "Give sellers autonomy without exposing other data"
+      ],
+      "options": [
+        "More customized UX/UI: +12,000 DH",
+        "Support & maintenance: 40,000–50,000 DH/year"
+      ]
+    },
+    {
+      "slug": "custom",
+      "level": "Custom",
+      "name": "Custom platform",
+      "target": "For starting from an existing package and adding tailored requirements.",
+      "price": "Quote",
+      "delay": "According to scope",
+      "shortFeatures": [
+        "MarketSoft foundation",
+        "Tailored features",
+        "External APIs",
+        "Specific UX/UI",
+        "Adapted architecture"
+      ],
+      "audiences": [
+        "Specific business processes",
+        "Major external integrations",
+        "Highly customized journeys",
+        "Multi-country deployment",
+        "Complex evolution requirements"
+      ],
+      "modules": [
+        {
+          "title": "Foundation",
+          "items": [
+            "Choose a MarketSoft package as the foundation",
+            "Activate modules according to scope",
+            "Architecture adapted to the project"
+          ]
+        },
+        {
+          "title": "Tailored",
+          "items": [
+            "Specific business features",
+            "External API and software integrations",
+            "Dedicated journeys and interfaces"
+          ]
+        },
+        {
+          "title": "Support",
+          "items": [
+            "Requirements framing",
+            "Dedicated estimate",
+            "Adapted deployment and maintenance plan"
+          ]
+        }
+      ],
+      "outcomes": [
+        "Avoid rebuilding capabilities that already exist",
+        "Focus the budget on truly specific needs",
+        "Evolve MarketSoft around the existing information system"
+      ],
+      "options": [
+        "UX/UI: according to scope",
+        "Support & maintenance: package baseline + extras"
+      ]
     }
+  ],
+  "packagesEyebrow": "MarketSoft",
+  "packageDetail": {
+    "eyebrow": "MarketSoft package",
+    "audienceTitle": "Who is it for?",
+    "outcomesTitle": "What you can do",
+    "includedTitle": "What is included",
+    "optionsTitle": "Options & support"
   },
-  "pages": {
-    "home": {
-      "reviewsPreview": {
-        "eyebrow": "Trusted by our clients",
-        "title": "Real projects, shared by the people who experienced them.",
-        "description": "Behind every solution we deliver is a real challenge, conversations, decisions and a collaboration. Discover what our clients remember about working with Axplify Services.",
-        "project": "Related project",
-        "viewAll": "View all reviews",
-        "previous": "Previous review",
-        "next": "Next review"
-      },
-      "productsPreview": {
-        "eyebrow": "Our products",
-        "title": "Ready-to-use solutions designed to move your projects faster.",
-        "description": "Not every business need requires starting from scratch. Discover Axplify products built to address concrete challenges and help organisations move faster from an idea to real-world use.",
-        "discover": "Discover the product",
-        "viewAll": "View all products"
-      },
-      "insightsPreview": {
-        "eyebrow": "Articles & news",
-        "title": "Do not miss what is happening",
-        "introduction": "Explore our insights, news and real-world experiences shaping tomorrow’s digital projects.",
-        "previous": "View previous publications",
-        "next": "View next publications",
-        "readMore": "Explore the publication",
-        "viewAll": "View all articles and news",
-        "types": {
-          "article": "Article",
-          "caseStudy": "Case study",
-          "news": "News",
-          "event": "Event",
-          "pressRelease": "Press release",
-          "announcement": "Announcement",
-          "guide": "Guide",
-          "resource": "Resource"
-        }
-      },
-      "clientsPreview": {
-        "title": "They trusted us",
-        "introduction": "Companies across different industries trust us with their digital challenges to turn ideas into useful solutions, simplify operations and support lasting growth.",
-        "pause": "Pause this row",
-        "resume": "Resume this row"
-      },
-      "servicesPreview": {
-        "eyebrow": "Our expertise",
-        "title": "Stop letting the same obstacles slow down your growth.",
-        "introduction": "We turn practical bottlenecks — repetitive tasks, limited visibility, scattered data or difficult prospecting — into useful digital solutions.",
-        "cta": "Discover all our services",
-        "items": {
-          "digital": {
-            "title": "Websites, applications and business platforms",
-            "description": "Turn an idea or a complex process into a simple, fluid digital experience designed around your users."
-          },
-          "automation": {
-            "title": "Operations automation",
-            "description": "Let technology handle repetitive tasks so your teams can save time and reduce avoidable errors."
-          },
-          "data": {
-            "title": "Data and decision support",
-            "description": "Bring your data together, follow the right indicators and make decisions with greater clarity."
-          },
-          "ai": {
-            "title": "Applied artificial intelligence",
-            "description": "Use AI to predict, recommend, support your teams or accelerate the processing of information."
-          },
-          "crm": {
-            "title": "CRM and commercial performance",
-            "description": "Understand your customers, prioritise opportunities and make every commercial action more relevant."
-          },
-          "architecture": {
-            "title": "Architecture and deployment",
-            "description": "Build a secure and scalable solution that can support the long-term development of your business."
-          },
-          "analytics": {
-            "title": "Analytics and performance tracking",
-            "description": "Understand where your visitors come from, what they do and which actions truly generate leads or sales."
-          },
-          "leadGeneration": {
-            "title": "Lead generation and closing",
-            "description": "Attract the right prospects, qualify their needs and help your teams turn more opportunities into customers."
-          },
-          "marketingStrategy": {
-            "title": "Marketing strategy and online visibility",
-            "description": "Analyse your market, competitors and online image to build a strategy that strengthens visibility and credibility."
-          }
-        }
-      },
-      "eyebrow": "Digital transformation · AI · Data",
-      "title": "Home",
-      "description": "Axplify Services turns business needs into practical, valuable and sustainable digital solutions.",
-      "seo": {
-        "title": "Digital transformation, AI, Data and automation",
-        "description": "Turn your processes, data and ideas into practical solutions with Axplify Services through development, AI, Data, automation and digital products."
-      },
-      "brochures": {
-        "previous": "Previous brochure",
-        "next": "Next brochure",
-        "goToSlide": "Show brochure"
-      },
-      "aboutPreview": {
-        "eyebrow": "About Axplify Services",
-        "title": "Axplify Services turns operational obstacles into drivers of digital growth.",
-        "introduction": "A company should never have to adapt its ambitions to the limitations of its working methods.",
-        "description": "Axplify Services helps companies save time, organise their work more efficiently and make better decisions with digital tools adapted to their needs.",
-        "promiseLabel": "Our belief",
-        "promise": "Technology becomes truly powerful when it simplifies everyday work and opens new possibilities.",
-        "pillars": {
-          "clarity": {
-            "title": "Start with the real need",
-            "description": "Understand your reality before discussing technology."
-          },
-          "usefulness": {
-            "title": "Create practical value",
-            "description": "Design solutions that are useful, adoptable and measurable."
-          },
-          "evolution": {
-            "title": "Prepare what comes next",
-            "description": "Build for today without limiting tomorrow’s ambitions."
-          }
-        },
-        "primaryCta": "Discover Axplify",
-        "secondaryCta": "Discuss your needs"
-      }
-    },
-    "services": {
-      "hero": {
-        "eyebrow": "Our services",
-        "title": "Turn everyday obstacles into opportunities for growth.",
-        "introduction": "A company does not always lack ideas. Sometimes it lacks the right tool, the right information or the time needed to move forward.",
-        "description": "Axplify Services supports you from the initial understanding of your needs through to deployment. We combine digital development, automation, data, artificial intelligence and marketing strategy to build solutions that deliver real value to your business.",
-        "navigationCta": "Explore our services",
-        "contactCta": "Discuss your needs"
-      },
-      "navigation": {
-        "label": "Quick access",
-        "title": "Which challenge would you like to solve?",
-        "openLabel": "Open quick service navigation",
-        "closeLabel": "Close quick service navigation"
-      },
-      "common": {
-        "challengeTitle": "The problem we solve",
-        "solutionsTitle": "What we can implement",
-        "benefitsTitle": "What your company gains",
-        "exampleLabel": "Example project",
-        "backToNavigation": "Back to services",
-        "discoverService": "Discuss this service"
-      },
-      "items": {
-        "digital": {
-          "id": "websites-applications-platforms",
-          "shortTitle": "Digital solutions",
-          "title": "Websites, applications and business platforms",
-          "promise": "A digital solution should not only look good. It should simplify an action, solve a problem and support your growth.",
-          "description": "We design websites, applications and business platforms around your users and operational processes. Every journey is made simple, even when the underlying business rules are complex.",
-          "challenge": "Your teams use several disconnected files or tools, your customers encounter friction in their journey, or your activity still depends on many manual operations.",
-          "solutions": [
-            "Multilingual corporate and commercial websites",
-            "Web and mobile applications adapted to your business",
-            "B2B and B2C platforms with dedicated user areas",
-            "Simple and secure administration interfaces",
-            "Booking, ordering and subscription journeys",
-            "Connections to your existing tools, databases and APIs"
-          ],
-          "benefits": [
-            "A simpler experience for customers and teams",
-            "Better centralisation of information",
-            "Fewer manual entries and operational errors",
-            "A solution able to evolve with your business"
-          ],
-          "example": "Design of a vehicle rental platform covering B2C and B2B journeys, vehicle search, quotations, bookings, company quotas and approval workflows.",
-          "seo": {
-            "title": "Custom web & mobile application development",
-            "description": "Design websites, applications and business platforms that simplify operations and customer journeys, from early idea through deployment."
-          },
-          "detail": {
-            "forWhomTitle": "When is this service a good fit?",
-            "forWhom": "This service is relevant when teams still rely on scattered files or tools, customers face friction in key journeys, or the business needs software built around its own rules rather than a generic workflow.",
-            "useCasesTitle": "Common use cases",
-            "useCases": [
-              "Internal business applications",
-              "Customer or partner portals",
-              "B2B or B2C SaaS platforms",
-              "Business-heavy websites",
-              "Mobile applications",
-              "Booking, ordering and approval workflows"
-            ],
-            "faqTitle": "Frequently asked questions",
-            "faq": [
-              {
-                "question": "Do we need a complete specification before starting?",
-                "answer": "No. We can start from a partially defined need and clarify users, journeys, business rules and priorities before locking the solution down."
-              },
-              {
-                "question": "Can you take over an existing application?",
-                "answer": "Yes. We can audit the current system, identify the main constraints and decide whether to evolve it, modernise selected components or rebuild progressively."
-              },
-              {
-                "question": "How do you avoid building software that becomes too complex?",
-                "answer": "We work in stages, keep journeys simple, validate regularly and use a demo, POC or MVP when it helps test the direction before industrialising."
-              }
-            ]
-          }
-        },
-        "automation": {
-          "id": "operations-automation",
-          "shortTitle": "Automation",
-          "title": "Operations automation",
-          "promise": "Your teams should spend their time making decisions and serving customers, not repeating the same tasks.",
-          "description": "We identify the operations slowing down your activity and build reliable, traceable automations adapted to your business rules.",
-          "challenge": "Files must be prepared every week, information is copied between several tools, follow-ups are forgotten or some tasks still depend entirely on human intervention.",
-          "solutions": [
-            "Automation of administrative and commercial tasks",
-            "Automatic generation of documents and reports",
-            "Approval workflows and validation processes",
-            "Automatic alerts for delays and anomalies",
-            "Synchronisation between tools and databases",
-            "Orchestration of scheduled processes"
-          ],
-          "benefits": [
-            "Shorter processing times",
-            "Fewer errors and forgotten tasks",
-            "More consistent and better-controlled processes",
-            "More time for higher-value activities"
-          ],
-          "example": "Development of an algorithm connected to business datamarts to automatically consolidate monthly indicators, calculate KPIs and generate presentations used to manage the commercial network.",
-          "seo": {
-            "title": "Business process automation & workflow development",
-            "description": "Reduce repetitive work, copy-paste and missed follow-ups with reliable, traceable automations designed around your business rules."
-          },
-          "detail": {
-            "forWhomTitle": "When is this service a good fit?",
-            "forWhom": "This service is useful when teams spend too much time preparing files, copying information, sending reminders or performing recurring steps that can be orchestrated automatically.",
-            "useCasesTitle": "Common use cases",
-            "useCases": [
-              "Automated reports and presentations",
-              "System-to-system synchronisation",
-              "Automated reminders and notifications",
-              "Approval workflows",
-              "Recurring file processing",
-              "Commercial and administrative task automation"
-            ],
-            "faqTitle": "Frequently asked questions",
-            "faq": [
-              {
-                "question": "Do we need to replace our current tools?",
-                "answer": "Not necessarily. Automation can often connect existing tools, remove duplicate entry and add business logic without rebuilding the whole system."
-              },
-              {
-                "question": "How do you prioritise what to automate first?",
-                "answer": "We consider time spent, frequency, error risk, business value and process stability. The goal is to automate where the impact is easiest to prove."
-              },
-              {
-                "question": "What happens if an automation fails?",
-                "answer": "We favour traceable workflows with controls, logs, alerts and recovery mechanisms so issues can be identified and handled quickly."
-              }
-            ]
-          }
-        },
-        "data": {
-          "id": "data-decision-support",
-          "shortTitle": "Data and reporting",
-          "title": "Data and decision support",
-          "promise": "Your data becomes valuable when it helps you understand what is happening and make decisions faster.",
-          "description": "We organise, clean and combine your data to turn it into readable, reliable indicators that your teams can use directly.",
-          "challenge": "Your data is scattered, figures differ from one file to another, reports take too long to prepare or management lacks a clear view of performance.",
-          "solutions": [
-            "Design of datamarts adapted to business needs",
-            "Definition of KPIs and calculation rules",
-            "Data cleaning and quality control",
-            "Operational and management dashboards",
-            "Centralisation of several data sources",
-            "Automated alerts and indicator monitoring"
-          ],
-          "benefits": [
-            "Reliable figures understood by everyone",
-            "A faster view of performance",
-            "Decisions based on facts",
-            "Better detection of gaps and opportunities"
-          ],
-          "example": "Management of Marketing, CRM and Commercial Performance datamarts, from collecting requirements through to validating KPIs, aggregation rules and data quality.",
-          "seo": {
-            "title": "Data analytics & Business Intelligence consulting",
-            "description": "Turn scattered data into reliable KPIs, dashboards and analysis your teams can use to manage performance and make faster decisions."
-          },
-          "detail": {
-            "forWhomTitle": "When is this service a good fit?",
-            "forWhom": "This service is relevant when data already exists but remains scattered, difficult to trust or too time-consuming to turn into useful reporting for teams and management.",
-            "useCasesTitle": "Common use cases",
-            "useCases": [
-              "Management dashboards",
-              "Multi-source consolidation",
-              "Business datamarts",
-              "KPI definition and validation",
-              "Automated reporting",
-              "Segmentation and performance analysis"
-            ],
-            "faqTitle": "Frequently asked questions",
-            "faq": [
-              {
-                "question": "Can you work with the data we already have?",
-                "answer": "Yes. We usually begin by mapping sources, data quality, KPI definitions and user needs before designing the reporting layer."
-              },
-              {
-                "question": "Do we need a data warehouse already in place?",
-                "answer": "No. The architecture depends on volume, usage, refresh frequency and the existing ecosystem. We avoid adding complexity that is not justified."
-              },
-              {
-                "question": "How do you make sure KPIs are trustworthy?",
-                "answer": "We document calculation rules, validate aggregation logic, reconcile results with business sources and introduce appropriate quality controls."
-              }
-            ]
-          }
-        },
-        "ai": {
-          "id": "artificial-intelligence",
-          "shortTitle": "Artificial intelligence",
-          "title": "Applied artificial intelligence",
-          "promise": "Artificial intelligence becomes useful when it addresses a clearly identified decision, task or opportunity.",
-          "description": "We integrate AI into practical use cases: supporting teams, analysing documents, recommending actions, qualifying prospects and anticipating behaviour.",
-          "challenge": "You want to use AI but do not know which use case to prioritise, how to integrate it into your tools or how to control the reliability of its responses.",
-          "solutions": [
-            "AI assistants and copilots adapted to your business",
-            "Predictive models and scoring systems",
-            "Recommendation engines and Next Best Action",
-            "Automatic analysis of documents, text and audio",
-            "Voice agents for reception and qualification",
-            "Computer vision and object detection"
-          ],
-          "benefits": [
-            "Teams better supported in their decisions",
-            "More precise personalisation of actions",
-            "Faster identification of opportunities",
-            "Practical use of large volumes of information"
-          ],
-          "example": "Design of an AI voice agent connected to commercial documents for property developments, able to answer questions, qualify prospects and send opportunities to the CRM.",
-          "seo": {
-            "title": "AI consulting, proof of concept & integration",
-            "description": "Identify a valuable AI use case, validate it quickly with a POC and integrate artificial intelligence into your tools and business processes."
-          },
-          "detail": {
-            "forWhomTitle": "When is this service a good fit?",
-            "forWhom": "This service is relevant when you have repetitive work, large document volumes, decisions that could be assisted or an AI use case you want to validate before committing more investment.",
-            "useCasesTitle": "Common use cases",
-            "useCases": [
-              "Business assistants and copilots",
-              "Document analysis and extraction",
-              "Voice and conversational agents",
-              "Scoring and prediction",
-              "Action recommendations",
-              "Lead qualification",
-              "Computer vision"
-            ],
-            "faqTitle": "Frequently asked questions",
-            "faq": [
-              {
-                "question": "Should we always start with a POC?",
-                "answer": "Not always. We first clarify the use case and expected value. A POC is useful when feasibility, output quality or integration needs to be validated quickly."
-              },
-              {
-                "question": "Can AI be connected to our internal data?",
-                "answer": "Yes, subject to access rights and security constraints. We can design architectures where AI uses internal documents, databases or APIs with appropriate controls."
-              },
-              {
-                "question": "How do you manage AI reliability?",
-                "answer": "We define acceptable uses, trusted sources, controls, confidence thresholds and the situations where human validation remains necessary."
-              }
-            ]
-          }
-        },
-        "crm": {
-          "id": "crm-commercial-performance",
-          "shortTitle": "CRM and sales",
-          "title": "CRM and commercial performance",
-          "promise": "A commercial opportunity is more likely to succeed when it reaches the right person, at the right time, with the right message.",
-          "description": "We structure customer data, opportunities and commercial actions to help your teams prioritise, follow up and convert more effectively.",
-          "challenge": "Customer information is scattered, opportunities are not properly tracked, follow-ups depend on individual files or teams do not know which prospects to prioritise.",
-          "solutions": [
-            "Structuring and centralisation of customer data",
-            "Opportunity and follow-up management",
-            "Customer and prospect segmentation",
-            "Propensity and commercial priority scoring",
-            "Automation of campaigns and contact actions",
-            "Commercial performance dashboards"
-          ],
-          "benefits": [
-            "Better customer knowledge",
-            "Fewer forgotten opportunities",
-            "Better-targeted commercial actions",
-            "Progressive improvement in conversion rates"
-          ],
-          "example": "Design of an internal commercial opportunity management system, followed by its industrialisation to orchestrate campaigns and prioritise team actions.",
-          "seo": {
-            "title": "Custom CRM development & sales performance",
-            "description": "Centralise prospects, customers, opportunities and follow-ups in a CRM aligned with your sales process and conversion priorities."
-          },
-          "detail": {
-            "forWhomTitle": "When is this service a good fit?",
-            "forWhom": "This service is relevant when sales teams work across multiple files, lose visibility on opportunities, miss follow-ups or use a CRM that does not reflect the way they actually sell.",
-            "useCasesTitle": "Common use cases",
-            "useCases": [
-              "Custom sales pipelines",
-              "Prospect and customer centralisation",
-              "Opportunity prioritisation",
-              "Automated tasks and follow-ups",
-              "Campaigns and segmentation",
-              "Sales dashboards"
-            ],
-            "faqTitle": "Frequently asked questions",
-            "faq": [
-              {
-                "question": "Do we have to build a CRM from scratch?",
-                "answer": "Not always. We can integrate and configure an existing CRM, build specific extensions or create a custom solution when the business rules justify it."
-              },
-              {
-                "question": "Can the CRM connect to our other tools?",
-                "answer": "Yes. It can connect to forms, marketing platforms, telephony, ERP systems, internal databases and APIs to reduce duplicate entry."
-              },
-              {
-                "question": "How do you encourage sales teams to adopt the CRM?",
-                "answer": "We favour simple journeys, genuinely useful fields and automation of low-value tasks. A CRM should help the team rather than create more administration."
-              }
-            ]
-          }
-        },
-        "architecture": {
-          "id": "architecture-deployment",
-          "shortTitle": "Architecture and security",
-          "title": "Architecture, security and deployment",
-          "promise": "A reliable solution must remain secure, maintainable and efficient long after it is launched.",
-          "description": "We design the technical architecture, access rights, roles and deployment processes while taking security and future growth into account from the start.",
-          "challenge": "Your solution must support several user profiles, protect sensitive information, evolve over time or be deployed without interrupting operations.",
-          "solutions": [
-            "Frontend, backend and database architecture",
-            "Authentication and role management",
-            "API and access security",
-            "Logging and action traceability",
-            "Containerisation with Docker",
-            "Automated deployments and environments"
-          ],
-          "benefits": [
-            "Better protection of your data",
-            "Access rights adapted to each user",
-            "More reliable deployments",
-            "A technical foundation ready to evolve"
-          ],
-          "example": "Deployment of Next.js and NestJS platforms using PostgreSQL, JWT authentication, role management, Docker, Traefik and automated GitHub Actions workflows.",
-          "seo": {
-            "title": "SaaS architecture, security & cloud deployment",
-            "description": "Design secure, maintainable software architecture ready to scale, with roles, APIs, databases, containers, CI/CD and reliable deployment."
-          },
-          "detail": {
-            "forWhomTitle": "When is this service a good fit?",
-            "forWhom": "This service is relevant when an application must support multiple user profiles, protect sensitive data, scale over time, evolve into a SaaS product or deploy reliably and repeatedly.",
-            "useCasesTitle": "Common use cases",
-            "useCases": [
-              "SaaS and multi-tenant architecture",
-              "Roles and permission management",
-              "API security",
-              "Docker and reverse proxy",
-              "CI/CD and automated deployments",
-              "Observability, backups and recovery"
-            ],
-            "faqTitle": "Frequently asked questions",
-            "faq": [
-              {
-                "question": "Can you audit an existing architecture?",
-                "answer": "Yes. We can review the application, flows, dependencies, security, database and deployment setup to identify risks and priorities."
-              },
-              {
-                "question": "Do we need to migrate immediately to a complex architecture?",
-                "answer": "No. Architecture should follow the real need. We aim for the required level of robustness without introducing expensive complexity too early."
-              },
-              {
-                "question": "Is security handled as a separate topic?",
-                "answer": "We integrate it into the design from the start: authentication, authorisation, roles, secrets, network exposure, input validation and deployment practices."
-              }
-            ]
-          }
-        },
-        "analytics": {
-          "id": "analytics-tracking",
-          "shortTitle": "Analytics and tracking",
-          "title": "Analytics, tracking and digital performance analysis",
-          "promise": "You should not invest in visibility without knowing what truly attracts, engages and converts your visitors.",
-          "description": "We implement reliable tracking of your digital journeys to connect visitors, campaigns, prospects and sales within a single view.",
-          "challenge": "You know your overall traffic but cannot clearly identify which campaigns, pages or actions generate forms, baskets, sales or revenue.",
-          "solutions": [
-            "Audit of your website and traffic sources",
-            "Definition of KPIs and creation of a tracking plan",
-            "Installation and configuration of Google Tag Manager",
-            "Configuration of Google Analytics 4",
-            "Tracking of clicks, forms, baskets and transactions",
-            "Connection of CRM, advertising and e-commerce data",
-            "Data centralisation in BigQuery when appropriate",
-            "Creation of custom Looker Studio dashboards"
-          ],
-          "benefits": [
-            "More reliable digital data",
-            "A clear understanding of the conversion funnel",
-            "More accurate measurement of return on investment",
-            "A dashboard updated automatically",
-            "Marketing decisions based on real indicators"
-          ],
-          "example": "Automation of the collection and transformation of digital marketing data to supply decision-making dashboards used to manage commercial performance.",
-          "seo": {
-            "title": "GA4, GTM & conversion tracking implementation",
-            "description": "Understand what truly attracts, engages and converts visitors with clean GA4/GTM tracking, consent management and business-focused measurement."
-          },
-          "detail": {
-            "forWhomTitle": "When is this service a good fit?",
-            "forWhom": "This service is relevant when you invest in a website or campaigns but cannot clearly tell which sources, pages and actions generate leads, sales or business value.",
-            "useCasesTitle": "Common use cases",
-            "useCases": [
-              "Google Analytics 4",
-              "Google Tag Manager",
-              "Consent Mode and cookie management",
-              "Form and CTA tracking",
-              "Funnels and business events",
-              "Campaign attribution",
-              "Marketing dashboards"
-            ],
-            "faqTitle": "Frequently asked questions",
-            "faq": [
-              {
-                "question": "Can you work with tracking that is already installed?",
-                "answer": "Yes. We can audit events, duplicates, consent, conversions and data quality before correcting or restructuring the measurement plan."
-              },
-              {
-                "question": "Can we track clicks on important buttons?",
-                "answer": "Yes. We can track CTAs, forms, downloads, calls, product interactions and other events that genuinely matter in your conversion journey."
-              },
-              {
-                "question": "How do you handle visitor consent?",
-                "answer": "Tracking must respect consent choices. We configure tags and events so they fire in line with the cookie policy and applicable requirements."
-              }
-            ]
-          }
-        },
-        "leadGeneration": {
-          "id": "lead-generation-closing",
-          "shortTitle": "Leads and closing",
-          "title": "Lead generation and closing support",
-          "promise": "Attracting more visitors is not enough. You need a journey capable of turning them into opportunities and then into customers.",
-          "description": "We connect acquisition, content, forms, qualification, CRM and follow-ups to build a clearer and more efficient commercial funnel.",
-          "challenge": "Your company receives too few qualified enquiries, loses prospects after the first interaction or lacks a clear method for following opportunities through to closing.",
-          "solutions": [
-            "Design of conversion-focused landing pages",
-            "Qualification forms and journeys",
-            "Prospect segmentation and scoring",
-            "Connection of leads to the CRM",
-            "Automated follow-up actions",
-            "Prioritisation of commercial opportunities",
-            "Monitoring of the sales funnel and conversion rates",
-            "Support in structuring closing stages and sales arguments"
-          ],
-          "benefits": [
-            "Better-qualified prospects",
-            "Faster handling of enquiries",
-            "Better visibility over the commercial pipeline",
-            "Fewer lost opportunities",
-            "Progressive improvement in conversion rates"
-          ],
-          "example": "Implementation of a complete qualified-lead generation process: identifying prospects through social media and artificial intelligence, qualification by our commercial teams, then delivery to the company of genuinely interested contacts ready to be converted.",
-          "seo": {
-            "title": "B2B lead generation & sales automation",
-            "description": "Build a funnel that attracts, qualifies and converts more prospects through content, automation, CRM and structured sales follow-up."
-          },
-          "detail": {
-            "forWhomTitle": "When is this service a good fit?",
-            "forWhom": "This service is relevant when your company receives too few qualified enquiries, loses prospects after first contact or wants a more consistent and measurable B2B prospecting process.",
-            "useCasesTitle": "Common use cases",
-            "useCases": [
-              "B2B prospect identification",
-              "Data enrichment and qualification",
-              "Landing pages and forms",
-              "Lead scoring",
-              "Follow-up sequences",
-              "CRM synchronisation",
-              "Funnel tracking through closing"
-            ],
-            "faqTitle": "Frequently asked questions",
-            "faq": [
-              {
-                "question": "Can you generate leads for any industry?",
-                "answer": "The approach depends heavily on the market, sales cycle and target audience. We first validate the offer, ideal customer profile and channels that genuinely fit."
-              },
-              {
-                "question": "How do you measure lead quality?",
-                "answer": "We define concrete criteria such as need, profile, interest, timing, decision-making ability and available data. Volume alone is not the objective."
-              },
-              {
-                "question": "Do you also support the process after lead generation?",
-                "answer": "Yes. Depending on the need, we can structure qualification, follow-ups, CRM, scoring and the steps that move opportunities closer to closing."
-              }
-            ]
-          }
-        },
-        "marketingStrategy": {
-          "id": "marketing-strategy-online-visibility",
-          "shortTitle": "Strategy and visibility",
-          "title": "Marketing strategy, visibility and online image",
-          "promise": "Before communicating more, you need to understand what your market expects, what your competitors offer and what makes your company credible.",
-          "description": "We analyse your environment, positioning and customer journeys to build a coherent, measurable marketing strategy adapted to your resources.",
-          "challenge": "Your company lacks visibility, its message remains unclear, its marketing actions are inconsistent or it does not know how to differentiate itself from competitors.",
-          "solutions": [
-            "Market research and analysis of customer expectations",
-            "Competitor benchmarking and best-practice analysis",
-            "Analysis of positioning and online image",
-            "Clarification of target audiences and messages",
-            "Definition of channels and content plans",
-            "Formalisation of marketing processes",
-            "Improvement of discovery and conversion journeys",
-            "Implementation of monitoring indicators"
-          ],
-          "benefits": [
-            "Clearer positioning",
-            "A more coherent and credible image",
-            "Better-structured marketing actions",
-            "A better understanding of the market",
-            "Visibility built around measurable objectives"
-          ],
-          "example": "Customer knowledge, segmentation, geomarketing and performance analyses used to guide commercial and marketing decisions.",
-          "seo": {
-            "title": "Digital marketing strategy & B2B positioning",
-            "description": "Clarify positioning, messaging and marketing priorities through market, competitor, customer journey and performance analysis."
-          },
-          "detail": {
-            "forWhomTitle": "When is this service a good fit?",
-            "forWhom": "This service is relevant when your offer is difficult to understand, marketing actions are fragmented, visibility is not improving or the message needs to be repositioned before more budget is invested.",
-            "useCasesTitle": "Common use cases",
-            "useCases": [
-              "Competitor benchmarking",
-              "Positioning and value proposition",
-              "Segmentation and personas",
-              "Content strategy",
-              "Acquisition journeys",
-              "Performance analysis",
-              "Prioritised marketing roadmap"
-            ],
-            "faqTitle": "Frequently asked questions",
-            "faq": [
-              {
-                "question": "Do you start with channels or with strategy?",
-                "answer": "We start with the market, target audience, offer and value proposition. Channels come afterwards, based on where relevant prospects actually are."
-              },
-              {
-                "question": "Can you work alongside an existing marketing team?",
-                "answer": "Yes. We can complement internal teams with analysis, measurement, roadmap design or specialised execution without replacing them."
-              },
-              {
-                "question": "How do you avoid producing a strategy that stays theoretical?",
-                "answer": "Each recommendation should translate into priorities, actions, ownership and measurable indicators. The goal is an executable strategy, not a presentation that sits unused."
-              }
-            ]
-          }
-        }
-      },
-      "method": {
-        "eyebrow": "How we work",
-        "title": "A clear approach, from the initial need to the final result.",
-        "description": "We do not begin with technology. We begin by understanding what is blocking your progress, what needs to change and how the improvement will be measured.",
-        "items": {
-          "diagnosis": {
-            "title": "Understand",
-            "description": "We analyse your activity, users, data and processes to identify the real need."
-          },
-          "design": {
-            "title": "Build",
-            "description": "We define a clear, prioritised solution adapted to your teams before developing the features."
-          },
-          "deployment": {
-            "title": "Deploy and improve",
-            "description": "We secure the deployment, measure the results and improve the solution according to actual usage."
-          }
-        }
-      },
-      "finalCta": {
-        "eyebrow": "Your next project",
-        "title": "You have identified a problem, but not yet the right solution?",
-        "description": "Tell us about your business, difficulties and objectives. We will help you structure the need and identify the most useful actions.",
-        "primaryCta": "Discuss my needs",
-        "secondaryCta": "Help me define my project"
-      },
-      "seo": {
-        "title": "Digital, Data, AI and Marketing Services",
-        "description": "From idea to deployment, Axplify Services supports your projects with web and mobile development, AI, Data, automation, CRM and marketing."
-      }
-    },
-    "products": {
-      "eyebrow": "Solutions created by Axplify",
-      "title": "Products",
-      "description": "This page will present the digital products designed and developed by Axplify Services.",
-      "hero": {
-        "eyebrow": "Axplify products",
-        "title": "Find the solution that already matches your need.",
-        "description": "Explore our catalogue of digital products built around concrete business challenges. Filter solutions by category, identify the one that fits your context and access the product directly."
-      },
-      "filters": {
-        "title": "Categories",
-        "all": "All products",
-        "open": "Filter products",
-        "close": "Close filters",
-        "results": "products",
-        "singleResult": "product"
-      },
-      "card": {
-        "discover": "Discover the product"
-      },
-      "pagination": {
-        "previous": "Previous",
-        "next": "Next",
-        "page": "Page",
-        "of": "of"
-      },
-      "empty": {
-        "title": "No products available",
-        "description": "Our catalogue is evolving. Come back soon to discover new Axplify solutions."
-      },
-      "seo": {
-        "title": "Digital products to simplify and grow your business",
-        "description": "Discover Axplify Services products built to automate operations, improve business management and turn real business needs into ready-to-use digital solutions."
-      }
-    },
-    "about": {
-      "eyebrow": "The company",
-      "title": "About Axplify Services",
-      "description": "Discover the story, mission, vision and business model of Axplify Services.",
-      "seo": {
-        "title": "About us | A different way to build digital solutions",
-        "description": "Discover Axplify Services and an approach that starts with real business needs to build useful, scalable digital, Data and AI solutions designed for growth."
-      },
-      "hero": {
-        "eyebrow": "About Axplify Services",
-        "title": "We turn today’s obstacles into tomorrow’s opportunities.",
-        "introduction": "Behind every lengthy process, every hard-to-find piece of information and every decision made without enough visibility lies an opportunity to work better.",
-        "description": "Axplify Services supports companies that want simpler tools, smoother operations and greater control over their data.",
-        "primaryCta": "Define my needs",
-        "secondaryCta": "Discover our process"
-      },
-      "story": {
-        "eyebrow": "Our story",
-        "title": "Axplify was born from a simple observation.",
-        "paragraphs": {
-          "first": "Business ambitions evolve quickly, but tools, processes and working habits do not always move at the same pace.",
-          "second": "Tasks that should take minutes may involve several people. Information moves between files, messages and disconnected systems. Data exists, but it is often too scattered to support confident decisions.",
-          "third": "Axplify Services was created to close this gap. Our role is to understand what is truly holding an organisation back and turn that reality into digital solutions that are simple to use, aligned with its priorities and ready to evolve."
-        },
-        "statement": "We do not create technology to add complexity. We design it to make ambition more accessible."
-      },
-      "mission": {
-        "eyebrow": "Our mission",
-        "title": "Make digital transformation practical, understandable and useful.",
-        "description": "We place business needs before tools so that every technology decision serves a clearly identified objective.",
-        "items": {
-          "understand": {
-            "title": "Understand before building",
-            "description": "We analyse how the company actually works, including its constraints, priorities and team practices."
-          },
-          "design": {
-            "title": "Design with purpose",
-            "description": "We seek the right balance between simplicity, efficiency, security and scalability."
-          },
-          "advance": {
-            "title": "Transform to move forward",
-            "description": "A solution should create visible progress by saving time, improving management, supporting decisions or opening new opportunities."
-          }
-        }
-      },
-      "model": {
-        "eyebrow": "Our model",
-        "title": "Two ways to turn ambition into a solution.",
-        "description": "Depending on the situation, Axplify can design a custom response or provide an existing solution that can be adapted.",
-        "activities": {
-          "services": {
-            "title": "Projects designed around your reality",
-            "description": "When the need is specific, we create an approach adapted to your processes, teams and objectives. Technology adjusts to the company, not the other way around.",
-            "linkLabel": "Discover our services"
-          },
-          "products": {
-            "title": "Products designed to accelerate your evolution",
-            "description": "We also develop our own digital solutions to address recurring needs faster while maintaining the flexibility required by each organisation.",
-            "linkLabel": "Discover our products"
-          }
-        }
-      },
-      "values": {
-        "eyebrow": "What guides us",
-        "title": "Simple principles for building sustainable solutions.",
-        "items": {
-          "usefulness": {
-            "title": "Usefulness before spectacle",
-            "description": "A successful solution is not the one that appears most complex, but the one that genuinely improves everyday work."
-          },
-          "clarity": {
-            "title": "Clarity at every stage",
-            "description": "We explain decisions, priorities and trade-offs in language that people can understand."
-          },
-          "adaptability": {
-            "title": "Adaptation to reality",
-            "description": "Every company has its own practices, constraints and pace of transformation."
-          },
-          "ambition": {
-            "title": "Long-term ambition",
-            "description": "We design for the immediate need without locking the company into today’s limitations."
-          }
-        }
-      },
-      "finalCta": {
-        "eyebrow": "What comes next?",
-        "title": "Your next growth opportunity may already be hidden in your daily operations.",
-        "description": "Tell us about your situation, your obstacles or your ambition. We will help you identify the most relevant starting point.",
-        "primaryCta": "Discuss my needs",
-        "secondaryCta": "Contact us directly"
-      }
-    },
-    "workProcess": {
-      "hero": {
-        "eyebrow": "Our work process",
-        "title": "Every strong solution starts with a need that is truly understood",
-        "description": "We move forward step by step, with clear approvals, concrete examples and continuous visibility throughout the project. The journey then leads either to the right Axplify product or to a custom-built solution.",
-        "reassurance": "No important stage begins before the previous one has been approved."
-      },
-      "steps": {
-        "understand": {
-          "eyebrow": "Understand",
-          "title": "Listen to the need in its real context",
-          "description": "We begin by understanding your activity, objectives and current difficulties without immediately imposing a solution or technology.",
-          "points": {
-            "challenge": "Identify the problem to solve and its consequences.",
-            "users": "Understand users, habits and operating constraints.",
-            "objectives": "Define the expected business or operational outcomes."
-          }
-        },
-        "observe": {
-          "eyebrow": "Analyse",
-          "title": "Observe how work is currently performed",
-          "description": "We study how information, decisions and tasks currently move through the organisation to distinguish the expressed request from its real cause.",
-          "points": {
-            "process": "Reconstruct the main stages of the current process.",
-            "tools": "Review the tools, data and exchanges already in use.",
-            "friction": "Identify delays, duplicate entry, errors and bottlenecks."
-          }
-        },
-        "reframe": {
-          "eyebrow": "Reframe",
-          "title": "Turn observations into a clear need",
-          "description": "We restate what we have understood, present comparable examples and separate immediate priorities from future developments.",
-          "points": {
-            "summary": "Present a clear and understandable summary of the need.",
-            "examples": "Show examples, journeys or comparable projects.",
-            "priorities": "Define the priority scope and expected outcomes."
-          }
-        },
-        "validate": {
-          "eyebrow": "Approve",
-          "title": "Confirm the direction together before moving forward",
-          "description": "The framing must be understood and approved. We do not select the solution or start delivery until this foundation has been validated.",
-          "points": {
-            "approval": "Approve the problem, scope and priorities.",
-            "adjustments": "Correct misunderstandings or complete missing information.",
-            "decision": "Obtain clear approval before the next stage."
-          }
-        },
-        "delivery": {
-          "eyebrow": "Deliver",
-          "title": "Build progressively without losing direction",
-          "description": "Delivery is divided into coherent and testable increments. Every advance remains connected to the approved need and produces a visible result.",
-          "points": {
-            "increments": "Deliver journeys and features progressively.",
-            "reviews": "Present progress regularly and collect feedback.",
-            "quality": "Control security, access, data and overall quality."
-          }
-        },
-        "launch": {
-          "eyebrow": "Launch and improve",
-          "title": "Put the solution into service and help it evolve",
-          "description": "We prepare the launch, user adoption and future improvements based on real usage and measured results.",
-          "points": {
-            "deployment": "Prepare deployment, data and user access.",
-            "support": "Support users during the launch.",
-            "evolution": "Prioritise improvements based on real feedback."
-          }
-        }
-      },
-      "validationLoop": {
-        "label": "Approval loop",
-        "title": "A doubt is not ignored: it takes us back to the right stage",
-        "description": "When an assumption, priority or user journey is not clear enough, we return to understanding, observation or reframing. This loop protects the project from premature decisions.",
-        "returnLabel": "Return to the stage that needs clarification, then approve again"
-      },
-      "decision": {
-        "eyebrow": "Solution direction",
-        "title": "The need is approved: what is now the most appropriate answer?",
-        "description": "We compare the need with our products, previous projects and experience to avoid both unnecessary development and a poorly fitted standard solution.",
-        "product": {
-          "label": "The need has already been addressed",
-          "title": "An Axplify product matches the need",
-          "description": "We start from an existing and proven solution, then adapt it to the way your organisation works.",
-          "points": {
-            "configuration": "Select and configure the useful modules.",
-            "integration": "Adapt access, data and integrations.",
-            "deployment": "Deploy faster from an existing foundation."
-          }
-        },
-        "custom": {
-          "label": "The need is new or specific",
-          "title": "We create a custom solution",
-          "description": "We design the solution from scratch while reusing our experience, proven architectures and lessons learned from previous projects.",
-          "points": {
-            "design": "Design around the client’s specific processes.",
-            "experience": "Reuse knowledge acquired through our projects.",
-            "architecture": "Build a secure and scalable foundation for real usage."
-          }
-        },
-        "convergence": "Product or custom solution: the journey becomes shared and progressive again."
-      },
-      "prototype": {
-        "eyebrow": "Make the solution tangible",
-        "title": "See the outcome before committing to full development",
-        "description": "Depending on the project, we can quickly create a demonstration, proof of concept or MVP. This helps the client visualise the solution, test assumptions and correct important choices early.",
-        "demo": {
-          "title": "Demo",
-          "description": "A rapid representation of screens and journeys that makes the future solution concrete."
-        },
-        "poc": {
-          "title": "POC",
-          "description": "A focused proof of concept that verifies the feasibility of a technical or business mechanism."
-        },
-        "mvp": {
-          "title": "MVP",
-          "description": "A first usable version with essential features to test value with real users."
-        },
-        "conclusion": "Seeing, handling and correcting early prevents poor choices from being discovered after months of development."
-      },
-      "testing": {
-        "eyebrow": "Continuous visibility",
-        "title": "A project you can follow and test",
-        "description": "Collaboration is not limited to status reports. The client has a regular and concrete view of what is actually being built.",
-        "items": {
-          "environment": {
-            "title": "Testing environment",
-            "description": "A dedicated version makes it possible to review screens and features without waiting for production."
-          },
-          "access": {
-            "title": "Available at any time",
-            "description": "Authorised people can test changes, centralise feedback and verify corrections."
-          },
-          "followUp": {
-            "title": "Usually weekly follow-up",
-            "description": "A regular meeting presents progress, supports decisions and prepares the next priorities."
-          }
-        }
-      },
-      "finalCta": {
-        "eyebrow": "Tell us about your need",
-        "title": "Let us begin by understanding what you truly want to improve",
-        "description": "We will help you clarify the need and determine whether the right answer is an Axplify product or a purpose-built solution.",
-        "button": "Present my need"
-      },
-      "seo": {
-        "title": "Our methodology | From business need to practical solution",
-        "description": "We move step by step: understand your needs, validate the direction, test quickly with a demo, POC or MVP, then build and improve the solution with you."
-      }
-    },
-    "insights": {
-      "eyebrow": "Resources",
-      "title": "Articles & news",
-      "description": "Explore analyses, news, case studies and resources that clarify how digital technology, Data and artificial intelligence can support business transformation.",
-      "seo": {
-        "title": "Digital, AI and Data articles and news",
-        "description": "Explore advice, experience, case studies and news showing how digital technology, AI, Data and automation can solve real business challenges."
-      },
-      "imageViewer": {
-        "open": "Enlarge image",
-        "close": "Close image"
-      },
-      "filters": {
-        "all": "All publications"
-      },
-      "readMore": "Read the publication",
-      "empty": {
-        "title": "No publications available",
-        "description": "No content currently matches this category."
-      },
-      "pagination": {
-        "previous": "Previous",
-        "next": "Next"
-      },
-      "types": {
-        "ARTICLE": "Article",
-        "CASE_STUDY": "Case study",
-        "NEWS": "News",
-        "EVENT": "Event",
-        "PRESS_RELEASE": "Press release",
-        "ANNOUNCEMENT": "Announcement",
-        "GUIDE": "Guide",
-        "RESOURCE": "Resource"
-      }
-    },
-    "projects": {
-      "seo": {
-        "title": "Our work | Digital, Data and AI projects",
-        "description": "See how Axplify Services turns business needs into digital platforms, automation, Data and AI solutions, CRM systems and practical management tools."
-      },
-      "hero": {
-        "eyebrow": "Projects designed to deliver real value",
-        "title": "Our work",
-        "description": "Every project begins with a concrete challenge: simplifying an operation, making better use of data, improving management or creating a smoother digital experience. Discover how we turn these challenges into sustainable solutions."
-      },
-      "filters": {
-        "label": "Areas of expertise",
-        "all": "All projects",
-        "results": "projects",
-        "singleResult": "project",
-        "open": "Filter projects",
-        "close": "Close filters"
-      },
-      "empty": {
-        "title": "No project in this category",
-        "description": "No published project currently matches the selected area of expertise."
-      },
-      "expertise": {
-        "digital": "Websites, applications and platforms",
-        "automation": "Process automation",
-        "data": "Data exploitation",
-        "ai": "Artificial intelligence",
-        "crm": "CRM and business tools",
-        "architecture": "Architecture and infrastructure",
-        "analytics": "Dashboards and analytics",
-        "leadGeneration": "Lead generation",
-        "marketingStrategy": "Marketing strategy"
-      }
-    },
-    "reviewSubmission": {
-      "metadata": {
-        "title": "Share your experience | Axplify Services",
-        "description": "Private space for invited Axplify Services clients to share their experience."
-      },
-      "content": {
-        "hero": {
-          "eyebrow": "Your experience matters",
-          "title": "A few words about our work together can tell a powerful story",
-          "description": "You have worked with Axplify Services. Share your experience freely, what you valued and what our collaboration helped you achieve."
-        },
-        "project": {
-          "label": "Your review is about",
-          "clientLabel": "Company"
-        },
-        "rating": {
-          "label": "How would you rate your experience?",
-          "description": "Select a rating from 1 to 5 stars.",
-          "selected": "{rating} / 5",
-          "required": "Please select a rating before submitting your review."
-        },
-        "fields": {
-          "firstName": {
-            "label": "First name *",
-            "placeholder": "Your first name"
-          },
-          "lastName": {
-            "label": "Last name *",
-            "placeholder": "Your last name"
-          },
-          "companyName": {
-            "label": "Company *",
-            "placeholder": "Your company name"
-          },
-          "companyRole": {
-            "label": "Your role within the company *",
-            "placeholder": "E.g. CEO, marketing manager…"
-          },
-          "comment": {
-            "label": "Your testimonial *",
-            "placeholder": "How would you describe your experience with Axplify Services? You can mention your original challenge, how we worked together, the solution delivered or the results achieved.",
-            "hint": "Our team will review your testimonial before it is published."
-          }
-        },
-        "privacy": {
-          "text": "By submitting this review, you agree that Axplify Services may publish it on its website together with your first name, last name, company and role. Reviews are never published automatically."
-        },
-        "submit": "Submit my review",
-        "submitting": "Submitting…",
-        "validation": {
-          "required": "Please complete all required fields.",
-          "commentMin": "Your testimonial must contain at least 10 characters.",
-          "commentMax": "Your testimonial cannot exceed 3,000 characters."
-        },
-        "states": {
-          "loading": {
-            "title": "Checking your invitation",
-            "description": "We are checking that this link is still valid."
-          },
-          "invalid": {
-            "title": "This link is not valid",
-            "description": "This invitation does not exist or is no longer available. If you believe this is a mistake, please contact your Axplify Services representative."
-          },
-          "expired": {
-            "title": "This invitation has expired",
-            "description": "This link is no longer valid. Your Axplify Services representative can send you a new invitation."
-          },
-          "used": {
-            "title": "Your review has already been submitted",
-            "description": "This invitation has already been used. Each private link can only be used to submit one testimonial."
-          },
-          "success": {
-            "eyebrow": "Thank you",
-            "title": "We have received your testimonial",
-            "description": "Thank you for taking the time to share your experience with Axplify Services.",
-            "moderation": "Your review has now been sent to our team. It will only appear on the website after approval."
-          }
-        }
-      }
-    },
-    "reviews": {
-      "seo": {
-        "title": "Client reviews | What our collaborations changed",
-        "description": "Discover feedback from clients supported by Axplify Services and what they experienced through our digital, Data, AI and automation projects."
-      },
-      "hero": {
-        "eyebrow": "Their experience, in their own words",
-        "title": "Behind every project is a collaboration that matters.",
-        "description": "A challenge to understand, decisions to make and a solution to build together. Discover how our clients experienced working with Axplify Services and the projects we delivered alongside them."
-      },
-      "results": {
-        "label": "client reviews",
-        "single": "client review"
-      },
-      "card": {
-        "project": "Related project"
-      },
-      "empty": {
-        "title": "Our first client stories are coming soon",
-        "description": "Approved client reviews will appear here."
-      },
-      "pagination": {
-        "previous": "Previous",
-        "next": "Next",
-        "page": "Page",
-        "of": "of"
-      }
-    },
-    "faq": {
-      "eyebrow": "Frequently asked questions",
-      "title": "Have a question? The answer may already be here.",
-      "description": "Learn how we approach your needs, custom projects, Axplify products, demonstrations, project follow-up and support after launch.",
-      "searchPlaceholder": "Search for a question...",
-      "allCategories": "All",
-      "noResultTitle": "No answer found",
-      "noResultDescription": "Try another search or browse all categories.",
-      "countSingular": "question",
-      "countPlural": "questions",
-      "pagination": {
-        "previous": "Previous",
-        "next": "Next",
-        "page": "Page",
-        "of": "of"
-      },
-      "categories": {
-        "offer": "Solutions and services",
-        "methodology": "Methodology",
-        "prototype": "Demo, POC and MVP",
-        "delivery": "Delivery and follow-up",
-        "budget": "Budget and timelines",
-        "technical": "Technical and integrations",
-        "support": "Support and assistance",
-        "general": "General"
-      },
-      "seo": {
-        "title": "Frequently asked questions",
-        "description": "Have an idea, need or project? Find answers about our solutions, custom development, demos, POCs, MVPs, timelines, integrations and support."
-      }
-    },
-    "contact": {
-      "seo": {
-        "title": "Contact us",
-        "description": "Tell us about your need, even if it is not fully defined yet. Axplify Services can help clarify your project and identify the right solution."
-      },
-      "content": {
-        "hero": {
-          "eyebrow": "Let’s discuss your project",
-          "title": "One conversation can unlock the next stage of your project",
-          "description": "Tell us about your situation, goals and current challenges. Our team will review your request and provide an initial direction suited to your company.",
-          "reassurance": "Our team will review your request with no obligation."
-        },
-        "directContact": {
-          "title": "Need to talk quickly",
-          "description": "You can also contact us immediately on WhatsApp.",
-          "whatsappLabel": "For a faster conversation",
-          "whatsappMessage": "Hello Axplify Services, I would like to discuss a business need with your team.",
-          "emailLabel": "Email address",
-          "phoneLabel": "Phone"
-        },
-        "form": {
-          "eyebrow": "Your request",
-          "title": "Help us understand what you want to achieve",
-          "description": "A few details will help us prepare a relevant conversation and direct you towards the right approach.",
-          "sections": {
-            "identity": "Your professional details",
-            "need": "Your requirements",
-            "appointment": "Arrange a meeting"
-          },
-          "fields": {
-            "firstName": {
-              "label": "First name ",
-              "placeholder": "Your first name"
-            },
-            "lastName": {
-              "label": "Last name ",
-              "placeholder": "Your last name"
-            },
-            "companyName": {
-              "label": "Company *",
-              "placeholder": "Your company name"
-            },
-            "jobTitle": {
-              "label": "Your role within the company ",
-              "placeholder": "E.g. CEO, sales manager…"
-            },
-            "email": {
-              "label": "Professional email address *",
-              "placeholder": "name@company.com"
-            },
-            "phoneNumber": {
-              "label": "Phone number *",
-              "placeholder": "+212 6 00 00 00 00"
-            },
-            "needDescription": {
-              "label": "Describe your requirements ",
-              "placeholder": "Describe your current situation, your objectives, the challenges you face and the outcome you would like to achieve.",
-              "hint": "The more precise your description is, the more relevant our initial response can be."
-            }
-          },
-          "appointment": {
-            "title": "Would you like to arrange a meeting?",
-            "description": "Share your availability so that we can prepare a conversation suited to your needs.",
-            "yes": "Yes, suggest my availability",
-            "no": "Not at the moment",
-            "availabilityTitle": "Availability",
-            "availabilityDescription": "You can suggest up to three time ranges.",
-            "date": "Date *",
-            "startTime": "Available from *",
-            "endTime": "Available until *",
-            "note": "Optional note",
-            "notePlaceholder": "E.g. I would prefer to be contacted at the beginning of this time range.",
-            "add": "Add another availability",
-            "remove": "Remove this availability",
-            "maximum": "A maximum of three availabilities."
-          },
-          "privacy": {
-            "prefix": "I agree that my information may be used to process my request in accordance with the",
-            "linkLabel": "privacy policy",
-            "suffix": ".",
-            "modal": {
-              "eyebrow": "Protecting your information",
-              "title": "How do we use the information submitted through this form?",
-              "introduction": "The information you submit is used only to understand your requirements, respond to you and, when requested, arrange a meeting with Axplify Services.",
-              "collectedDataTitle": "Information we record",
-              "collectedData": [
-                "Your first name, last name and professional contact details.",
-                "Your company name and your role.",
-                "The description of your requirements.",
-                "Any availability you provide for a meeting.",
-                "The source of the request and certain technical information required to secure the form."
-              ],
-              "purposesTitle": "Why do we collect this information?",
-              "purposes": [
-                "To review and qualify your request.",
-                "To contact you by telephone or email.",
-                "To prepare and arrange a potential meeting.",
-                "To track the request through our administrative interface.",
-                "To protect the form against abuse and automated submissions."
-              ],
-              "accessTitle": "Who can access this information?",
-              "accessDescription": "Only authorised Axplify Services administrators and technical providers strictly required for the secure operation of the website may access it.",
-              "retentionTitle": "How long is it retained?",
-              "retentionDescription": "The information is retained for the period required to process and follow up your request, and is then deleted or archived in accordance with applicable obligations and Axplify Services’ internal procedures.",
-              "rightsTitle": "What are your rights?",
-              "rightsDescription": "You may request access to, correction or deletion of your information, and object to its use where permitted by applicable regulations, by contacting Axplify Services.",
-              "securityTitle": "How is it protected?",
-              "securityDescription": "Requests are stored in a protected administrative interface accessible only to authorised users. Technical and organisational safeguards are applied to limit unauthorised access.",
-              "close": "I understand"
-            }
-          },
-          "submit": "Send my request",
-          "submitting": "Sending…",
-          "required": "Fields marked with an asterisk are required."
-        },
-        "success": {
-          "eyebrow": "Request received",
-          "title": "Your project has just taken its first step forward",
-          "description": "Thank you for your trust. Our team will review your requirements and contact you with an initial direction.",
-          "reference": "Your request reference",
-          "newRequest": "Send another request",
-          "whatsapp": "Contact us on WhatsApp"
-        },
-        "errors": {
-          "generic": "An error occurred while sending your request. Please try again.",
-          "requiredFields": "Please complete all required fields.",
-          "privacy": "You must accept the privacy policy before sending your request.",
-          "descriptionLength": "Your requirements description must contain at least 20 characters.",
-          "appointmentAvailability": "Please suggest at least one availability for the meeting.",
-          "invalidAvailability": "Check the selected times. The end time must be later than the start time.",
-          "pastAvailability": "Suggested availabilities must be in the future."
-        }
-      }
-    },
-    "assist": {
-      "eyebrow": "Needs assessment",
-      "title": "How can we assist you?",
-      "description": "This page will host the future guided process for defining your needs and directing you towards relevant solutions or similar projects.",
-      "seo": {
-        "title": "How can we assist you?",
-        "description": "Describe your current situation and objectives to be guided towards the most relevant Axplify approach, product or type of project."
-      }
-    }
-  },
-  "notFound": {
-    "title": "This page does not exist",
-    "description": "The link may be incorrect or the page may have been moved.",
-    "backHome": "Back to home"
+  "galleryControls": {
+    "previous": "Previous screen",
+    "next": "Next screen",
+    "close": "Close",
+    "fullscreen": "Fullscreen",
+    "slide": "Screen"
   }
 }

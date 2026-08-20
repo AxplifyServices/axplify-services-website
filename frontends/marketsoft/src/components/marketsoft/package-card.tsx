@@ -1,5 +1,59 @@
 import { ArrowRight, Check } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import type { MarketSoftPackage } from '@/lib/marketsoft-content';
-const PACKAGE_LEVELS: Record<MarketSoftPackage['slug'], string> = {store:'Starter',advanced:'Medium',marketplace:'Avancé',custom:'Personnalisé'};
-export function PackageCard({pkg,actions}:{pkg:MarketSoftPackage;actions:{details:string;order:string}}){return <article className="ms-package-card" data-package={pkg.slug}><div><span className="ms-package-card__kicker">{PACKAGE_LEVELS[pkg.slug]}</span><h3>{pkg.name}</h3><p>{pkg.target}</p></div><ul>{pkg.shortFeatures.map(item=><li key={item}><Check size={16}/>{item}</li>)}</ul><div className="ms-package-card__price"><strong>{pkg.price}</strong></div><div className="ms-package-card__actions"><Link href={{pathname:'/packages/[packageSlug]',params:{packageSlug:pkg.slug}}} className="ms-button ms-button--ghost">{actions.details}<ArrowRight size={16}/></Link><Link href={{pathname:'/order',query:{package:pkg.slug,intent:'order'}}} className="ms-button ms-button--primary">{actions.order}</Link></div></article>}
+
+export function PackageCard({
+  pkg,
+  actions,
+}: {
+  pkg: MarketSoftPackage;
+  actions: { details: string; order: string };
+}) {
+  const numericPrice = /\d/.test(pkg.price);
+
+  return (
+    <article className="ms-package-card" data-package={pkg.slug}>
+      <div>
+        <span className="ms-package-card__kicker">{pkg.level}</span>
+        <h3>{pkg.name}</h3>
+        <p>{pkg.target}</p>
+      </div>
+
+      <ul>
+        {pkg.shortFeatures.map((item) => (
+          <li key={item}>
+            <Check size={16} />
+            {item}
+          </li>
+        ))}
+      </ul>
+
+      <div className="ms-package-card__price">
+        <strong dir={numericPrice ? 'ltr' : undefined}>{pkg.price}</strong>
+      </div>
+
+      <div className="ms-package-card__actions">
+        <Link
+          href={{
+            pathname: '/packages/[packageSlug]',
+            params: { packageSlug: pkg.slug },
+          }}
+          className="ms-button ms-button--ghost"
+        >
+          {actions.details}
+          <ArrowRight size={16} />
+        </Link>
+
+        <Link
+          href={{
+            pathname: '/order',
+            query: { package: pkg.slug, intent: 'order' },
+          }}
+          className="ms-button ms-button--primary"
+        >
+          {actions.order}
+        </Link>
+      </div>
+    </article>
+  );
+}
