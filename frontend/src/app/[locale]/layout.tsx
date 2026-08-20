@@ -29,7 +29,9 @@ import {
 } from '@/i18n/routing';
 
 import {
+  ORGANIZATION_FACEBOOK_URL,
   ORGANIZATION_ID,
+  ORGANIZATION_INSTAGRAM_URL,
   ORGANIZATION_LINKEDIN_URL,
   ORGANIZATION_LOGO_URL,
   ORGANIZATION_NAME,
@@ -194,6 +196,8 @@ const organizationStructuredData = {
     organizationDescription,
 
   sameAs: [
+    ORGANIZATION_FACEBOOK_URL,
+    ORGANIZATION_INSTAGRAM_URL,
     ORGANIZATION_LINKEDIN_URL,
   ],
 

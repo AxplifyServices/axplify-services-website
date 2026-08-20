@@ -6,6 +6,8 @@ import {
 } from 'lucide-react';
 
 import {
+  FaFacebookF,
+  FaInstagram,
   FaLinkedinIn,
   FaWhatsapp,
 } from 'react-icons/fa';
@@ -24,6 +26,8 @@ import {
 } from '@/components/analytics/cookie-preferences-button';
 
 import {
+  ORGANIZATION_FACEBOOK_URL,
+  ORGANIZATION_INSTAGRAM_URL,
   ORGANIZATION_LINKEDIN_URL,
   ORGANIZATION_WHATSAPP_NUMBER,
 } from '@/lib/site-config';
@@ -139,6 +143,42 @@ export async function SiteFooter() {
               'socialTitle',
             )}
           >
+            <a
+href={
+  ORGANIZATION_FACEBOOK_URL
+}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="site-footer__social-link"
+              aria-label={t(
+                'facebookLabel',
+              )}
+              title="Facebook"
+            >
+              <FaFacebookF
+                size={18}
+                aria-hidden="true"
+              />
+            </a>
+
+            <a
+href={
+  ORGANIZATION_INSTAGRAM_URL
+}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="site-footer__social-link"
+              aria-label={t(
+                'instagramLabel',
+              )}
+              title="Instagram"
+            >
+              <FaInstagram
+                size={19}
+                aria-hidden="true"
+              />
+            </a>
+
             <a
 href={
   ORGANIZATION_LINKEDIN_URL

@@ -23,6 +23,12 @@ export const SOCIAL_IMAGE_URL =
 export const ORGANIZATION_LINKEDIN_URL =
   'https://www.linkedin.com/company/axplify-services/home';
 
+export const ORGANIZATION_FACEBOOK_URL =
+  'https://web.facebook.com/profile.php?id=61593432425617';
+
+export const ORGANIZATION_INSTAGRAM_URL =
+  'https://www.instagram.com/axplify_services/';
+
 export const ORGANIZATION_WHATSAPP_NUMBER =
   '212688194555';
 
