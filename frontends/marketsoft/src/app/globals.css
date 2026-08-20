@@ -30844,3 +30844,39 @@ html[dir="rtl"] .ms-pricing-exclusions {
   }
   .ms-request-form__package-price > strong + span::before { content:none; }
 }
+
+
+/* =========================================================
+   MARKETSOFT — ORDER PACKAGE / COMPANY ALIGNMENT
+   ========================================================= */
+
+/*
+ * The package selector has a pricing summary below it.
+ * Keep that summary close to the select so the next row
+ * starts visually aligned with the Company field.
+ */
+.ms-request-form__package-price {
+  margin-top: 0.28rem !important;
+  min-height: 1rem;
+  line-height: 1.15 !important;
+}
+
+/*
+ * Avoid extra vertical space inherited from generic <small>
+ * styles inside request-form labels.
+ */
+.ms-request-form label > .ms-request-form__package-price {
+  margin-bottom: -0.2rem;
+}
+
+/* Keep the package select itself identical in height to inputs. */
+.ms-request-form select {
+  min-height: 3.35rem;
+}
+
+/* Mobile: restore natural spacing when fields stack. */
+@media (max-width: 719px) {
+  .ms-request-form label > .ms-request-form__package-price {
+    margin-bottom: 0;
+  }
+}

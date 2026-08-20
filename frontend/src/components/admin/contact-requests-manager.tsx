@@ -399,6 +399,9 @@ function getOriginLabel(
     case 'axplify-services':
       return 'Axplify Services';
 
+    case null:
+      return 'Non renseignée — demande historique';
+
     default:
       return originCode;
   }
@@ -1410,11 +1413,21 @@ export function ContactRequestsManager() {
                         </span>
 
                         <span className="admin-contact-request-card__source">
-                          {
-                            SOURCE_LABELS[
-                              request.source
-                            ]
-                          }
+                          <strong>
+                            {
+                              getOriginLabel(
+                                request.originCode,
+                              )
+                            }
+                          </strong>
+
+                          <small>
+                            {
+                              SOURCE_LABELS[
+                                request.source
+                              ]
+                            }
+                          </small>
                         </span>
 
                         <span
@@ -1733,6 +1746,34 @@ export function ContactRequestsManager() {
                                           </p>
                                         )
                                   }
+                                </section>
+
+                                <section className="admin-contact-request-drawer__section admin-contact-request-drawer__origin">
+                                  <h3>
+                                    Origine de la demande
+                                  </h3>
+
+                                  <div className="admin-contact-request-drawer__origin-card">
+                                    <span>
+                                      Produit / site
+                                    </span>
+
+                                    <strong>
+                                      {
+                                        getOriginLabel(
+                                          selectedRequest.originCode,
+                                        )
+                                      }
+                                    </strong>
+
+                                    <small>
+                                      {
+                                        SOURCE_LABELS[
+                                          selectedRequest.source
+                                        ]
+                                      }
+                                    </small>
+                                  </div>
                                 </section>
 
                                 <section className="admin-contact-request-drawer__section">

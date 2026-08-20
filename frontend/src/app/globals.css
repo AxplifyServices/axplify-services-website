@@ -29978,3 +29978,67 @@ html[dir="rtl"]
     height: 2.65rem;
   }
 }
+
+
+/* =========================================================
+   ADMIN CONTACT REQUESTS — ORIGIN VISIBILITY
+   ========================================================= */
+
+.admin-contact-request-card__source {
+  display: grid;
+  gap: 0.12rem;
+}
+
+.admin-contact-request-card__source strong {
+  color: var(--axplify-navy);
+  font-size: 0.67rem;
+  font-weight: 900;
+}
+
+.admin-contact-request-card__source small {
+  color: var(--axplify-muted);
+  font-size: 0.59rem;
+  font-weight: 700;
+}
+
+.admin-contact-request-drawer__origin {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(28, 182, 220, 0.06),
+      rgba(139, 92, 246, 0.05)
+    );
+}
+
+.admin-contact-request-drawer__origin-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.28rem 0.75rem;
+  padding: 0.8rem 0.9rem;
+  border:
+    1px solid
+    rgba(28, 182, 220, 0.16);
+  border-radius: 0.8rem;
+  background: #f8fbfd;
+}
+
+.admin-contact-request-drawer__origin-card > span {
+  color: var(--axplify-muted);
+  font-size: 0.63rem;
+  font-weight: 800;
+}
+
+.admin-contact-request-drawer__origin-card > strong {
+  color: var(--axplify-navy);
+  font-size: 0.82rem;
+  font-weight: 950;
+  text-align: end;
+}
+
+.admin-contact-request-drawer__origin-card > small {
+  grid-column: 1 / -1;
+  color: #087fa1;
+  font-size: 0.62rem;
+  font-weight: 850;
+}
