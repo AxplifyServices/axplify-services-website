@@ -30880,3 +30880,35 @@ html[dir="rtl"] .ms-pricing-exclusions {
     margin-bottom: 0;
   }
 }
+
+
+/* =========================================================
+   MARKETSOFT — ORDER FIRST ROW PRECISE ALIGNMENT
+   ========================================================= */
+
+/*
+ * Grid items stretch to the height of the tallest item.
+ * The Package label is taller because it also contains the
+ * pricing summary. Without align-content:start, the Company
+ * label distributes that extra height between its internal
+ * grid rows, which pushes its input downward.
+ */
+.ms-request-form__grid > label {
+  align-content: start;
+}
+
+/* Package select and standard inputs must start and end on
+   the same horizontal lines. */
+.ms-request-form__grid > label > select,
+.ms-request-form__grid > label > input {
+  min-height: 3.35rem;
+  height: 3.35rem;
+}
+
+/* Keep the pricing information visually attached to the
+   selector without affecting the alignment of the other
+   column. */
+.ms-request-form__package-price {
+  margin-top: 0.22rem !important;
+  margin-bottom: 0 !important;
+}
