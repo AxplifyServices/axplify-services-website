@@ -105,6 +105,10 @@ export class ContactRequestsService {
                   source:
                     dto.source,
 
+                  origin_code:
+                    dto.originCode ??
+                    null,
+
                   locale:
                     dto.locale,
 
@@ -378,6 +382,9 @@ export class ContactRequestsService {
                 source:
                   true,
 
+                origin_code:
+                  true,
+
                 locale:
                   true,
 
@@ -466,6 +473,9 @@ export class ContactRequestsService {
 
             source:
               request.source,
+
+            originCode:
+              request.origin_code,
 
             locale:
               request.locale,
@@ -767,6 +777,9 @@ export class ContactRequestsService {
             source:
               true,
 
+            origin_code:
+              true,
+
             locale:
               true,
 
@@ -1037,6 +1050,9 @@ export class ContactRequestsService {
 
       source:
         request.source,
+
+      originCode:
+        request.origin_code,
 
       locale:
         request.locale,

@@ -14,6 +14,7 @@ import {
   IsString,
   MaxLength,
   MinLength,
+  Matches,
   ValidateNested,
 } from 'class-validator';
 
@@ -95,6 +96,24 @@ export class CreateContactRequestDto {
   )
   source:
     ContactRequestSource;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(
+    80,
+  )
+  @Matches(
+    /^[a-z0-9][a-z0-9-]{0,79}$/,
+    {
+      message:
+        'Le code d’origine de la demande est invalide.',
+    },
+  )
+  @Transform(
+    trimmedString,
+  )
+  originCode?:
+    string;
 
   @IsIn(
     CONTACT_REQUEST_LOCALES,

@@ -190,6 +190,8 @@ export class CreateProductRequestDto {
     {
       require_protocol:
         true,
+      require_tld:
+        false,
       protocols: [
         'http',
         'https',

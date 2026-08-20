@@ -75,6 +75,9 @@ type ContactRequestListItem = {
   source:
     ContactRequestSource;
 
+  originCode:
+    string | null;
+
   locale:
     'fr' | 'en' | 'ar';
 
@@ -197,6 +200,9 @@ type ContactRequestDetail = {
 
   source:
     ContactRequestSource;
+
+  originCode:
+    string | null;
 
   locale:
     'fr' | 'en' | 'ar';
@@ -379,6 +385,24 @@ const SOURCE_LABELS:
     ASSIST_PAGE:
       'Page Comment pouvons-nous vous aider',
   };
+
+function getOriginLabel(
+  originCode:
+    string | null,
+) {
+  switch (
+    originCode
+  ) {
+    case 'marketsoft':
+      return 'MarketSoft';
+
+    case 'axplify-services':
+      return 'Axplify Services';
+
+    default:
+      return originCode;
+  }
+}
 
 const STATUS_ICONS = {
   RECEIVED:
@@ -1546,6 +1570,13 @@ export function ContactRequestsManager() {
                                       SOURCE_LABELS[
                                         selectedRequest.source
                                       ]
+                                    }
+                                    {
+                                      selectedRequest.originCode
+                                        ? ` · ${getOriginLabel(
+                                            selectedRequest.originCode,
+                                          )}`
+                                        : ''
                                     }
                                   </span>
 

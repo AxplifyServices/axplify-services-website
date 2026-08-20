@@ -19,6 +19,7 @@ export type ContactRequestAvailabilityPayload = {
 
 export type CreateContactRequestPayload = {
   source: ContactRequestSource;
+  originCode?: string;
   locale: AppLocale;
   firstName: string;
   lastName: string;

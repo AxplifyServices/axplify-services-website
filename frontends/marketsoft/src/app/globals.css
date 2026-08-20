@@ -30784,3 +30784,63 @@ html[dir="rtl"] .ms-pricing-exclusions {
     grid-column: 1 / -1;
   }
 }
+
+
+/* MarketSoft — contact success dark theme */
+.contact-page .contact-success {
+  min-height: calc(100svh - 5rem);
+  background: radial-gradient(circle at 50% 15%, rgba(46,211,183,.10), transparent 30%), var(--ms-bg) !important;
+}
+.contact-page .contact-success__card {
+  border:1px solid var(--ms-line)!important;
+  background:linear-gradient(145deg,#0d2035,#0a192a)!important;
+  color:#f3f7fb!important;
+  box-shadow:0 24px 70px rgba(0,0,0,.28)!important;
+}
+.contact-page .contact-success__card h1 { color:#f5f8fb!important; }
+.contact-page .contact-success__description { color:#a8bacb!important; }
+.contact-page .contact-success__reference {
+  border:1px solid #29425d!important;
+  background:#071321!important;
+  color:#a9bbca!important;
+}
+.contact-page .contact-success__reference strong { color:#edf4f9!important; }
+.contact-page .contact-success__icon {
+  background:rgba(105,231,101,.10)!important;
+  color:var(--ms-green)!important;
+}
+.contact-page .contact-success__actions a {
+  border-color:#314964!important;
+  background:#102238!important;
+  color:#eef5fa!important;
+}
+
+/* MarketSoft — package price summary under select */
+.ms-request-form__package-price {
+  display:flex!important;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:.3rem .55rem;
+  margin-top:.6rem;
+  color:#8fa5ba!important;
+  font-size:.72rem!important;
+  line-height:1.4;
+}
+.ms-request-form__package-price > strong {
+  color:#f0f6fa!important;
+  font-size:.76rem;
+  white-space:nowrap;
+}
+.ms-request-form__package-price > strong + span::before {
+  content:'·';
+  margin-inline-end:.55rem;
+  color:#526b84;
+}
+@media (max-width:560px) {
+  .ms-request-form__package-price {
+    display:grid!important;
+    grid-template-columns:auto 1fr;
+    gap:.25rem .55rem;
+  }
+  .ms-request-form__package-price > strong + span::before { content:none; }
+}

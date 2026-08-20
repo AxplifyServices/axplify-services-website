@@ -407,6 +407,9 @@ type ContactPageContentProps = {
   whatsappNumber:
     string;
 
+  originCode?:
+    string;
+
 };
 
 const INITIAL_FORM_STATE:
@@ -521,6 +524,7 @@ export function ContactPageContent({
   source,
   copy,
   whatsappNumber,
+  originCode,
 }: ContactPageContentProps) {
   const [
     form,
@@ -1222,6 +1226,12 @@ setIsSubmitting(
         await createPublicContactRequest(
           {
             source,
+
+            ...(originCode
+              ? {
+                  originCode,
+                }
+              : {}),
 
             locale,
 

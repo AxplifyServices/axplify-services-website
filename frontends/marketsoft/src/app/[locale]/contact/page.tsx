@@ -42,6 +42,7 @@ export default async function ContactPage({
       source="CONTACT_PAGE"
       copy={c.contact}
       whatsappNumber={whatsappNumber}
+      originCode="marketsoft"
     />
   );
 }

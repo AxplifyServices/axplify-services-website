@@ -484,6 +484,7 @@ model contact_requests {
   created_at                                        DateTime                         @default(now()) @db.Timestamptz(6)
   updated_at                                        DateTime                         @default(now()) @db.Timestamptz(6)
   archived_at                                       DateTime?                        @db.Timestamptz(6)
+  origin_code                                       String?                          @db.VarChar(80)
   contact_request_availabilities                    contact_request_availabilities[]
   contact_request_project_links                     contact_request_project_links[]
   contact_request_service_links                     contact_request_service_links[]
@@ -497,6 +498,7 @@ model contact_requests {
   @@index([email], map: "contact_requests_email_index")
   @@index([created_at], map: "contact_requests_pending_index", where: raw("((archived_at IS NULL) AND ((status)::text = ANY ((ARRAY['RECEIVED'::character varying, 'IN_PROGRESS'::character varying])::text[])))"))
   @@index([source, created_at(sort: Desc)], map: "contact_requests_source_index", where: raw("(archived_at IS NULL)"))
+  @@index([origin_code], map: "contact_requests_origin_code_index", where: raw("((archived_at IS NULL) AND (origin_code IS NOT NULL))"))
 }
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.

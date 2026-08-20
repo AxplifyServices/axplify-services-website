@@ -308,6 +308,15 @@ private async sendMessageToChat(
       '',
       `🌐 <b>Langue :</b> ${this.escapeHtml(contact.locale.toUpperCase())}`,
       `📍 <b>Source :</b> ${this.escapeHtml(source)}`,
+      ...(contact.originCode
+        ? [
+            `🧩 <b>Produit / site :</b> ${this.escapeHtml(
+              this.formatOriginCode(
+                contact.originCode,
+              ),
+            )}`,
+          ]
+        : []),
       `📅 <b>Rendez-vous souhaité :</b> ${appointment}`,
       '',
       '📝 <b>Besoin :</b>',
@@ -520,7 +529,25 @@ private getChatIds():
     return `${frontendUrl.replace(/\/+$/, '')}${pathname}`;
   }
 
-  private formatContactSource(
+    private formatOriginCode(
+    originCode:
+      string,
+  ): string {
+    switch (
+      originCode
+    ) {
+      case 'marketsoft':
+        return 'MarketSoft';
+
+      case 'axplify-services':
+        return 'Axplify Services';
+
+      default:
+        return originCode;
+    }
+  }
+
+private formatContactSource(
     source:
       string,
   ): string {
