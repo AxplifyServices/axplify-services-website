@@ -31533,3 +31533,67 @@ html[dir="rtl"] .cookie-consent__switch[data-checked="true"] .cookie-consent__sw
     grid-column: span 1;
   }
 }
+
+/* =========================================================
+   MARKETSOFT — MOBILE COMPARISON TABLE
+   Horizontal scroll is local to the table only.
+   The feature column stays frozen while package columns scroll.
+   Desktop is intentionally unchanged.
+   ========================================================= */
+@media (max-width: 699px) {
+  .ms-compare-wrap {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: thin;
+  }
+
+  .ms-compare {
+    width: max-content;
+    min-width: 0;
+    table-layout: fixed;
+  }
+
+  .ms-compare th,
+  .ms-compare td {
+    min-width: 9rem;
+    width: 9rem;
+  }
+
+  .ms-compare thead th:first-child,
+  .ms-compare tbody th {
+    position: sticky;
+    inset-inline-start: 0;
+    width: 8.25rem;
+    min-width: 8.25rem;
+    max-width: 8.25rem;
+  }
+
+  .ms-compare thead th:first-child {
+    z-index: 6;
+    background: #0b1729;
+    box-shadow: 8px 0 16px -12px rgba(0, 0, 0, 0.95);
+  }
+
+  .ms-compare tbody th {
+    z-index: 3;
+    background: #0d1a2c;
+    box-shadow: 8px 0 16px -12px rgba(0, 0, 0, 0.95);
+  }
+
+  .ms-compare tbody tr:nth-child(even) th {
+    background: #0e1c2f;
+  }
+
+  html[dir="rtl"] .ms-compare thead th:first-child,
+  html[dir="rtl"] .ms-compare tbody th {
+    box-shadow: -8px 0 16px -12px rgba(0, 0, 0, 0.95);
+  }
+
+  .ms-compare__pricing-row td {
+    min-width: 9rem;
+  }
+}
