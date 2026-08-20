@@ -19,7 +19,7 @@ import '../globals.css';
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: `${SITE_NAME} — ${SITE_SLOGAN}`, template: `%s | ${SITE_NAME}` },
-  description: 'MarketSoft centralise boutique en ligne, commandes, stocks, paiements et opérations dans une plateforme e-commerce évolutive.',
+  description: 'MarketSoft centralise la commercialisation de produits et services, les ventes, réservations, paiements et opérations dans une plateforme commerce évolutive.',
   applicationName: SITE_NAME,
   icons: { icon:'/brand/marketsoft-icon.png', shortcut:'/brand/marketsoft-icon.png', apple:'/brand/marketsoft-icon.png' },
   robots:{index:true,follow:true}
@@ -27,6 +27,6 @@ export const metadata: Metadata = {
 export function generateStaticParams(){return routing.locales.map(locale=>({locale}));}
 export default async function LocaleLayout({children,params}:{children:React.ReactNode;params:Promise<{locale:string}>}){
  const {locale}=await params; if(!hasLocale(routing.locales,locale))notFound(); setRequestLocale(locale); const messages=await getMessages(); const dir=locale==='ar'?'rtl':'ltr'; const copy=getMarketSoftCopy(locale as AppLocale);
- const structured={ '@context':'https://schema.org','@type':'SoftwareApplication',name:SITE_NAME,applicationCategory:'BusinessApplication',operatingSystem:'Web',url:SITE_URL,description:'E-commerce and marketplace operating platform for products, orders, inventory, payments and sales operations.',provider:{'@type':'Organization',name:'Axplify Services',url:'https://axplify-services.com'}};
+ const structured={ '@context':'https://schema.org','@type':'SoftwareApplication',name:SITE_NAME,applicationCategory:'BusinessApplication',operatingSystem:'Web',url:SITE_URL,description:'Commerce operating platform for products and services, including sales, bookings, payments, operations and marketplace models.',provider:{'@type':'Organization',name:'Axplify Services',url:'https://axplify-services.com'}};
  return <html lang={locale} dir={dir} suppressHydrationWarning><body><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(structured).replace(/</g,'\\u003c')}}/><NextIntlClientProvider messages={messages}><ConsentManager/><GoogleTagManager/><AnalyticsRouteTracker locale={locale}/><ScrollRevealController/><div className="page-shell"><SiteHeader/><main className="page-main">{children}</main><FloatingContactButton label={copy.nav.contact}/><SiteFooter/></div><AgentationDevtools/></NextIntlClientProvider></body></html>
 }

@@ -30996,3 +30996,49 @@ body:has(.ms-gallery__modal) {
     border-radius: 0.75rem;
   }
 }
+
+/* =========================================================
+   MARKETSOFT — REAL SCREENSHOTS + AUTOPLAY GALLERY
+   Shared by Home and Platform pages.
+   ========================================================= */
+.ms-gallery__viewer img {
+  animation: ms-gallery-fade-in 360ms ease both;
+}
+
+@keyframes ms-gallery-fade-in {
+  from {
+    opacity: 0.35;
+    transform: scale(1.008);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 719px) {
+  .ms-gallery__nav,
+  .ms-gallery__expand,
+  .ms-gallery__close {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.65rem;
+  }
+
+  .ms-gallery__nav svg,
+  .ms-gallery__expand svg,
+  .ms-gallery__close svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .ms-gallery__dots {
+    margin-top: 0.65rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ms-gallery__viewer img {
+    animation: none;
+  }
+}

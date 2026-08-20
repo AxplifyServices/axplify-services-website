@@ -11,36 +11,36 @@
     "demo": "Request a demo"
   },
   "hero": {
-    "eyebrow": "Commerce. Centralized. Scalable.",
-    "title": "Your commerce grows. Your platform should keep up.",
-    "description": "MarketSoft brings storefront, orders, inventory, payments and operations into one platform built around your business.",
+    "eyebrow": "Commerce. Products or services. No limits.",
+    "title": "Your commerce evolves. MarketSoft evolves with it.",
+    "description": "Selling products, services, bookings, or a mix of them? MarketSoft brings your storefront, sales, payments and operations into one platform built around your business.",
     "primary": "View packages",
     "secondary": "Request a demo"
   },
   "homeBenefits": {
     "title": "One system to sell and operate",
-    "description": "Start with the essentials, then expand your commerce without starting over.",
+    "description": "From your first customer to more advanced operations, MarketSoft adapts to what you sell: products, services or both.",
     "items": [
       {
-        "title": "Sell online",
-        "text": "Catalog, cart, payments and orders in a smooth buying journey."
+        "title": "Sell products or services",
+        "text": "Catalogs, services, bookings, carts or requests: build the journey that fits your offer."
       },
       {
         "title": "Centralize operations",
-        "text": "Products, inventory, orders and points of sale in one place."
+        "text": "Offers, sales, payments, availability, orders and points of sale in one place."
       },
       {
-        "title": "Store or marketplace",
-        "text": "Move from a single-seller store to a multi-vendor platform when your model requires it."
+        "title": "Simple commerce or marketplace",
+        "text": "Start with your own business, then open the platform to multiple sellers or service providers when needed."
       },
       {
         "title": "Scale the platform",
-        "text": "Add languages, currencies, sellers, stores and integrations over time."
+        "text": "Add languages, currencies, teams, locations, providers and integrations over time."
       }
     ]
   },
   "packagesTitle": "Choose the right level for your commerce",
-  "packagesDescription": "Four clear offers, from a professional store to a fully customized platform.",
+  "packagesDescription": "Four clear offers, from professional digital commerce to a fully customized platform for products, services or hybrid models.",
   "packageActions": {
     "details": "View offer",
     "order": "Order",
@@ -68,43 +68,43 @@
     ]
   },
   "finalCta": {
-    "title": "Ready to launch your commerce?",
-    "text": "Choose a package or talk to an expert before you start.",
+    "title": "Ready to grow your commerce?",
+    "text": "Products, services or a hybrid model: choose a package or talk to an expert before you start.",
     "order": "Order MarketSoft",
     "expert": "Talk to an expert"
   },
   "platform": {
     "eyebrow": "The platform",
-    "title": "Everything that runs your commerce, in one system.",
-    "intro": "MarketSoft covers core selling capabilities and can grow into advanced, B2B or multi-vendor operations.",
+    "title": "Everything that runs your commerce, whether you sell products or services.",
+    "intro": "MarketSoft covers essential selling journeys: products, services, bookings, B2B, points of sale, and multi-seller or multi-provider models.",
     "galleryTitle": "Explore the MarketSoft experience",
-    "galleryText": "Final screenshots will be added here. Fullscreen viewing and navigation between multiple screens are already ready.",
+    "galleryText": "Automatically browse examples of different commerce models and management interfaces. Use the arrows or fullscreen only when you want to take control.",
     "sections": [
       {
-        "title": "Products & catalog",
-        "text": "Present, organize and grow your offer.",
+        "title": "Offers & catalog",
+        "text": "Present and organize what you sell, whether products or services.",
         "bullets": [
-          "Products, categories and variants",
-          "Images, prices and promotions",
-          "Search, filters and availability"
+          "Products, services, categories and variants",
+          "Images, pricing, duration, options and promotions",
+          "Search, filters, availability or capacity"
         ]
       },
       {
-        "title": "Orders & payments",
-        "text": "Turn purchasing into a simple, controlled journey.",
+        "title": "Sales, bookings & payments",
+        "text": "Turn buying intent into a simple journey that fits your business.",
         "bullets": [
-          "Guest or account checkout",
-          "Online payment, cash on delivery or bank transfer",
-          "Statuses and invoice tracking"
+          "Cart, order, booking or request",
+          "Online, on-site, delivery or bank-transfer payment",
+          "Status, confirmations and invoice tracking"
         ]
       },
       {
-        "title": "Inventory & delivery",
-        "text": "Keep an operational view of what can be sold and delivered.",
+        "title": "Inventory, availability & fulfillment",
+        "text": "Keep an operational view of what can be sold, booked, prepared or delivered.",
         "bullets": [
-          "Inventory by product or variant",
-          "Low-stock alerts and out-of-stock handling",
-          "Delivery zones, fees and methods"
+          "Inventory, capacity or time slots depending on the activity",
+          "Alerts, unavailability and out-of-stock handling",
+          "Delivery, pickup, appointments or service fulfillment"
         ]
       },
       {
@@ -113,43 +113,43 @@
         "bullets": [
           "Promo codes",
           "Time-limited offers",
-          "Reviews and abandoned-cart follow-up"
+          "Reviews, follow-ups and recommendations"
         ]
       },
       {
         "title": "Customers",
         "text": "Make purchasing and after-sales easier without turning MarketSoft into a CRM.",
         "bullets": [
-          "Customer account and addresses",
-          "Order history and tracking",
-          "Invoices, returns and favorites"
+          "Customer account and useful information",
+          "Purchase, order or booking history",
+          "Invoices, returns, favorites and tracking"
         ]
       },
       {
-        "title": "Marketplace & sellers",
-        "text": "Move to multi-vendor when your model requires it.",
+        "title": "Marketplace & partners",
+        "text": "Open your platform to multiple sellers or providers when your model requires it.",
         "bullets": [
-          "Separate seller space",
-          "Product approval",
-          "Orders, sales and performance by seller"
+          "Separate partner space",
+          "Offer approval",
+          "Sales, services and performance by partner"
         ]
       },
       {
-        "title": "Points of sale",
-        "text": "Connect online sales, pickup and physical stores.",
+        "title": "Points of sale & locations",
+        "text": "Connect digital commerce to stores, agencies or service locations.",
         "bullets": [
-          "Inventory by location",
-          "Store pickup",
+          "Inventory or availability by location",
+          "Pickup, appointment or on-site service",
           "Sales tracking by location"
         ]
       },
       {
         "title": "Analytics",
-        "text": "Run commerce with useful indicators.",
+        "text": "Run your commerce with useful indicators.",
         "bullets": [
-          "Revenue and orders",
-          "Average order value and best sellers",
-          "Low stock, promotions and satisfaction"
+          "Revenue, sales and bookings",
+          "Average order value and top products or services",
+          "Availability, promotions and satisfaction"
         ]
       },
       {
@@ -157,7 +157,7 @@
         "text": "Keep your commercial storefront alive from the same platform.",
         "bullets": [
           "Banners and featured content",
-          "News and guides",
+          "News, offers and guides",
           "Tracking and marketing connections"
         ]
       },
@@ -174,7 +174,7 @@
         "title": "Integrations",
         "text": "Connect MarketSoft to your existing environment.",
         "bullets": [
-          "Payments and delivery",
+          "Payments, delivery or booking",
           "CRM or marketing tools",
           "APIs and business software"
         ]
@@ -184,7 +184,7 @@
         "text": "Prepare your commerce for multiple markets.",
         "bullets": [
           "French, English and Arabic",
-          "Currencies and delivery zones",
+          "Currencies, zones and commercial rules",
           "Local payment-method support"
         ]
       }
@@ -193,11 +193,11 @@
   "benefits": {
     "eyebrow": "Benefits & results",
     "title": "A platform that follows your growth instead of slowing it down.",
-    "intro": "The goal is not just to put products online. MarketSoft reduces tool fragmentation and gives your commerce a solid operating base.",
+    "intro": "Whether you sell products, services or both, MarketSoft reduces tool fragmentation and gives your business a solid operating base.",
     "items": [
       {
         "title": "Sell from one system",
-        "text": "Website, orders, inventory and payments together to reduce gaps between tools."
+        "text": "Website, offers, sales, bookings and payments together to reduce gaps between tools."
       },
       {
         "title": "Reduce manual work",
@@ -205,7 +205,7 @@
       },
       {
         "title": "Grow without changing platforms",
-        "text": "Add sellers, stores, countries or capabilities progressively."
+        "text": "Add services, sellers, providers, stores, countries or capabilities progressively."
       },
       {
         "title": "Keep control of your data",
@@ -216,8 +216,8 @@
         "text": "Roles, pricing rules, approvals and journeys can follow how your business actually works."
       },
       {
-        "title": "Connect online and physical sales",
-        "text": "Combine online sales, pickup, stores and location-based inventory when needed."
+        "title": "Connect digital and physical operations",
+        "text": "Combine online sales, bookings, pickup, stores, agencies and on-site services when needed."
       }
     ]
   },
@@ -299,7 +299,7 @@
     "items": [
       {
         "q": "How long does it take to launch the platform?",
-        "a": "The standard store is planned around one week, the advanced offer around ten days, and the marketplace between two and four weeks. Custom timing depends on the scope."
+        "a": "The Essential offer is planned around one week, the Advanced offer around ten days, and the marketplace between two and four weeks. Custom timing depends on the scope."
       },
       {
         "q": "Is online payment included?",
@@ -322,8 +322,8 @@
         "a": "The maintenance scope is defined according to the selected package and can cover monitoring, updates, backups, security and support."
       },
       {
-        "q": "Can I migrate my existing products?",
-        "a": "Yes. Product migration can be planned depending on the format and quality of the source data."
+        "q": "Can I migrate my existing offers?",
+        "a": "Yes. Product, service or appointment data migration can be planned depending on the format and quality of the source data."
       },
       {
         "q": "Do I own the platform?",
@@ -356,23 +356,23 @@
     {
       "slug": "store",
       "level": "Starter",
-      "name": "Online store",
-      "target": "A professional e-commerce store ready to sell, designed for a business that wants to sell its own products through a simple buying journey, clear administration and all essential features for catalog, order and payment management.",
+      "name": "Commerce Essential",
+      "target": "A professional commerce platform ready to sell, designed for a business offering its own products, services or appointments through a simple journey, clear administration and the essential selling and payment capabilities.",
       "price": "20,000 DH",
       "delay": "About 1 week",
       "shortFeatures": [
-        "Product catalog",
-        "Cart & orders",
+        "Product & service catalog",
+        "Sale, order or booking",
         "Payment",
-        "Product administration",
+        "Offer administration",
         "Mobile responsive"
       ],
       "audiences": [
         "Retailers",
+        "Service businesses",
         "Brands",
         "Craft businesses",
-        "Distributors",
-        "Small or medium catalog"
+        "Simple or mid-sized offer"
       ],
       "modules": [
         {
@@ -416,23 +416,23 @@
     {
       "slug": "advanced",
       "level": "Medium",
-      "name": "Advanced store",
-      "target": "An advanced e-commerce store for businesses that sell online regularly and need stronger management of customers, variants and inventory, promotions, delivery, content and sales performance from a single platform.",
+      "name": "Commerce Advanced",
+      "target": "An advanced commerce platform for businesses that regularly sell products or services and need stronger management of customers, offers, availability, promotions, fulfillment and performance from one system.",
       "price": "45,000 DH",
       "delay": "About 10 days",
       "shortFeatures": [
         "Customer account",
-        "Advanced inventory",
+        "Inventory or availability",
         "Promotions",
-        "Advanced delivery",
+        "Delivery or booking",
         "Analytics"
       ],
       "audiences": [
-        "Brands with large catalogs",
-        "Products with variants",
-        "Regular online sales",
+        "Businesses with broad offers",
+        "Service companies",
+        "Regular sales or bookings",
         "Businesses running promotions",
-        "Teams managing content and inventory"
+        "Teams managing content and operations"
       ],
       "modules": [
         {
@@ -476,22 +476,22 @@
     {
       "slug": "marketplace",
       "level": "Advanced",
-      "name": "Multi-vendor marketplace",
-      "target": "A complete marketplace designed to bring multiple sellers, brands, suppliers or partners together on one platform. Each seller gets a dedicated space while the marketplace owner keeps central control over products, orders, rules and overall performance.",
+      "name": "Multi-partner marketplace",
+      "target": "A complete marketplace designed to bring multiple sellers, service providers, brands, suppliers or partners together on one platform. Each partner gets a dedicated space while the platform owner keeps central control over offers, sales, rules and overall performance.",
       "price": "100,000 DH",
       "delay": "About 2–4 weeks",
       "shortFeatures": [
-        "Seller spaces",
-        "Multi-vendor catalog",
-        "Split orders",
+        "Partner spaces",
+        "Multi-partner catalog",
+        "Distributed sales",
         "Returns & disputes",
-        "Seller analytics"
+        "Partner analytics"
       ],
       "audiences": [
         "Industry marketplaces",
+        "Service-provider networks",
         "Multi-supplier distributors",
         "Merchant groups",
-        "Networks and federations",
         "Commission-based platforms"
       ],
       "modules": [
@@ -620,7 +620,7 @@
       "title": "Need a quick conversation?",
       "description": "Reach us directly on WhatsApp, by email or by phone.",
       "whatsappLabel": "Message us on WhatsApp",
-      "whatsappMessage": "Hello MarketSoft, I would like to discuss my e-commerce project.",
+      "whatsappMessage": "Hello MarketSoft, I would like to discuss my commerce project.",
       "emailLabel": "Send an email",
       "phoneLabel": "Call us"
     },

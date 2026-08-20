@@ -11,36 +11,36 @@
     "demo": "Demander une démonstration"
   },
   "hero": {
-    "eyebrow": "Commerce. Centralisé. Évolutif.",
-    "title": "Votre commerce grandit. Votre plateforme doit suivre.",
-    "description": "MarketSoft réunit boutique en ligne, commandes, stocks, paiements et opérations dans une plateforme conçue autour de votre activité.",
+    "eyebrow": "Commerce. Produits ou services. Sans limites.",
+    "title": "Votre commerce évolue. MarketSoft évolue avec lui.",
+    "description": "Vous vendez des produits, des services, des réservations ou un mix des trois ? MarketSoft réunit votre vitrine, vos ventes, vos paiements et vos opérations dans une plateforme conçue autour de votre activité.",
     "primary": "Voir les packages",
     "secondary": "Demander une démonstration"
   },
   "homeBenefits": {
-    "title": "Un seul système pour vendre et piloter",
-    "description": "Commencez avec l’essentiel, puis faites évoluer votre commerce sans repartir de zéro.",
+    "title": "Un seul système pour commercialiser et piloter",
+    "description": "Du premier client aux opérations plus complexes, MarketSoft s’adapte à ce que vous vendez : produits, services ou prestations.",
     "items": [
       {
-        "title": "Vendez en ligne",
-        "text": "Catalogue, panier, paiement et commandes dans un parcours fluide."
+        "title": "Vendez produits ou services",
+        "text": "Catalogue, prestations, réservations, panier ou demande : construisez le parcours adapté à votre offre."
       },
       {
         "title": "Centralisez vos opérations",
-        "text": "Produits, stocks, commandes et points de vente au même endroit."
+        "text": "Offres, ventes, paiements, disponibilités, commandes et points de vente au même endroit."
       },
       {
-        "title": "Boutique ou marketplace",
-        "text": "Passez d’une boutique mono-vendeur à une plateforme multi-vendeur selon votre modèle."
+        "title": "Commerce simple ou marketplace",
+        "text": "Démarrez avec votre propre activité puis ouvrez la plateforme à plusieurs vendeurs ou prestataires si nécessaire."
       },
       {
         "title": "Faites évoluer la plateforme",
-        "text": "Ajoutez langues, devises, vendeurs, magasins ou intégrations progressivement."
+        "text": "Ajoutez langues, devises, équipes, points de vente, prestataires ou intégrations progressivement."
       }
     ]
   },
   "packagesTitle": "Choisissez le niveau adapté à votre commerce",
-  "packagesDescription": "Quatre offres claires : d’une boutique professionnelle à une plateforme entièrement personnalisée.",
+  "packagesDescription": "Quatre offres claires : d’un commerce digital professionnel à une plateforme entièrement personnalisée pour produits, services ou modèles hybrides.",
   "packageActions": {
     "details": "Voir l’offre",
     "order": "Commander",
@@ -68,43 +68,43 @@
     ]
   },
   "finalCta": {
-    "title": "Prêt à lancer votre commerce ?",
-    "text": "Choisissez votre package ou échangez avec un expert avant de démarrer.",
+    "title": "Prêt à faire grandir votre commerce ?",
+    "text": "Produits, services ou modèle hybride : choisissez votre package ou échangez avec un expert avant de démarrer.",
     "order": "Commander MarketSoft",
     "expert": "Parler à un expert"
   },
   "platform": {
     "eyebrow": "La plateforme",
-    "title": "Tout ce qui fait tourner votre commerce, réuni dans un seul système.",
-    "intro": "MarketSoft couvre les fonctions de vente essentielles et peut évoluer vers des opérations avancées, B2B ou multi-vendeurs.",
+    "title": "Tout ce qui fait tourner votre commerce, qu’il vende des produits ou des services.",
+    "intro": "MarketSoft couvre les parcours de commercialisation essentiels : vente de produits, prestations, réservations, B2B, points de vente et modèles multi-vendeurs ou multi-prestataires.",
     "galleryTitle": "Découvrez l’expérience MarketSoft",
-    "galleryText": "Les captures finales seront ajoutées ici. La galerie est déjà prête pour le plein écran et la navigation entre plusieurs écrans.",
+    "galleryText": "Parcourez automatiquement plusieurs exemples de commerces et d’interfaces de gestion. Utilisez les flèches ou le plein écran uniquement si vous souhaitez prendre le contrôle.",
     "sections": [
       {
-        "title": "Produits & catalogue",
-        "text": "Présentez, organisez et faites évoluer votre offre.",
+        "title": "Offres & catalogue",
+        "text": "Présentez et organisez ce que vous commercialisez, qu’il s’agisse de produits ou de services.",
         "bullets": [
-          "Produits, catégories et variantes",
-          "Images, prix et promotions",
-          "Recherche, filtres et disponibilité"
+          "Produits, services, catégories et variantes",
+          "Images, prix, durées, options et promotions",
+          "Recherche, filtres, disponibilité ou capacité"
         ]
       },
       {
-        "title": "Commandes & paiements",
-        "text": "Transformez l’achat en un parcours simple et maîtrisé.",
+        "title": "Ventes, réservations & paiements",
+        "text": "Transformez l’intention d’achat en un parcours simple adapté à votre métier.",
         "bullets": [
-          "Panier et commande invité ou connecté",
-          "Paiement en ligne, livraison ou virement",
-          "Suivi des statuts et factures"
+          "Panier, commande, réservation ou demande",
+          "Paiement en ligne, sur place, à la livraison ou virement",
+          "Suivi des statuts, confirmations et factures"
         ]
       },
       {
-        "title": "Stocks & livraison",
-        "text": "Gardez une vision opérationnelle de ce qui peut être vendu et livré.",
+        "title": "Stocks, disponibilités & exécution",
+        "text": "Gardez une vision opérationnelle de ce qui peut être vendu, réservé, préparé ou livré.",
         "bullets": [
-          "Stock par produit ou variante",
-          "Alertes et ruptures",
-          "Zones, frais et modes de livraison"
+          "Stock, capacité ou créneaux selon l’activité",
+          "Alertes, indisponibilités et ruptures",
+          "Livraison, retrait, rendez-vous ou exécution du service"
         ]
       },
       {
@@ -113,43 +113,43 @@
         "bullets": [
           "Codes promotionnels",
           "Offres limitées dans le temps",
-          "Avis et relances de panier"
+          "Avis, relances et recommandations"
         ]
       },
       {
         "title": "Clients",
         "text": "Facilitez l’achat et l’après-vente sans transformer MarketSoft en CRM.",
         "bullets": [
-          "Compte client et adresses",
-          "Historique et suivi des commandes",
-          "Factures, retours et favoris"
+          "Compte client et informations utiles",
+          "Historique des achats, commandes ou réservations",
+          "Factures, retours, favoris et suivi"
         ]
       },
       {
-        "title": "Marketplace & vendeurs",
-        "text": "Passez au multi-vendeur lorsque votre modèle l’exige.",
+        "title": "Marketplace & partenaires",
+        "text": "Ouvrez votre plateforme à plusieurs vendeurs ou prestataires lorsque votre modèle l’exige.",
         "bullets": [
-          "Espace vendeur séparé",
-          "Validation des produits",
-          "Commandes, ventes et performances par vendeur"
+          "Espace partenaire séparé",
+          "Validation des offres",
+          "Ventes, prestations et performances par partenaire"
         ]
       },
       {
-        "title": "Points de vente",
-        "text": "Reliez vente en ligne, retrait et magasins.",
+        "title": "Points de vente & agences",
+        "text": "Reliez le digital à vos magasins, agences ou lieux de prestation.",
         "bullets": [
-          "Stocks par point de vente",
-          "Retrait sur place",
+          "Stocks ou disponibilités par emplacement",
+          "Retrait, rendez-vous ou service sur place",
           "Suivi des ventes par emplacement"
         ]
       },
       {
         "title": "Analytics",
-        "text": "Pilotez le commerce avec des indicateurs utiles.",
+        "text": "Pilotez votre commerce avec des indicateurs réellement utiles.",
         "bullets": [
-          "Chiffre d’affaires et commandes",
-          "Panier moyen et meilleures ventes",
-          "Stocks faibles, promotions et satisfaction"
+          "Chiffre d’affaires, ventes et réservations",
+          "Panier moyen, offres et services les plus demandés",
+          "Disponibilités, promotions et satisfaction"
         ]
       },
       {
@@ -157,7 +157,7 @@
         "text": "Faites vivre votre vitrine commerciale depuis la même plateforme.",
         "bullets": [
           "Bannières et mises en avant",
-          "Actualités et guides",
+          "Actualités, offres et guides",
           "Tracking et connexions marketing"
         ]
       },
@@ -174,7 +174,7 @@
         "title": "Intégrations",
         "text": "Connectez MarketSoft à votre environnement existant.",
         "bullets": [
-          "Paiement et livraison",
+          "Paiement, livraison ou réservation",
           "CRM ou outils marketing",
           "API et logiciels métiers"
         ]
@@ -184,7 +184,7 @@
         "text": "Préparez votre commerce à plusieurs marchés.",
         "bullets": [
           "Français, anglais et arabe",
-          "Devises et zones de livraison",
+          "Devises, zones et règles commerciales",
           "Adaptation aux moyens de paiement locaux"
         ]
       }
@@ -193,11 +193,11 @@
   "benefits": {
     "eyebrow": "Avantages & résultats",
     "title": "Une plateforme qui suit votre croissance au lieu de la freiner.",
-    "intro": "L’objectif n’est pas seulement de mettre des produits en ligne. MarketSoft doit réduire la dispersion des outils et donner une base solide à votre commerce.",
+    "intro": "Que vous commercialisiez des produits, des services ou les deux, MarketSoft réduit la dispersion des outils et donne une base solide à votre activité.",
     "items": [
       {
         "title": "Vendez depuis un seul système",
-        "text": "Site, commandes, stocks et paiements réunis pour limiter les ruptures entre outils."
+        "text": "Site, offres, ventes, réservations et paiements réunis pour limiter les ruptures entre outils."
       },
       {
         "title": "Réduisez les tâches manuelles",
@@ -205,7 +205,7 @@
       },
       {
         "title": "Développez sans changer de plateforme",
-        "text": "Ajoutez vendeurs, magasins, pays ou fonctionnalités progressivement."
+        "text": "Ajoutez services, vendeurs, prestataires, magasins, pays ou fonctionnalités progressivement."
       },
       {
         "title": "Gardez le contrôle de vos données",
@@ -216,8 +216,8 @@
         "text": "Rôles, règles de prix, validation et parcours peuvent suivre votre fonctionnement réel."
       },
       {
-        "title": "Unifiez online et terrain",
-        "text": "Combinez vente en ligne, retrait, magasins et stocks par emplacement lorsque nécessaire."
+        "title": "Unifiez digital et terrain",
+        "text": "Combinez vente en ligne, réservation, retrait, magasins, agences et prestations sur place lorsque nécessaire."
       }
     ]
   },
@@ -299,7 +299,7 @@
     "items": [
       {
         "q": "Combien de temps faut-il pour lancer la plateforme ?",
-        "a": "La boutique standard est prévue autour d’une semaine, l’offre avancée autour de dix jours et la marketplace entre deux et quatre semaines. Le délai Custom dépend du besoin."
+        "a": "L’offre Essentiel est prévue autour d’une semaine, l’offre Avancé autour de dix jours et la marketplace entre deux et quatre semaines. Le délai Custom dépend du besoin."
       },
       {
         "q": "Le paiement en ligne est-il inclus ?",
@@ -322,8 +322,8 @@
         "a": "Le périmètre peut couvrir mises à jour, sauvegardes, surveillance, sécurité, corrections et accompagnement selon le niveau choisi."
       },
       {
-        "q": "Puis-je migrer mes produits existants ?",
-        "a": "Oui, une reprise de catalogue peut être étudiée selon le format et la qualité des données disponibles."
+        "q": "Puis-je migrer mes offres existantes ?",
+        "a": "Oui, une reprise de catalogue de produits, services ou prestations peut être étudiée selon le format et la qualité des données disponibles."
       },
       {
         "q": "La plateforme m’appartient-elle ?",
@@ -355,23 +355,23 @@
   "packages": [
     {
       "slug": "store",
-      "name": "Boutique en ligne",
-      "target": "Une boutique e-commerce professionnelle prête à vendre, pensée pour une entreprise qui souhaite commercialiser ses propres produits avec un parcours d’achat simple, une administration claire et toutes les fonctions essentielles pour gérer catalogue, commandes et paiements.",
+      "name": "Commerce Essentiel",
+      "target": "Une plateforme commerce professionnelle prête à vendre, pensée pour une entreprise qui commercialise ses propres produits, services ou prestations avec un parcours simple, une administration claire et les fonctions essentielles de vente et de paiement.",
       "price": "20 000 DH",
       "delay": "Environ 1 semaine",
       "shortFeatures": [
-        "Catalogue produits",
-        "Panier & commandes",
+        "Catalogue produits & services",
+        "Vente, commande ou réservation",
         "Paiement",
-        "Administration produits",
+        "Administration des offres",
         "Responsive mobile"
       ],
       "audiences": [
         "Commerces",
+        "Entreprises de services",
         "Marques",
         "Artisans",
-        "Distributeurs",
-        "Catalogue limité ou moyen"
+        "Offre simple ou intermédiaire"
       ],
       "modules": [
         {
@@ -415,23 +415,23 @@
     },
     {
       "slug": "advanced",
-      "name": "Boutique avancée",
-      "target": "Une boutique e-commerce avancée pour les entreprises qui vendent régulièrement en ligne et ont besoin de mieux gérer leurs clients, leurs variantes et stocks, leurs promotions, leurs livraisons, leurs contenus et leurs performances depuis une seule plateforme.",
+      "name": "Commerce Avancé",
+      "target": "Une plateforme commerce avancée pour les entreprises qui vendent régulièrement des produits ou services et ont besoin de mieux gérer clients, offres, disponibilités, promotions, exécution et performances depuis un seul système.",
       "price": "45 000 DH",
       "delay": "Environ 10 jours",
       "shortFeatures": [
         "Compte client",
-        "Stocks avancés",
+        "Stocks ou disponibilités",
         "Promotions",
-        "Livraison avancée",
+        "Livraison ou réservation",
         "Analytics"
       ],
       "audiences": [
-        "Marques avec catalogue important",
-        "Produits à variantes",
-        "Ventes régulières en ligne",
+        "Commerces avec offre étendue",
+        "Entreprises de services",
+        "Ventes ou réservations régulières",
         "Entreprises avec promotions",
-        "Équipes gérant contenu et stock"
+        "Équipes gérant contenu et opérations"
       ],
       "modules": [
         {
@@ -475,22 +475,22 @@
     },
     {
       "slug": "marketplace",
-      "name": "Marketplace multi-vendeur",
-      "target": "Une marketplace complète destinée à réunir plusieurs vendeurs, marques, fournisseurs ou partenaires sur une même plateforme. Chaque vendeur dispose de son propre espace tandis que l’entreprise propriétaire conserve le contrôle des produits, commandes, règles et performances globales.",
+      "name": "Marketplace multi-partenaire",
+      "target": "Une marketplace complète destinée à réunir plusieurs vendeurs, prestataires, marques, fournisseurs ou partenaires sur une même plateforme. Chaque partenaire dispose de son propre espace tandis que l’entreprise propriétaire conserve le contrôle des offres, ventes, règles et performances globales.",
       "price": "100 000 DH",
       "delay": "Environ 2 à 4 semaines",
       "shortFeatures": [
-        "Espaces vendeurs",
-        "Catalogue multi-vendeur",
-        "Commandes réparties",
+        "Espaces partenaires",
+        "Catalogue multi-partenaire",
+        "Ventes réparties",
         "Retours & litiges",
-        "Statistiques vendeurs"
+        "Statistiques partenaires"
       ],
       "audiences": [
         "Marketplaces sectorielles",
+        "Réseaux de prestataires",
         "Distributeurs multi-fournisseurs",
         "Groupements de commerçants",
-        "Réseaux et fédérations",
         "Plateformes à commission"
       ],
       "modules": [
@@ -620,7 +620,7 @@
       "title": "Besoin d'un échange rapide ?",
       "description": "Contactez-nous directement sur WhatsApp, par e-mail ou par téléphone.",
       "whatsappLabel": "Écrire sur WhatsApp",
-      "whatsappMessage": "Bonjour MarketSoft, je souhaite échanger au sujet de mon projet e-commerce.",
+      "whatsappMessage": "Bonjour MarketSoft, je souhaite échanger au sujet de mon projet commerce.",
       "emailLabel": "Envoyer un e-mail",
       "phoneLabel": "Nous appeler"
     },
