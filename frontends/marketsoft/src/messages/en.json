@@ -254,20 +254,20 @@
     ],
     "stats": [
       {
-        "value": "1 week",
-        "label": "To launch a professional store"
+        "value": "Up to -70%",
+        "label": "of time spent on manual order entry and tracking"
       },
       {
-        "value": "3 languages",
-        "label": "FR / EN / AR built in natively"
+        "value": "Up to +25%",
+        "label": "of abandoned carts recovered through automatic reminders"
       },
       {
-        "value": "2 to 4x",
-        "label": "More affordable than an international enterprise platform"
+        "value": "-50%",
+        "label": "fewer stock errors thanks to centralized management"
       },
       {
-        "value": "100%",
-        "label": "Control over your data and hosting"
+        "value": "x2",
+        "label": "faster to launch a new offer or promotion"
       }
     ],
     "statsTitle": "What this changes in practice"
@@ -587,12 +587,12 @@
           "label": "Time to launch"
         },
         {
-          "value": "0 MAD",
-          "label": "Mandatory monthly fee"
+          "value": "Up to +20%",
+          "label": "conversion thanks to a simplified checkout"
         },
         {
-          "value": "3 languages",
-          "label": "FR / EN / AR available"
+          "value": "0 MAD",
+          "label": "mandatory monthly fee"
         }
       ]
     },
@@ -662,12 +662,12 @@
           "label": "Time to launch"
         },
         {
-          "value": "0 MAD",
-          "label": "Mandatory monthly fee"
+          "value": "Up to +25%",
+          "label": "of abandoned carts recovered through automatic reminders"
         },
         {
-          "value": "3 languages",
-          "label": "FR / EN / AR available"
+          "value": "-50%",
+          "label": "fewer stock errors thanks to centralized variant management"
         }
       ]
     },
@@ -737,12 +737,12 @@
           "label": "Time to launch"
         },
         {
-          "value": "0 MAD",
-          "label": "Mandatory monthly fee"
+          "value": "x2",
+          "label": "faster to onboard and publish a new seller"
         },
         {
-          "value": "3 languages",
-          "label": "FR / EN / AR available"
+          "value": "Up to -70%",
+          "label": "less time managing multi-seller orders thanks to automatic splitting"
         }
       ]
     },
@@ -813,11 +813,11 @@
         },
         {
           "value": "100%",
-          "label": "Tailored"
+          "label": "Tailored to your business"
         },
         {
-          "value": "3 languages",
-          "label": "FR / EN / AR available"
+          "value": "1 foundation",
+          "label": "Proven MarketSoft base, no need to build from scratch"
         }
       ]
     }
@@ -1079,29 +1079,30 @@
     "description": "Numbers that show the platform's real value, not just marketing claims.",
     "items": [
       {
-        "value": "4",
-        "label": "Packages, from simple commerce to marketplace"
+        "value": "4 packages",
+        "label": "From simple commerce to a full marketplace"
       },
       {
-        "value": "1 to 4 weeks",
-        "label": "To go live depending on the level chosen"
+        "value": "Up to -70%",
+        "label": "of time spent on manual order entry and tracking"
       },
       {
-        "value": "3 languages",
-        "label": "Native French, English and Arabic"
+        "value": "Up to +25%",
+        "label": "of abandoned carts recovered through automatic reminders"
       },
       {
-        "value": "2 to 4x",
-        "label": "More affordable than international enterprise platforms, at an equivalent level"
+        "value": "-50%",
+        "label": "fewer stock errors thanks to centralized management"
       },
       {
         "value": "100%",
-        "label": "Of your data and code belong to you"
+        "label": "of your data and code belong to you"
       },
       {
         "value": "0 MAD",
-        "label": "Mandatory monthly fee, unlike SaaS"
+        "label": "mandatory monthly fee, unlike SaaS solutions"
       }
     ]
-  }
+  },
+  "packageMultilingualLabel": "Multilingual (FR / EN / AR)"
 }

@@ -254,20 +254,20 @@
     ],
     "stats": [
       {
-        "value": "1 semaine",
-        "label": "Pour lancer une boutique professionnelle"
+        "value": "Jusqu'à -70%",
+        "label": "de temps passé sur la saisie et le suivi manuel des commandes"
       },
       {
-        "value": "3 langues",
-        "label": "FR / EN / AR intégrées nativement"
+        "value": "Jusqu'à +25%",
+        "label": "de paniers récupérés grâce aux relances automatiques"
       },
       {
-        "value": "2 à 4x",
-        "label": "Plus accessible qu'une plateforme enterprise internationale"
+        "value": "-50%",
+        "label": "d'erreurs de stock grâce à une gestion centralisée"
       },
       {
-        "value": "100%",
-        "label": "Maîtrise de vos données et de votre hébergement"
+        "value": "x2",
+        "label": "plus rapide pour lancer une nouvelle offre ou promotion"
       }
     ],
     "statsTitle": "Ce que ça change concrètement"
@@ -587,12 +587,12 @@
           "label": "Mise en ligne"
         },
         {
-          "value": "0 MAD",
-          "label": "Abonnement mensuel obligatoire"
+          "value": "Jusqu'à +20%",
+          "label": "de conversion grâce à un tunnel d'achat simplifié"
         },
         {
-          "value": "3 langues",
-          "label": "FR / EN / AR disponibles"
+          "value": "0 MAD",
+          "label": "d'abonnement mensuel obligatoire"
         }
       ]
     },
@@ -662,12 +662,12 @@
           "label": "Mise en ligne"
         },
         {
-          "value": "0 MAD",
-          "label": "Abonnement mensuel obligatoire"
+          "value": "Jusqu'à +25%",
+          "label": "de paniers récupérés grâce aux relances automatiques"
         },
         {
-          "value": "3 langues",
-          "label": "FR / EN / AR disponibles"
+          "value": "-50%",
+          "label": "d'erreurs de stock grâce à la gestion centralisée des variantes"
         }
       ]
     },
@@ -737,12 +737,12 @@
           "label": "Mise en ligne"
         },
         {
-          "value": "0 MAD",
-          "label": "Abonnement mensuel obligatoire"
+          "value": "x2",
+          "label": "plus rapide pour intégrer et publier un nouveau vendeur"
         },
         {
-          "value": "3 langues",
-          "label": "FR / EN / AR disponibles"
+          "value": "Jusqu'à -70%",
+          "label": "de temps de gestion des commandes multi-vendeurs grâce à la répartition automatique"
         }
       ]
     },
@@ -813,11 +813,11 @@
         },
         {
           "value": "100%",
-          "label": "Sur mesure"
+          "label": "Sur mesure selon votre métier"
         },
         {
-          "value": "3 langues",
-          "label": "FR / EN / AR disponibles"
+          "value": "1 base",
+          "label": "MarketSoft éprouvée comme fondation, pas de développement from scratch"
         }
       ]
     }
@@ -1079,29 +1079,30 @@
     "description": "Des chiffres qui montrent la valeur réelle de la plateforme, pas juste des arguments marketing.",
     "items": [
       {
-        "value": "4",
-        "label": "Formules, du commerce simple à la marketplace"
+        "value": "4 formules",
+        "label": "Du commerce simple à la marketplace complète"
       },
       {
-        "value": "1 à 4 semaines",
-        "label": "Pour être en ligne selon le niveau choisi"
+        "value": "Jusqu'à -70%",
+        "label": "de temps passé sur la saisie et le suivi manuel des commandes"
       },
       {
-        "value": "3 langues",
-        "label": "Français, anglais et arabe natifs"
+        "value": "Jusqu'à +25%",
+        "label": "de paniers récupérés grâce aux relances automatiques"
       },
       {
-        "value": "2 à 4x",
-        "label": "Plus accessible que les plateformes enterprise internationales, à niveau équivalent"
+        "value": "-50%",
+        "label": "d'erreurs de stock grâce à une gestion centralisée"
       },
       {
         "value": "100%",
-        "label": "De vos données et de votre code vous appartiennent"
+        "label": "de vos données et de votre code vous appartiennent"
       },
       {
         "value": "0 MAD",
-        "label": "D'abonnement mensuel obligatoire, contrairement au SaaS"
+        "label": "d'abonnement mensuel obligatoire, contrairement aux solutions SaaS"
       }
     ]
-  }
+  },
+  "packageMultilingualLabel": "Multilingue (FR / EN / AR)"
 }

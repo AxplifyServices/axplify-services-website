@@ -105,6 +105,7 @@ export default async function Home({ params }: Props) {
                 pkg={pkg}
                 actions={c.packageActions}
                 pricing={c.pricing}
+                multilingualLabel={c.packageMultilingualLabel}
               />
             ))}
           </div>

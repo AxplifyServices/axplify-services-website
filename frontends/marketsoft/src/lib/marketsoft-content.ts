@@ -38,6 +38,7 @@ type Copy = {
   packagesTitle: string;
   packagesDescription: string;
   packageActions: { details: string; order: string; demo: string };
+  packageMultilingualLabel: string;
   packageDetail: { eyebrow: string; audienceTitle: string; outcomesTitle: string; includedTitle: string; optionsTitle: string; statsTitle: string };
   pricing: {
     firstYearShort: string;

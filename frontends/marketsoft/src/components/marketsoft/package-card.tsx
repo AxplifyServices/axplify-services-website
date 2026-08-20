@@ -8,6 +8,7 @@ export function PackageCard({
   pkg,
   actions,
   pricing,
+  multilingualLabel,
 }: {
   pkg: MarketSoftPackage;
   actions: {
@@ -18,6 +19,7 @@ export function PackageCard({
     firstYearShort: string;
     thenShort: string;
   };
+  multilingualLabel: string;
 }) {
   const numericFirstYear =
     /\d/.test(
@@ -60,14 +62,9 @@ export function PackageCard({
         )}
       </ul>
 
-      <div className="ms-package-card__stats">
-        {pkg.stats.map(stat => (
-          <div className="ms-package-card__stat" key={stat.label}>
-            <strong>{stat.value}</strong>
-            <span>{stat.label}</span>
-          </div>
-        ))}
-      </div>
+      <p className="ms-package-card__note">
+        — {multilingualLabel}
+      </p>
 
       <div className="ms-package-card__price ms-package-card__price--annual">
         {pkg.slug === 'custom' ? (
