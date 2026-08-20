@@ -55,7 +55,7 @@ jobs:
             docker compose \
               --env-file "$APP_DIR/frontend.env" \
               -f "$REPO_DIR/deploy/docker-compose.prod.yml" \
-              build frontend backend
+              build frontend backend marketsoft
 
             echo "=== Ensuring MinIO is running ==="
 
@@ -72,7 +72,7 @@ jobs:
               up -d \
               --no-deps \
               --force-recreate \
-              frontend backend
+              frontend backend marketsoft
 
             echo "=== Removing orphan containers ==="
 
@@ -89,3 +89,7 @@ jobs:
             echo "=== Backend logs ==="
 
             docker logs axplify-backend --tail 100
+
+            echo "=== MarketSoft logs ==="
+
+            docker logs axplify-marketsoft --tail 100

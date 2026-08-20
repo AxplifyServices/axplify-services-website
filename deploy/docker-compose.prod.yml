@@ -35,6 +35,36 @@ services:
       - "traefik.http.services.axplify-frontend.loadbalancer.server.port=3001"
 
 
+  marketsoft:
+    container_name: axplify-marketsoft
+
+    build:
+      context: ../frontends/marketsoft
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_SITE_URL: ${MARKETSOFT_NEXT_PUBLIC_SITE_URL}
+        NEXT_PUBLIC_API_URL: ${MARKETSOFT_NEXT_PUBLIC_API_URL}
+        NEXT_PUBLIC_GTM_ID: ${MARKETSOFT_NEXT_PUBLIC_GTM_ID}
+        NEXT_PUBLIC_WHATSAPP_NUMBER: ${MARKETSOFT_NEXT_PUBLIC_WHATSAPP_NUMBER}
+        NEXT_PUBLIC_MARKETSOFT_PRODUCT_KEY: ${MARKETSOFT_NEXT_PUBLIC_PRODUCT_KEY}
+
+    restart: unless-stopped
+
+    networks:
+      - traefik-public
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+
+      - "traefik.http.routers.axplify-marketsoft.rule=Host(`marketsoft.axplify-services.com`)"
+      - "traefik.http.routers.axplify-marketsoft.entrypoints=websecure"
+      - "traefik.http.routers.axplify-marketsoft.tls=true"
+      - "traefik.http.routers.axplify-marketsoft.tls.certresolver=letsencrypt"
+
+      - "traefik.http.services.axplify-marketsoft.loadbalancer.server.port=3002"
+
+
   backend:
     container_name: axplify-backend
 
