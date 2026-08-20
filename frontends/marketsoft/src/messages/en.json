@@ -744,7 +744,7 @@
     "basePriceLabel": "Package implementation",
     "firstYearSupportLabel": "Maintenance & support — 1st year",
     "annualLabel": "From year 2",
-    "annualDescription": "From the second year onward, the initial development is not charged again. The annual amount covers only maintenance and support for the package.",
+    "annualDescription": "From the second year onward, the initial platform installation and setup fees are not charged again. The annual amount covers only maintenance and support for the package.",
     "maintenanceTitle": "Included maintenance",
     "maintenanceIntro": "Maintenance is intended to keep the platform stable, secure and compatible with its technical environment.",
     "maintenanceItems": [

@@ -367,7 +367,22 @@ private async sendMessageToChat(
       `📦 <b>Produit :</b> ${this.escapeHtml(productName)}`,
       `🏷️ <b>Type :</b> ${this.escapeHtml(requestPresentation.label)}`,
       '',
-      `👤 <b>${this.escapeHtml(request.firstName)} ${this.escapeHtml(request.lastName)}</b>`,
+      `👤 <b>${this.escapeHtml(
+        [request.firstName, request.lastName]
+          .filter(
+            (
+              value,
+            ): value is string =>
+              Boolean(
+                value,
+              ),
+          )
+          .join(
+            ' ',
+          ) ||
+          request.companyName ||
+          request.email,
+      )}</b>`,
     ];
 
     if (

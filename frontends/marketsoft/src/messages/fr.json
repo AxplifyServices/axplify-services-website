@@ -744,7 +744,7 @@
     "basePriceLabel": "Mise en place du package",
     "firstYearSupportLabel": "Maintenance & support — 1re année",
     "annualLabel": "À partir de la 2e année",
-    "annualDescription": "À partir de la deuxième année, vous ne repayez pas le développement initial. Le montant annuel correspond uniquement à la maintenance et au support du package.",
+    "annualDescription": "À partir de la deuxième année, vous ne repayez pas les frais initiaux d’installation et de mise en place de la plateforme. Le montant annuel correspond uniquement à la maintenance et au support du package.",
     "maintenanceTitle": "Maintenance incluse",
     "maintenanceIntro": "La maintenance vise à conserver une plateforme stable, sécurisée et compatible avec son environnement technique.",
     "maintenanceItems": [

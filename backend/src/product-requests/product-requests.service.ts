@@ -640,8 +640,10 @@ await this.telegramNotificationService
 
               fullName:
                 this.buildFullName(
-                  request.first_name,
-                  request.last_name,
+                  request.first_name ??
+                    '',
+                  request.last_name ??
+                    '',
                 ),
 
               companyName:
@@ -1087,8 +1089,10 @@ await this.telegramNotificationService
 
       fullName:
         this.buildFullName(
-          request.first_name,
-          request.last_name,
+          request.first_name ??
+            '',
+          request.last_name ??
+            '',
         ),
 
       companyName:

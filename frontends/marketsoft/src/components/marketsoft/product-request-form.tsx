@@ -1,7 +1,7 @@
 'use client';
 
 import {
-  FormEvent,
+  type FormEvent,
   useMemo,
   useState,
 } from 'react';
@@ -42,9 +42,13 @@ export function ProductRequestForm({
   initialPackage,
   intent,
 }: {
-  locale: AppLocale;
-  initialPackage?: string;
-  intent: 'order' | 'demo';
+  locale:
+    AppLocale;
+  initialPackage?:
+    string;
+  intent:
+    'order' |
+    'demo';
 }) {
   const copy =
     getMarketSoftCopy(
@@ -132,9 +136,12 @@ export function ProductRequestForm({
       return;
     }
 
+    const formElement =
+      event.currentTarget;
+
     const data =
       new FormData(
-        event.currentTarget,
+        formElement,
       );
 
     if (
@@ -150,11 +157,63 @@ export function ProductRequestForm({
       return;
     }
 
+    const companyName =
+      String(
+        data.get(
+          'company',
+        ) ??
+          '',
+      ).trim();
+
+    const email =
+      String(
+        data.get(
+          'email',
+        ) ??
+          '',
+      ).trim();
+
+    const phoneNumber =
+      String(
+        data.get(
+          'phone',
+        ) ??
+          '',
+      ).trim();
+
+    if (
+      !companyName ||
+      !email ||
+      !phoneNumber
+    ) {
+      setError(
+        copy.order.genericError,
+      );
+
+      return;
+    }
+
     setLoading(
       true,
     );
 
     try {
+      const firstName =
+        String(
+          data.get(
+            'firstName',
+          ) ??
+            '',
+        ).trim();
+
+      const lastName =
+        String(
+          data.get(
+            'lastName',
+          ) ??
+            '',
+        ).trim();
+
       const userMessage =
         String(
           data.get(
@@ -163,89 +222,69 @@ export function ProductRequestForm({
             '',
         ).trim();
 
+      const defaultMessage =
+        `Demande MarketSoft — ${selected.name}`;
+
       const message =
         `MarketSoft | Package: ${selected.name} | Intent: ${requestType}\n\n${
           userMessage ||
-          'Demande MarketSoft envoyée depuis le site.'
+          defaultMessage
         }`;
 
-      await createPublicProductRequest(
-        {
-          productKey:
-            MARKETSOFT_PRODUCT_KEY,
+      await createPublicProductRequest({
+        productKey:
+          MARKETSOFT_PRODUCT_KEY,
 
-          requestType,
+        requestType,
 
-          locale,
+        locale,
 
-          firstName:
-            String(
-              data.get(
-                'firstName',
-              ) ??
-                '',
-            ).trim(),
+        ...(firstName
+          ? {
+              firstName,
+            }
+          : {}),
 
-          lastName:
-            String(
-              data.get(
-                'lastName',
-              ) ??
-                '',
-            ).trim(),
+        ...(lastName
+          ? {
+              lastName,
+            }
+          : {}),
 
-          companyName:
-            String(
-              data.get(
-                'company',
-              ) ??
-                '',
-            ).trim(),
+        companyName,
 
-          email:
-            String(
-              data.get(
-                'email',
-              ) ??
-                '',
-            ).trim(),
+        email,
 
-          phoneNumber:
-            String(
-              data.get(
-                'phone',
-              ) ??
-                '',
-            ).trim(),
+        phoneNumber,
 
-          message:
-            message.length <
-            10
-              ? message.padEnd(
-                  10,
-                  '.',
-                )
-              : message,
+        message:
+          message.length <
+          10
+            ? message.padEnd(
+                10,
+                '.',
+              )
+            : message,
 
-          sourceUrl:
-            window.location.href,
+        sourceUrl:
+          window.location.href,
 
-          privacyConsent:
-            true,
+        privacyConsent:
+          true,
 
-          website:
-            '',
-        },
-      );
+        website:
+          '',
+      });
 
       trackEvent(
         requestType ===
-          'DEMO'
+        'DEMO'
           ? ANALYTICS_EVENTS.PRODUCT_DEMO_CLICK
           : ANALYTICS_EVENTS.PRODUCT_ORDER_CLICK,
         {
           entity_slug:
             pkg,
+
           cta_location:
             'marketsoft_request_form',
         },
@@ -255,14 +294,14 @@ export function ProductRequestForm({
         true,
       );
 
-      event.currentTarget.reset();
+      formElement.reset();
     } catch (
-      err
+      caughtError
     ) {
       setError(
-        err instanceof
-          PublicProductRequestApiError
-          ? err.message
+        caughtError instanceof
+        PublicProductRequestApiError
+          ? caughtError.message
           : copy.order.genericError,
       );
     } finally {
@@ -290,16 +329,6 @@ export function ProductRequestForm({
     );
   }
 
-  const firstYearIsNumeric =
-    /\d/.test(
-      selected.firstYearPrice,
-    );
-
-  const annualIsNumeric =
-    /\d/.test(
-      selected.annualSupportPrice,
-    );
-
   return (
     <form
       className="ms-request-form"
@@ -308,7 +337,7 @@ export function ProductRequestForm({
       }
     >
       <div className="ms-request-form__grid">
-        <label className="ms-request-form__package-field">
+        <label>
           <span>
             {copy.order.fields.package}
           </span>
@@ -320,40 +349,44 @@ export function ProductRequestForm({
             onChange={
               event =>
                 setPkg(
-                  event.target
-                    .value as PackageSlug,
+                  event.target.value as
+                    PackageSlug,
                 )
             }
           >
-            {copy.packages.map(
-              item => (
-                <option
-                  key={
-                    item.slug
-                  }
-                  value={
-                    item.slug
-                  }
-                >
-                  {item.name}
-                </option>
-              ),
-            )}
+            {
+              copy.packages.map(
+                item => (
+                  <option
+                    key={
+                      item.slug
+                    }
+                    value={
+                      item.slug
+                    }
+                  >
+                    {
+                      item.name
+                    }
+                  </option>
+                ),
+              )
+            }
           </select>
 
-          <div className="ms-request-form__package-summary">
+          <small className="ms-request-form__package-price">
             <span>
-              {copy.pricing.firstYearShort}
+              {
+                copy.pricing
+                  .firstYearShort
+              }
             </span>
 
-            <strong
-              dir={
-                firstYearIsNumeric
-                  ? 'ltr'
-                  : undefined
+            <strong dir="ltr">
+              {
+                selected
+                  .firstYearPrice
               }
-            >
-              {selected.firstYearPrice}
             </strong>
 
             {
@@ -361,28 +394,24 @@ export function ProductRequestForm({
               'custom'
                 ? (
                     <>
-                      <span className="ms-request-form__package-separator">
-                        ·
-                      </span>
-
                       <span>
-                        {copy.pricing.thenShort}
+                        {
+                          copy.pricing
+                            .thenShort
+                        }
                       </span>
 
-                      <strong
-                        dir={
-                          annualIsNumeric
-                            ? 'ltr'
-                            : undefined
+                      <strong dir="ltr">
+                        {
+                          selected
+                            .annualSupportPrice
                         }
-                      >
-                        {selected.annualSupportPrice}
                       </strong>
                     </>
                   )
                 : null
             }
-          </div>
+          </small>
         </label>
 
         <label>
@@ -397,6 +426,7 @@ export function ProductRequestForm({
             minLength={
               2
             }
+            autoComplete="organization"
           />
         </label>
 
@@ -407,6 +437,10 @@ export function ProductRequestForm({
 
           <input
             name="firstName"
+            minLength={
+              2
+            }
+            autoComplete="given-name"
           />
         </label>
 
@@ -417,6 +451,10 @@ export function ProductRequestForm({
 
           <input
             name="lastName"
+            minLength={
+              2
+            }
+            autoComplete="family-name"
           />
         </label>
 
@@ -430,6 +468,7 @@ export function ProductRequestForm({
             name="email"
             type="email"
             required
+            autoComplete="email"
           />
         </label>
 
@@ -443,6 +482,10 @@ export function ProductRequestForm({
             name="phone"
             type="tel"
             required
+            minLength={
+              6
+            }
+            autoComplete="tel"
           />
         </label>
 
@@ -497,8 +540,10 @@ export function ProductRequestForm({
             ? '…'
             : intent ===
                 'demo'
-              ? copy.order.submitDemo
-              : copy.order.submitOrder
+              ? copy.order
+                  .submitDemo
+              : copy.order
+                  .submitOrder
         }
       </button>
     </form>

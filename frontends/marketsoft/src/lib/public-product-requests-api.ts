@@ -15,11 +15,11 @@ export type PublicProductRequestPayload = {
   productKey: string;
   requestType: ProductRequestType;
   locale: AppLocale;
-  firstName: string;
-  lastName: string;
-  companyName?: string;
+  firstName?: string;
+  lastName?: string;
+  companyName: string;
   email: string;
-  phoneNumber?: string;
+  phoneNumber: string;
   message: string;
   sourceUrl?: string;
   privacyConsent: boolean;
