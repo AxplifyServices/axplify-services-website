@@ -1,0 +1,41 @@
+# Axplify Services
+
+> Axplify Services accompagne les entreprises dans leur transformation digitale : développement web et mobile, automatisation des processus métier, data et pilotage décisionnel, intelligence artificielle appliquée, CRM et performance commerciale, architecture logicielle et déploiement, analytics et tracking, génération de leads et closing, stratégie marketing digitale. Basée au Maroc, Axplify Services conçoit des sites, applications et plateformes métier sur mesure pour des entreprises de toutes tailles.
+
+Ce fichier liste les pages publiques du site pour faciliter leur compréhension par les assistants et moteurs de recherche basés sur l'IA. Le site est disponible en français, anglais et arabe (préfixe de langue dans l'URL : /fr, /en, /ar).
+
+## Services
+
+- [Développement web, mobile et plateformes métier](https://axplify-services.com/fr/services/developpement-web-mobile): Sites, applications et plateformes B2B/B2C sur mesure, back-offices, parcours de réservation ou de commande, connexion aux outils existants.
+- [Automatisation des opérations](https://axplify-services.com/fr/services/automatisation-processus-metier): Automatisation des processus métier répétitifs pour réduire les erreurs et libérer du temps aux équipes.
+- [Data et pilotage décisionnel](https://axplify-services.com/fr/services/data-business-intelligence): Centralisation et structuration des données pour un pilotage basé sur des indicateurs fiables.
+- [Intelligence artificielle appliquée](https://axplify-services.com/fr/services/intelligence-artificielle): Intégration de l'IA dans des cas d'usage métier concrets (assistants, automatisation, analyse).
+- [CRM et performance commerciale](https://axplify-services.com/fr/services/crm-performance-commerciale): Mise en place et optimisation d'un CRM pour structurer le suivi commercial.
+- [Architecture, sécurité et mise en production](https://axplify-services.com/fr/services/architecture-logicielle-deploiement): Conception d'architectures logicielles robustes, sécurisées et évolutives.
+- [Analytics, tracking et analyse de performance digitale](https://axplify-services.com/fr/services/analytics-tracking): Mise en place du tracking et de l'analyse de performance des sites et campagnes.
+- [Génération de leads et accompagnement au closing](https://axplify-services.com/fr/services/generation-leads-closing): Mise en place de canaux d'acquisition et accompagnement jusqu'à la signature.
+- [Stratégie marketing, visibilité et image en ligne](https://axplify-services.com/fr/services/strategie-marketing-digitale): Définition d'une stratégie marketing digitale et amélioration de la visibilité en ligne.
+
+## Solutions
+
+- [Produits](https://axplify-services.com/fr/produits): Catalogue des solutions et produits développés par Axplify Services, dont MarketSoft (plateforme e-commerce et marketplace, voir https://marketsoft.axplify-services.com).
+
+## Entreprise
+
+- [À propos](https://axplify-services.com/fr/a-propos): Présentation d'Axplify Services, son approche et son équipe.
+- [Méthodologie de travail](https://axplify-services.com/fr/a-propos/processus-de-travail): Déroulé d'un projet, de la compréhension du besoin à la mise en production.
+- [Réalisations](https://axplify-services.com/fr/nos-realisations): Projets et cas clients réalisés par Axplify Services.
+- [Avis clients](https://axplify-services.com/fr/reviews): Témoignages et avis publiés par des clients d'Axplify Services.
+
+## Ressources
+
+- [Articles et actualités](https://axplify-services.com/fr/articles-actualites): Articles publiés par Axplify Services sur le digital, l'automatisation, la data et l'IA.
+- [FAQ](https://axplify-services.com/fr/faq): Réponses aux questions fréquentes sur les services et le fonctionnement d'Axplify Services.
+
+## Contact
+
+- [Nous contacter](https://axplify-services.com/fr/nous-contacter): Formulaire et coordonnées pour échanger sur un projet.
+
+## Optional
+
+- [Plan du site](https://axplify-services.com/sitemap.xml): Liste complète et à jour de toutes les pages du site, dans les trois langues.

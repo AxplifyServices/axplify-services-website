@@ -19,6 +19,10 @@ import {
 } from '@/lib/marketsoft-content';
 
 import { buildMetadata } from '@/lib/seo';
+import {
+  createBreadcrumbStructuredData,
+  createPackageProductStructuredData,
+} from '@/lib/structured-data';
 
 type Props = {
   params: Promise<{
@@ -64,8 +68,34 @@ export default async function PackageDetail({
   const numericBase = /\d/.test(pkg.basePrice);
   const numericInitialSupport = /\d/.test(pkg.firstYearSupportPrice);
 
+  const breadcrumbStructuredData = createBreadcrumbStructuredData({
+    locale,
+    packagesLabel: c.nav.packages,
+    packageName: pkg.name,
+    packageSlug: pkg.slug,
+  });
+
+  const productStructuredData = createPackageProductStructuredData({
+    locale,
+    pkg,
+  });
+
   return (
     <div className="ms-page ms-package-detail-page">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbStructuredData).replace(/</g, '\\u003c'),
+        }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(productStructuredData).replace(/</g, '\\u003c'),
+        }}
+      />
+
       <section className="ms-inner-hero ms-package-detail-hero">
         <div className="site-container" data-reveal="up">
           <span className="ms-eyebrow">

@@ -16,6 +16,23 @@ export const routing =
     localePrefix:
       'always',
 
+    /*
+     * Désactive la négociation automatique de langue basée sur
+     * l'en-tête Accept-Language (et le cookie NEXT_LOCALE).
+     *
+     * Sans ça, une requête sur "/" redirige vers une locale qui
+     * dépend de qui/quoi fait la requête, ce qui n'est pas
+     * déterministe pour les crawlers (Bing en particulier est
+     * beaucoup plus strict que Google sur ce point). Avec
+     * localeDetection à false, "/" redirige toujours vers la
+     * locale par défaut (fr), de façon stable et indexable.
+     *
+     * Les utilisateurs gardent la possibilité de changer de langue
+     * manuellement via le sélecteur de langue du site.
+     */
+    localeDetection:
+      false,
+
     pathnames: {
       '/':
         '/',

@@ -13,7 +13,7 @@ import { ScrollRevealController } from '@/components/common/scroll-reveal-contro
 import { AnalyticsRouteTracker } from '@/components/analytics/analytics-route-tracker';
 import { ConsentManager } from '@/components/analytics/consent-manager';
 import { GoogleTagManager } from '@/components/analytics/google-tag-manager';
-import { SITE_NAME, SITE_SLOGAN, SITE_URL } from '@/lib/site-config';
+import { SITE_NAME, SITE_SLOGAN, SITE_URL, MARKETSOFT_FACEBOOK_URL, MARKETSOFT_INSTAGRAM_URL, MARKETSOFT_LINKEDIN_URL } from '@/lib/site-config';
 import { getMarketSoftCopy } from '@/lib/marketsoft-content';
 import '../globals.css';
 
@@ -35,7 +35,9 @@ export default async function LocaleLayout({children,params}:{children:React.Rea
       '@type':'Organization',
       '@id':`${SITE_URL.replace(/\/$/,'')}#organization`,
       name:'Axplify Services',
-      url:'https://axplify-services.com'
+      url:'https://axplify-services.com',
+      logo:new URL('/brand/marketsoft-icon.png', SITE_URL).toString(),
+      sameAs:[MARKETSOFT_FACEBOOK_URL, MARKETSOFT_INSTAGRAM_URL, MARKETSOFT_LINKEDIN_URL]
     },
     {
       '@type':'WebSite',

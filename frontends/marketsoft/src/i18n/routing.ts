@@ -4,6 +4,9 @@ export const routing = defineRouting({
   locales: ['fr', 'en', 'ar'],
   defaultLocale: 'fr',
   localePrefix: 'always',
+  // Voir commentaire équivalent dans frontend/src/i18n/routing.ts :
+  // rend la redirection de "/" déterministe pour les crawlers (Bing).
+  localeDetection: false,
   pathnames: {
     '/': '/',
     '/platform': { fr: '/plateforme', en: '/platform', ar: '/المنصة' },

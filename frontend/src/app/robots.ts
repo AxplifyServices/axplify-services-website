@@ -54,6 +54,23 @@ MetadataRoute.Robots {
         disallow:
           PRIVATE_PATHS,
       },
+
+      /*
+       * Bing. Règle explicite en plus de la règle générale, pour
+       * lever toute ambiguïté côté Bing Webmaster Tools — le site
+       * n'a jamais été bloqué pour Bingbot, mais Bing peut se montrer
+       * plus prudent que Google en l'absence de règle dédiée.
+       */
+      {
+        userAgent:
+          'Bingbot',
+
+        allow:
+          '/',
+
+        disallow:
+          PRIVATE_PATHS,
+      },
     ],
 
     sitemap:

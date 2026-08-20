@@ -1,0 +1,30 @@
+# MarketSoft
+
+> MarketSoft est une plateforme commerce développée par Axplify Services, destinée aux entreprises qui veulent vendre et piloter des produits, services ou prestations en ligne : catalogue, ventes, paiements, réservations, livraison, promotions et opérations, avec une option marketplace multi-vendeur. MarketSoft est proposée en quatre formules, du commerce simple à la marketplace complète, avec des tarifs fixes et transparents (voir la page Packages). Basée au Maroc, la plateforme est disponible en français, anglais et arabe.
+
+Ce fichier liste les pages publiques du site pour faciliter leur compréhension par les assistants et moteurs de recherche basés sur l'IA.
+
+## Offre
+
+- [Plateforme](https://marketsoft.axplify-services.com/fr/plateforme): Présentation détaillée des modules de la plateforme MarketSoft (catalogue, ventes, paiements, livraison, marketplace, statistiques...).
+- [Packages et tarifs](https://marketsoft.axplify-services.com/fr/packages): Vue d'ensemble des quatre formules disponibles avec leurs tarifs.
+  - [Commerce Essentiel](https://marketsoft.axplify-services.com/fr/packages/store): Boutique en ligne prête à vendre en environ une semaine, à partir de 20 000 MAD.
+  - [Commerce Avancé](https://marketsoft.axplify-services.com/fr/packages/advanced): Comptes clients, stocks, promotions et livraison avancés, à partir de 45 000 MAD.
+  - [Marketplace multi-partenaire](https://marketsoft.axplify-services.com/fr/packages/marketplace): Plateforme réunissant plusieurs vendeurs ou partenaires, à partir de 100 000 MAD.
+  - [Plateforme Custom](https://marketsoft.axplify-services.com/fr/packages/custom): Solution sur mesure construite à partir d'une base MarketSoft, tarif sur devis.
+- [Comparatif](https://marketsoft.axplify-services.com/fr/comparer): Tableau comparatif des fonctionnalités entre les quatre formules.
+- [Avantages et résultats](https://marketsoft.axplify-services.com/fr/avantages-resultats): Bénéfices concrets de la plateforme pour une entreprise commerciale.
+
+## Ressources
+
+- [FAQ](https://marketsoft.axplify-services.com/fr/faq): Réponses aux questions fréquentes sur MarketSoft.
+
+## Contact
+
+- [Nous contacter](https://marketsoft.axplify-services.com/fr/nous-contacter): Échanger avec l'équipe MarketSoft avant de démarrer un projet.
+- [Commander](https://marketsoft.axplify-services.com/fr/commander): Démarrer une commande ou demander une démonstration.
+
+## Optional
+
+- [Plan du site](https://marketsoft.axplify-services.com/sitemap.xml): Liste complète et à jour de toutes les pages du site, dans les trois langues.
+- [Axplify Services](https://axplify-services.com): Éditeur de la plateforme MarketSoft.
