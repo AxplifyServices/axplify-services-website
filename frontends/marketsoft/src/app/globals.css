@@ -31042,3 +31042,494 @@ body:has(.ms-gallery__modal) {
     animation: none;
   }
 }
+
+/* =========================================================
+   MARKETSOFT — INNER PAGES + COOKIE CONSENT COMPACT REWORK
+   Feedback 2026-08-20
+   ========================================================= */
+
+/* Inner heroes: deliberately compact on all informational pages. */
+.ms-inner-hero {
+  padding: 2.6rem 0 1.9rem;
+}
+
+.ms-inner-hero h1 {
+  max-width: 28ch;
+  font-size: clamp(1.8rem, 4.8vw, 3.05rem);
+  line-height: 1.04;
+  letter-spacing: -0.038em;
+}
+
+.ms-inner-hero p {
+  max-width: 50rem;
+  margin-top: 0.75rem;
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.ms-inner-hero .ms-eyebrow {
+  margin-bottom: 0.55rem;
+  font-size: 0.66rem;
+}
+
+/* Platform cards: clearer information hierarchy and visual anchors. */
+.ms-platform-grid {
+  gap: 0.9rem;
+}
+
+.ms-platform-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.9rem;
+  align-items: start;
+  padding: 1rem;
+  background:
+    linear-gradient(145deg, rgba(18, 34, 55, 0.96), rgba(8, 20, 36, 0.96));
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.ms-platform-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(105, 231, 101, 0.3);
+  background:
+    linear-gradient(145deg, rgba(20, 39, 62, 0.98), rgba(9, 23, 40, 0.98));
+}
+
+.ms-platform-card__icon,
+.ms-result-card__icon {
+  display: grid;
+  width: 2.35rem;
+  height: 2.35rem;
+  place-items: center;
+  flex: 0 0 auto;
+  border: 1px solid rgba(105, 231, 101, 0.19);
+  border-radius: 0.72rem;
+  background: rgba(105, 231, 101, 0.08);
+  color: var(--ms-green);
+}
+
+.ms-platform-card__icon svg,
+.ms-result-card__icon svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.ms-platform-card h2 {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+}
+
+.ms-platform-card p {
+  margin-bottom: 0.65rem;
+  color: #9fb0c2;
+  font-size: 0.79rem;
+  line-height: 1.5;
+}
+
+.ms-platform-card ul {
+  display: grid;
+  gap: 0.36rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ms-platform-card li {
+  display: flex;
+  gap: 0.45rem;
+  align-items: flex-start;
+  color: #dce6ef;
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+
+.ms-platform-card li svg {
+  width: 0.85rem;
+  height: 0.85rem;
+  flex: 0 0 auto;
+  margin-top: 0.12rem;
+  color: var(--ms-green);
+}
+
+/* Benefits: denser page with more content, while cards stay readable. */
+.ms-benefits-section {
+  background:
+    radial-gradient(circle at 10% 5%, rgba(46, 211, 183, 0.06), transparent 20%),
+    var(--ms-bg);
+}
+
+.ms-results-grid {
+  gap: 0.9rem;
+}
+
+.ms-result-card {
+  min-height: 100%;
+  padding: 1.05rem !important;
+}
+
+.ms-result-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.ms-result-card__top > span {
+  color: #61758c !important;
+  font-size: 0.66rem !important;
+  letter-spacing: 0.12em;
+}
+
+.ms-result-card h2 {
+  margin-bottom: 0.42rem;
+  font-size: 1rem;
+}
+
+.ms-result-card p {
+  margin: 0;
+  color: #9fb0c2;
+  font-size: 0.79rem;
+  line-height: 1.58;
+}
+
+/* Comparison: better scanability with the expanded matrix. */
+.ms-compare-wrap {
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.16);
+}
+
+.ms-compare {
+  min-width: 940px;
+}
+
+.ms-compare th,
+.ms-compare td {
+  padding: 0.78rem 0.72rem;
+  font-size: 0.75rem;
+  vertical-align: middle;
+}
+
+.ms-compare tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.ms-compare tbody tr:hover {
+  background: rgba(105, 231, 101, 0.035);
+}
+
+.ms-compare tbody th {
+  min-width: 12rem;
+  font-weight: 800;
+}
+
+.ms-compare__quote {
+  display: inline-flex !important;
+  min-height: 2rem;
+  align-items: center;
+  border: 1px solid rgba(105, 231, 101, 0.22);
+  border-radius: 0.6rem;
+  background: rgba(105, 231, 101, 0.07);
+  padding: 0.45rem 0.65rem;
+  color: var(--ms-green) !important;
+}
+
+/* FAQ stays compact: information starts quickly below the header. */
+.ms-faq-list {
+  gap: 0.5rem;
+}
+
+.ms-faq-list details {
+  padding: 0.9rem 1rem;
+}
+
+/* ---------------------------------------------------------
+   Cookie consent — MarketSoft visual system
+   --------------------------------------------------------- */
+.cookie-consent__banner {
+  border-color: rgba(105, 231, 101, 0.18);
+  background: rgba(7, 17, 31, 0.98);
+  box-shadow: 0 26px 80px rgba(0, 0, 0, 0.48);
+  color: var(--ms-text);
+}
+
+.cookie-consent__banner-inner {
+  max-width: 76rem;
+}
+
+.cookie-consent__title,
+.cookie-consent__summary-list,
+.cookie-consent__summary-list strong,
+.cookie-consent__category-copy h3,
+.cookie-consent__required,
+.cookie-consent__provider strong {
+  color: var(--ms-text);
+}
+
+.cookie-consent__intro,
+.cookie-consent__category-copy p,
+.cookie-consent__provider p,
+.cookie-consent__empty-provider {
+  color: #9fb0c2;
+}
+
+.cookie-consent__eyebrow,
+.cookie-consent__category-details {
+  color: var(--ms-green-2);
+}
+
+.cookie-consent__details-link {
+  color: var(--ms-green);
+}
+
+.cookie-consent__backdrop {
+  background: rgba(0, 7, 15, 0.78);
+  backdrop-filter: blur(10px);
+}
+
+.cookie-consent__dialog {
+  width: min(100%, 62rem);
+  border: 1px solid rgba(105, 231, 101, 0.16);
+  background: #07111f;
+  box-shadow: 0 35px 100px rgba(0, 0, 0, 0.58);
+}
+
+.cookie-consent__dialog-header {
+  padding: 1.15rem 1.3rem 1rem;
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+  background:
+    radial-gradient(circle at 15% 0, rgba(46, 211, 183, 0.08), transparent 32%),
+    #07111f;
+}
+
+.cookie-consent__dialog-header .cookie-consent__title {
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+}
+
+.cookie-consent__dialog-header .cookie-consent__intro {
+  max-width: 44rem;
+  margin-top: 0.45rem;
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+
+.cookie-consent__close {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: #0b1829;
+  color: #dfe9f2;
+}
+
+.cookie-consent__close:hover {
+  border-color: rgba(105, 231, 101, 0.28);
+  color: var(--ms-green);
+}
+
+.cookie-consent__categories {
+  gap: 0.55rem;
+  padding: 0.9rem 1.3rem;
+  background: #07111f;
+}
+
+.cookie-consent__category {
+  border-color: rgba(255, 255, 255, 0.09);
+  border-radius: 0.85rem;
+  background: #0a1728;
+}
+
+.cookie-consent__category-main {
+  padding: 0.82rem 0.9rem 0.38rem;
+}
+
+.cookie-consent__category-copy h3 {
+  font-size: 0.84rem;
+}
+
+.cookie-consent__category-copy p {
+  margin-top: 0.18rem;
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+
+.cookie-consent__required {
+  color: var(--ms-green);
+  font-size: 0.67rem;
+}
+
+.cookie-consent__switch {
+  width: 2.65rem;
+  height: 1.48rem;
+  background: #34465a;
+}
+
+.cookie-consent__switch[data-checked="true"] {
+  background: var(--ms-green-dark);
+}
+
+.cookie-consent__switch-thumb {
+  top: 0.18rem;
+  inset-inline-start: 0.18rem;
+  width: 1.12rem;
+  height: 1.12rem;
+  background: #f7fbff;
+}
+
+.cookie-consent__switch[data-checked="true"] .cookie-consent__switch-thumb {
+  transform: translateX(1.16rem);
+}
+
+html[dir="rtl"] .cookie-consent__switch[data-checked="true"] .cookie-consent__switch-thumb {
+  transform: translateX(-1.16rem);
+}
+
+.cookie-consent__category-details {
+  margin: 0 0.9rem 0.65rem;
+  font-size: 0.66rem;
+}
+
+.cookie-consent__providers {
+  gap: 0.5rem;
+  margin: 0 0.9rem 0.75rem;
+  border-top-color: rgba(255, 255, 255, 0.08);
+  padding-top: 0.65rem;
+}
+
+.cookie-consent__provider {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: #071321;
+  padding: 0.7rem;
+}
+
+.cookie-consent__provider strong {
+  font-size: 0.73rem;
+}
+
+.cookie-consent__provider p {
+  font-size: 0.69rem;
+}
+
+.cookie-consent__dialog-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.55rem;
+  padding: 0.8rem 1.3rem;
+  border-top-color: rgba(255, 255, 255, 0.08);
+  background: #091524;
+}
+
+.cookie-consent__button {
+  min-height: 2.45rem;
+  border-radius: 0.7rem;
+  padding: 0.62rem 0.85rem;
+  font-size: 0.72rem;
+}
+
+.cookie-consent__button--primary {
+  background: linear-gradient(135deg, var(--ms-green), var(--ms-green-2));
+  color: #04100d;
+  box-shadow: 0 8px 22px rgba(105, 231, 101, 0.12);
+}
+
+.cookie-consent__button--primary:hover {
+  background: linear-gradient(135deg, #7cf176, #3bddc4);
+}
+
+.cookie-consent__button--secondary {
+  border-color: rgba(105, 231, 101, 0.24);
+  background: rgba(105, 231, 101, 0.06);
+  color: #dce9e4;
+}
+
+.cookie-consent__button--outline {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: transparent;
+  color: #c4d2df;
+}
+
+.cookie-consent__button--tertiary {
+  background: #13263d;
+  color: #f5f8fb;
+}
+
+.cookie-consent__button:focus-visible,
+.cookie-consent__details-link:focus-visible,
+.cookie-consent__close:focus-visible,
+.cookie-consent__switch:focus-visible,
+.cookie-consent__category-details:focus-visible,
+.site-footer__cookie-button:focus-visible {
+  outline-color: rgba(105, 231, 101, 0.48);
+}
+
+@media (min-width: 720px) {
+  .ms-results-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .ms-inner-hero {
+    padding: 3.35rem 0 2.35rem;
+  }
+
+  .ms-inner-hero h1 {
+    font-size: clamp(2.15rem, 3.1vw, 3.15rem);
+  }
+
+  .ms-section {
+    padding: 4.6rem 0;
+  }
+
+  .ms-platform-grid,
+  .ms-results-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 699px) {
+  .ms-inner-hero {
+    padding: 2.15rem 0 1.55rem;
+  }
+
+  .ms-inner-hero h1 {
+    font-size: clamp(1.7rem, 8vw, 2.25rem);
+    line-height: 1.07;
+  }
+
+  .ms-inner-hero p {
+    margin-top: 0.65rem;
+    font-size: 0.82rem;
+  }
+
+  .ms-platform-card {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+  }
+
+  .cookie-consent__banner {
+    background: rgba(7, 17, 31, 0.99);
+  }
+
+  .cookie-consent__dialog {
+    background: #07111f;
+  }
+
+  .cookie-consent__dialog-header,
+  .cookie-consent__categories {
+    padding-inline: 0.85rem;
+  }
+
+  .cookie-consent__dialog-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0.75rem 0.85rem;
+  }
+
+  .cookie-consent__dialog-footer .cookie-consent__button {
+    width: 100%;
+  }
+
+  .cookie-consent__dialog-footer .cookie-consent__button--primary,
+  .cookie-consent__dialog-footer .cookie-consent__button--tertiary {
+    grid-column: span 1;
+  }
+}

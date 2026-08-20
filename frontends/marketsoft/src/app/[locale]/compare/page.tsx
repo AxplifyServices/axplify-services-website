@@ -106,37 +106,29 @@ export default async function Compare({
                   {c.packages.map(
                     pkg => (
                       <td key={pkg.slug}>
-                        <span>
-                          {c.pricing.firstYearShort}
-                        </span>
+                        {pkg.slug === 'custom' ? (
+                          <strong className="ms-compare__quote">
+                            {pkg.firstYearPrice}
+                          </strong>
+                        ) : (
+                          <>
+                            <span>
+                              {c.pricing.firstYearShort}
+                            </span>
 
-                        <strong
-                          dir={
-                            /\d/.test(
-                              pkg.firstYearPrice,
-                            )
-                              ? 'ltr'
-                              : undefined
-                          }
-                        >
-                          {pkg.firstYearPrice}
-                        </strong>
+                            <strong dir="ltr">
+                              {pkg.firstYearPrice}
+                            </strong>
 
-                        <span>
-                          {c.pricing.thenShort}
-                        </span>
+                            <span>
+                              {c.pricing.thenShort}
+                            </span>
 
-                        <strong
-                          dir={
-                            /\d/.test(
-                              pkg.annualSupportPrice,
-                            )
-                              ? 'ltr'
-                              : undefined
-                          }
-                        >
-                          {pkg.annualSupportPrice}
-                        </strong>
+                            <strong dir="ltr">
+                              {pkg.annualSupportPrice}
+                            </strong>
+                          </>
+                        )}
                       </td>
                     ),
                   )}

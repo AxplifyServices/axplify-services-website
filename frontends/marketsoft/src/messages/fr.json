@@ -192,48 +192,90 @@
   },
   "benefits": {
     "eyebrow": "Avantages & résultats",
-    "title": "Une plateforme qui suit votre croissance au lieu de la freiner.",
-    "intro": "Que vous commercialisiez des produits, des services ou les deux, MarketSoft réduit la dispersion des outils et donne une base solide à votre activité.",
+    "title": "Des résultats concrets à chaque étape de votre croissance.",
+    "intro": "MarketSoft ne sert pas seulement à mettre une offre en ligne. La plateforme structure vos opérations commerciales, simplifie le parcours client et vous donne une base capable d’évoluer avec votre activité.",
     "items": [
       {
-        "title": "Vendez depuis un seul système",
-        "text": "Site, offres, ventes, réservations et paiements réunis pour limiter les ruptures entre outils."
+        "title": "Centralisez votre commerce",
+        "text": "Regroupez catalogue, services, ventes, réservations, paiements et opérations dans un même environnement au lieu de multiplier les outils."
       },
       {
-        "title": "Réduisez les tâches manuelles",
-        "text": "Automatisez confirmations, alertes, promotions, relances et notifications."
+        "title": "Gagnez du temps au quotidien",
+        "text": "Automatisez les confirmations, statuts, alertes, promotions et tâches répétitives afin que vos équipes se concentrent sur la vente et le service."
       },
       {
-        "title": "Développez sans changer de plateforme",
-        "text": "Ajoutez services, vendeurs, prestataires, magasins, pays ou fonctionnalités progressivement."
+        "title": "Offrez un parcours plus fluide",
+        "text": "Donnez à vos clients un chemin simple de la découverte jusqu’à l’achat, la réservation ou la demande, sur mobile comme sur ordinateur."
+      },
+      {
+        "title": "Vendez produits et services",
+        "text": "Gérez dans la même plateforme des produits physiques, des prestations, des réservations ou des offres hybrides selon votre activité."
+      },
+      {
+        "title": "Pilotez avec des données utiles",
+        "text": "Suivez chiffre d’affaires, commandes, réservations, offres les plus performantes et principaux indicateurs depuis des tableaux de bord lisibles."
+      },
+      {
+        "title": "Faites évoluer votre activité",
+        "text": "Ajoutez progressivement langues, pays, points de vente, prestataires, partenaires, nouveaux modules ou nouvelles règles métier sans repartir de zéro."
       },
       {
         "title": "Gardez le contrôle de vos données",
-        "text": "Choisissez votre infrastructure et conservez la maîtrise de vos données et évolutions."
+        "text": "Conservez une architecture maîtrisée, des accès structurés et une base exploitable pour faire évoluer votre plateforme dans le temps."
       },
       {
-        "title": "Adaptez l’outil à votre organisation",
-        "text": "Rôles, règles de prix, validation et parcours peuvent suivre votre fonctionnement réel."
+        "title": "Adaptez les accès à vos équipes",
+        "text": "Définissez des rôles et permissions pour que chaque collaborateur, partenaire ou administrateur accède uniquement aux fonctions qui le concernent."
       },
       {
-        "title": "Unifiez digital et terrain",
-        "text": "Combinez vente en ligne, réservation, retrait, magasins, agences et prestations sur place lorsque nécessaire."
+        "title": "Reliez le digital au terrain",
+        "text": "Connectez vente en ligne, retrait, livraison, rendez-vous, agences, boutiques ou intervention sur site selon votre modèle commercial."
+      },
+      {
+        "title": "Réduisez les erreurs opérationnelles",
+        "text": "Centraliser les statuts, disponibilités et informations limite les doubles saisies, les oublis et les écarts entre plusieurs systèmes."
+      },
+      {
+        "title": "Préparez votre croissance",
+        "text": "Une base modulaire permet de commencer avec l’essentiel puis de renforcer l’outil lorsque les volumes, l’équipe ou les besoins augmentent."
+      },
+      {
+        "title": "Connectez votre écosystème",
+        "text": "Intégrez paiement, livraison, marketing, CRM ou outils métier par API lorsque votre organisation a besoin d’aller plus loin."
       }
     ]
   },
   "compare": {
     "eyebrow": "Comparer les offres",
     "title": "Choisissez en moins d’une minute.",
-    "intro": "Les différences essentielles entre les quatre niveaux MarketSoft.",
+    "intro": "Comparez les fonctions essentielles, le niveau de gestion, les capacités multi-partenaire, les intégrations et la personnalisation pour choisir la base la plus adaptée à votre activité.",
     "feature": "Fonctionnalité",
     "rows": [
       {
-        "label": "Produits",
+        "label": "Produits & services",
         "values": [
           "✓",
           "✓",
           "✓",
           "✓"
+        ]
+      },
+      {
+        "label": "Commande / réservation",
+        "values": [
+          "✓",
+          "✓",
+          "✓",
+          "Sur mesure"
+        ]
+      },
+      {
+        "label": "Paiement en ligne",
+        "values": [
+          "✓",
+          "✓",
+          "✓",
+          "Sur mesure"
         ]
       },
       {
@@ -246,25 +288,70 @@
         ]
       },
       {
-        "label": "Stocks avancés",
+        "label": "Historique client",
         "values": [
           "—",
           "✓",
           "✓",
-          "✓"
+          "Selon besoin"
         ]
       },
       {
-        "label": "Promotions",
+        "label": "Stocks / disponibilités",
+        "values": [
+          "Basique",
+          "Avancé",
+          "Avancé",
+          "Sur mesure"
+        ]
+      },
+      {
+        "label": "Variantes & options",
         "values": [
           "Basique",
           "✓",
           "✓",
-          "✓"
+          "Sur mesure"
         ]
       },
       {
-        "label": "Multi-vendeur",
+        "label": "Promotions & codes",
+        "values": [
+          "Basique",
+          "✓",
+          "✓",
+          "Sur mesure"
+        ]
+      },
+      {
+        "label": "Livraison / retrait",
+        "values": [
+          "Basique",
+          "Avancé",
+          "Avancé",
+          "Sur mesure"
+        ]
+      },
+      {
+        "label": "Réservations / créneaux",
+        "values": [
+          "Option",
+          "✓",
+          "✓",
+          "Sur mesure"
+        ]
+      },
+      {
+        "label": "Analytics & tableaux de bord",
+        "values": [
+          "Basique",
+          "✓",
+          "✓",
+          "Sur mesure"
+        ]
+      },
+      {
+        "label": "Multi-vendeurs / prestataires",
         "values": [
           "—",
           "—",
@@ -273,7 +360,25 @@
         ]
       },
       {
-        "label": "B2B",
+        "label": "Espace partenaire",
+        "values": [
+          "—",
+          "—",
+          "✓",
+          "Option"
+        ]
+      },
+      {
+        "label": "Validation des offres partenaires",
+        "values": [
+          "—",
+          "—",
+          "✓",
+          "Option"
+        ]
+      },
+      {
+        "label": "B2B / règles commerciales",
         "values": [
           "—",
           "Option",
@@ -282,11 +387,47 @@
         ]
       },
       {
-        "label": "Personnalisation",
+        "label": "Multi-points de vente",
+        "values": [
+          "Option",
+          "Option",
+          "✓",
+          "✓"
+        ]
+      },
+      {
+        "label": "Rôles & permissions",
+        "values": [
+          "Basique",
+          "Avancé",
+          "Avancé",
+          "Sur mesure"
+        ]
+      },
+      {
+        "label": "Intégrations API externes",
+        "values": [
+          "Option",
+          "Option",
+          "Option",
+          "✓"
+        ]
+      },
+      {
+        "label": "Personnalisation UX/UI",
         "values": [
           "Limitée",
-          "Moyenne",
+          "Intermédiaire",
+          "Élevée",
+          "Sur mesure"
+        ]
+      },
+      {
+        "label": "Évolutivité",
+        "values": [
+          "Essentielle",
           "Forte",
+          "Très forte",
           "Sur mesure"
         ]
       }
@@ -295,7 +436,7 @@
   "faq": {
     "eyebrow": "FAQ",
     "title": "Les réponses avant de démarrer.",
-    "intro": "Les questions les plus fréquentes avant le lancement d’un projet MarketSoft.",
+    "intro": "Les réponses essentielles sur le déploiement, les paiements, l’hébergement, la maintenance et l’évolution de MarketSoft.",
     "items": [
       {
         "q": "Combien de temps faut-il pour lancer la plateforme ?",
@@ -786,5 +927,62 @@
       }
     ],
     "exclusions": "Les nouvelles fonctionnalités, intégrations externes, refontes UX/UI importantes ou évolutions hors périmètre du package ne sont pas incluses dans la maintenance annuelle et font l’objet d’un chiffrage séparé."
+  },
+  "cookieConsent": {
+    "banner": {
+      "title": "Votre confidentialité, votre choix.",
+      "description": "MarketSoft utilise uniquement les technologies nécessaires par défaut. Avec votre accord, nous pouvons aussi mesurer l’usage du site et évaluer nos actions marketing afin d’améliorer votre expérience."
+    },
+    "preferences": {
+      "eyebrow": "Confidentialité",
+      "title": "Gérer mes préférences",
+      "description": "Choisissez librement les catégories que vous autorisez. Les cookies essentiels restent actifs car ils sont nécessaires au fonctionnement et à la sécurité du site."
+    },
+    "categories": {
+      "essential": {
+        "title": "Essentiels",
+        "shortDescription": "Nécessaires au fonctionnement, à la sécurité et à la mémorisation de vos choix.",
+        "description": "Ces technologies permettent au site de fonctionner correctement, de sécuriser votre navigation et de mémoriser votre choix de consentement.",
+        "alwaysActive": "Toujours actifs"
+      },
+      "analytics": {
+        "title": "Mesure d’audience",
+        "shortDescription": "Nous aide à comprendre les parcours et à améliorer le site.",
+        "description": "Ces outils mesurent les visites et interactions de manière à comprendre l’utilisation du site et à améliorer les parcours proposés."
+      },
+      "marketing": {
+        "title": "Marketing",
+        "shortDescription": "Nous aide à mesurer l’efficacité de nos campagnes.",
+        "description": "Ces technologies servent à mesurer les performances de nos campagnes et, lorsque vous l’autorisez, à mieux comprendre les audiences issues de nos actions marketing."
+      }
+    },
+    "actions": {
+      "acceptAll": "Tout accepter",
+      "essentialOnly": "Essentiels uniquement",
+      "viewDetails": "Personnaliser",
+      "showServices": "Voir les services",
+      "hideServices": "Masquer les services",
+      "save": "Enregistrer",
+      "cancel": "Annuler",
+      "close": "Fermer les préférences"
+    },
+    "providers": {
+      "axplify": {
+        "purpose": "Mémorisation de votre choix de consentement MarketSoft."
+      },
+      "googleAnalytics": {
+        "name": "Google Analytics",
+        "purpose": "Mesure de l’audience, des pages consultées, de l’engagement et des conversions."
+      },
+      "microsoftClarity": {
+        "name": "Microsoft Clarity",
+        "purpose": "Analyse des parcours et interactions afin d’identifier les points d’amélioration de l’expérience."
+      },
+      "linkedinInsight": {
+        "name": "LinkedIn Insight Tag",
+        "purpose": "Mesure des performances des campagnes LinkedIn et des conversions associées."
+      },
+      "noneConfigured": "Aucun service tiers de cette catégorie n’est actuellement activé."
+    }
   }
 }

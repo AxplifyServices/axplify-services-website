@@ -575,7 +575,7 @@ setView(
                 <div className="cookie-consent__provider">
                   <div>
                     <strong>
-                      Axplify Services
+                      MarketSoft
                     </strong>
 
                     <p>
