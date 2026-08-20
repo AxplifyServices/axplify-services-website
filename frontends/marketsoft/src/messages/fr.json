@@ -591,8 +591,8 @@
           "label": "de conversion grâce à un tunnel d'achat simplifié"
         },
         {
-          "value": "0 MAD",
-          "label": "d'abonnement mensuel obligatoire"
+          "value": "12 500 MAD / an",
+          "label": "Maintenance et support inclus, sans abonnement mensuel caché"
         }
       ]
     },
@@ -1099,8 +1099,8 @@
         "label": "de vos données et de votre code vous appartiennent"
       },
       {
-        "value": "0 MAD",
-        "label": "d'abonnement mensuel obligatoire, contrairement aux solutions SaaS"
+        "value": "8 rôles métiers",
+        "label": "prédéfinis pour que chaque équipe accède uniquement à ce qui la concerne"
       }
     ]
   },

@@ -591,8 +591,8 @@
           "label": "conversion thanks to a simplified checkout"
         },
         {
-          "value": "0 MAD",
-          "label": "mandatory monthly fee"
+          "value": "12,500 MAD / year",
+          "label": "Maintenance & support included, no hidden monthly subscription"
         }
       ]
     },
@@ -1099,8 +1099,8 @@
         "label": "of your data and code belong to you"
       },
       {
-        "value": "0 MAD",
-        "label": "mandatory monthly fee, unlike SaaS solutions"
+        "value": "8 business roles",
+        "label": "predefined so every team member only sees what concerns them"
       }
     ]
   },
