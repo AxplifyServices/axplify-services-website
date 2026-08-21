@@ -195,6 +195,18 @@ export default async function PackageDetail({
               ))}
             </div>
           </div>
+
+          {pkg.options.length > 0 && (
+            <div className="ms-options" data-reveal="up">
+              <h2>{c.packageDetail.optionsTitle}</h2>
+
+              <div>
+                {pkg.options.map(item => (
+                  <p key={item}>{item}</p>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </section>
 

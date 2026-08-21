@@ -41,13 +41,26 @@ export default async function Home({ params }: Props) {
   const { locale } = await params;
   const c = getMarketSoftCopy(locale);
 
+  const brandMarker = 'MarketSoft';
+  const brandIndex = c.hero.title.indexOf(brandMarker);
+  const heroTitle = brandIndex === -1
+    ? c.hero.title
+    : (
+      <>
+        {c.hero.title.slice(0, brandIndex).trim()}
+        <br />
+        <span className="ms-hero-brand">{brandMarker}</span>
+        {c.hero.title.slice(brandIndex + brandMarker.length)}
+      </>
+    );
+
   return (
     <div className="ms-page">
       <section className="ms-hero">
         <div className="site-container ms-hero__grid">
           <div className="ms-hero__copy" data-reveal="up">
             <span className="ms-eyebrow">{c.hero.eyebrow}</span>
-            <h1>{c.hero.title}</h1>
+            <h1>{heroTitle}</h1>
             <p>{c.hero.description}</p>
 
             <div className="ms-actions">

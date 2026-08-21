@@ -13,7 +13,7 @@
   "hero": {
     "eyebrow": "Commerce. Produits ou services. Sans limites.",
     "title": "Votre commerce évolue. MarketSoft évolue avec lui.",
-    "description": "Vous vendez des produits, des services, des réservations ou un mix des trois ? MarketSoft réunit votre vitrine, vos ventes, vos paiements et vos opérations dans une plateforme conçue autour de votre activité.",
+    "description": "Que vous démarriez de zéro ou que vous cherchiez à faire mieux que votre site actuel, MarketSoft réunit votre vitrine, vos ventes, vos paiements et vos opérations dans une seule plateforme conçue autour de votre activité, pas l’inverse.",
     "primary": "Voir les packages",
     "secondary": "Demander une démonstration"
   },
@@ -43,8 +43,8 @@
       }
     ]
   },
-  "packagesTitle": "Choisissez le niveau adapté à votre commerce",
-  "packagesDescription": "Quatre offres claires : d’un commerce digital professionnel à une plateforme entièrement personnalisée pour produits, services ou modèles hybrides.",
+  "packagesTitle": "Le niveau qu’il vous faut, aujourd’hui comme demain",
+  "packagesDescription": "Quatre offres claires, du premier commerce en ligne à la plateforme entièrement personnalisée.",
   "packageActions": {
     "details": "Voir l’offre",
     "order": "Commander",
@@ -55,25 +55,25 @@
     "items": [
       {
         "title": "Adapté à votre métier",
-        "text": "La plateforme s’adapte à vos règles de vente, pas l’inverse."
+        "text": "Ce n’est pas à vous de vous plier à un logiciel : c’est la plateforme qui s’adapte à la façon dont vous vendez déjà."
       },
       {
         "title": "Vous gardez le contrôle",
-        "text": "Vos données, votre identité et votre évolution restent sous votre maîtrise."
+        "text": "Votre site vous appartient. Pas de loyer mensuel obligatoire, ni de dépendance à une plateforme étrangère qui peut changer ses règles quand elle le décide."
       },
       {
         "title": "Pas limité par un template",
-        "text": "Le parcours et les modules peuvent évoluer bien au-delà d’un thème standard."
+        "text": "Fini le site qui ressemble à mille autres boutiques : votre parcours, vos modules et votre image sont construits pour votre marque."
       },
       {
         "title": "Architecture évolutive",
-        "text": "Commencez simple et ajoutez des capacités quand votre activité grandit."
+        "text": "Commencez simple et ajoutez des capacités quand votre activité grandit, sans tout reconstruire à chaque palier."
       }
     ]
   },
   "finalCta": {
     "title": "Prêt à faire grandir votre commerce ?",
-    "text": "Produits, services ou modèle hybride : choisissez votre package ou échangez avec un expert avant de démarrer.",
+    "text": "Que vous partiez de zéro ou que vous vouliez faire mieux que votre site actuel, choisissez votre package ou échangez avec un expert avant de démarrer.",
     "order": "Commander MarketSoft",
     "expert": "Parler à un expert"
   },
@@ -108,7 +108,7 @@
         "bullets": [
           "Stock, capacité ou créneaux selon l’activité",
           "Alertes, indisponibilités et ruptures",
-          "Livraison, retrait, rendez-vous ou exécution du service"
+          "Livraison connectée à votre prestataire de transport, retrait, rendez-vous ou exécution du service"
         ]
       },
       {
@@ -162,6 +162,7 @@
         "bullets": [
           "Bannières et mises en avant",
           "Actualités, offres et guides",
+          "Réseaux sociaux (WhatsApp, Facebook, Instagram) reliés à votre boutique",
           "Tracking et connexions marketing"
         ]
       },
@@ -189,7 +190,7 @@
         "bullets": [
           "Français, anglais et arabe",
           "Devises, zones et règles commerciales",
-          "Adaptation aux moyens de paiement locaux"
+          "Adaptation aux moyens de paiement et aux prestataires de livraison locaux"
         ]
       }
     ]
@@ -250,6 +251,14 @@
       {
         "title": "Un référencement pensé dès la conception",
         "text": "Chaque page est construite pour être bien indexée par Google : structure technique optimisée, temps de chargement rapides, contenu structuré et compatible mobile. Un site rapide et bien structuré se positionne mieux, sans dépendre uniquement de la publicité payante."
+      },
+      {
+        "title": "Une plateforme pensée pour votre marché",
+        "text": "Paiement à la livraison, mise en relation avec votre prestataire de transport local et connexion à vos réseaux sociaux : MarketSoft s'adapte aux habitudes réelles de vos clients, pas seulement à un modèle importé."
+      },
+      {
+        "title": "Passez à mieux sans perdre ce qui marche",
+        "text": "Vous avez déjà un site ? Votre catalogue, vos clients et votre historique de commandes sont repris, vos liens Google continuent de fonctionner, et la bascule se fait sans interrompre vos ventes."
       }
     ],
     "stats": [
@@ -457,6 +466,33 @@
           "Très forte",
           "Sur mesure"
         ]
+      },
+      {
+        "label": "Mise en relation transporteur local",
+        "values": [
+          "✓",
+          "✓",
+          "✓",
+          "✓"
+        ]
+      },
+      {
+        "label": "Réseaux sociaux gérés pour vous",
+        "values": [
+          "—",
+          "Option",
+          "Option",
+          "Sur devis"
+        ]
+      },
+      {
+        "label": "Intelligence artificielle",
+        "values": [
+          "—",
+          "—",
+          "—",
+          "✓"
+        ]
       }
     ]
   },
@@ -490,8 +526,36 @@
         "a": "Le périmètre peut couvrir mises à jour, sauvegardes, surveillance, sécurité, corrections et accompagnement selon le niveau choisi."
       },
       {
-        "q": "Puis-je migrer mes offres existantes ?",
-        "a": "Oui, une reprise de catalogue de produits, services ou prestations peut être étudiée selon le format et la qualité des données disponibles."
+        "q": "J’ai déjà un site, vais-je perdre mes données en migrant vers MarketSoft ?",
+        "a": "Non. Votre catalogue de produits ou services, vos clients et votre historique de commandes sont récupérés avant la mise en ligne du nouveau site : rien n’est ressaisi à la main. La reprise exacte dépend du format et de la qualité des données disponibles sur votre plateforme actuelle."
+      },
+      {
+        "q": "Vais-je perdre mon référencement Google en changeant de site ?",
+        "a": "Non, vos liens continuent de fonctionner après le changement grâce à des redirections mises en place lors de la migration. Dans la majorité des cas, le référencement s’améliore même, grâce à un site plus rapide et mieux structuré techniquement."
+      },
+      {
+        "q": "Mon site sera-t-il coupé pendant la transition ?",
+        "a": "Non. Le nouveau site est préparé et testé pendant que l’ancien continue à fonctionner normalement. La bascule se fait à un moment que vous choisissez, sans interruption de vente."
+      },
+      {
+        "q": "Je paie déjà un abonnement mensuel à ma plateforme actuelle, qu’est-ce que ça change avec MarketSoft ?",
+        "a": "Votre site vous appartient : il n’y a pas de loyer mensuel obligatoire à une plateforme étrangère qui peut augmenter ses tarifs ou changer ses règles à tout moment. Le coût est réparti entre la mise en place initiale et un forfait annuel de maintenance et de support, dont le montant est connu à l’avance."
+      },
+      {
+        "q": "Mon équipe va-t-elle devoir tout réapprendre ?",
+        "a": "Une formation est prévue au moment de la mise en ligne, ainsi qu’un suivi rapproché juste après le lancement pour répondre rapidement à toute question ou ajustement."
+      },
+      {
+        "q": "Pouvez-vous connecter ma boutique à mon transporteur habituel ?",
+        "a": "Oui. Il vous suffit de nous mettre en relation avec votre prestataire de livraison et nous nous chargeons de connecter le suivi de vos commandes à votre boutique."
+      },
+      {
+        "q": "Gérez-vous aussi mes réseaux sociaux ?",
+        "a": "Sur les packages Avancé et Marketplace, la gestion de vos réseaux sociaux liés à votre boutique peut être assurée par notre équipe. C’est une option disponible dans la section « Options & accompagnement » de chaque package."
+      },
+      {
+        "q": "L’intelligence artificielle est-elle disponible sur tous les packages ?",
+        "a": "Les fonctions d’intelligence artificielle (rédaction automatique de fiches produits, réponses suggérées aux avis, recommandations personnalisées, résumé automatique de vos statistiques) sont proposées dans le cadre du package Custom, construit sur mesure selon votre besoin."
       },
       {
         "q": "La plateforme m’appartient-elle ?",
@@ -574,13 +638,16 @@
         "Proposer les moyens de paiement et de livraison prévus pour votre activité.",
         "Gérer vous-même les produits et les principales opérations quotidiennes."
       ],
-      "options": [],
+      "options": [
+        "Mettez-nous en relation avec votre prestataire de livraison : nous connectons le suivi de vos commandes à votre boutique.",
+        "Une identité visuelle plus personnalisée si le design standard ne suffit pas à représenter votre marque."
+      ],
       "level": "Starter",
       "basePrice": "12 500 MAD",
       "firstYearSupportPrice": "7 500 MAD",
       "firstYearPrice": "20 000 MAD",
       "annualSupportPrice": "12 500 MAD / an",
-      "description": "Votre activité en ligne, prête à vendre en une semaine : un catalogue clair, un tunnel de commande simple et une administration que vous maîtrisez dès le premier jour.",
+      "description": "Pas encore de boutique en ligne, ou envie de sortir d’un outil standardisé ? Votre activité prend vie en une semaine.",
       "stats": [
         {
           "value": "1 semaine",
@@ -606,7 +673,7 @@
         "Vos clients reviennent (comptes, favoris, fidélité)",
         "Stocks et variantes gérés sans erreurs",
         "Promotions qui boostent vos ventes",
-        "Livraison et zones sur mesure",
+        "Livraison sur mesure, connectée à votre prestataire de transport",
         "SEO avancé et tableaux de bord de pilotage"
       ],
       "audiences": [
@@ -649,13 +716,17 @@
         "Organiser plusieurs modes et zones de livraison avec suivi des expéditions.",
         "Piloter les ventes avec des statistiques et tableaux de bord exploitables."
       ],
-      "options": [],
+      "options": [
+        "Mettez-nous en relation avec votre prestataire de livraison : nous connectons vos zones et le suivi des commandes directement à votre boutique.",
+        "La gestion de vos réseaux sociaux liés à la boutique (publications, mise à jour des offres) peut être assurée par notre équipe.",
+        "Journal d'audit complet : suivez qui a modifié quoi dans votre administration, sans avoir à tout vérifier vous-même."
+      ],
       "level": "Medium",
       "basePrice": "30 000 MAD",
       "firstYearSupportPrice": "15 000 MAD",
       "firstYearPrice": "45 000 MAD",
       "annualSupportPrice": "30 000 MAD / an",
-      "description": "Pour transformer votre site en véritable moteur de vente : vos clients reviennent, vos promotions convertissent et vous pilotez votre activité avec des chiffres clairs.",
+      "description": "Votre site actuel commence à vous freiner ? Transformez-le en véritable moteur de vente.",
       "stats": [
         {
           "value": "10 jours",
@@ -724,13 +795,18 @@
         "Gérer les retours, litiges, avis, commissions et performances par vendeur.",
         "Faire évoluer la marketplace vers davantage de vendeurs, catégories et volumes."
       ],
-      "options": [],
+      "options": [
+        "Mettez-nous en relation avec les prestataires de livraison de vos vendeurs : nous connectons le suivi, zone par zone.",
+        "La gestion de vos réseaux sociaux liés à la marketplace peut être assurée par notre équipe, pour garder une présence active pendant que vous pilotez vos vendeurs.",
+        "Accompagnement au démarrage pour l'intégration de vos premiers vendeurs.",
+        "Journal d'audit complet sur les actions internes et les décisions de validation des vendeurs."
+      ],
       "level": "Avancé",
       "basePrice": "75 000 MAD",
       "firstYearSupportPrice": "25 000 MAD",
       "firstYearPrice": "100 000 MAD",
       "annualSupportPrice": "50 000 MAD / an",
-      "description": "Réunissez plusieurs vendeurs ou partenaires sur une seule plateforme et touchez une commission sur chaque vente, tout en gardant le contrôle total de votre marketplace.",
+      "description": "Réunissez plusieurs vendeurs sur une seule plateforme et touchez une commission sur chaque vente.",
       "stats": [
         {
           "value": "2 à 4 sem.",
@@ -799,13 +875,19 @@
         "Connecter MarketSoft à vos outils externes via API lorsque nécessaire.",
         "Faire évoluer progressivement la solution selon vos priorités métier."
       ],
-      "options": [],
+      "options": [
+        "Fiches produits rédigées automatiquement par intelligence artificielle à partir d'une simple description que vous donnez.",
+        "Réponses suggérées automatiquement aux avis et messages de vos clients, que vous validez avant envoi.",
+        "Recommandations de produits personnalisées pour chaque visiteur, pour augmenter le panier moyen.",
+        "Résumé automatique de vos statistiques de vente, en langage clair plutôt qu'en tableaux à interpréter.",
+        "Mise en relation avec vos prestataires de livraison et gestion de vos réseaux sociaux, sur devis selon votre besoin."
+      ],
       "level": "Personnalisé",
       "basePrice": "Sur devis",
       "firstYearSupportPrice": "Sur devis",
       "firstYearPrice": "Sur devis",
       "annualSupportPrice": "Sur devis",
-      "description": "Votre activité a des règles bien à elle ? Nous partons d'une base MarketSoft éprouvée et construisons exactement ce dont vous avez besoin, sans compromis.",
+      "description": "Votre activité a des règles bien à elle, ou vous visez une avance grâce à l’IA ? On construit sur mesure, sans compromis.",
       "stats": [
         {
           "value": "Sur devis",

@@ -13,7 +13,7 @@
   "hero": {
     "eyebrow": "Commerce. Products or services. No limits.",
     "title": "Your commerce evolves. MarketSoft evolves with it.",
-    "description": "Selling products, services, bookings, or a mix of them? MarketSoft brings your storefront, sales, payments and operations into one platform built around your business.",
+    "description": "Whether you're starting from zero or looking to outgrow your current site, MarketSoft brings your storefront, sales, payments and operations into one platform built around your business — not the other way around.",
     "primary": "View packages",
     "secondary": "Request a demo"
   },
@@ -43,8 +43,8 @@
       }
     ]
   },
-  "packagesTitle": "Choose the right level for your commerce",
-  "packagesDescription": "Four clear offers, from professional digital commerce to a fully customized platform for products, services or hybrid models.",
+  "packagesTitle": "The right level, today and tomorrow",
+  "packagesDescription": "Four clear offers, from your first online store to a fully custom platform.",
   "packageActions": {
     "details": "View offer",
     "order": "Order",
@@ -55,25 +55,25 @@
     "items": [
       {
         "title": "Built around your business",
-        "text": "The platform adapts to your selling rules, not the other way around."
+        "text": "You shouldn't have to bend your business to fit a tool: the platform adapts to the way you already sell."
       },
       {
         "title": "Stay in control",
-        "text": "Keep control over your data, identity and evolution."
+        "text": "Your site belongs to you. No mandatory monthly rent, no dependency on a foreign platform that can change the rules whenever it wants."
       },
       {
         "title": "Beyond templates",
-        "text": "Journeys and modules can evolve far beyond a standard theme."
+        "text": "No more looking like a thousand other stores: your journey, your modules and your identity are built for your brand."
       },
       {
         "title": "Scalable architecture",
-        "text": "Start simple and add capabilities as the business grows."
+        "text": "Start simple and add capabilities as your business grows, without rebuilding everything at each stage."
       }
     ]
   },
   "finalCta": {
     "title": "Ready to grow your commerce?",
-    "text": "Products, services or a hybrid model: choose a package or talk to an expert before you start.",
+    "text": "Whether you're starting from scratch or want to outgrow your current site, choose a package or talk to an expert before you start.",
     "order": "Order MarketSoft",
     "expert": "Talk to an expert"
   },
@@ -108,7 +108,7 @@
         "bullets": [
           "Inventory, capacity or time slots depending on the activity",
           "Alerts, unavailability and out-of-stock handling",
-          "Delivery, pickup, appointments or service fulfillment"
+          "Delivery connected to your carrier, pickup, appointments or service fulfillment"
         ]
       },
       {
@@ -162,6 +162,7 @@
         "bullets": [
           "Banners and featured content",
           "News, offers and guides",
+          "Social media (WhatsApp, Facebook, Instagram) linked to your store",
           "Tracking and marketing connections"
         ]
       },
@@ -189,7 +190,7 @@
         "bullets": [
           "French, English and Arabic",
           "Currencies, zones and commercial rules",
-          "Local payment-method support"
+          "Local payment methods and delivery providers"
         ]
       }
     ]
@@ -250,6 +251,14 @@
       {
         "title": "Search visibility built in from day one",
         "text": "Every page is built to be well indexed by Google: optimized technical structure, fast load times, structured content and mobile compatibility. A fast, well-structured site ranks better, without relying solely on paid advertising."
+      },
+      {
+        "title": "A platform built for your market",
+        "text": "Cash on delivery, an introduction to your local delivery provider and social media connected to your store: MarketSoft adapts to how your customers actually behave, not just an imported model."
+      },
+      {
+        "title": "Move up without losing what already works",
+        "text": "Already have a site? Your catalog, customers and order history are carried over, your Google links keep working, and the switch happens without interrupting your sales."
       }
     ],
     "stats": [
@@ -457,6 +466,33 @@
           "Very strong",
           "Custom"
         ]
+      },
+      {
+        "label": "Local carrier introduction",
+        "values": [
+          "✓",
+          "✓",
+          "✓",
+          "✓"
+        ]
+      },
+      {
+        "label": "Social media managed for you",
+        "values": [
+          "—",
+          "Option",
+          "Option",
+          "Quote"
+        ]
+      },
+      {
+        "label": "Artificial intelligence",
+        "values": [
+          "—",
+          "—",
+          "—",
+          "✓"
+        ]
       }
     ]
   },
@@ -490,8 +526,36 @@
         "a": "The maintenance scope is defined according to the selected package and can cover monitoring, updates, backups, security and support."
       },
       {
-        "q": "Can I migrate my existing offers?",
-        "a": "Yes. Product, service or appointment data migration can be planned depending on the format and quality of the source data."
+        "q": "I already have a site — will I lose my data when migrating to MarketSoft?",
+        "a": "No. Your product or service catalog, your customers and your order history are carried over before the new site goes live — nothing is re-entered by hand. The exact scope depends on the format and quality of the data available on your current platform."
+      },
+      {
+        "q": "Will I lose my Google ranking when changing sites?",
+        "a": "No, your links keep working after the switch thanks to redirects set up during migration. In most cases, ranking actually improves thanks to a faster, better-structured site."
+      },
+      {
+        "q": "Will my site go down during the transition?",
+        "a": "No. The new site is prepared and tested while the old one keeps running normally. The switch happens at a time you choose, with no interruption to your sales."
+      },
+      {
+        "q": "I already pay a monthly subscription on my current platform — what changes with MarketSoft?",
+        "a": "Your site belongs to you: there's no mandatory monthly rent to a foreign platform that can raise its prices or change its rules at any time. Costs are split between the initial setup and an annual maintenance and support fee, known in advance."
+      },
+      {
+        "q": "Will my team have to relearn everything?",
+        "a": "Training is included at launch, along with close follow-up right after going live to quickly answer any question or fine-tune the setup."
+      },
+      {
+        "q": "Can you connect my store to my usual carrier?",
+        "a": "Yes. Simply put us in touch with your delivery provider and we take care of connecting order tracking to your store."
+      },
+      {
+        "q": "Do you also manage my social media?",
+        "a": "On the Advanced and Marketplace packages, managing the social media linked to your store can be handled by our team. It's an option available in the \"Options & support\" section of each package."
+      },
+      {
+        "q": "Is artificial intelligence available on all packages?",
+        "a": "AI features (automatic product page writing, suggested review replies, personalized recommendations, automatic statistics summaries) are offered as part of the Custom package, built to your specific needs."
       },
       {
         "q": "Do I own the platform?",
@@ -575,12 +639,15 @@
         "Offer the payment and delivery methods defined for your business.",
         "Manage products and core day-to-day operations yourself."
       ],
-      "options": [],
+      "options": [
+        "Put us in touch with your delivery provider: we connect order tracking to your store.",
+        "A more tailored visual identity if the standard design isn't enough to represent your brand."
+      ],
       "basePrice": "12,500 MAD",
       "firstYearSupportPrice": "7,500 MAD",
       "firstYearPrice": "20,000 MAD",
       "annualSupportPrice": "12,500 MAD / year",
-      "description": "Your online business, ready to sell within a week: a clear catalog, a simple checkout flow, and an admin area you can master from day one.",
+      "description": "Don't have an online store yet, or ready to leave a one-size-fits-all tool behind? Your business goes live within a week.",
       "stats": [
         {
           "value": "1 week",
@@ -607,7 +674,7 @@
         "Customers who come back (accounts, favorites, loyalty)",
         "Stock and variants managed without errors",
         "Promotions that boost your sales",
-        "Delivery zones tailored to your business",
+        "Delivery tailored to your business, connected to your carrier",
         "Advanced SEO and reporting dashboards"
       ],
       "audiences": [
@@ -650,12 +717,16 @@
         "Organize multiple delivery methods and zones with shipment tracking.",
         "Monitor sales through actionable statistics and dashboards."
       ],
-      "options": [],
+      "options": [
+        "Put us in touch with your delivery provider: we connect your zones and order tracking directly to your store.",
+        "Managing your social media linked to the store (posts, offer updates) can be handled by our team.",
+        "Full audit log: see who changed what in your admin area, without having to check everything yourself."
+      ],
       "basePrice": "30,000 MAD",
       "firstYearSupportPrice": "15,000 MAD",
       "firstYearPrice": "45,000 MAD",
       "annualSupportPrice": "30,000 MAD / year",
-      "description": "Turn your site into a real sales engine: customers come back, promotions convert, and you steer your business with clear numbers.",
+      "description": "Your current site starting to hold you back? Turn it into a real sales engine.",
       "stats": [
         {
           "value": "10 days",
@@ -725,12 +796,17 @@
         "Manage returns, disputes, reviews, commissions and seller performance.",
         "Scale the marketplace to more sellers, categories and sales volume."
       ],
-      "options": [],
+      "options": [
+        "Put us in touch with your sellers' delivery providers: we connect tracking, zone by zone.",
+        "Managing your social media linked to the marketplace can be handled by our team, keeping an active presence while you run your sellers.",
+        "Onboarding support to integrate your first sellers.",
+        "Full audit log covering internal actions and seller-approval decisions."
+      ],
       "basePrice": "75,000 MAD",
       "firstYearSupportPrice": "25,000 MAD",
       "firstYearPrice": "100,000 MAD",
       "annualSupportPrice": "50,000 MAD / year",
-      "description": "Bring several sellers or partners together on one platform and earn a commission on every sale, while keeping full control of your marketplace.",
+      "description": "Bring several sellers together on one platform and earn a commission on every sale.",
       "stats": [
         {
           "value": "2 to 4 wks",
@@ -800,12 +876,18 @@
         "Connect MarketSoft to external tools through APIs when needed.",
         "Expand the solution progressively according to business priorities."
       ],
-      "options": [],
+      "options": [
+        "Product pages written automatically by artificial intelligence from a short description you provide.",
+        "Suggested replies to customer reviews and messages, which you approve before sending.",
+        "Personalized product recommendations for every visitor, to increase average order value.",
+        "Automatic summary of your sales statistics, in plain language instead of raw tables.",
+        "Introduction to delivery providers and management of your social media, quoted according to your needs."
+      ],
       "basePrice": "Quote",
       "firstYearSupportPrice": "Quote",
       "firstYearPrice": "Quote",
       "annualSupportPrice": "Quote",
-      "description": "Your business has its own rules? We start from a proven MarketSoft foundation and build exactly what you need, without compromise.",
+      "description": "Your business has its own rules, or you want an edge with AI? We build it tailor-made, no compromise.",
       "stats": [
         {
           "value": "Quote",

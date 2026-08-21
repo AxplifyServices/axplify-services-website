@@ -6,12 +6,14 @@ import {
   Database,
   Link2,
   PackageSearch,
+  RefreshCw,
   Search,
   ShieldCheck,
   ShoppingBag,
   Sparkles,
   Store,
   TrendingUp,
+  Truck,
   UsersRound,
 } from 'lucide-react';
 
@@ -37,6 +39,8 @@ const benefitIcons = [
   PackageSearch,
   Link2,
   Search,
+  Truck,
+  RefreshCw,
 ];
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

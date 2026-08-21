@@ -29841,7 +29841,8 @@ body { background: var(--ms-bg); color: var(--ms-text); }
 .ms-mobile-nav a:not(.ms-button) { padding:.75rem .6rem; color:var(--ms-muted); font-weight:750; }
 .ms-hero { padding:3.3rem 0 3rem; background:radial-gradient(circle at 88% 20%,rgba(105,231,101,.10),transparent 26%),linear-gradient(180deg,#06101f,#081426); }
 .ms-hero__grid { display:grid; gap:2rem; align-items:center; }
-.ms-hero__copy h1 { margin:0; max-width:20ch; font-size:clamp(1.95rem,5.4vw,3.85rem); line-height:1.02; letter-spacing:-.04em; }
+.ms-hero__copy h1 { margin:0; max-width:none; font-size:clamp(1.85rem,4.2vw,3rem); line-height:1.12; letter-spacing:-.03em; }
+.ms-hero-brand { color:var(--ms-green); }
 .ms-inner-hero h1 { margin:0; max-width:18ch; font-size:clamp(2.15rem,8vw,4.8rem); line-height:.98; letter-spacing:-.045em; }
 .ms-hero__copy>p,.ms-inner-hero p { max-width:44rem; color:var(--ms-muted); font-size:.96rem; line-height:1.65; margin:1rem 0 0; }
 .ms-hero__visual { min-width:0; }
