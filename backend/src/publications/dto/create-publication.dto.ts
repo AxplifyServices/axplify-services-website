@@ -291,6 +291,13 @@ export class CreatePublicationDto {
     message:
       'Les traductions doivent être fournies sous forme de liste.',
   })
+  @ArrayMinSize(
+    1,
+    {
+      message:
+        'Ajoutez au moins une traduction française ou anglaise.',
+    },
+  )
   @ArrayMaxSize(
     PUBLICATION_LOCALES.length,
     {
@@ -320,19 +327,9 @@ export class CreatePublicationDto {
   translations!:
     PublicationTranslationInputDto[];
 
-  @ArrayMinSize(
-    1,
-    {
-      message:
-        'Ajoutez au moins une traduction française ou anglaise.',
-    },
-  )
-
   /*
    * Relations avec les domaines d’expertise Axplify.
    */
-
-
 
   @IsOptional()
   @IsArray({
