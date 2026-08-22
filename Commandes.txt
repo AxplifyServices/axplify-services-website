@@ -15,11 +15,11 @@ psql -U postgres
 
 ** Execution d'un script 
 
-psql -U postgres -d axplify_db -f "database\migrations\019_add_contact_request_origin_code.sql
+psql -U postgres -d axplify_db -f "database\migrations\020_fix_publication_media_card_cover_trigger_locale.sql
 
 cd /opt/apps/axplify/repo
 
-sudo -u postgres psql -d axplify_db  -f database/migrations/019_add_contact_request_origin_code.sql
+sudo -u postgres psql -d axplify_db  -f database/migrations/020_fix_publication_media_card_cover_trigger_locale.sql
 
 
 ** Installer un env
